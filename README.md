@@ -125,3 +125,8 @@ Source code is available under [`LICENSE-CODE`](LICENSE-CODE). The character ill
 ---
 
 *LABEQ is an independent prototype demonstrating Arabic-centric product design, transformer/LoRA integration, and an interactive speech-enabled interface.*
+
+## Team Members
+- Lain Alaslani
+- Ghaday Aldabash
+- Jawaher Alyami
