@@ -1,0 +1,39 @@
+# Private credentials and local endpoints
+.env
+.env.*
+!.env.example
+.local_api_key
+*secret*.json
+*credentials*.json
+
+# Weights and checkpoints (distribute separately; verify licensing)
+*.safetensors
+*.gguf
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.bin
+mlx_adapter/
+Labeq_Qwen35_4B_Pilot_LoRA/
+LABEQ_Saudi_LoRA_Backup.zip
+*LoRA*.zip
+
+# Python / notebooks / IDE
+.venv/
+.mlxvenv/
+__pycache__/
+.pytest_cache/
+*.py[cod]
+.ipynb_checkpoints/
+.DS_Store
+.idea/
+.vscode/
+
+# Logs and generated audio
+*.log
+*.wav
+*.mp3
+*.m4a
+*.pcm
+*.webm

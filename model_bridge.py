@@ -1,0 +1,107 @@
+"""Server-side bridge to the exact Colab /v1/reply API. No generated data fallback."""
+from __future__ import annotations
+import os
+from urllib.parse import urlparse
+import httpx
+from fastapi import HTTPException
+
+ALLOWED_KEYS = {"polite", "firm", "diplomatic", "apology", "clarify"}
+STYLE_AR = {
+    "polite": "لطيف", "firm": "حازم", "diplomatic": "دبلوماسي",
+    "apology": "اعتذار", "clarify": "طلب توضيح",
+}
+STYLE_ALIASES = {v: k for k, v in STYLE_AR.items()}
+RELATION_AR = {"friend": "صديق", "family": "عائلة", "work": "عمل", "customer": "عميل"}
+
+
+def model_url() -> str:
+    return os.getenv("LABEQ_MODEL_API_URL", "").strip().rstrip("/")
+
+
+def configured() -> bool:
+    return bool(model_url() and os.getenv("LABEQ_MODEL_API_KEY", "").strip())
+
+
+def checked_base() -> str:
+    base = model_url()
+    uri = urlparse(base)
+    is_local = uri.hostname in {"127.0.0.1", "localhost"}
+    if not uri.hostname or uri.username or uri.password or uri.query or uri.fragment or uri.scheme not in ({"https", "http"} if is_local else {"https"}):
+        raise HTTPException(503, "رابط المودل غير صحيح: استخدمي HTTPS أو localhost.")
+    if base.endswith("/v1/reply"):
+        base = base[:-len("/v1/reply")]
+    return base
+
+
+def request_payload(message: str, relation: str, goal: str, style_key: str | None = None, tone: str = "casual", history: list | None = None, instruction: str | None = None) -> dict:
+    # The model notebook accepts Arabic relationship and user style choices.
+    style = STYLE_AR.get(style_key, "تلقائي") if style_key else "تلقائي"
+    if tone == "formal":
+        style = "رسمي"
+    turns = history or []
+    return {
+        "message": instruction or message,
+        "relation": RELATION_AR.get(relation, "شخص آخر"),
+        "goal": goal,
+        "style": style,
+        "speaker_gender": "غير محدد",
+        "recipient_gender": "غير محدد",
+        "history": turns[-6:],
+        # This prevents curated fixed references from posing as generated replies.
+        "generation_mode": "مولّد فقط",
+    }
+
+
+async def remote_reply(payload: dict) -> dict:
+    if not configured():
+        raise HTTPException(503, "المودل لم يُربط بعد. اضبطي رابط API والمفتاح في .env.")
+    url = checked_base() + "/v1/reply"
+    try:
+        async with httpx.AsyncClient(timeout=httpx.Timeout(150.0, connect=15.0), follow_redirects=False) as client:
+            res = await client.post(url, headers={"X-API-Key": os.getenv("LABEQ_MODEL_API_KEY", "")}, json=payload)
+    except httpx.TimeoutException as exc:
+        raise HTTPException(504, "المودل تأخر في الرد. تحققي من خادم GPU أو MLX.") from exc
+    except httpx.RequestError as exc:
+        raise HTTPException(503, "تعذر الوصول إلى خادم المودل. تحققي من الرابط والمنفذ.") from exc
+    if res.status_code == 401:
+        raise HTTPException(503, "مفتاح API الخاص بالمودل غير صحيح.")
+    if res.status_code >= 400:
+        raise HTTPException(503, f"خادم المودل رجّع خطأ HTTP {res.status_code}.")
+    try:
+        data = res.json()
+    except ValueError as exc:
+        raise HTTPException(502, "استجابة المودل ليست JSON صالحًا.") from exc
+    reply = data.get("reply") if isinstance(data, dict) else None
+    if not isinstance(reply, str) or not reply.strip():
+        raise HTTPException(502, "المودل لم يُرجع نص رد صالحًا.")
+    source = data.get("reply_source", "unknown")
+    if source != "qwen_lora_generated":
+        # Explicitly reject curated responses in real-only UI mode.
+        raise HTTPException(502, "المودل لم يرجع رد Qwen LoRA مولّدًا.")
+    key = data.get("style_key")
+    if key not in ALLOWED_KEYS:
+        key = STYLE_ALIASES.get(data.get("style_used"), None)
+    router = data.get("router_source") or "unknown"
+    return {
+        "reply": reply.strip(), "style": key,
+        "style_used": data.get("style_used") or "غير محدد",
+        "router_source": router, "reply_source": source,
+        "needs_review": bool(data.get("needs_review", False)),
+        "quality_warnings": list(data.get("quality_warnings") or [])[:5],
+        "mock": False,
+    }
+
+
+async def remote_health() -> dict:
+    if not configured():
+        return {"configured": False, "reachable": False, "model_loaded": False, "faisal_loaded": False}
+    try:
+        async with httpx.AsyncClient(timeout=8.0, follow_redirects=False) as client:
+            res = await client.get(checked_base() + "/health")
+            res.raise_for_status()
+            d = res.json()
+            return {"configured": True, "reachable": True,
+                    "model_loaded": d.get("model_loaded") is True,
+                    "faisal_loaded": d.get("faisal_loaded") is True}
+    except (httpx.HTTPError, ValueError, AttributeError):
+        return {"configured": True, "reachable": False, "model_loaded": False, "faisal_loaded": False}
