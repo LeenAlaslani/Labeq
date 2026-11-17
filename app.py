@@ -4,15 +4,17 @@ import base64
 import io
 import json
 import wave
+from collections import OrderedDict, deque
+from time import monotonic
 from xml.sax.saxutils import escape
 from pathlib import Path
 from typing import Literal
-from model_bridge import remote_reply, remote_health, configured, request_payload
+from model_bridge import remote_reply, remote_style, remote_health, configured, request_payload
 
 import httpx
 from dotenv import load_dotenv
-from fastapi import FastAPI, File, HTTPException, UploadFile
-from fastapi.responses import FileResponse
+from fastapi import FastAPI, File, HTTPException, Request, UploadFile
+from fastapi.responses import FileResponse, JSONResponse
 from pydantic import BaseModel, Field
 
 ROOT = Path(__file__).resolve().parent
@@ -38,9 +40,32 @@ API_KEY = os.environ.get("ELEVENLABS_API_KEY", "").strip()
 VOICE_ID = os.environ.get("ELEVENLABS_VOICE_ID", "").strip()
 TTS_MODEL = os.environ.get("ELEVENLABS_MODEL_ID", "eleven_multilingual_v2").strip()
 MODEL_MODE = os.environ.get("LABEQ_MODEL_MODE", "real" if configured() else "demo").lower()
-ALLOWED_STYLES = {"polite", "firm", "diplomatic", "apology", "clarify"}
 
 app = FastAPI(title="LABEQ Experience", version="0.1.0")
+REQUEST_LIMIT = max(0, int(os.getenv("LABEQ_REQUESTS_PER_MINUTE", "30")))
+LIMITED_PATHS = {"/api/reply", "/api/predict", "/api/speak", "/api/transcribe"}
+request_windows = OrderedDict()
+
+
+@app.middleware("http")
+async def limit_expensive_requests(request: Request, call_next):
+    if REQUEST_LIMIT and request.method == "POST" and request.url.path in LIMITED_PATHS:
+        address = request.client.host if request.client else "unknown"
+        now = monotonic()
+        window = request_windows.pop(address, deque())
+        request_windows[address] = window
+        if len(request_windows) > 2048:
+            request_windows.popitem(last=False)
+        while window and now - window[0] >= 60:
+            window.popleft()
+        if len(window) >= REQUEST_LIMIT:
+            retry_after = max(1, int(60 - (now - window[0])) + 1)
+            return JSONResponse(
+                {"detail": "طلبات كثيرة. انتظري قليلًا ثم حاولي مرة ثانية."},
+                status_code=429, headers={"Retry-After": str(retry_after)},
+            )
+        window.append(now)
+    return await call_next(request)
 
 
 class PredictionRequest(BaseModel):
@@ -49,13 +74,18 @@ class PredictionRequest(BaseModel):
     goal: str = Field(min_length=2, max_length=180)
 
 
+class Turn(BaseModel):
+    role: Literal["user", "assistant"]
+    content: str = Field(min_length=1, max_length=500)
+
+
 class LabeqReplyRequest(BaseModel):
     message: str = Field(min_length=2, max_length=1500)
     relation: Literal["friend", "work", "family", "customer"]
     goal: str = Field(min_length=2, max_length=180)
     tone: Literal["casual", "formal"] = "casual"
     style_key: Literal["polite", "firm", "diplomatic", "apology", "clarify"] | None = None
-    history: list[dict] = Field(default_factory=list, max_length=4)
+    history: list[Turn] = Field(default_factory=list, max_length=4)
     instruction: str | None = Field(default=None, max_length=500)
 
 
@@ -76,6 +106,11 @@ def stylesheet():
 @app.get("/app.js")
 def client_script():
     return FileResponse(ROOT / "app.js", media_type="text/javascript")
+
+
+@app.get("/coach.js")
+def communication_coach_script():
+    return FileResponse(ROOT / "coach.js", media_type="text/javascript")
 
 
 @app.get("/api/capabilities")
@@ -104,6 +139,8 @@ def capabilities():
 
 @app.get("/api/model-health")
 async def model_health():
+    if MODEL_MODE != "real":
+        return {"configured": False, "reachable": False, "model_loaded": False, "faisal_loaded": False}
     return await remote_health()
 
 
@@ -112,12 +149,12 @@ async def reply_from_model(req: LabeqReplyRequest):
     if MODEL_MODE != "real":
         raise HTTPException(503, "المودل الحقيقي غير مفعّل. شغّلي خادم API على الماك أو Colab وربطيه بلبِق.")
     payload = request_payload(req.message, req.relation, req.goal, req.style_key, req.tone,
-                              req.history, req.instruction)
+                              [turn.model_dump() for turn in req.history], req.instruction)
     return await remote_reply(payload)
 
 
 @app.post("/api/predict")
-def predict(req: PredictionRequest):
+async def predict(req: PredictionRequest):
     # Intentional UI-only demonstration. This is NOT Faisal inference.
     if MODEL_MODE == "demo":
         # Demonstration rules ONLY. These outputs are NOT Faisal model predictions.
@@ -136,24 +173,7 @@ def predict(req: PredictionRequest):
             style = "clarify"
         return {"style": style, "confidence": None, "mock": True, "method": "rule_based_demo"}
 
-    # A separate adapter is loaded only when the real model has been wired up.
-    # Never silently fall back to a fabricated prediction on production failure.
-    try:
-        from faisal_adapter import predict_faisal_style
-    except ImportError as exc:
-        raise HTTPException(503, "Faisal adapter not installed. Switch LABEQ_MODEL_MODE=demo.") from exc
-    try:
-        prediction = predict_faisal_style(
-            message=req.message,
-            relation=req.relation,
-            goal=req.goal,
-        )
-    except Exception as exc:
-        raise HTTPException(503, "Faisal prediction failed. Check server logs.") from exc
-    style = prediction.get("style")
-    if style not in ALLOWED_STYLES:
-        raise HTTPException(503, "Faisal adapter returned an unknown style.")
-    return {"style": style, "confidence": prediction.get("confidence"), "mock": False}
+    return await remote_style(request_payload(req.message, req.relation, req.goal))
 
 
 def _pcm_to_wav(pcm: bytes, sample_rate: int = 48000) -> bytes:
@@ -220,6 +240,8 @@ async def munsit_speak(text: str) -> dict:
             if not line.strip():
                 continue
             event = json.loads(line)
+            if not isinstance(event, dict):
+                raise ValueError("Expected an audio event object")
             if event.get("audio_base64"):
                 chunks.append(base64.b64decode(event["audio_base64"], validate=True))
             if event.get("alignment"):
@@ -344,7 +366,10 @@ async def transcribe(file: UploadFile = File(...)):
         raise HTTPException(502, f"ElevenLabs Scribe HTTP {exc.response.status_code}") from exc
     except (httpx.HTTPError, ValueError) as exc:
         raise HTTPException(502, "Speech recognition service unavailable") from exc
-    return {"text": str(output.get("text") or "").strip()}
+    text = output.get("text") if isinstance(output, dict) else None
+    if not isinstance(text, str) or not text.strip():
+        raise HTTPException(502, "Speech recognition returned no text")
+    return {"text": text.strip()}
 
 
 @app.get("/character2d.js")

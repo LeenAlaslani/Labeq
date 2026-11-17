@@ -5,12 +5,14 @@ const $all = sel => [...document.querySelectorAll(sel)];
 const state = {
   step:0, name:'', nickname:'', address:'friendly', title:'أستاذة',
   relation:'', goal:'', message:'', style:'', tone:'casual', rewrite:0,
-  hasResult:false, mock:true, confidence:null, started:false,
-  voiceOn:false, currentSpeech:'', speechId:0, audio:null, recording:false,
+  hasResult:false, editingScenario:true, mock:true, confidence:null, started:false,
+  voiceOn:true, currentSpeech:'', speechId:0, audio:null, recording:false,
   recognition:null, recorder:null, audioCtx:null, analyzeBusy:false,
   modelReply:'', modelStyleUsed:'', routerSource:'', replySource:'', needsReview:false, qualityWarnings:[], variantBusy:false
 };
 let capabilities={tts:false,stt:false,model_mode:'demo',voice_name:''};
+let modelHealth={configured:null,reachable:null,model_loaded:null,faisal_loaded:null};
+const isPortfolioDemo=document.documentElement.dataset.mode==='demo';
 let toastTimer, lipTimer, blinkTimer, activeSpeech, contextMoodTimer, reactionTimer;
 const speechCache=new Map(); // Replay the same voice recording instead of regenerating it.
 const relations=[
@@ -20,11 +22,11 @@ const relations=[
   {key:'customer',name:'عميل',icon:'◇',short:'عميل'}
 ];
 const goals=[
-  {key:'polite',label:'أرفض بلطف',symbol:'♡',detail:'بدون إحراج'},
-  {key:'firm',label:'أحط حدود',symbol:'⊘',detail:'بوضوح واحترام'},
-  {key:'diplomatic',label:'أصلح خلاف',symbol:'✳',detail:'نتفاهم بهدوء'},
-  {key:'apology',label:'أعتذر',symbol:'✿',detail:'وأصلح الغلط'},
-  {key:'clarify',label:'أفهم المقصود',symbol:'?',detail:'بدون سوء فهم'}
+  {key:'polite',label:'أقول لا',symbol:'♡',detail:'بدون إحراج'},
+  {key:'firm',label:'أوضح حدودي',symbol:'⊘',detail:'وأحافظ على وقتي'},
+  {key:'diplomatic',label:'ننهي الخلاف',symbol:'✳',detail:'ونتفاهم'},
+  {key:'apology',label:'أصلح غلطتي',symbol:'✿',detail:'وأعتذر'},
+  {key:'clarify',label:'أفهم اللي صار',symbol:'?',detail:'وأوضّح المقصود'}
 ];
 const styleLabels={polite:'لبق',firm:'حازم',diplomatic:'دبلوماسي',apology:'اعتذار',clarify:'طلب توضيح'};
 const goalPhrases={polite:'أرفض الطلب بأسلوب محترم',firm:'أوضح حدودي بدون تجريح',diplomatic:'أحل سوء الفهم بهدوء',apology:'أعتذر وأصلح الموقف',clarify:'أتأكد إني فهمت المقصود'};
@@ -54,22 +56,20 @@ function makeInput({label,value,placeholder,onChange,maxLength=50,ariaLabel}){
   const wrapper=element('div');const l=element('label','field-label',label);const inp=element('input','pretty-input');inp.type='text';inp.value=value;inp.placeholder=placeholder;inp.maxLength=maxLength;inp.setAttribute('aria-label',ariaLabel||label);l.appendChild(inp);inp.addEventListener('input',e=>onChange(e.target.value));wrapper.append(l);return wrapper;
 }
 function makeChoices(items,value,onSelect){const grid=element('div','chips-grid');for(const item of items){const b=element('button','choice-chip'+(item.key===value?' active':''));b.type='button';b.setAttribute('aria-pressed',String(item.key===value));const icon=element('span','choice-icon',item.icon||item.symbol);const name=element('span','choice-title',item.name||item.label);b.append(icon,name);if(item.detail)b.append(element('span','choice-sub',item.detail));b.addEventListener('click',()=>{onSelect(item.key);$all('#stepContent .choice-chip').forEach(x=>{x.classList.toggle('active',x===b);x.setAttribute('aria-pressed',String(x===b))});updateNext()});grid.append(b)}return grid}
-function questionForStep(){switch(state.step){case 0:return 'يا هلا! وش تحبين أناديك؟';case 1:return `تشرفنا ${vocative()}، كيف تحبين أخاطبك؟`;case 2:return `تمام ${vocative()}، مين الشخص اللي بتتكلمين معه؟`;case 3:return 'وش تبغين توصّلين من كلامك؟';default:return `أنا أسمعك ${vocative()}، احكي لي وش صار.`}}
+function questionForStep(){switch(state.step){case 0:return 'يا هلا! وش تحبين أناديك؟';case 1:return `تشرفنا ${vocative()}، مين بتتكلمين معه؟`;case 2:return 'وش تبغين توصلين له من هالكلام؟';default:return `أنا أسمعك ${vocative()}، احكي لي وش صار.`}}
 function renderIntro(announce=false){
   $('introPanel').hidden=false;$('workspace').hidden=true;
-  const headings=['خلّينا نتعرّف.','على راحتك.','مين الطرف الثاني؟','وش هدفك؟'];
-  const descriptions=['وش تحبين أناديك؟','اختاري أسلوبي معك.','عشان يكون الرد مناسب لعلاقتكم.','اختاري أقرب هدف للي تبغينه.'];
-  $('introIndex').textContent=String(state.step+1).padStart(2,'0')+' / 04';$('introHeading').textContent=headings[state.step];$('introSubline').textContent=descriptions[state.step];
+  const headings=['خلّينا نتعرّف.','مع مين بتتكلمين؟','وش تبغين يصير؟'];
+  const descriptions=['لبِق يساعدك تختارين طريقة الكلام المناسبة، مو بس يكتب لك رد.','العلاقة تفرق في طريقة الكلام.','اختاري هدفك، وخلّي اختيار الأسلوب علينا.'];
+  $('introIndex').textContent=String(state.step+1).padStart(2,'0')+' / 03';$('introHeading').textContent=headings[state.step];$('introSubline').textContent=descriptions[state.step];
   const container=$('stepContent');container.replaceChildren();
-  if(state.step===0){const fields=element('div','input-stack');fields.append(makeInput({label:'اسمك',value:state.name,placeholder:'مثال: لين',onChange:s=>{state.name=s.trimStart();updateNext()},maxLength:32}));fields.append(makeInput({label:'اسم الدلع (اختياري)',value:state.nickname,placeholder:'مثال: لينو',onChange:s=>{state.nickname=s.trimStart()},maxLength:30}));container.append(fields)}
-  else if(state.step===1){container.append(makeChoices([{key:'friendly',name:'عفوي وقريب',icon:'☺',detail:'يا لينو، كيف حالك؟'},{key:'formal',name:'رسمي وراقي',icon:'♢',detail:'أهلًا أستاذة لين'}],state.address,k=>{state.address=k;renderIntro(false)}));if(state.address==='formal'){
-    const l=element('div','input-sub','اللقب');l.style.marginTop='15px';container.append(l);const titles=[{key:'أستاذة',name:'أستاذة',icon:'✦'},{key:'آنسة',name:'آنسة',icon:'✦'},{key:'بدون لقب',name:'بدون لقب',icon:'—'}];const group=makeChoices(titles,state.title,k=>{state.title=k;renderIntro(false)});group.style.gridTemplateColumns='repeat(3,minmax(0,1fr))';group.querySelectorAll('.choice-chip').forEach(ch=>{ch.style.minHeight='60px';const icon=ch.querySelector('.choice-icon');if(icon)icon.remove()});container.append(group)}}
-  else if(state.step===2){container.append(makeChoices(relations,state.relation,k=>{state.relation=k;setContextMood()}))}
-  else if(state.step===3){container.append(makeChoices(goals,state.goal,k=>{state.goal=k;setContextMood()}))}
-  $('prevBtn').hidden=state.step===0;$('nextBtn').textContent=state.step===3?'وصلنا ✦':'نكمل ←';updateNext();setContextMood();revealCharacter();
+  if(state.step===0){const fields=element('div','input-stack');fields.append(makeInput({label:'اسمك',value:state.name,placeholder:'لين',onChange:s=>{state.name=s.trimStart();updateNext()},maxLength:32}));fields.append(makeInput({label:'اسم الدلع (اختياري)',value:state.nickname,placeholder:'',onChange:s=>{state.nickname=s.trimStart()},maxLength:30}));container.append(fields)}
+  else if(state.step===1){container.append(makeChoices(relations,state.relation,k=>{state.relation=k;setContextMood()}))}
+  else if(state.step===2){container.append(makeChoices(goals,state.goal,k=>{state.goal=k;setContextMood()}))}
+  $('prevBtn').hidden=state.step===0;$('nextBtn').textContent=state.step===2?'خلّينا نبدأ ✦':'نكمل ←';updateNext();setContextMood();revealCharacter();
   setDialogue(questionForStep(),'أنا معك',announce)
 }
-function updateNext(){$('nextBtn').disabled=(state.step===0&&!state.name.trim())||(state.step===2&&!state.relation)||(state.step===3&&!state.goal)}
+function updateNext(){$('nextBtn').disabled=(state.step===0&&!state.name.trim())||(state.step===1&&!state.relation)||(state.step===2&&!state.goal)}
 function setDialogue(text,tag='أنا معك',announce=false){state.currentSpeech=text;$('dialogTag').textContent=tag;$('dialogText').textContent=text;if(announce&&state.started&&state.voiceOn)playSpeech(text);}
 function setAvatarMood(mood){
   if(!mood || mood==='idle') mood='greet';
@@ -93,9 +93,8 @@ function moodFromContext(){
   if(state.recording||state.analyzeBusy)return 'think';
   if(state.hasResult && state.style)return moodFromStyle(state.style);
   if(state.step===0)return 'greet';
-  if(state.step===1)return state.address==='formal'?'think':'happy';
-  if(state.step===2)return 'greet';
-  if(state.step===3)return {apology:'sorry',clarify:'think',firm:'think',diplomatic:'happy'}[state.goal]||'greet';
+  if(state.step===1)return 'greet';
+  if(state.step===2)return {apology:'sorry',clarify:'think',firm:'think',diplomatic:'happy'}[state.goal]||'greet';
   return moodFromMessage(state.message) || 'greet';
 }
 function setContextMood(){setAvatarMood(moodFromContext())}
@@ -146,18 +145,88 @@ function stopSpeech(){
 function preferredBrowserVoice(){const vs=('speechSynthesis'in window)?window.speechSynthesis.getVoices():[];return vs.find(v=>/Zariyah/i.test(v.name))||vs.find(v=>v.lang.toLowerCase()==='ar-sa'&&/female|woman|hoda|zariyah|salma/i.test(v.name))||vs.find(v=>v.lang.toLowerCase()==='ar-sa')||vs.find(v=>v.lang.toLowerCase().startsWith('ar'))||null}
 function markCaption(text,index){const a=$('dialogText');if(!Number.isFinite(index)||index<=0){a.textContent=text;return}const i=Math.min(Math.max(0,index),text.length);const played=element('span','played',text.slice(0,i));const upcoming=element('span','upcoming',text.slice(i));a.replaceChildren(played,upcoming)}
 async function playSpeech(text,force=false){
-  if(!force&&!state.voiceOn)return;if(!text)return;
-  stopSpeech();state.currentSpeech=text;const token=state.speechId;
-  setSpeaking(true);startLipApprox();browserSpeak(text,token);
+  if(!force&&!state.voiceOn)return;
+  if(!text)return;
+  stopSpeech();
+  state.currentSpeech=text;
+  const tok=state.speechId;
+  $('dialogText').textContent=text;
+  setContextMood();
+  if(!isPortfolioDemo&&capabilities.tts){
+    try{
+      let audioData=speechCache.get(text);
+      if(!audioData){
+        const res=await fetch('/api/speak',{
+          method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text})
+        });
+        const j=await res.json();
+        if(!res.ok)throw Error(j.detail||'فشل خدمة الصوت');
+        if(!j.audio_base64)throw Error('No audio returned');
+        audioData=j;
+        speechCache.set(text,j);
+        if(speechCache.size>12)speechCache.delete(speechCache.keys().next().value);
+      }
+      if(tok!==state.speechId)return;
+      const audio=new Audio('data:'+(audioData.audio_mime||'audio/wav')+';base64,'+audioData.audio_base64);
+      audio.preload='auto';
+      state.audio=audio;
+      const alignment=audioData.alignment||{};
+      const chars=alignment.aligned!==false?alignment.characters:null;
+      const starts=alignment.aligned!==false?alignment.character_start_times_seconds:null;
+      audio.ontimeupdate=()=>{
+        if(tok!==state.speechId||starts?.length)return;
+        if(audio.duration>0&&Number.isFinite(audio.duration)){
+          markCaption(text,Math.round(text.length*audio.currentTime/audio.duration));
+        }
+      };
+      audio.onplay=()=>{
+        if(tok!==state.speechId)return;
+        setSpeaking(true);
+        startLipSync(chars,starts,audio,tok,text);
+      };
+      audio.onended=()=>{
+        if(tok!==state.speechId)return;
+        clearInterval(lipTimer);setSpeaking(false);
+        $('dialogText').textContent=text;
+        setContextMood();
+      };
+      audio.onerror=()=>{
+        if(tok!==state.speechId)return;
+        clearInterval(lipTimer);setSpeaking(false);
+        toaste('تعذّر تشغيل صوت مها. جرّبي إعادة الصوت.');
+      };
+      await new Promise(resolve=>{
+        let done=false;
+        const finish=()=>{if(done)return;done=true;resolve()};
+        audio.addEventListener('canplaythrough',finish,{once:true});
+        audio.addEventListener('canplay',finish,{once:true});
+        audio.load();
+        setTimeout(finish,1800);
+      });
+      if(tok!==state.speechId)return;
+      await audio.play();
+      return;
+    }catch(e){
+      if(tok!==state.speechId)return;
+      clearInterval(lipTimer);setSpeaking(false);
+      if(capabilities.tts_provider==='munsit'){
+        toaste('تعذّر صوت مها؛ بجرب خيار النطق في جهازك.');
+      }else{
+        toaste('خدمة الصوت غير متاحة؛ بجرب صوت الجهاز.');
+      }
+    }
+  }
+  browserSpeak(text,tok);
 }
-
 function browserSpeak(text,tok){
   if(!('speechSynthesis'in window)){
     toaste('المتصفح لا يدعم النطق.');return;
   }
   try{
     const u=new SpeechSynthesisUtterance(text);
-    const voice=preferredBrowserVoice();if(voice)u.voice=voice;
+    const voice=preferredBrowserVoice();
+    if(!voice){toaste('ما لقيت صوت عربي في جهازك.');return;}
+    u.voice=voice;
     u.lang='ar-SA';u.rate=.93;u.pitch=1;u.volume=1;
     u.onstart=()=>{if(tok!==state.speechId)return;setSpeaking(true);startLipApprox()};
     u.onboundary=e=>{if(tok===state.speechId&&Number.isInteger(e.charIndex))markCaption(text,e.charIndex)};
@@ -166,15 +235,53 @@ function browserSpeak(text,tok){
     activeSpeech=u;window.speechSynthesis.speak(u);
   }catch{setSpeaking(false);toaste('تعذّر تشغيل الصوت من المتصفح.')}
 }
+function modelStatusLabel(){
+  if(modelHealth.reachable===null)return 'جارِ فحص الاتصال';
+  if(!modelHealth.reachable || !modelHealth.model_loaded)return 'الاتصال بالمودل غير متاح';
+  return modelHealth.faisal_loaded?'Qwen + فيصل جاهزان':'Qwen جاهز';
+}
+function updateModelStatus(){
+ const badge=$('dataBadge');
+ if(isPortfolioDemo){
+   badge.textContent='نسخة عرض بأمثلة جاهزة';
+   badge.dataset.status='checking';
+   badge.title='تعمل القوالب داخل المتصفح';
+   return;
+ }
+ badge.textContent=modelStatusLabel();
+ badge.dataset.status=modelHealth.reachable&&modelHealth.model_loaded?'online':modelHealth.reachable===null?'checking':'offline';
+ badge.title='حالة الخادم عند آخر فحص، وقد تختلف عن مصدر القرار في كل رد';
+}
+async function checkModelHealth(){
+ if(isPortfolioDemo){updateModelStatus();return}
+ try{
+   const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),10000);
+   let res;try{res=await fetch('/api/model-health',{signal:controller.signal,cache:'no-store'})}finally{clearTimeout(timer)}
+   if(!res.ok)throw Error('status '+res.status);
+   const h=await res.json();modelHealth={configured:!!h.configured,reachable:!!h.reachable,model_loaded:!!h.model_loaded,faisal_loaded:!!h.faisal_loaded};
+ }catch{modelHealth={configured:false,reachable:false,model_loaded:false,faisal_loaded:false}}
+ updateModelStatus();
+}
+function refreshWorkspaceStage(){
+ const has=state.hasResult;
+ $('scenarioBox').hidden=has&&!state.editingScenario;
+ $('scenarioSummary').hidden=!has||!!state.editingScenario;
+ $('scenarioSummaryText').textContent=state.message;
+ $('resultBox').hidden=!has;
+ $('analyzeBtn').hidden=has&&!state.editingScenario;
+ $('analysisBar').hidden=has&&!state.editingScenario;
+}
 function renderWorkspace(announce=false){
   $('introPanel').hidden=true;$('workspace').hidden=false;
-  const r=relations.find(x=>x.key===state.relation)?.short||'صديق';const g=goals.find(x=>x.key===state.goal)?.label||'أختار أسلوبي';
+  const r=relations.find(x=>x.key===state.relation)?.short||'طرف آخر';const g=goals.find(x=>x.key===state.goal)?.label||'هدفك';
   $('profileText').textContent=`${displayName()}   ·   ${r}   ·   ${g}`;
-  $('scenarioInput').value=state.message;$('dataBadge').textContent=state.mock?(capabilities.model_configured?'المودل مهيأ':'المودل غير متصل'):(state.routerSource==='faisal'?'فيصل + Qwen':state.routerSource==='rule_fallback'?'Qwen · فيصل غير متاح':'Qwen · أسلوب يدوي');
-  $('confidenceNote').textContent=state.mock?'لم يتم توصيل المودل الحقيقي بعد':(state.routerSource==='faisal'?'الأسلوب من فيصل · النص مولّد من Saudi LoRA':(state.routerSource==='rule_fallback'?'فيصل غير متاح · الأسلوب من قواعد احتياطية · النص من Saudi LoRA':'الأسلوب محدّد يدويًا · النص من Saudi LoRA')); 
-  if(state.hasResult)renderResult();else{$('filledResult').hidden=true;$('emptyResult').hidden=false}
-  $('nav1').classList.add('done');$('nav1').classList.remove('active');$('nav2').classList.add('active');$('nav3').classList.toggle('active',state.hasResult);
-  setContextMood();revealCharacter();setDialogue(state.hasResult?`هذا اللي أقترحه ${vocative()}، وش رأيك؟`:`أنا أسمعك ${vocative()}، احكي لي وش صار.`,state.hasResult?'الاقتراح جاهز':'خذي راحتك',announce)
+  $('scenarioInput').value=state.message;
+  if(state.hasResult)renderResult();else{$('filledResult').hidden=true;$('emptyResult').hidden=false;window.labeqCoach?.clearResult()}
+  refreshWorkspaceStage();updateModelStatus();
+  if(!state.hasResult)$('confidenceNote').textContent='';
+  $('nav1').classList.add('done');$('nav1').classList.remove('active');$('nav2').classList.toggle('active',!state.hasResult);$('nav3').classList.toggle('active',state.hasResult);
+  setContextMood();revealCharacter();setDialogue(state.hasResult?`هذي صياغة ممكن تناسبك ${vocative()}، وش رأيك؟`:`أنا أسمعك ${vocative()}، احكي لي وش صار.`,state.hasResult?'الاقتراح جاهز':'خذي راحتك',announce)
+  if(!state.hasResult)checkModelHealth();
 }
 function selectReply(style,tone,idx){const bank=replyBank[style]||replyBank.polite;const variants=bank[tone]||bank.casual;
   // Domain-aware variants remain prepared templates. They are NOT free-form generation.
@@ -186,20 +293,43 @@ function selectReply(style,tone,idx){const bank=replyBank[style]||replyBank.poli
   if(state.relation==='friend'&&style==='apology'&&idx===0)return tone==='formal'?'أعتذر منك عمّا بدر مني. يهمني أن نصلح ما حدث بيننا.':'حقك علي، أدري إني زعلتك وما كان قصدي. ما أبي هالموضوع يبعدنا.';
   return variants[idx%variants.length]
 }
+function demoReply(style,tone,index){
+  const goal=state.goal||'polite';
+  const base=selectReply(goal,tone,index);
+  const contextual=tone==='casual'&&index===0
+    ?window.labeqCoach?.exampleFor(state.message,goal,style)
+    :null;
+  if(contextual)return contextual;
+  if(style===goal)return base;
+  const openings=tone==='formal'
+    ?{polite:'أقدّر تواصلك.',firm:'أودّ توضيح موقفي.',diplomatic:'يهمني أن نتفاهم.',apology:'أعتذر عن الإزعاج.',clarify:'للتأكد من وضوح مقصدي:'}
+    :{polite:'أقدّر كلامك.',firm:'بوضح لك قصدي.',diplomatic:'ودي نتفاهم.',apology:'أعتذر إذا سبّب لك هالشي إزعاج.',clarify:'بس عشان يكون قصدي واضح:'};
+  return openings[style]+' '+base;
+}
 function renderResult(){
   const style=state.style||state.goal||'polite';
   $('emptyResult').hidden=true;$('filledResult').hidden=false;
+  $('recommendLabel').textContent=state.routerSource==='user_selected'?'الأسلوب اللي اخترتيه':state.mock?'أسلوب توضيحي':'الأسلوب المقترح';
   $('stylePill').textContent=!state.mock?(state.style&&styleLabels[state.style]?styleLabels[state.style]:(state.modelStyleUsed||'الأسلوب المقترح')):styleLabels[style];
-  $('replyText').textContent=!state.mock?state.modelReply:selectReply(style,state.tone,state.rewrite);
+  $('replyText').textContent=!state.mock?state.modelReply:demoReply(style,state.tone,state.rewrite);
+  const qualityAlert=$('qualityAlert');
+  if(qualityAlert){
+    const issue=(state.qualityWarnings||[]).some(w=>/التكرار|يتكرر|المتكررة|مؤقت|حد مستمر|تأجيل المساعدة/.test(w));
+    qualityAlert.hidden=!(state.needsReview&&!state.mock);
+    qualityAlert.textContent=issue?'تنبيه: الصياغة قد لا تعكس أن الطلب متكرر. راجعيها أو اطلبي صياغة ثانية.':'الرد يحتاج مراجعة للتأكد من أنه مناسب للموقف قبل إرساله.';
+  }
+
   $('formalityBtn').textContent=state.tone==='casual'?'صياغة رسمية':'صياغة عفوية';
   $('styleChoices').hidden=true;$('changeStyleBtn').setAttribute('aria-expanded','false');$('nav3').classList.add('active');setContextMood();
   if(!state.mock){
-    const who=state.routerSource==='faisal'?'الأسلوب: فيصل':state.routerSource==='rule_fallback'?'الأسلوب: قواعد احتياطية (فيصل غير متاح)':'الأسلوب: اختيار المستخدم';
-    $('confidenceNote').textContent=who+' · الرد: Qwen Saudi LoRA'+(state.needsReview?' · يحتاج مراجعة قبل الإرسال':'');
+    const who=state.routerSource==='faisal'?'الأسلوب اقترحه فيصل':state.routerSource==='rule_fallback'?'الأسلوب حددته قواعد احتياطية':state.routerSource==='user_selected'?'الأسلوب اخترتيه بنفسك':'مصدر الأسلوب غير محدد';
+    $('confidenceNote').textContent=who+' · النص من Qwen + LoRA'+(state.needsReview?' · راجعي الرد قبل الإرسال':'');
   }else{
-    $('confidenceNote').textContent='المودل لم يُربط بعد — لا توجد نتيجة AI فعلية';
+    $('confidenceNote').textContent='هذه صياغة تجريبية وليست نتيجة مودل.';
   }
+  window.labeqCoach?.syncResult({style,goal:state.goal,relation:state.relation,message:state.message,routerSource:state.routerSource, isDemo:state.mock});
 }
+
 async function requestActualReply({styleKey=null,tone=state.tone,instruction=null,history=[]}={}){
   const result=await fetch('/api/reply',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
     message:state.message, relation:state.relation, goal:goalPhrases[state.goal]||'أبي رد مناسب',
@@ -238,54 +368,74 @@ function demoPredict(message,relation,goal){
 }
 async function analyze(){
   const msg=$('scenarioInput').value.trim();
-  if(msg.length<5){toaste('اكتبي تفاصيل الموقف أولًا.');$('scenarioInput').focus();return;}
-  stopSpeech();state.message=msg;state.mock=true;state.hasResult=true;
-  state.modelReply='';state.style=demoPredict(msg,state.relation,state.goal);state.rewrite=0;
-  renderWorkspace(false);
-  $('dataBadge').textContent='DEMO · أمثلة ثابتة';
-  $('confidenceNote').textContent='عرض واجهة فقط — اقتراحات نموذجية وليست تنبؤات AI';
-  setDialogue('هذا رد تجريبي يا '+displayName()+'، شوفي إذا يناسبك.','تجربة الواجهة',false);
+  const justGreeting=/^(?:هلا(?: والله)?|هلا بك|السلام عليكم(?: ورحمة الله)?|مرحبا|مرحبًا|أهلين|اهلين|هاي|هلو|صباح الخير|مساء الخير)[!؟.،\s]*$/i.test(msg);
+  if(msg.length<12||justGreeting){toaste('اكتبي موقفًا أوضح: وش صار، ووش تبغين توصلين للطرف الثاني؟');$('scenarioInput').focus();return}
+  if(state.analyzeBusy)return;
+  stopSpeech();state.analyzeBusy=true;state.message=msg;state.modelReply='';state.hasResult=false;state.editingScenario=true;
+  $('analyzeBtn').disabled=true;$('analyzeBtn').textContent='أجهّز لك اقتراحًا...';
+  setAvatarMood('think');revealCharacter();setDialogue('لحظة، بشوف وش الأسلوب الأنسب.','أفكّر...',false);
+  if(isPortfolioDemo){
+    state.style=demoPredict(msg,state.relation,state.goal);state.mock=true;state.hasResult=true;state.editingScenario=false;state.modelReply='';state.routerSource='demo';state.rewrite=0;
+    renderWorkspace(false);$('confidenceNote').textContent='معاينة تفاعلية بأمثلة جاهزة، وليست ردودًا مولّدة من مودل.';
+    state.analyzeBusy=false;$('analyzeBtn').disabled=false;$('analyzeBtn').textContent='اقترحي لي ردًا ✦';return;
+  }
+  try{
+    const prediction=await requestActualReply({styleKey:null,tone:state.tone});
+    useRealReply(prediction);state.rewrite=0;state.editingScenario=false;
+    renderWorkspace(true);
+    if(moodFromMessage(msg)==='surprised')reactBrieflyToMessage(msg);
+    if(prediction.router_source==='rule_fallback')toaste('تم توليد الرد من Qwen واختيار الأسلوب بقواعد احتياطية.');
+  }catch(err){
+    state.mock=true;state.hasResult=false;state.modelReply='';
+    $('emptyResult').hidden=false;$('filledResult').hidden=true;
+    $('confidenceNote').textContent='تعذّر استخراج الاقتراح. تأكدي من اتصال الخادم وأعيدي المحاولة.';
+    checkModelHealth();
+    setDialogue('ما قدرت أوصل للمودل. تأكدي من تشغيل خادم API.','تعذّر الاتصال',false);
+    toaste(err.message);
+  }finally{
+    state.analyzeBusy=false;$('analyzeBtn').disabled=false;$('analyzeBtn').textContent='اقترحي لي ردًا ✦';setContextMood();
+  }
 }
-
 function bind(){
   $('nextBtn').addEventListener('click',()=>{
-    if($('nextBtn').disabled)return;stopSpeech();state.started=true;if(state.step<3){state.step++;renderIntro(true)}else{state.step=4;state.hasResult=false;renderWorkspace(true);setTimeout(()=>$('scenarioInput').focus({preventScroll:true}),350)}
+    if($('nextBtn').disabled)return;stopSpeech();state.started=true;if(state.step<2){state.step++;renderIntro(true)}else{state.step=3;state.hasResult=false;state.editingScenario=true;renderWorkspace(true);setTimeout(()=>$('scenarioInput').focus({preventScroll:true}),350)}
   });
   $('prevBtn').addEventListener('click',()=>{stopSpeech();state.step=Math.max(0,state.step-1);renderIntro(true)});
-  $('quickDemoBtn').addEventListener('click',()=>{stopSpeech();Object.assign(state,{name:'لين',nickname:'لينو',address:'friendly',relation:'friend',goal:'diplomatic',message:'صار بيني وبين صديقتي سوء فهم وزعلت مني. أبغى نتصالح بدون ما نكبر الموضوع.',tone:'casual',hasResult:false,started:true,step:4});renderWorkspace(true);$('scenarioInput').focus({preventScroll:true})});
-  $('scenarioInput').addEventListener('input',e=>{state.message=e.target.value;state.modelReply='';if(state.hasResult){state.hasResult=false;$('emptyResult').hidden=false;$('filledResult').hidden=true;$('nav3').classList.remove('active');setDialogue(`أسمعك ${vocative()}، كمّلي براحتك.`,'أنا معك',false)}clearTimeout(contextMoodTimer);contextMoodTimer=setTimeout(setContextMood,460)});
+  $('quickDemoBtn').addEventListener('click',()=>{window.labeqCoach?.reset();stopSpeech();Object.assign(state,{name:'لين',nickname:'',address:'friendly',relation:'friend',goal:'diplomatic',message:'صار بيني وبين صديقتي سوء فهم وزعلت مني. أبغى نتصالح بدون ما نكبر الموضوع.',tone:'casual',hasResult:false,editingScenario:true,started:true,step:3});renderWorkspace(true);$('scenarioInput').focus({preventScroll:true})});
+  $('scenarioInput').addEventListener('input',e=>{state.message=e.target.value;window.labeqCoach?.clearResult();state.modelReply='';if(state.hasResult){state.hasResult=false;$('emptyResult').hidden=false;$('filledResult').hidden=true;$('nav3').classList.remove('active');$('resultBox').hidden=true;window.labeqCoach?.clearResult();refreshWorkspaceStage();$('confidenceNote').textContent='';setDialogue(`أسمعك ${vocative()}، كمّلي براحتك.`,'أنا معك',false)}clearTimeout(contextMoodTimer);contextMoodTimer=setTimeout(setContextMood,460)});
   $('analyzeBtn').addEventListener('click',analyze);
   $('changeStyleBtn').addEventListener('click',()=>{
     const choices=$('styleChoices');const show=choices.hidden;choices.hidden=!show;
     $('changeStyleBtn').setAttribute('aria-expanded',String(show));
     if(show){choices.replaceChildren();for(const st of Object.keys(styleLabels)){
       const b=element('button','style-select'+(state.style===st?' chosen':''),styleLabels[st]);b.type='button';
-      b.addEventListener('click',()=>{choices.hidden=true;state.style=st;state.rewrite=0;renderResult();$('dataBadge').textContent='DEMO · أمثلة ثابتة';$('confidenceNote').textContent='أمثلة محفوظة وليست نتائج AI'});
+      b.addEventListener('click',()=>{choices.hidden=true;if(!state.mock&&state.modelReply){realVariant({styleKey:st,instruction:'غيّري النبرة بوضوح مع الحفاظ على الهدف والحقائق، واكتبي الرد فقط.'});return;}if(isPortfolioDemo){state.style=st;state.routerSource='user_selected';state.rewrite=0;renderResult();$('confidenceNote').textContent='معاينة بأمثلة جاهزة، لا تُشغّل فيصل أو Qwen.';return;}toaste('وصّلي المودل لتغيير الصياغة فعليًا.')});
       choices.append(b);
     }}
   });
   $('alternateBtn').addEventListener('click',()=>{
     if(!state.mock&&state.modelReply)realVariant({instruction:'أعيدي صياغة آخر رد بعبارة مختلفة طبيعية ومختصرة، مع الحفاظ على نفس الموقف والمعنى. اكتبي الرد فقط.'});
-    else{state.rewrite=(state.rewrite+1)%3;renderResult();$('confidenceNote').textContent='أمثلة محفوظة وليست نتائج AI';}
+    else if(isPortfolioDemo){state.rewrite++;renderResult();$('confidenceNote').textContent='مثال جاهز، ليس توليد AI.';}else toaste('المودل الحقيقي غير متصل بعد.');
   });
   $('formalityBtn').addEventListener('click',()=>{
     const tone=state.tone==='casual'?'formal':'casual';
     if(!state.mock&&state.modelReply)realVariant({tone,instruction:tone==='formal'?'أعيدي صياغة آخر رد بشكل رسمي مهني مع الحفاظ على المعنى، بدون شرح.':'أعيدي صياغة آخر رد بلهجة سعودية عفوية وطبيعية دون تغيير المعنى، بدون شرح.'});
-    else{state.tone=tone;state.rewrite=0;renderResult();$('confidenceNote').textContent='أمثلة محفوظة وليست نتائج AI';}
+    else if(isPortfolioDemo){state.tone=tone;renderResult();$('confidenceNote').textContent='مثال جاهز، ليس توليد AI.';}else toaste('المودل الحقيقي غير متصل بعد.');
   });
-  $('copyBtn').addEventListener('click',async()=>{const text=$('replyText').textContent;try{await navigator.clipboard.writeText(text);toaste('تم نسخ الرد ✦')}catch{const ta=document.createElement('textarea');ta.value=text;document.body.append(ta);ta.select();try{document.execCommand('copy');toaste('تم نسخ الرد ✦')}catch{toaste('حددي النص وانسخيه يدويًا')}ta.remove()}});
+  $('copyBtn').addEventListener('click',async()=>{const text=$('replyText').textContent;try{await navigator.clipboard.writeText(text);toaste('تم نسخ الرد ✦')}catch{const ta=document.createElement('textarea');ta.value=text;document.body.append(ta);ta.select();try{if(!document.execCommand('copy'))throw Error();toaste('تم نسخ الرد ✦')}catch{toaste('حددي النص وانسخيه يدويًا')}ta.remove()}});
   $('listenReplyBtn').addEventListener('click',()=>{state.started=true;playSpeech($('replyText').textContent,true)});
-  $('anotherBtn').addEventListener('click',()=>{stopSpeech();state.message='';state.hasResult=false;state.style='';state.modelReply='';state.routerSource='';$('scenarioInput').value='';renderWorkspace(true);$('scenarioInput').focus()});
+  $('anotherBtn').addEventListener('click',()=>{window.labeqCoach?.reset();stopSpeech();state.message='';state.hasResult=false;state.editingScenario=true;state.style='';$('replyOptions').open=false;state.modelReply='';state.routerSource='';$('scenarioInput').value='';renderWorkspace(true);$('scenarioInput').focus()});
   $('repeatBtn').addEventListener('click',()=>{state.started=true;playSpeech(state.currentSpeech,true)});
   $('muteBtn').addEventListener('click',()=>{state.voiceOn=!state.voiceOn;state.started=true;$('muteBtn').classList.toggle('muted',!state.voiceOn);$('muteBtn').setAttribute('aria-pressed',String(state.voiceOn));toaste(state.voiceOn?'شغّلت صوت الشخصية':'كتمت صوت الشخصية');if(!state.voiceOn)stopSpeech();else playSpeech(state.currentSpeech,true)});
   $('restartBtn').addEventListener('click',reset);$('brandBtn').addEventListener('click',e=>{e.preventDefault();reset()});
   $('editProfileBtn').addEventListener('click',()=>{stopSpeech();state.step=0;renderIntro(true)});
+  $('editScenarioBtn').addEventListener('click',()=>{state.editingScenario=true;refreshWorkspaceStage();$('scenarioInput').focus({preventScroll:true})});
   $('micBtn').addEventListener('click',toggleMicrophone);
   const stage=$('stagePanel');stage.addEventListener('pointermove',e=>{const r=stage.getBoundingClientRect();const x=Math.max(-1,Math.min(1,((e.clientX-r.left)/r.width-.5)*2)),y=Math.max(-1,Math.min(1,((e.clientY-r.top)/r.height-.5)*2));const a=$('avatarWrap');a.style.setProperty('--lookX',(x*5).toFixed(1)+'px');a.style.setProperty('--lookY',(y*3).toFixed(1)+'px');a.style.setProperty('--tiltX',(-x*5).toFixed(2)+'deg');a.style.setProperty('--tiltY',(y*4).toFixed(2)+'deg');window.labeqCharacter?.setLook(x,y);});stage.addEventListener('pointerleave',()=>{const a=$('avatarWrap');a.style.setProperty('--lookX','0px');a.style.setProperty('--lookY','0px');a.style.setProperty('--tiltX','0deg');a.style.setProperty('--tiltY','0deg');window.labeqCharacter?.setLook(0,0)});
   planBlink();
 }
 function planBlink(){blinkTimer=setTimeout(()=>{window.labeqCharacter?.blink();if(Math.random()>.75)setTimeout(()=>window.labeqCharacter?.blink(),220);planBlink()},2400+Math.random()*2600)}
-function reset(){stopSpeech();clearTimeout(reactionTimer);clearTimeout(contextMoodTimer);state.step=0;state.name='';state.nickname='';state.relation='';state.goal='';state.message='';state.style='';state.hasResult=false;state.tone='casual';state.rewrite=0;state.address='friendly';state.title='أستاذة';state.mock=true;state.modelReply='';state.routerSource='';state.modelStyleUsed='';state.started=false;$('nav1').classList.remove('done');$('nav1').classList.add('active');$('nav2').classList.remove('active');$('nav3').classList.remove('active');renderIntro(false);scrollTo({top:0,behavior:'smooth'})}
+function reset(){window.labeqCoach?.reset();stopSpeech();clearTimeout(reactionTimer);clearTimeout(contextMoodTimer);state.step=0;state.name='';state.nickname='';state.relation='';state.goal='';state.message='';state.style='';state.hasResult=false;state.editingScenario=true;$('replyOptions').open=false;state.tone='casual';state.rewrite=0;state.address='friendly';state.title='أستاذة';state.mock=true;state.modelReply='';state.routerSource='';state.modelStyleUsed='';state.started=false;$('nav1').classList.remove('done');$('nav1').classList.add('active');$('nav2').classList.remove('active');$('nav3').classList.remove('active');renderIntro(false);scrollTo({top:0,behavior:'smooth'})}
 function toggleMicrophone(){
   if(state.recording){try{state.recognition?.stop()}catch{}try{if(state.recorder&&state.recorder.state==='recording')state.recorder.stop()}catch{}state.recording=false;showMic(false);return}
   const Rec=window.SpeechRecognition||window.webkitSpeechRecognition;
@@ -296,10 +446,25 @@ function toggleMicrophone(){
 function showMic(on){$('micBtn').classList.toggle('recording',on);$('micLabel').textContent=on?'إيقاف التسجيل':'احكيه بصوتك';$('recIndicator').hidden=!on}
 async function recordWithScribe(){let stream;try{stream=await navigator.mediaDevices.getUserMedia({audio:true});let chunks=[];const recorder=new MediaRecorder(stream);state.recorder=recorder;state.recording=true;showMic(true);recorder.ondataavailable=e=>{if(e.data.size)chunks.push(e.data)};recorder.onstop=async()=>{stream.getTracks().forEach(t=>t.stop());state.recording=false;showMic(false);try{const blob=new Blob(chunks,{type:recorder.mimeType||'audio/webm'});const form=new FormData();form.append('file',blob,'scenario.webm');toaste('أحوّل التسجيل إلى نص...');const res=await fetch('/api/transcribe',{method:'POST',body:form});const d=await res.json();if(!res.ok)throw Error(d.detail);$('scenarioInput').value=[state.message,d.text].filter(Boolean).join(' ');state.message=$('scenarioInput').value;setContextMood();toaste('تم تحويل الصوت؛ راجعي النص')}catch{toaste('فشل تفريغ الصوت، جربي الكتابة')}};recorder.start()}catch{if(stream)stream.getTracks().forEach(t=>t.stop());toaste('اسمحي بالوصول للميكروفون ثم حاولي مرة ثانية')}}
 async function checkCapabilities(){
-  capabilities={tts:false,stt:false,model_mode:'static-demo',voice_name:'صوت المتصفح'};
-  $('voiceMetaText').textContent='عرض تجريبي · صوت المتصفح';
-  $('dataBadge').textContent='DEMO · بدون مودل';
+  if(isPortfolioDemo)return;
+  if(location.protocol==='file:'){
+    const v=preferredBrowserVoice();
+    $('voiceMetaText').textContent=v?'صوت تجريبي من جهازك':'صوت الجهاز (حسب المتصفح)';
+    return;
+  }
+  try{
+    const r=await fetch('/api/capabilities');if(!r.ok)return;
+    capabilities=await r.json();
+    if(!isPortfolioDemo&&capabilities.tts){
+      $('voiceMeta').classList.add('ready');
+      $('voiceMetaText').textContent=capabilities.voice_name||'الصوت متصل';
+    }else{
+      $('voiceMetaText').textContent=capabilities.tts_provider==='munsit'?'مها · تحتاج إعداد منصت':'الصوت الحالي: جهازك (تجريبي)';
+    }
+  }catch{
+    $('voiceMetaText').textContent='صوت تجريبي من الجهاز';
+  }
 }
 
 function initStageWebgl(){const c=$('stageWebgl'); if(!c) return; const gl=c.getContext('webgl',{premultipliedAlpha:true,antialias:true}); if(!gl) return; const vert=`attribute vec2 p;void main(){gl_Position=vec4(p,0.0,1.0);}`; const frag=`precision mediump float; uniform vec2 r; uniform float t; void main(){ vec2 uv=(gl_FragCoord.xy*2.0-r)/min(r.x,r.y); float d=length(uv); float a=0.18/(d*2.2+0.22); vec2 p1=uv-vec2(0.35*sin(t*0.6),0.18*cos(t*0.7)); vec2 p2=uv+vec2(0.28*cos(t*0.45),0.22*sin(t*0.5)); float g1=0.16/((length(p1)*3.0)+0.18); float g2=0.13/((length(p2)*3.0)+0.18); vec3 col=vec3(0.72,0.44,0.95)*a + vec3(1.0,0.67,0.84)*g1 + vec3(0.62,0.40,0.90)*g2; gl_FragColor=vec4(col, min(0.55, a+g1+g2));}`; function compile(type,src){const s=gl.createShader(type); gl.shaderSource(s,src); gl.compileShader(s); return s;} const prog=gl.createProgram(); gl.attachShader(prog,compile(gl.VERTEX_SHADER,vert)); gl.attachShader(prog,compile(gl.FRAGMENT_SHADER,frag)); gl.linkProgram(prog); gl.useProgram(prog); const buf=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,buf); gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW); const loc=gl.getAttribLocation(prog,'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0); const rLoc=gl.getUniformLocation(prog,'r'); const tLoc=gl.getUniformLocation(prog,'t'); function resize(){const dpr=Math.min(window.devicePixelRatio||1,2); const w=c.clientWidth||c.parentElement.clientWidth; const h=c.clientHeight||c.parentElement.clientHeight; c.width=w*dpr; c.height=h*dpr; gl.viewport(0,0,c.width,c.height);} resize(); window.addEventListener('resize',resize); function draw(ms){gl.clearColor(0,0,0,0); gl.clear(gl.COLOR_BUFFER_BIT); gl.uniform2f(rLoc,c.width,c.height); gl.uniform1f(tLoc,ms*0.001); gl.drawArrays(gl.TRIANGLE_STRIP,0,4); requestAnimationFrame(draw);} requestAnimationFrame(draw);}
-bind();renderIntro(false);checkCapabilities();initStageWebgl();
+bind();renderIntro(false);checkCapabilities();checkModelHealth();initStageWebgl();

@@ -37,3 +37,10 @@ __pycache__/
 *.m4a
 *.pcm
 *.webm
+
+# Approved training data, provider weights, and private run artifacts
+.labeq-private/
+LABEQ_Approved_Training_Data.zip
+LABEQ_Saudi_LoRA_v2/
+training/data/
+training/runs/

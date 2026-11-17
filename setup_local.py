@@ -1,7 +1,6 @@
-"""Create V12's private local-only model settings without modifying V11."""
+"""Write private loopback model settings."""
 from pathlib import Path
 from secrets import token_urlsafe
-import os
 ROOT=Path(__file__).resolve().parent
 p=ROOT/'.env'
 if p.exists():
@@ -18,4 +17,4 @@ lines=[l for l in lines if not l.startswith(reserved)]
 lines.extend(['LABEQ_MODEL_API_URL=http://127.0.0.1:7862','LABEQ_MODEL_API_KEY='+key,'LABEQ_MODEL_MODE=real'])
 p.write_text('\n'.join(lines).rstrip()+'\n')
 p.chmod(0o600)
-print('✅ V12 مجهز للـAPI المحلي فقط. لم نغيّر أي ملف في V11 أو Colab.')
+print('✅ تم تجهيز إعدادات خادم الاستدلال المحلي.')
