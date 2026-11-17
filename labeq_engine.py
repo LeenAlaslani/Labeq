@@ -22,6 +22,7 @@ STYLE_OPTIONS = [
     ("apology", "الاعتذار عن خطأ"),
     ("clarify", "طلب توضيح أو معلومات إضافية"),
 ]
+FAISAL_OPTIONS = [*STYLE_OPTIONS, ("insufficient", "المعلومات غير كافية لاختيار أسلوب مناسب")]
 STYLE_LABELS = {"polite": "لطيف", "firm": "واضح", "diplomatic": "لبق", "apology": "لبق", "clarify": "واضح"}
 STYLE_AR = {"polite": "لطيف", "firm": "حازم", "diplomatic": "دبلوماسي", "apology": "اعتذار", "clarify": "طلب توضيح"}
 ALLOWED_USER_STYLES = {"تلقائي", "لبق", "لطيف", "عفوي", "رسمي", "واضح", "حازم", "دبلوماسي", "اعتذار", "طلب توضيح", "مختصر"}
@@ -91,7 +92,7 @@ def make_faisal_task(message: str, relation: str, goal: str) -> dict[str, Any]:
         "question": "ما أسلوب التواصل الأنسب لتحقيق هدف المستخدم؟",
         "options": [
             {"label": chr(65 + i), "key": key, "description": desc}
-            for i, (key, desc) in enumerate(STYLE_OPTIONS)
+            for i, (key, desc) in enumerate(FAISAL_OPTIONS)
         ],
     }
 
@@ -185,16 +186,19 @@ class LabeqEngine:
                 task = make_faisal_task(message, relation, goal)
                 inputs = self._inputs([
                     {"role": "system", "content": FAISAL_SYSTEM},
-                    {"role": "user", "content": json.dumps(task, ensure_ascii=False)},
+                    {"role": "user", "content": json.dumps(task, ensure_ascii=False, separators=(",", ":"))},
                 ])
-                ids = [self.processor.encode(chr(65 + i), add_special_tokens=False) for i in range(len(STYLE_OPTIONS))] if hasattr(self.processor, 'encode') else [self.processor.tokenizer.encode(chr(65 + i), add_special_tokens=False) for i in range(len(STYLE_OPTIONS))]
+                ids = [self.processor.encode(chr(65 + i), add_special_tokens=False) for i in range(len(FAISAL_OPTIONS))] if hasattr(self.processor, 'encode') else [self.processor.tokenizer.encode(chr(65 + i), add_special_tokens=False) for i in range(len(FAISAL_OPTIONS))]
                 if any(len(x) != 1 for x in ids):
-                    raise ValueError("Faisal labels A-E must be individual tokens")
+                    raise ValueError("Faisal option letters must be individual tokens")
                 with self.torch.inference_mode():
                     logits = self.model(**inputs).logits[0, -1].float()
                     scores = logits[[x[0] for x in ids]]
                     index = int(scores.argmax().item())
-                return STYLE_OPTIONS[index][0], "faisal"
+                style = FAISAL_OPTIONS[index][0]
+                if style == "insufficient":
+                    return infer_style_without_faisal(message, goal), "rule_fallback"
+                return style, "faisal"
             except Exception as err:
                 self.faisal_error = f"Faisal prediction failed: {type(err).__name__}: {str(err)[:200]}"
                 return infer_style_without_faisal(message, goal), "rule_fallback"

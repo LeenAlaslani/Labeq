@@ -1,36 +1,22 @@
-# LABEQ — model integration notes
+# LABEQ model card
 
-## Scope
+| Component | Role | Release evidence |
+| --- | --- | --- |
+| Qwen3.5-4B base | Context plan and draft review | Real local text inference via four-bit MLX |
+| Pilot Saudi LoRA | Response generation | Real local draft generation and original adapter verification |
+| Saudi LoRA v2 | Candidate response generator | See the [training report](training/README.md) for run status and held-out evidence |
+| Faisal | Automatic communication-style routing | Original published adapter ran on the local four-bit Qwen base. A LABEQ classification benchmark remains open. |
+| Rule router | Fallback after unavailable or insufficient Faisal decision | Returns `rule_fallback` and retains the original goal |
+| GitHub Pages | Public onboarding, sample replies, and coaching examples | Browser-only examples |
 
-The public repository includes **inference integration and research notebooks**, but no checkpoint files or benchmark results. Do not treat this repository as independent evidence of model performance.
+## Provenance and rights
 
-## Components
+[Qwen3.5-4B](https://huggingface.co/Qwen/Qwen3.5-4B) is Apache-2.0. [Faisal](https://huggingface.co/Omartificial-Intelligence-Space/ara-jev-Faisal) is Omer Nacar's Arabic-first, Jev-inspired Qwen3.5-4B decision model. The upstream project uses LoRA SFT with labeled decision tasks and CC BY-NC 4.0 weights. Experimental use on LABEQ adds five communication-style descriptions and an insufficient-information option. It preserves the published chat and next-token scoring contract. Attribution and noncommercial use apply to the original adapted weights.
 
-| Stage | Intended model/component | Status in public repository |
-|---|---|---|
-| Context intake | Arabic message, relationship and intent | Implemented in UI |
-| Style router | Faisal decision-making model | Code path described in research workflow; trained classification adapter **not included** |
-| Local style fallback | Explicit goal-to-style rules | Implemented and clearly identified as fallback |
-| Arabic reply generator | Qwen3.5-4B + Saudi PEFT LoRA | Inference integration and loading scripts; user-provided weights required |
-| Saudi voice | Munsit Maha | Optional external API; keys and voice audio not bundled |
+The pilot uses rank 16, alpha 16, zero dropout, and 256 LoRA tensors. The MLX loader maps PEFT weight names and orientations, validates pairs and shapes, and swaps just the adapter layers on a shared base. The original Faisal adapter used in local verification was revision `38849bdac4b7850c19587f78f5fe16c38adefac1`. It uses rank 32, alpha 64, and 496 tensors. The shared-base run uses quantized MLX weights. Upstream model-card metrics do not measure this quantized configuration on LABEQ scenarios.
 
-## Supplied adapter metadata (reviewed privately)
+Use of Munsit, ElevenLabs, and Azure voice features requires provider terms and credentials. The release distributes source code, fixture-based examples, and browser screenshots. The approved data and trained adapters remain private while redistribution rights are unresolved.
 
-The adapter supplied during development was a PEFT `CAUSAL_LM` LoRA adapter over `unsloth/Qwen3.5-4B`, with **rank 16**, **alpha 16**, **dropout 0**, and 256 LoRA matrices. The public repository does **not** redistribute that adapter. Adapter compatibility with a quantized MLX base model must be verified on the target hardware.
+## Limitations
 
-## Evaluation and reproduction
-
-- The project brief described five target communication-style labels: `polite`, `firm`, `diplomatic`, `apology`, and `clarify`.
-- A separate integrated notebook discusses additional historical experiments and data. Its historical experiment descriptions are **not** a standalone, independently verified benchmark in this repository.
-- No before/after accuracy, macro F1, confusion matrix, or final held-out prediction table is asserted here.
-- The original dataset, verified evaluation artifacts, and trained Faisal classification adapter are not in this public export.
-- To reproduce classification fine-tuning, first add the licensed dataset and training/evaluation code, isolate a held-out split, and report actual metrics.
-- To reproduce generation, obtain the adapter via a permitted private transfer, select a compatible base-model version, then run the Colab notebook or the local MLX adapter workflow.
-
-## Known reliability limitation
-
-Some Apple Silicon/MLX-VLM versions raise thread-scoped stream exceptions when the model is loaded in one thread and generated in another. `local_mlx_server.py` includes async startup and request handling in the source to address the observed mismatch; this is a targeted source patch, **not proof** that every MLX-VLM version will run correctly. Verify inference with `verify_local_model.py` before any showcase.
-
-## Disclaimer
-
-Suggested replies are language assistance only. They are not guaranteed to be culturally appropriate, risk-free, or free from errors. Always review before sending.
+Saudi Arabic register varies across speakers and regions. Short prompts can leave the relationship or goal underspecified. A draft can introduce stiff phrasing, an unsupported promise, or a shift in intent. Model-based review shares the generator's base and does not establish human agreement. Judge output against the situation before sending.
