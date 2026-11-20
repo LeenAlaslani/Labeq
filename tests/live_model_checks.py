@@ -3,6 +3,10 @@ import argparse
 import json
 from pathlib import Path
 import time
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from model_bridge import request_payload
 
 import httpx
 
@@ -57,15 +61,29 @@ def main():
         health = client.get("/api/model-health")
         health.raise_for_status()
         assert health.json()["model_loaded"] and health.json()["faisal_loaded"], health.json()
+        transport = client.get("/api/capabilities").json().get("model_transport")
         for case in SCENARIOS:
             if any(item["input"] == case for item in output):
                 continue
             started = time.monotonic()
-            response = client.post("/api/reply", json={
-                key: value for key, value in case.items() if key != "category"
-            })
-            response.raise_for_status()
-            result = response.json()
+            payload = {key: value for key, value in case.items() if key != "category"}
+            if transport == "gradio":
+                queued = client.post("/model/gradio_api/call/reply", json={"data": [
+                    request_payload(payload["message"], payload["relation"], payload["goal"])
+                ]})
+                queued.raise_for_status()
+                event_id = queued.json()["event_id"]
+                response = client.get("/model/gradio_api/call/reply/" + event_id)
+                response.raise_for_status()
+                complete = response.text.split("event: complete\ndata: ")
+                if len(complete) != 2:
+                    raise RuntimeError("Gradio generation did not complete: " + response.text[:400])
+                result = json.loads(complete[1].split("\n")[0])[0]
+                result.update(style=result["style_key"], mock=False)
+            else:
+                response = client.post("/api/reply", json=payload)
+                response.raise_for_status()
+                result = response.json()
             assert result["reply_source"] == "qwen_lora_generated" and result["mock"] is False
             assert result["router_source"] in {"faisal", "rule_fallback"}, result
             assert result["reply"].strip()

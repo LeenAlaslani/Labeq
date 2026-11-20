@@ -34,14 +34,25 @@ def onboard(page, screenshots=None):
     capture(page, screenshots, "situation")
 
 
+def model_response(response):
+    if "/model/gradio_api/call/reply/" in response.url:
+        import json
+        text = response.text()
+        completed = text.split("event: complete\ndata: ")
+        assert len(completed) == 2, text
+        result = json.loads(completed[1].split("\n")[0])[0]
+        return {**result, "style": result["style_key"], "mock": False}
+    return response.json()
+
+
 def real_flow(page, screenshots):
     onboard(page, screenshots)
     expect(page.locator("#dataBadge")).to_contain_text("Qwen", timeout=20000)
-    with page.expect_response(lambda res: res.url.endswith("/api/reply"), timeout=160000) as pending:
+    with page.expect_response(lambda res: res.url.endswith("/api/reply") or "/model/gradio_api/call/reply/" in res.url, timeout=160000) as pending:
         page.locator("#analyzeBtn").click()
     response = pending.value
     assert response.ok, response.text()
-    payload = response.json()
+    payload = model_response(response)
     assert payload["router_source"] == "faisal", payload
     assert payload["reply_source"] == "qwen_lora_generated" and not payload["mock"], payload
     chosen = page.locator("#replyText")
@@ -58,11 +69,11 @@ def real_flow(page, screenshots):
     page.locator("#replyOptions > summary").click()
     page.locator("#changeStyleBtn").click()
     style = "طلب توضيح" if payload["style"] != "clarify" else "دبلوماسي"
-    with page.expect_response(lambda res: res.url.endswith("/api/reply"), timeout=160000) as pending:
+    with page.expect_response(lambda res: res.url.endswith("/api/reply") or "/model/gradio_api/call/reply/" in res.url, timeout=160000) as pending:
         page.locator("#styleChoices").get_by_role("button", name=style, exact=True).click()
     response = pending.value
     assert response.ok, response.text()
-    second = response.json()
+    second = model_response(response)
     assert second["reply"] != payload["reply"] and second["router_source"] == "user_selected", second
     expect(chosen).to_have_text(second["reply"])
     page.locator("#coachCompare > summary").click()

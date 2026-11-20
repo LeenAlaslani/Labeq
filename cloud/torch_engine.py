@@ -32,17 +32,20 @@ class SpaceEngine(LabeqEngine):
             base_id = "Qwen/Qwen3.5-4B"
             tokenizer = AutoTokenizer.from_pretrained(base_id)
             base = AutoModelForImageTextToText.from_pretrained(
-                base_id, dtype=torch.bfloat16, device_map="cuda",
+                base_id, dtype=torch.bfloat16,
                 attn_implementation="eager",
             )
             model = PeftModel.from_pretrained(
                 base, str(self.adapter_dir), adapter_name="saudi", is_trainable=False,
+                torch_device="cpu",
             )
             # The original decision adapter is separate from the Saudi response adapter.
             model.load_adapter(
                 FAISAL_MODEL_ID, adapter_name="faisal", subfolder="adapter",
-                revision=FAISAL_REVISION, is_trainable=False,
+                revision=FAISAL_REVISION, is_trainable=False, torch_device="cpu",
             )
+            # Native safetensors reads stay on CPU, then ZeroGPU packs ordinary CUDA transfers.
+            model.to("cuda")
             model.set_adapter("saudi")
             model.eval()
             self.torch, self.model, self.processor = torch, model, tokenizer
