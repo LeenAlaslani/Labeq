@@ -6,7 +6,7 @@ from pathlib import Path
 import subprocess
 import tempfile
 
-from huggingface_hub import HfApi
+from huggingface_hub import CommitOperationAdd, HfApi
 
 
 def main():
@@ -49,8 +49,12 @@ def main():
             },
         }
         (directory / "source-manifest.json").write_text(json.dumps(manifest, indent=2))
-        commit = api.upload_folder(
-            repo_id=args.space, repo_type="space", folder_path=directory,
+        operations = [
+            CommitOperationAdd(path_in_repo=str(file.relative_to(directory)), path_or_fileobj=file)
+            for file in sorted(directory.rglob("*")) if file.is_file()
+        ]
+        commit = api.create_commit(
+            repo_id=args.space, repo_type="space", operations=operations,
             commit_message=f"Deploy LABEQ source {source[:12]} on ZeroGPU",
         )
         print(json.dumps({"space": args.space, "source_commit": source,
