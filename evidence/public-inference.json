@@ -1,0 +1,217 @@
+{
+  "tested_at_utc": "2026-11-20",
+  "url": "https://leeennn009-labeq.hf.space",
+  "source_commit": "dc5c4e629f4383c9c57cb0184ed82cc19dc1e047",
+  "hardware": "Hugging Face ZeroGPU (zero-a10g)",
+  "authentication": "First three cases anonymous; remaining four used a locally cached Hugging Face login after anonymous runs were exhausted. No tokens saved.",
+  "method": "Seven newly authored situations; original text, relationship and goal; real Gradio queued calls; no fixtures or saved replies substituted.",
+  "results": [
+    {
+      "input": {
+        "category": "friendship",
+        "message": "صديقتي فهمت كلامي في القروب على إنه تقليل منها وأنا قصدي أسأل بس. أبي أوضح قصدي ونحل سوء الفهم.",
+        "relation": "friend",
+        "goal": "أوضح قصدي بدون اتهام ونحل سوء الفهم بهدوء"
+      },
+      "result": {
+        "reply": "أعتذر إن كلامي أضحى يبدو مثل انتقاد، وأقصد فقط سؤالك.",
+        "style_used": "دبلوماسي",
+        "router_source": "faisal",
+        "reply_source": "qwen_lora_generated",
+        "style_key": "diplomatic",
+        "generator": "Qwen3.5-4B + Saudi LoRA pilot (Transformers, bfloat16)",
+        "coaching": {
+          "core": "اعتقدتُ أن سؤالك كان نفاقاً وتقليلاً مني.",
+          "objective": "توضيح نيتي الحقيقية كسؤال براءة دون اتهام.",
+          "strategy": "ابدأ المحادثة مباشرة بذكر نيتك بوضوح مع طلب العفو عن سوء الفهم.",
+          "risk": "لا تتوقع من الطرف الآخر قبول تفسيرك فوراً أو تغيير رأيه."
+        },
+        "review_status": "model_reviewed",
+        "needs_review": false,
+        "quality_warnings": [],
+        "was_retried": false,
+        "style": "diplomatic",
+        "mock": false
+      },
+      "seconds": 7.922
+    },
+    {
+      "input": {
+        "category": "repeated-boundary",
+        "message": "زميلتي كل يوم تطلب مني أكمل شغلها وأنا أتأخر في شغلي بسبب هالشي. أبي أوضح لها إن هالمساعدة ما تقدر تستمر.",
+        "relation": "work",
+        "goal": "أوضح حدودي وأوقف الطلبات اليومية بدون تجريح"
+      },
+      "result": {
+        "reply": "أقدر أساعدك أحيانًا، لكن ما أقدر أكون متاحة كل يوم، لازم نحدد وقتًا ثابتًا للمساعدة.",
+        "style_used": "حازم",
+        "router_source": "faisal",
+        "reply_source": "qwen_lora_generated",
+        "style_key": "firm",
+        "generator": "Qwen3.5-4B + Saudi LoRA pilot (Transformers, bfloat16)",
+        "coaching": {
+          "core": "الزميلة تطلب المساعدة بشكل يومي مما يؤخر إنجاز شغلي الخاص.",
+          "objective": "توضيح حدودي وإيقاف هذه الطلبات المتكررة دون استخدام لغة هجومية.",
+          "strategy": "إخبارها بوضوح أن وقتي محدود حالياً وأنني لا أستطيع قبول طلبات إضافية.",
+          "risk": "عدم وصف سلوكها بأنه \"غير أخلاقي\" أو \"خائن\"، لأن ذلك قد يثير دفاعاتها بدلاً من حل المشكلة."
+        },
+        "review_status": "model_reviewed",
+        "needs_review": false,
+        "quality_warnings": [],
+        "was_retried": true,
+        "style": "firm",
+        "mock": false
+      },
+      "seconds": 9.032
+    },
+    {
+      "input": {
+        "category": "family",
+        "message": "أختي تتصل علي وقت مذاكرتي كثير. أبي أقول لها إني أحتاج وقت المذاكرة بدون اتصالات مع الحفاظ على الود بيننا.",
+        "relation": "family",
+        "goal": "أحط حدود لوقت المذاكرة وأحافظ على علاقتنا"
+      },
+      "result": {
+        "reply": "أعتذر إنني أحتاج تركيز كامل على المذاكرة، وأفضل نكمل المحادثات بعد الانتهاء.",
+        "style_used": "حازم",
+        "router_source": "faisal",
+        "reply_source": "qwen_lora_generated",
+        "style_key": "firm",
+        "generator": "Qwen3.5-4B + Saudi LoRA pilot (Transformers, bfloat16)",
+        "coaching": {
+          "core": "تكرار أختك للمكالونات أثناء وقت مذاكرةك المحدد.",
+          "objective": "تحديد ساعات هادئة للمذاكرة مع الحفاظ على علاقة ودية.",
+          "strategy": "طلب محادثة قصيرة الآن لتوضيح مواعيد محددة لا تتجاوزها.",
+          "risk": "عدم استخدام لغة قاسية قد تُفسر كرفض للود بدلاً من احترام الحدود."
+        },
+        "review_status": "model_reviewed",
+        "needs_review": false,
+        "quality_warnings": [],
+        "was_retried": false,
+        "style": "firm",
+        "mock": false
+      },
+      "seconds": 5.962
+    },
+    {
+      "input": {
+        "category": "workplace",
+        "message": "مديري طلب تسليم التقرير بكرة وأنا باقي لي تحليل يحتاج يومين. أبي أوضح المدة الواقعية بدون ما أوعده بموعد ما أقدر عليه.",
+        "relation": "work",
+        "goal": "أتفاوض على موعد تسليم واقعي بطريقة مهنية"
+      },
+      "result": {
+        "reply": "التقرير يحتاج يومين للتحليل، وأقترح تسليمه غداً بعد الانتهاء.",
+        "style_used": "حازم",
+        "router_source": "faisal",
+        "reply_source": "qwen_lora_generated",
+        "style_key": "firm",
+        "generator": "Qwen3.5-4B + Saudi LoRA pilot (Transformers, bfloat16)",
+        "coaching": {
+          "core": "طلب المدير تقريراً اليوم بينما يحتاج التحليل يومين.",
+          "objective": "توضيح الموعد الفعلي للتسليم دون وعيد زائف.",
+          "strategy": "عرض الجدول الزمني الحالي مع اقتراح موعد تسليم واضح ومباشر.",
+          "risk": "عدم تقديم موعد وهمي قد يؤدي إلى خسارة الثقة عند التأخر لاحقاً."
+        },
+        "review_status": "flagged",
+        "needs_review": true,
+        "quality_warnings": [
+          "النبرة الحازمة تفتقر إلى الاحترافية المطلوبة في العلاقة مع المدير."
+        ],
+        "was_retried": true,
+        "style": "firm",
+        "mock": false
+      },
+      "seconds": 8.018
+    },
+    {
+      "input": {
+        "category": "apology",
+        "message": "نسيت موعدي مع صديقتي وخليتها تنتظر. أبي أعتذر عن نسياني وانتظارها بدون اختلاق عذر.",
+        "relation": "friend",
+        "goal": "أعتذر عن غلطتي وأوضح إني مقدرة وقتها"
+      },
+      "result": {
+        "reply": "ما شاء الله، ما كنت متأكدة من الموعد، وأعتذر إنك انتظرت.",
+        "style_used": "اعتذار",
+        "router_source": "faisal",
+        "reply_source": "qwen_lora_generated",
+        "style_key": "apology",
+        "generator": "Qwen3.5-4B + Saudi LoRA pilot (Transformers, bfloat16)",
+        "coaching": {
+          "core": "نسيان موعد مع صديقة وتركها تنتظر.",
+          "objective": "الاعتذار بصدق وتوضيح القدرة على الالتزام بالوقت مستقبلاً.",
+          "strategy": "إرسال اعتذار مباشر يوضح النسيان دون إضافة أي عذر إضافي.",
+          "risk": "عدم محاولة تبرير النسيان بعذر خارجي قد يقلل من مصداقية الاعتذار."
+        },
+        "review_status": "flagged",
+        "needs_review": true,
+        "quality_warnings": [
+          "الرسالة تفتقر إلى التأكيد الصريح على قدرتك على الالتزام بالموعد مستقبلاً."
+        ],
+        "was_retried": true,
+        "style": "apology",
+        "mock": false
+      },
+      "seconds": 8.655
+    },
+    {
+      "input": {
+        "category": "clarification",
+        "message": "المشرفة قالت لي أرسلي الملف قريب وما حددت أي نسخة أو الموعد. أبي أسألها عن النسخة والوقت المطلوب.",
+        "relation": "work",
+        "goal": "أطلب توضيح النسخة المطلوبة وموعد التسليم"
+      },
+      "result": {
+        "reply": "مشرفة، ممكن توضحين لي النسخة المطلوبة والوقت اللي لازم أخلص فيه؟",
+        "style_used": "طلب توضيح",
+        "router_source": "faisal",
+        "reply_source": "qwen_lora_generated",
+        "style_key": "clarify",
+        "generator": "Qwen3.5-4B + Saudi LoRA pilot (Transformers, bfloat16)",
+        "coaching": {
+          "core": "طلبت من المشرفة إرسال ملف دون تحديد النسخة أو الموعد.",
+          "objective": "الحصول على توضيح دقيق للنسخة المطلوبة وموعد التسليم.",
+          "strategy": "سؤال المشرفة بوضوح عن النسخة النهائية والوقت المتاح للإرسال.",
+          "risk": "عدم فرض موعد أو نسخة معينة دون استشارة المشرفة أولاً."
+        },
+        "review_status": "model_reviewed",
+        "needs_review": false,
+        "quality_warnings": [],
+        "was_retried": false,
+        "style": "clarify",
+        "mock": false
+      },
+      "seconds": 5.324
+    },
+    {
+      "input": {
+        "category": "customer",
+        "message": "عميلة تسأل متى نوصل طلبها وأنا ما عندي موعد مؤكد من الشحن. أبي أرد عليها بوضوح بدون ما أخترع موعد.",
+        "relation": "customer",
+        "goal": "أوضح إن الموعد غير مؤكد بدون وعد أو معلومة مخترعة"
+      },
+      "result": {
+        "reply": "أعتذر عن التأخير، لكننا ما نعرف مواعيد الشحن بعد ما نطلع من المصنع.",
+        "style_used": "لبق",
+        "router_source": "rule_fallback",
+        "reply_source": "qwen_lora_generated",
+        "style_key": "polite",
+        "generator": "Qwen3.5-4B + Saudi LoRA pilot (Transformers, bfloat16)",
+        "coaching": {
+          "core": "عدم وجود موعد شحن مؤكد للعميلة.",
+          "objective": "توضيح حالة الطلب دون تقديم موعد وهمي.",
+          "strategy": "إخبار العميل بأن التوصيل يعتمد على الجدول الزمني الفعلي للشحن.",
+          "risk": "لا تتوقعي مواعيد محددة قد لا تكون صحيحة لاحقاً."
+        },
+        "review_status": "model_reviewed",
+        "needs_review": false,
+        "quality_warnings": [],
+        "was_retried": false,
+        "style": "polite",
+        "mock": false
+      },
+      "seconds": 10.532
+    }
+  ]
+}

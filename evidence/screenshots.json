@@ -1,0 +1,89 @@
+{
+  "captured_date_saudi": "2026-11-21",
+  "git_source": "21fcf831dc3fbbdb0c75d4881a0c9a5283bb1473",
+  "space_revision": "8ba257bc73da8997647f5f93ce13162a451bb912",
+  "method": "Playwright driving Chrome; real queued inference with local HF login; no substituted responses; screenshots directly saved from rendered pages",
+  "screenshots": [
+    {
+      "file": "screenshots/release-coaching.png",
+      "sha256": "f58c3583247f7013aa8f995eed3ca203e569fa5d3feb8c62fbd3e62915d608c4",
+      "size": [
+        1440,
+        1084
+      ],
+      "source": "https://leeennn009-labeq.hf.space/"
+    },
+    {
+      "file": "screenshots/release-generated-reply.png",
+      "sha256": "ffb9a494ce116c0a9733f15a852dcf1e158c3176776f44c53506e69e4568acb3",
+      "size": [
+        1440,
+        967
+      ],
+      "source": "https://leeennn009-labeq.hf.space/"
+    },
+    {
+      "file": "screenshots/release-goal.png",
+      "sha256": "5c579376ceec8835a9e0451a052cda90beb8f912d634a6aa9f31e808ec8355a7",
+      "size": [
+        1440,
+        960
+      ],
+      "source": "https://leeennn009-labeq.hf.space/"
+    },
+    {
+      "file": "screenshots/release-mobile-demo.png",
+      "sha256": "658999ae4e797b2ff7bacfb7b5369991715970c2f3029af3d5e8bf31e66fd3d2",
+      "size": [
+        1170,
+        3939
+      ],
+      "source": "local archived written-example preview"
+    },
+    {
+      "file": "screenshots/release-mobile-public.png",
+      "sha256": "b5763228a87b484be8df35e7307a5c4b1dcacae0950c08158e4b856266dc93fb",
+      "size": [
+        1170,
+        3909
+      ],
+      "source": "https://leeennn009-labeq.hf.space/"
+    },
+    {
+      "file": "screenshots/release-onboarding.png",
+      "sha256": "c30a68de872c46af30752c993430840305c71c85db7944ab0098e8c5a725981a",
+      "size": [
+        1440,
+        960
+      ],
+      "source": "https://leeennn009-labeq.hf.space/"
+    },
+    {
+      "file": "screenshots/release-relationship.png",
+      "sha256": "348c62fee8cc025494d537f9c4160d8f49e82110340d53e48df39a1c34a70278",
+      "size": [
+        1440,
+        960
+      ],
+      "source": "https://leeennn009-labeq.hf.space/"
+    },
+    {
+      "file": "screenshots/release-situation.png",
+      "sha256": "d85448be89696c1a269ac43b31c059af15cf26e470e92328371390b9bb446095",
+      "size": [
+        1440,
+        960
+      ],
+      "source": "https://leeennn009-labeq.hf.space/"
+    },
+    {
+      "file": "screenshots/release-style-comparison.png",
+      "sha256": "8b2db4d80a36617d1f61d803a5e34c401b1355640b6f4dc515f3f749050e1cd0",
+      "size": [
+        1440,
+        1326
+      ],
+      "source": "https://leeennn009-labeq.hf.space/"
+    }
+  ]
+}

@@ -32,4 +32,4 @@ jobs:
             curl --fail --silent http://127.0.0.1:8006/api/capabilities > /dev/null && break
             sleep 1
           done
-          python tests/browser_smoke.py --demo http://127.0.0.1:8080 --mock-web http://127.0.0.1:8006
+          python tests/browser_smoke.py --demo http://127.0.0.1:8080/preview.html --mock-web http://127.0.0.1:8006
