@@ -47,4 +47,4 @@ Use `--split 114` to evaluate the full test split. The evaluation saves raw outp
 
 ## Release evidence
 
-The Metal diagnostic completed on Apple M5. The full run and aggregate paired results are tracked in the release report. The local app screenshots use the already trained pilot adapter. Data files, raw outputs, and weights remain private.
+The full two-epoch run completed on Apple M5, followed by all 114 comparison generations across 38 shared held-out prompts. The [evaluation report](EVALUATION.md) records measured results, qualitative concerns, and the decision to retain the pilot baseline. Data files, raw outputs, and weights remain private.

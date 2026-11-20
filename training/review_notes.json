@@ -1,0 +1,327 @@
+{
+  "reviewer": "Codex qualitative review",
+  "review_date": "2026-11-21",
+  "scope": "All 114 saved outputs on 38 shared held-out prompts; no regenerated comparison outputs",
+  "independent_human_reviewers": 0,
+  "interpretation": "Notes record concerns noticed in an AI review. An empty note is not a human-validated pass.",
+  "input_conflicts": [
+    {
+      "case": 7,
+      "issue": "The situation names a guard, while the relationship field names a landlord."
+    },
+    {
+      "case": 8,
+      "issue": "The situation asks for a coffee invitation, while the generic goal says acceptance or apology."
+    },
+    {
+      "case": 28,
+      "issue": "The situation asks to accept offered help, while the generic goal says asking for a favor."
+    }
+  ],
+  "cases": [
+    {
+      "case": 1,
+      "concerns": {
+        "base": "",
+        "pilot": "",
+        "v2": ""
+      }
+    },
+    {
+      "case": 2,
+      "concerns": {
+        "base": "Addresses the relative as the patient and uses bereavement wording.",
+        "pilot": "Addresses the relative as the patient and adds an unrelated apology.",
+        "v2": "Addresses the relative as the patient and uses bereavement wording."
+      }
+    },
+    {
+      "case": 3,
+      "concerns": {
+        "base": "Awkward congratulation wording.",
+        "pilot": "",
+        "v2": ""
+      }
+    },
+    {
+      "case": 4,
+      "concerns": {
+        "base": "Adds today and describes completing a shift rather than declining it.",
+        "pilot": "",
+        "v2": ""
+      }
+    },
+    {
+      "case": 5,
+      "concerns": {
+        "base": "Repeats the request to thank the team as if it were the message.",
+        "pilot": "Agreement error and unsupported claim of event success.",
+        "v2": "Addresses one person although the situation describes a team."
+      }
+    },
+    {
+      "case": 6,
+      "concerns": {
+        "base": "Unclear speaker perspective for replying to the customer.",
+        "pilot": "Writes as the customer asking about their own account.",
+        "v2": ""
+      }
+    },
+    {
+      "case": 7,
+      "concerns": {
+        "base": "Misreads أبي as a form of address and uses awkward phrasing.",
+        "pilot": "Repeats thanks.",
+        "v2": "Adds today."
+      }
+    },
+    {
+      "case": 8,
+      "concerns": {
+        "base": "Unnatural invitation and mismatched recipients.",
+        "pilot": "Changes a coffee invitation into a work meeting.",
+        "v2": "Changes a coffee invitation into a meeting."
+      }
+    },
+    {
+      "case": 9,
+      "concerns": {
+        "base": "Mixed dialect and incoherent wording.",
+        "pilot": "Incoherent sentence structure.",
+        "v2": "Replaces the complaint about gratitude with disagreement and an invented insult."
+      }
+    },
+    {
+      "case": 10,
+      "concerns": {
+        "base": "",
+        "pilot": "",
+        "v2": "Ambiguous condition around whether the work is complete."
+      }
+    },
+    {
+      "case": 11,
+      "concerns": {
+        "base": "Reverses the speaker into the driver and invents travel arrangements.",
+        "pilot": "Unnatural wording about reducing the car's speed.",
+        "v2": "Generic safety request omits the immediate passenger concern."
+      }
+    },
+    {
+      "case": 12,
+      "concerns": {
+        "base": "Adds broad promises of ongoing support.",
+        "pilot": "Gender agreement changes within the sentence.",
+        "v2": "Unnatural تتفككين القرار and unsolicited advice to consult family."
+      }
+    },
+    {
+      "case": 13,
+      "concerns": {
+        "base": "Claims a detailed report was already submitted.",
+        "pilot": "",
+        "v2": "Changes an empty page into an error message."
+      }
+    },
+    {
+      "case": 14,
+      "concerns": {
+        "base": "Generic response omits the request to speak privately.",
+        "pilot": "",
+        "v2": ""
+      }
+    },
+    {
+      "case": 15,
+      "concerns": {
+        "base": "Invents organizational standards.",
+        "pilot": "Incomplete أشكر construction.",
+        "v2": ""
+      }
+    },
+    {
+      "case": 16,
+      "concerns": {
+        "base": "",
+        "pilot": "Asks to delete your email rather than my email.",
+        "v2": "Grammar errors and adds a condition to deletion."
+      }
+    },
+    {
+      "case": 17,
+      "concerns": {
+        "base": "",
+        "pilot": "",
+        "v2": ""
+      }
+    },
+    {
+      "case": 18,
+      "concerns": {
+        "base": "Includes unresolved placeholders and an unsupported delivery promise.",
+        "pilot": "Invents personal reasons.",
+        "v2": "Invents exceptional circumstances."
+      }
+    },
+    {
+      "case": 19,
+      "concerns": {
+        "base": "Egyptian markers and incoherent ending.",
+        "pilot": "Overly formal for a friend and adds today.",
+        "v2": ""
+      }
+    },
+    {
+      "case": 20,
+      "concerns": {
+        "base": "Unfilled amount placeholder.",
+        "pilot": "",
+        "v2": "Awkward repayment-date wording."
+      }
+    },
+    {
+      "case": 21,
+      "concerns": {
+        "base": "Repeats the situation and misreads أبي.",
+        "pilot": "A proverb replaces the requested boundary.",
+        "v2": "Vague request for gentler joking weakens the explicit excess boundary."
+      }
+    },
+    {
+      "case": 22,
+      "concerns": {
+        "base": "Awkward wording and open-ended service promise.",
+        "pilot": "Wishes the customer a break instead of responding to thanks.",
+        "v2": "Awkward acknowledgement of customer happiness."
+      }
+    },
+    {
+      "case": 23,
+      "concerns": {
+        "base": "Adds a demand not to change the schedule.",
+        "pilot": "",
+        "v2": ""
+      }
+    },
+    {
+      "case": 24,
+      "concerns": {
+        "base": "Claims a format was already sent.",
+        "pilot": "Invents comparing solutions as the purpose.",
+        "v2": ""
+      }
+    },
+    {
+      "case": 25,
+      "concerns": {
+        "base": "Treats the neighbor's belongings as the speaker's.",
+        "pilot": "Reverses belongings ownership and adds an apology.",
+        "v2": "Asks to review the items rather than clearly move them."
+      }
+    },
+    {
+      "case": 26,
+      "concerns": {
+        "base": "Adds an immediate response commitment.",
+        "pilot": "",
+        "v2": "Invents a request for additional information."
+      }
+    },
+    {
+      "case": 27,
+      "concerns": {
+        "base": "Unnatural comparison construction.",
+        "pilot": "Apologizes for making the comparison, reversing roles.",
+        "v2": "Unnatural قصديك."
+      }
+    },
+    {
+      "case": 28,
+      "concerns": {
+        "base": "Delays accepting help.",
+        "pilot": "Adds an evaluation requirement before accepting help.",
+        "v2": ""
+      }
+    },
+    {
+      "case": 29,
+      "concerns": {
+        "base": "Invents an alternate sharing channel.",
+        "pilot": "Ambiguous apology for opening a link.",
+        "v2": ""
+      }
+    },
+    {
+      "case": 30,
+      "concerns": {
+        "base": "",
+        "pilot": "Tautology weakens the request for time alone.",
+        "v2": "Changes reviewing the decision alone into reviewing it before sharing."
+      }
+    },
+    {
+      "case": 31,
+      "concerns": {
+        "base": "Says documents were received rather than sent.",
+        "pilot": "Generic review request omits asking about progress.",
+        "v2": "Repeats submission without a follow-up question."
+      }
+    },
+    {
+      "case": 32,
+      "concerns": {
+        "base": "Contradicts inability to meet the deadline.",
+        "pilot": "Unnatural phrase about apologizing for commitment.",
+        "v2": ""
+      }
+    },
+    {
+      "case": 33,
+      "concerns": {
+        "base": "Invents a personal reason and a confirmation promise.",
+        "pilot": "Unnatural التأجيل عن construction.",
+        "v2": ""
+      }
+    },
+    {
+      "case": 34,
+      "concerns": {
+        "base": "Asks to confirm arrival now rather than asking the arrival time.",
+        "pilot": "Reschedules instead of asking when the friend will arrive.",
+        "v2": ""
+      }
+    },
+    {
+      "case": 35,
+      "concerns": {
+        "base": "Egyptian phrasing and incoherent wording.",
+        "pilot": "Formal apology replaces a conversational boundary.",
+        "v2": "Garbled wording fails to set a late-night calling boundary."
+      }
+    },
+    {
+      "case": 36,
+      "concerns": {
+        "base": "Adds accusations and unsupported effects on the schedule.",
+        "pilot": "Confuses the buyer's and seller's receipt of the item.",
+        "v2": ""
+      }
+    },
+    {
+      "case": 37,
+      "concerns": {
+        "base": "",
+        "pilot": "Omits the in-person requirement.",
+        "v2": ""
+      }
+    },
+    {
+      "case": 38,
+      "concerns": {
+        "base": "Commits to taking over the work before clarifying the handover.",
+        "pilot": "",
+        "v2": ""
+      }
+    }
+  ]
+}

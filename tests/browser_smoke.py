@@ -19,7 +19,8 @@ def onboard(page, screenshots=None):
     expect(page.locator("html")).to_have_attribute("dir", "rtl")
     expect(page.locator("#nextBtn")).to_be_disabled()
     # Disable automatic playback while keeping voice actions available.
-    page.locator("#muteBtn").click()
+    if page.locator("#muteBtn").is_enabled():
+        page.locator("#muteBtn").click()
     capture(page, screenshots, "onboarding")
     page.get_by_role("textbox", name="اسمك", exact=True).fill("لين")
     page.locator("#nextBtn").click()
@@ -33,14 +34,25 @@ def onboard(page, screenshots=None):
     capture(page, screenshots, "situation")
 
 
+def model_response(response):
+    if "/model/gradio_api/call/reply/" in response.url:
+        import json
+        text = response.text()
+        completed = text.split("event: complete\ndata: ")
+        assert len(completed) == 2, text
+        result = json.loads(completed[1].split("\n")[0])[0]
+        return {**result, "style": result["style_key"], "mock": False}
+    return response.json()
+
+
 def real_flow(page, screenshots):
     onboard(page, screenshots)
     expect(page.locator("#dataBadge")).to_contain_text("Qwen", timeout=20000)
-    with page.expect_response(lambda res: res.url.endswith("/api/reply"), timeout=160000) as pending:
+    with page.expect_response(lambda res: res.url.endswith("/api/reply") or "/model/gradio_api/call/reply/" in res.url, timeout=160000) as pending:
         page.locator("#analyzeBtn").click()
     response = pending.value
     assert response.ok, response.text()
-    payload = response.json()
+    payload = model_response(response)
     assert payload["router_source"] == "faisal", payload
     assert payload["reply_source"] == "qwen_lora_generated" and not payload["mock"], payload
     chosen = page.locator("#replyText")
@@ -57,11 +69,11 @@ def real_flow(page, screenshots):
     page.locator("#replyOptions > summary").click()
     page.locator("#changeStyleBtn").click()
     style = "طلب توضيح" if payload["style"] != "clarify" else "دبلوماسي"
-    with page.expect_response(lambda res: res.url.endswith("/api/reply"), timeout=160000) as pending:
+    with page.expect_response(lambda res: res.url.endswith("/api/reply") or "/model/gradio_api/call/reply/" in res.url, timeout=160000) as pending:
         page.locator("#styleChoices").get_by_role("button", name=style, exact=True).click()
     response = pending.value
     assert response.ok, response.text()
-    second = response.json()
+    second = model_response(response)
     assert second["reply"] != payload["reply"] and second["router_source"] == "user_selected", second
     expect(chosen).to_have_text(second["reply"])
     page.locator("#coachCompare > summary").click()
@@ -112,20 +124,54 @@ def demo_flow(page, screenshots):
             }
         };
     }""")
-    page.locator("#listenReplyBtn").click()
-    assert page.evaluate("window.testSpokenText") == page.locator("#replyText").inner_text()
+    expect(page.locator("#listenReplyBtn")).to_be_disabled()
+    expect(page.locator("#voiceMetaText")).to_contain_text("صوت مها غير متاح")
+    assert page.evaluate("window.testSpokenText") is None
     page.locator("#editScenarioBtn").click()
     page.locator("#micBtn").click()
     expect(page.locator("#scenarioInput")).to_have_value(re.compile("ونسمع وجهات نظر بعض"))
     assert not external_api
 
 
+def duplicate_variant_flow(page, url):
+    """Verify the app keeps the reply and its style when a rewrite repeats it."""
+    fixture = {
+        "reply": "ودي نسمع بعض ونتفاهم بهدوء على اللي صار.",
+        "reply_source": "qwen_lora_generated",
+        "mock": False,
+    }
+
+    def model_route(route):
+        payload = route.request.post_data_json
+        style = payload["style_key"]
+        route.fulfill(json={
+            **fixture, "style": style or "diplomatic",
+            "router_source": "user_selected" if style else "faisal",
+        })
+
+    page.route("**/api/reply", model_route)
+    page.goto(url, wait_until="networkidle")
+    onboard(page)
+    page.locator("#analyzeBtn").click()
+    expect(page.locator("#replyText")).to_have_text(fixture["reply"])
+    expect(page.locator("#stylePill")).to_have_text("دبلوماسي")
+    page.locator("#replyOptions > summary").click()
+    page.locator("#changeStyleBtn").click()
+    page.locator("#styleChoices").get_by_role("button", name="حازم", exact=True).click()
+    expect(page.locator("#toast")).to_contain_text("الصياغة قريبة من الرد السابق")
+    expect(page.locator("#stylePill")).to_have_text("دبلوماسي")
+    expect(page.locator("#replyText")).to_have_text(fixture["reply"])
+    print("Duplicate style rewrite was rejected in the browser fixture test.")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--real")
     parser.add_argument("--demo", required=True)
+    parser.add_argument("--mock-web", help="Test duplicate rewrite handling against this FastAPI web URL")
     parser.add_argument("--chrome")
     parser.add_argument("--screenshots", type=Path)
+    parser.add_argument("--hf-auth", action="store_true", help="Use local HF auth only for the LABEQ Space")
     args = parser.parse_args()
     if args.screenshots:
         args.screenshots.mkdir(parents=True, exist_ok=True)
@@ -135,12 +181,26 @@ def main():
             desktop = browser.new_context(viewport={"width": 1440, "height": 960},
                                           permissions=["clipboard-read", "clipboard-write"])
             page = desktop.new_page()
+            if args.hf_auth:
+                if args.real.rstrip("/") != "https://leeennn009-labeq.hf.space":
+                    raise ValueError("HF credentials are restricted to the LABEQ Space")
+                from huggingface_hub import get_token
+                token = get_token()
+                if not token:
+                    raise RuntimeError("Authenticate with hf auth login first")
+                page.route("https://leeennn009-labeq.hf.space/**", lambda route: route.continue_(
+                    headers={**route.request.headers, "Authorization": "Bearer " + token}
+                ))
             errors = []
             page.on("pageerror", lambda error: errors.append(str(error)))
             page.goto(args.real, wait_until="networkidle")
             real_flow(page, args.screenshots)
             assert not errors, errors
             desktop.close()
+        if args.mock_web:
+            page = browser.new_page()
+            duplicate_variant_flow(page, args.mock_web)
+            page.close()
         mobile = browser.new_context(**playwright.devices["iPhone 13"])
         page = mobile.new_page()
         errors = []
@@ -148,6 +208,23 @@ def main():
         page.goto(args.demo, wait_until="networkidle")
         demo_flow(page, args.screenshots)
         assert not errors, errors
+        if args.real:
+            page = mobile.new_page()
+            if args.hf_auth:
+                page.route("https://leeennn009-labeq.hf.space/**", lambda route: route.continue_(
+                    headers={**route.request.headers, "Authorization": "Bearer " + token}
+                ))
+            page.goto(args.real, wait_until="networkidle")
+            onboard(page)
+            with page.expect_response(lambda res: "/model/gradio_api/call/reply/" in res.url or res.url.endswith("/api/reply"), timeout=160000) as pending:
+                page.locator("#analyzeBtn").click()
+            payload = model_response(pending.value)
+            assert payload["reply_source"] == "qwen_lora_generated" and payload["router_source"] == "faisal", payload
+            expect(page.locator("#replyText")).to_have_text(payload["reply"])
+            assert page.evaluate("document.documentElement.scrollWidth <= innerWidth")
+            expect(page.locator("#listenReplyBtn")).to_be_disabled()
+            capture(page, args.screenshots, "mobile-public")
+            print("Public mobile inference and inactive Maha controls passed.")
         print("Browser smoke passed for", "desktop real inference and mobile demo" if args.real else "mobile demo")
 
 

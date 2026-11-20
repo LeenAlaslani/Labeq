@@ -10,6 +10,7 @@ from xml.sax.saxutils import escape
 from pathlib import Path
 from typing import Literal
 from model_bridge import remote_reply, remote_style, remote_health, configured, request_payload
+from setup_munsit import get_voice_list, select_maha
 
 import httpx
 from dotenv import load_dotenv
@@ -39,11 +40,12 @@ ALLOWED_MUNSIT_BASES = {
 API_KEY = os.environ.get("ELEVENLABS_API_KEY", "").strip()
 VOICE_ID = os.environ.get("ELEVENLABS_VOICE_ID", "").strip()
 TTS_MODEL = os.environ.get("ELEVENLABS_MODEL_ID", "eleven_multilingual_v2").strip()
+VOICE_ENABLED = os.environ.get("LABEQ_VOICE_ENABLED", "1") == "1"
 MODEL_MODE = os.environ.get("LABEQ_MODEL_MODE", "real" if configured() else "demo").lower()
 
 app = FastAPI(title="LABEQ Experience", version="0.1.0")
 REQUEST_LIMIT = max(0, int(os.getenv("LABEQ_REQUESTS_PER_MINUTE", "30")))
-LIMITED_PATHS = {"/api/reply", "/api/predict", "/api/speak", "/api/transcribe"}
+LIMITED_PATHS = {"/api/reply", "/api/predict", "/api/speak", "/api/transcribe", "/model/gradio_api/call/reply"}
 request_windows = OrderedDict()
 
 
@@ -108,6 +110,11 @@ def client_script():
     return FileResponse(ROOT / "app.js", media_type="text/javascript")
 
 
+@app.get("/space_client.js")
+def space_client_script():
+    return FileResponse(ROOT / "space_client.js", media_type="text/javascript")
+
+
 @app.get("/coach.js")
 def communication_coach_script():
     return FileResponse(ROOT / "coach.js", media_type="text/javascript")
@@ -116,7 +123,10 @@ def communication_coach_script():
 @app.get("/api/capabilities")
 def capabilities():
     if TTS_PROVIDER == "munsit":
-        voice_enabled = bool(MUNSIT_API_KEY and MUNSIT_VOICE_ID and MUNSIT_BASE_URL in ALLOWED_MUNSIT_BASES)
+        voice_enabled = bool(
+            MUNSIT_API_KEY and MUNSIT_VOICE_ID and MUNSIT_BASE_URL in ALLOWED_MUNSIT_BASES
+            and monotonic() >= getattr(app.state, "voice_retry_after", 0)
+        )
         voice_label = "مها · نجدية — منصت"
     elif TTS_PROVIDER == "azure":
         voice_enabled = bool(AZURE_KEY and AZURE_REGION)
@@ -127,18 +137,24 @@ def capabilities():
     else:
         voice_enabled = False
         voice_label = "صوت غير مهيأ"
+    voice_enabled = voice_enabled and VOICE_ENABLED
+    gradio_model = getattr(app.state, "gradio_model", None)
     return {
+        "model_transport": "gradio" if gradio_model else "http",
         "tts": voice_enabled,
         "tts_provider": TTS_PROVIDER,
         "voice_name": voice_label,
         "stt": bool(API_KEY),
-        "model_mode": "real" if configured() and MODEL_MODE == "real" else "demo",
-        "model_configured": configured(),
+        "model_mode": MODEL_MODE,
+        "model_configured": bool(gradio_model) or configured(),
     }
 
 
 @app.get("/api/model-health")
 async def model_health():
+    gradio_model = getattr(app.state, "gradio_model", None)
+    if gradio_model:
+        return {"configured": True, "reachable": True, **gradio_model}
     if MODEL_MODE != "real":
         return {"configured": False, "reachable": False, "model_loaded": False, "faisal_loaded": False}
     return await remote_health()
@@ -146,6 +162,8 @@ async def model_health():
 
 @app.post("/api/reply")
 async def reply_from_model(req: LabeqReplyRequest):
+    if getattr(app.state, "gradio_model", None):
+        raise HTTPException(409, "Use the queued /model/gradio_api/call/reply endpoint")
     if MODEL_MODE != "real":
         raise HTTPException(503, "المودل الحقيقي غير مفعّل. شغّلي خادم API على الماك أو Colab وربطيه بلبِق.")
     payload = request_payload(req.message, req.relation, req.goal, req.style_key, req.tone,
@@ -204,6 +222,14 @@ async def munsit_speak(text: str) -> dict:
     headers = {"x-api-key": MUNSIT_API_KEY, "Content-Type": "application/json"}
     try:
         async with httpx.AsyncClient(timeout=100.0) as client:
+            voices = await client.get(f"{MUNSIT_BASE_URL}/voices", headers=headers)
+            voices.raise_for_status()
+            try:
+                maha, _ = select_maha(get_voice_list(voices.json()))
+            except (ValueError, TypeError, AttributeError) as exc:
+                raise HTTPException(503, "Maha voice identity could not be verified.") from exc
+            if str(maha["voice_id"]) != MUNSIT_VOICE_ID:
+                raise HTTPException(503, "Configured voice does not match the approved Maha voice.")
             response = await client.post(f"{base}/with-timestamps", headers=headers, json=payload)
             if response.status_code == 400 and "timestamps are not available" in response.text.lower():
                 # Some models do not offer timings; still return real audio, never fake timestamps.
@@ -224,6 +250,7 @@ async def munsit_speak(text: str) -> dict:
         if status == 401:
             msg = "Munsit API key is not valid for this region."
         elif status == 402:
+            app.state.voice_retry_after = monotonic() + 300
             msg = "Munsit wallet has insufficient credits."
         elif status == 429:
             msg = "Munsit rate limit reached."
@@ -265,6 +292,8 @@ async def munsit_speak(text: str) -> dict:
 
 @app.post("/api/speak")
 async def speak(req: SpeechRequest):
+    if not VOICE_ENABLED:
+        raise HTTPException(503, "Maha voice is inactive.")
     if TTS_PROVIDER == "munsit":
         return await munsit_speak(req.text)
     if TTS_PROVIDER == "azure":

@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-mode="demo">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#251334" />
+  <meta name="description" content="لَبِق — مساعدة تفاعلية لاختيار أسلوب التواصل المناسب. اكتبي أو احكي موقفك." />
+  <title>لَبِق | وش ودّك تقول؟</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=16-verified" />
+</head>
+<body>
+<div class="app-shell">
+  <div class="light-orb orb-one"></div><div class="light-orb orb-two"></div>
+  <header class="topbar" aria-label="ترويسة لبق">
+    <a class="brand" href="#" aria-label="لبق - الرئيسية" id="brandBtn"><span class="brand-word">لبِق<span class="brand-dot">.</span></span><span class="brand-en">LABEQ</span></a>
+    <nav class="topnav" aria-label="مراحل التجربة">
+      <span class="nav-stage active" id="nav1"><span class="stage-icon">✦</span><span>التعارف</span></span>
+      <span class="nav-wire"></span>
+      <span class="nav-stage" id="nav2"><span class="stage-icon">◎</span><span>الموقف</span></span>
+      <span class="nav-wire"></span>
+      <span class="nav-stage" id="nav3"><span class="stage-icon">✧</span><span>الاقتراح</span></span>
+    </nav>
+    <div class="header-controls">
+      <button class="icon-button sound-control" id="muteBtn" type="button" title="تشغيل أو إيقاف صوت الشخصية" aria-label="تشغيل أو إيقاف الصوت" aria-pressed="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path class="soundwaves" d="M15 9a5 5 0 0 1 0 6m3-9a9 9 0 0 1 0 12"/></svg>
+      </button>
+      <button class="icon-button" id="restartBtn" type="button" title="بدء جديد" aria-label="ابدئي من جديد">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5V21h-6v-7H9v7H3z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="stage-panel" aria-label="شخصية لبق التفاعلية" id="stagePanel">
+      <canvas class="stage-webgl" id="stageWebgl" aria-hidden="true"></canvas><div class="stage-backdrop" aria-hidden="true"><div class="arched-window"><div class="sun"></div><div class="cityline"></div></div></div>
+      <div class="char-dialog reveal" id="charDialog" aria-live="polite" aria-atomic="true">
+        <span class="dialog-tag" id="dialogTag">أنا معك</span>
+        <p id="dialogText">يا هلا! أنا لبِق، مساعدك لاختيار طريقة الكلام المناسبة، مو بس كتابة رد.</p>
+        <button id="repeatBtn" type="button" aria-label="اسمعي كلام الشخصية مرة أخرى" title="إعادة الصوت">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M15 9a5 5 0 0 1 0 6"/></svg>
+        </button>
+      </div>
+      <div class="twinkle tw-a" aria-hidden="true">✦</div><div class="twinkle tw-b" aria-hidden="true">✳</div><div class="twinkle tw-c" aria-hidden="true">✧</div>
+      <div class="avatar-wrap exact-character" id="avatarWrap" data-mood="greet" data-speaking="false" role="img" aria-label="شخصية لبِق بالشعر الموف، مطابقة للرسم المختار مع حركة الفم واليد والتعابير">
+        <canvas id="character2d" width="704" height="650" aria-hidden="true"></canvas>
+      </div>
+      <div class="character-platform" aria-hidden="true"><div class="platform-glow"></div><div class="ring ring-a"></div><div class="ring ring-b"></div><div class="platform-core"></div></div>
+      <div class="voice-meta" id="voiceMeta"><span class="status-dot"></span><span id="voiceMetaText">صوت مها غير متاح حاليًا</span></div>
+    </section>
+
+    <section class="work-panel" aria-label="تجربة لبق">
+      <div class="work-surface">
+        <div class="intro-panel" id="introPanel">
+          <div class="section-eyebrow"><span class="eyebrow-line"></span><span id="introIndex">01 / 03</span></div>
+          <h1 id="introHeading">خلّينا نتعرّف.</h1>
+          <p class="intro-subline" id="introSubline">مساعدك لاختيار طريقة الكلام المناسبة، مو بس كتابة رد.</p>
+          <div class="step-content" id="stepContent"></div>
+          <div class="intro-foot">
+            <button type="button" id="prevBtn" class="text-button" hidden>رجوع</button>
+            <button type="button" id="nextBtn" class="primary-button">نكمل <span aria-hidden="true">←</span></button>
+          </div>
+          <button class="try-demo" id="quickDemoBtn" type="button">جرّبي بموقف جاهز <span aria-hidden="true">↗</span></button>
+        </div>
+
+        <div class="workspace" id="workspace" hidden>
+          <div class="profile-strip" id="profileStrip"><span class="profile-text" id="profileText"></span><button type="button" id="editProfileBtn" class="edit-text">تعديل</button></div>
+          <div class="scenario-summary" id="scenarioSummary" hidden>
+            <span class="scenario-summary-label">موقفك</span>
+            <p id="scenarioSummaryText"></p>
+            <button id="editScenarioBtn" type="button" class="edit-text">تعديل</button>
+          </div>
+          <div class="scenario-box" id="scenarioBox">
+            <div class="box-title"><h1>وش صار معك؟</h1><span class="box-mark">01</span></div>
+            <textarea id="scenarioInput" maxlength="1500" placeholder="اكتبي الموقف هنا..." rows="3" aria-label="الموقف"></textarea>
+            <div class="field-footer">
+              <div class="mic-controls">
+                <button type="button" id="micBtn" class="mic-button" aria-label="احكي الموقف بصوتك"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21m-4 0h8"/></svg><span id="micLabel">احكيه بصوتك</span></button>
+                <span class="recording-indicator" id="recIndicator" hidden>● أسمعك...</span>
+              </div>
+              <span class="input-hint" id="inputHint">أو اكتبي الموقف بطريقتك</span>
+            </div>
+          </div>
+          <div class="analysis-bar" id="analysisBar">
+            <button type="button" id="analyzeBtn" class="primary-button primary-wide">اقترحي لي ردًا <span aria-hidden="true">✦</span></button>
+            <span id="dataBadge" class="data-badge" role="status">جارِ فحص الاتصال...</span>
+          </div>
+          <div class="result-box" id="resultBox" aria-live="polite" hidden>
+            <div class="box-title result-title"><h2>ردّك المقترح</h2><span class="box-mark">عرض بأمثلة جاهزة</span></div>
+            <div class="empty-result" id="emptyResult"><span class="empty-glyph">✧</span><span>اقتراحك بيظهر هنا</span></div>
+            <div id="filledResult" hidden>
+              <div class="result-head"><span class="style-pill" id="stylePill">دبلوماسي</span><span class="recommend-label" id="recommendLabel">الأسلوب المقترح</span></div>
+              <p class="reply" id="replyText" dir="rtl"></p>
+              <p id="qualityAlert" class="quality-alert" hidden role="status"></p>
+              <div class="reply-actions">
+                <button type="button" id="copyBtn" class="action-button accent-action">نسخ الرد <span aria-hidden="true">⧉</span></button>
+                <button type="button" id="listenReplyBtn" class="action-button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M8 5 19 12 8 19z" fill="currentColor"/></svg> اسمعيه</button>
+              </div>
+              <details id="replyOptions" class="reply-options">
+                <summary>عدّلي الصياغة أو جرّبي أسلوبًا ثانيًا <span aria-hidden="true">⌄</span></summary>
+                <div class="reply-option-actions">
+                  <button type="button" id="alternateBtn" class="action-button">صياغة ثانية</button>
+                  <button type="button" id="formalityBtn" class="action-button">صياغة رسمية</button>
+                  <button id="changeStyleBtn" type="button" class="action-button">غيّري الأسلوب <span aria-hidden="true">⌄</span></button>
+                </div>
+                <div class="style-choices" id="styleChoices" hidden role="group" aria-label="اختيار أسلوب آخر"></div>
+              </details>
+            </div>
+            <section class="coach-learning" id="coachLearning" hidden>
+              <div class="coach-takeaway"><span class="coach-spark">✦</span><div><strong>الفكرة وراء الأسلوب</strong><p id="coachGlimpse"></p></div></div>
+              <details class="coach-insight" id="coachInsight">
+                <summary>تعلّمي متى تستخدمينه <span aria-hidden="true">⌄</span></summary>
+                <div class="coach-insight-content">
+                  <div class="coach-guidance">
+                    <p><strong>يناسب إذا:</strong> <span id="coachWhy"></span></p>
+                    <p><strong>انتبهي:</strong> <span id="coachWatch"></span></p>
+                  </div>
+                  <details class="coach-compare" id="coachCompare">
+                    <summary>قارني مع أسلوب ثاني <span aria-hidden="true">⌄</span></summary>
+                    <div class="coach-compare-grid" id="coachCompareCards"></div>
+                    <p class="coach-disclaimer">أمثلة تعليمية عامة، وليست تفسيرًا داخليًا لقرار المودل.</p>
+                  </details>
+                </div>
+              </details>
+            </section>
+          </div>
+          <div class="bottom-foot"><span id="confidenceNote">راجعي الصياغة قبل إرسالها.</span><button type="button" id="anotherBtn" class="mini-link">موقف جديد ↗</button></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div id="toast" role="status" aria-live="polite"></div>
+</div>
+<script src="character2d.js?v=16-verified"></script>
+<script src="app.js?v=16-verified"></script>
+<script src="coach.js?v=16-verified"></script>
+</body>
+</html>

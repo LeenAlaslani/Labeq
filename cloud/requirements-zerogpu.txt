@@ -1,0 +1,5 @@
+transformers>=5.0,<6
+peft>=0.18,<1
+accelerate>=1.0,<2
+safetensors>=0.6
+# Hugging Face manages torch, Gradio, spaces, and huggingface_hub for the Space.

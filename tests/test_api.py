@@ -31,6 +31,7 @@ def web_client(monkeypatch):
 
 @pytest.fixture
 def upstream(monkeypatch):
+    monkeypatch.setattr(web.app.state, "voice_retry_after", 0, raising=False)
     client_class = httpx.AsyncClient
 
     def install(handler):
@@ -123,9 +124,17 @@ def test_munsit_timing_and_provider_failure(web_client, monkeypatch, upstream):
     request = {"text": "أهلًا وسهلًا"}
     pcm = b"\x00\x01" * 100
     alignment = {"characters": ["أ"], "character_start_times_seconds": [0.0]}
-    upstream(lambda req: httpx.Response(200, text=json.dumps({
-        "audio_base64": base64.b64encode(pcm).decode(), "alignment": alignment,
-    })))
+    def munsit_response(request):
+        if request.method == "GET":
+            return httpx.Response(200, json=[{
+                "voice_id": "test-maha", "name": "Maha", "gender": "female",
+                "dialect": ["najdi"],
+            }])
+        return httpx.Response(200, text=json.dumps({
+            "audio_base64": base64.b64encode(pcm).decode(), "alignment": alignment,
+        }))
+
+    upstream(munsit_response)
     audio = web_client.post("/api/speak", json=request).json()
     assert audio["voice"] == "Maha" and audio["sync_mode"] == "timestamps"
     assert audio["alignment"] == alignment
@@ -134,8 +143,8 @@ def test_munsit_timing_and_provider_failure(web_client, monkeypatch, upstream):
         assert file.readframes(100) == pcm
     upstream(lambda req: httpx.Response(402))
     assert web_client.post("/api/speak", json=request).status_code == 502
-    upstream(lambda req: httpx.Response(200, text="[]"))
-    assert web_client.post("/api/speak", json=request).status_code == 502
+    upstream(lambda req: httpx.Response(200, json=[]))
+    assert web_client.post("/api/speak", json=request).status_code == 503
 
 
 def test_stt_success_empty_and_unsupported(web_client, monkeypatch, upstream):
@@ -167,3 +176,21 @@ def test_web_rate_limit(web_client, monkeypatch, upstream):
     assert limited.status_code == 429
     assert int(limited.headers["retry-after"]) >= 1
     assert web_client.get("/api/capabilities").status_code == 200
+
+
+def test_munsit_blocks_a_different_voice_before_synthesis(web_client, monkeypatch, upstream):
+    monkeypatch.setattr(web, "TTS_PROVIDER", "munsit")
+    monkeypatch.setattr(web, "MUNSIT_API_KEY", "test-key")
+    monkeypatch.setattr(web, "MUNSIT_VOICE_ID", "wrong-voice")
+    monkeypatch.setattr(web, "MUNSIT_BASE_URL", "https://api.munsit.com/api/v1")
+    calls = []
+
+    def handler(request):
+        calls.append(request.method)
+        return httpx.Response(200, json=[{
+            "voice_id": "actual-maha", "name": "Maha", "gender": "female", "dialect": ["najdi"],
+        }])
+
+    upstream(handler)
+    assert web_client.post("/api/speak", json={"text": "يا هلا"}).status_code == 503
+    assert calls == ["GET"]

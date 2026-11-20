@@ -4,9 +4,9 @@
 
 [![Python](https://img.shields.io/badge/Python-FastAPI-3776AB?logo=python&logoColor=white)](#tech-stack) [![UI](https://img.shields.io/badge/Arabic-RTL_UI-8450A5)](#features) [![ML](https://img.shields.io/badge/Qwen_3.5-4B%20%2B%20LoRA-C15F84)](#model-architecture) [![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?logo=pytorch&logoColor=white)](#tech-stack) [![Transformers](https://img.shields.io/badge/Hugging_Face-Transformers-FFD21E)](#tech-stack) [![PEFT](https://img.shields.io/badge/PEFT-LoRA-C15F84)](#model-architecture) [![MLX](https://img.shields.io/badge/Apple_Silicon-MLX-5F487E)](#run-locally) [![Voice AI](https://img.shields.io/badge/Voice_AI-STT%20%2B%20TTS-8450A5)](#voice-and-maha)
 
-[Try the public demo](https://leenalaslani.github.io/Labeq/) · [العربية](README_AR.md) · [Training and evaluation](training/README.md) · [Model card](MODEL_CARD.md)
+[Try the public demo](https://leeennn009-labeq.hf.space/) · [العربية](README_AR.md) · [Training and evaluation](training/README.md) · [Model card](MODEL_CARD.md)
 
-The public demo uses labeled examples and runs in the browser. The local V16 application integrates Qwen, Saudi LoRA, and optional Faisal routing through FastAPI.
+The live research demo runs V16 with Faisal decision routing and Qwen3.5-4B with the Saudi pilot LoRA on Hugging Face ZeroGPU. Gradio queues inference requests behind the Arabic interface, and FastAPI serves the UI and protected provider integrations. Shared GPU availability can affect waiting time. After the anonymous allowance, open the [Hugging Face Space](https://huggingface.co/spaces/leeennn009/LABEQ) with your own login. [Release evidence](evidence/RELEASE.md) records actual results and limitations.
 
 ## Why Saudi Arabic pragmatics matter
 
@@ -23,13 +23,13 @@ LABEQ keeps the situation, relationship, and goal as separate inputs. Communicat
 
 ## Screenshots
 
-| Onboarding | Local model reply |
+| Onboarding | Public model reply |
 | --- | --- |
-| ![LABEQ onboarding](screenshots/release-onboarding.png) | ![Real Qwen and pilot Saudi LoRA reply routed by Faisal](screenshots/release-generated-reply.png) |
+| ![LABEQ onboarding](screenshots/release-onboarding.png) | ![Public Qwen and pilot Saudi LoRA reply routed by Faisal](screenshots/release-generated-reply.png) |
 
-[Relationship](screenshots/release-relationship.png) · [Goal](screenshots/release-goal.png) · [Situation](screenshots/release-situation.png) · [Coaching](screenshots/release-coaching.png) · [Style comparison](screenshots/release-style-comparison.png) · [Mobile demo](screenshots/release-mobile-demo.png)
+[Relationship](screenshots/release-relationship.png) · [Goal](screenshots/release-goal.png) · [Situation](screenshots/release-situation.png) · [Coaching](screenshots/release-coaching.png) · [Style comparison](screenshots/release-style-comparison.png) · [Public mobile](screenshots/release-mobile-public.png)
 
-The local screenshots use real Qwen3.5-4B inference with the pilot Saudi LoRA. The mobile screenshot shows the GitHub Pages example mode.
+The release screenshots were captured from the public V16 application. Replies and coaching come from actual Qwen inference with the pilot Saudi LoRA and the stated routing source. The separately retained release-mobile-demo.png shows the archived written-example preview.
 
 ## Model architecture
 
@@ -59,7 +59,7 @@ flowchart LR
 
 The approved package contains 958 training examples, including 178 human-approved revisions and 780 unchanged synthetic examples. Two reviewed candidates were held out of training due to meaning risks. The validation and test splits each contain 114 examples. The 38-case review set takes one example per held-out scenario from the test split.
 
-The [training and evaluation guide](training/README.md) documents data checks, configuration, provenance, and the paired comparison of base Qwen, pilot LoRA, and v2. Raw data, checkpoints, and private run artifacts are supplied separately.
+Saudi LoRA v2 completed two epochs and 479 optimizer updates with final validation loss 1.8040. The [38-scenario evaluation](training/EVALUATION.md) documents the base, pilot, and v2 outputs, automatic diagnostics, and qualitative concerns. The pilot remains the incumbent research baseline because v2 still changes intent and produces unnatural phrasing in important cases. Independent human evaluation remains open. Raw data and checkpoints are supplied separately.
 
 ## Run locally
 
@@ -69,7 +69,7 @@ The [training and evaluation guide](training/README.md) documents data checks, c
 python3 -m http.server 8080 --directory docs
 ```
 
-Open `http://127.0.0.1:8080`. The demo needs no model, account, or API key.
+Open `http://127.0.0.1:8080/preview.html`. The archived preview needs no model, account, or API key.
 
 ### FastAPI web app
 
@@ -99,21 +99,22 @@ If health shows an unreachable server, check the URL, TLS and port. If it shows 
 
 ## Voice and Maha
 
-With `LABEQ_TTS_PROVIDER=munsit`, set `MUNSIT_API_KEY`, the authorized Maha voice ID as `MUNSIT_VOICE_ID`, and the provider region in `.env`. The [Munsit timing API](https://docs.munsit.com/text-to-speech/word-timestamps) streams signed PCM and optional alignment. FastAPI wraps PCM as WAV and the browser uses alignment or approximate timing to animate Maha's mouth. Azure Speech and ElevenLabs synthesis are supported alternatives. Browser Arabic speech is labeled as device speech when the provider is unavailable.
+With `LABEQ_TTS_PROVIDER=munsit`, set `MUNSIT_API_KEY`, the authorized Maha voice ID as `MUNSIT_VOICE_ID`, and the provider region in `.env`. The [Munsit timing API](https://docs.munsit.com/text-to-speech/word-timestamps) streams signed PCM and optional alignment. FastAPI wraps PCM as WAV and the browser uses alignment or approximate timing to animate Maha's mouth. The original Maha integration and character timing are preserved. Voice controls reflect provider availability and can remain inactive while the service is unavailable.
 
-Dictation uses the browser's Arabic recognition when available, with optional ElevenLabs Scribe via `/api/transcribe` when configured. The user reviews the transcript before requesting a reply. The voice and expressive character are designed to make the experience more approachable. User studies would be needed to measure that effect. Provider endpoints and fallback handling are exercised with test doubles. Production voice use requires your provider credentials and applicable terms.
+Dictation uses the browser's Arabic recognition when available, with optional ElevenLabs Scribe via `/api/transcribe` when configured. The user reviews the transcript before requesting a reply. The voice and expressive character are designed to make the experience more approachable. User studies would be needed to measure that effect. Provider identity, request validation, audio processing, and error handling have separate checks. Live playback status is recorded with the release evidence.
 
 ## Tests and deployment
 
 ```bash
-python -m pip install pytest playwright
+python -m pip install pytest playwright "gradio>=6,<7"
 python -m pytest -q
 node tests/test_v16_coach.js
+node tests/test_space_client.js
 python -m playwright install chromium
-python tests/browser_smoke.py --demo http://127.0.0.1:8080
+python tests/browser_smoke.py --demo http://127.0.0.1:8080/preview.html
 ```
 
-Add `--real http://127.0.0.1:8006` when the local web app is connected to Faisal and a Saudi adapter. See [deployment and privacy](SECURITY.md) for the public demo, secret management, and controls for a persistent backend.
+Add `--real http://127.0.0.1:8006` when the local web app is connected to Faisal and a Saudi adapter. See [ZeroGPU deployment](cloud/README.md) for the Space, private adapter setup, queue, and secret management. The GitHub Pages entry directs visitors to the live application. Its archived preview remains labeled as written examples.
 
 ## Tech stack
 
