@@ -38,7 +38,8 @@ def create_app(engine, gpu_decorator):
         "generator": engine.generator,
         "adapter_revision": engine.adapter_revision,
     }
-    return gr.mount_gradio_app(app, model_api, path="/model")
+    # The existing FastAPI HTML is the frontend; Gradio only supplies its queue.
+    return gr.mount_gradio_app(app, model_api, path="/model", ssr_mode=False)
 
 
 def main():
@@ -48,13 +49,17 @@ def main():
     from cloud.torch_engine import SpaceEngine
 
     os.environ["LABEQ_MODEL_MODE"] = "real"
+    print("LABEQ: preparing adapter and queued callback", flush=True)
     engine = SpaceEngine()
     app = create_app(engine, spaces.GPU(duration=60))
+    print("LABEQ: loading Qwen and both adapters", flush=True)
     engine.load()
+    print("LABEQ: model loaded; starting FastAPI", flush=True)
     app.state.gradio_model.update(model_loaded=True, faisal_loaded=engine.faisal_ready)
     # Gradio Spaces reserve their frontend port for the platform's Node proxy.
     # The Python application must use the assigned Gradio backend port.
     port = int(os.getenv("GRADIO_SERVER_PORT", os.getenv("PORT", "7860")))
+    print(f"LABEQ: serving Python backend on {port}", flush=True)
     uvicorn.run(app, host="0.0.0.0", port=port)
 
 
