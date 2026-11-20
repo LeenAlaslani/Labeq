@@ -9,3 +9,9 @@ For persistent model hosting, use a public HTTPS web service and a private authe
 Before publishing live inference, verify capacity and provider terms for the specific usage. Faisal weights are licensed CC BY-NC 4.0. Consult the author for commercial use. Obtain redistribution terms for the approved data and an operator authorized to use the selected voice endpoint. Keep model weights, data and raw evaluation output in private storage. The static public release has no application inference endpoint or service credentials.
 
 For existing demo deployments, configure GitHub Pages with `main` as the branch and `/docs` as the directory. Serve the same folder locally to test the release before pushing.
+
+## Hosting options
+
+A Hugging Face Docker Space or a CUDA host can run the application and the PEFT model service. As of November 17, 2026, Hugging Face lists a 24 GB L4 at $0.80 per running hour, or about $584 for 730 running hours before plan and storage costs. That option requires an authorized account and budget. [GPU Spaces hardware and pricing](https://huggingface.co/docs/hub/spaces-gpus)
+
+Hugging Face ZeroGPU offers quota-limited free hosting to eligible personal accounts and requires the Gradio SDK. Using it would require an authorized Hugging Face account and a Gradio inference wrapper. The GitHub Pages release and local MLX verification used no paid infrastructure. [ZeroGPU hosting and compatibility](https://huggingface.co/docs/hub/spaces-zerogpu)

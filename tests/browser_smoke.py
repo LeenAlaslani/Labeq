@@ -113,17 +113,51 @@ def demo_flow(page, screenshots):
         };
     }""")
     page.locator("#listenReplyBtn").click()
-    assert page.evaluate("window.testSpokenText") == page.locator("#replyText").inner_text()
+    expect(page.locator("#toast")).to_contain_text("صوت مها غير متاح")
+    expect(page.locator("#voiceMetaText")).to_contain_text("صوت مها غير متاح")
+    assert page.evaluate("window.testSpokenText") is None
     page.locator("#editScenarioBtn").click()
     page.locator("#micBtn").click()
     expect(page.locator("#scenarioInput")).to_have_value(re.compile("ونسمع وجهات نظر بعض"))
     assert not external_api
 
 
+def duplicate_variant_flow(page, url):
+    """Verify the app keeps the reply and its style when a rewrite repeats it."""
+    fixture = {
+        "reply": "ودي نسمع بعض ونتفاهم بهدوء على اللي صار.",
+        "reply_source": "qwen_lora_generated",
+        "mock": False,
+    }
+
+    def model_route(route):
+        payload = route.request.post_data_json
+        style = payload["style_key"]
+        route.fulfill(json={
+            **fixture, "style": style or "diplomatic",
+            "router_source": "user_selected" if style else "faisal",
+        })
+
+    page.route("**/api/reply", model_route)
+    page.goto(url, wait_until="networkidle")
+    onboard(page)
+    page.locator("#analyzeBtn").click()
+    expect(page.locator("#replyText")).to_have_text(fixture["reply"])
+    expect(page.locator("#stylePill")).to_have_text("دبلوماسي")
+    page.locator("#replyOptions > summary").click()
+    page.locator("#changeStyleBtn").click()
+    page.locator("#styleChoices").get_by_role("button", name="حازم", exact=True).click()
+    expect(page.locator("#toast")).to_contain_text("الصياغة قريبة من الرد السابق")
+    expect(page.locator("#stylePill")).to_have_text("دبلوماسي")
+    expect(page.locator("#replyText")).to_have_text(fixture["reply"])
+    print("Duplicate style rewrite was rejected in the browser fixture test.")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--real")
     parser.add_argument("--demo", required=True)
+    parser.add_argument("--mock-web", help="Test duplicate rewrite handling against this FastAPI web URL")
     parser.add_argument("--chrome")
     parser.add_argument("--screenshots", type=Path)
     args = parser.parse_args()
@@ -141,6 +175,10 @@ def main():
             real_flow(page, args.screenshots)
             assert not errors, errors
             desktop.close()
+        if args.mock_web:
+            page = browser.new_page()
+            duplicate_variant_flow(page, args.mock_web)
+            page.close()
         mobile = browser.new_context(**playwright.devices["iPhone 13"])
         page = mobile.new_page()
         errors = []

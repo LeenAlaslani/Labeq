@@ -154,7 +154,11 @@ function stopSpeech(){
   setSpeaking(false);
   $('dialogText').textContent=state.currentSpeech;
 }
-function preferredBrowserVoice(){const vs=('speechSynthesis'in window)?window.speechSynthesis.getVoices():[];return vs.find(v=>/Zariyah/i.test(v.name))||vs.find(v=>v.lang.toLowerCase()==='ar-sa'&&/female|woman|hoda|zariyah|salma/i.test(v.name))||vs.find(v=>v.lang.toLowerCase()==='ar-sa')||vs.find(v=>v.lang.toLowerCase().startsWith('ar'))||null}
+function voiceUnavailable(message='صوت مها غير متاح حاليًا'){
+  $('voiceMeta').classList.remove('ready');
+  $('voiceMetaText').textContent=message;
+  toaste(message);
+}
 function markCaption(text,index){const a=$('dialogText');if(!Number.isFinite(index)||index<=0){a.textContent=text;return}const i=Math.min(Math.max(0,index),text.length);const played=element('span','played',text.slice(0,i));const upcoming=element('span','upcoming',text.slice(i));a.replaceChildren(played,upcoming)}
 async function playSpeech(text,force=false){
   if(!force&&!state.voiceOn)return;
@@ -174,6 +178,7 @@ async function playSpeech(text,force=false){
         const j=await res.json();
         if(!res.ok)throw Error(j.detail||'فشل خدمة الصوت');
         if(!j.audio_base64)throw Error('No audio returned');
+        if(capabilities.tts_provider==='munsit'&&j.voice!=='Maha')throw Error('Unexpected voice');
         audioData=j;
         speechCache.set(text,j);
         if(speechCache.size>12)speechCache.delete(speechCache.keys().next().value);
@@ -202,10 +207,12 @@ async function playSpeech(text,force=false){
         $('dialogText').textContent=text;
         setContextMood();
       };
+      $('voiceMeta').classList.add('ready');
+      $('voiceMetaText').textContent=capabilities.voice_name||'مها · نجدية — منصت';
       audio.onerror=()=>{
         if(tok!==state.speechId)return;
         clearInterval(lipTimer);setSpeaking(false);
-        toaste('تعذّر تشغيل صوت مها. جرّبي إعادة الصوت.');
+        voiceUnavailable('تعذّر تشغيل صوت مها. جرّبي إعادة الصوت.');
       };
       await new Promise(resolve=>{
         let done=false;
@@ -221,32 +228,13 @@ async function playSpeech(text,force=false){
     }catch(e){
       if(tok!==state.speechId)return;
       clearInterval(lipTimer);setSpeaking(false);
-      if(capabilities.tts_provider==='munsit'){
-        toaste('تعذّر صوت مها؛ بجرب خيار النطق في جهازك.');
-      }else{
-        toaste('خدمة الصوت غير متاحة؛ بجرب صوت الجهاز.');
-      }
+      voiceUnavailable('صوت مها غير متاح حاليًا. تحققي من خدمة الصوت.');
+      return;
     }
   }
-  browserSpeak(text,tok);
+  voiceUnavailable();
 }
-function browserSpeak(text,tok){
-  if(!('speechSynthesis'in window)){
-    toaste('المتصفح لا يدعم النطق.');return;
-  }
-  try{
-    const u=new SpeechSynthesisUtterance(text);
-    const voice=preferredBrowserVoice();
-    if(!voice){toaste('ما لقيت صوت عربي في جهازك.');return;}
-    u.voice=voice;
-    u.lang='ar-SA';u.rate=.93;u.pitch=1;u.volume=1;
-    u.onstart=()=>{if(tok!==state.speechId)return;setSpeaking(true);startLipApprox()};
-    u.onboundary=e=>{if(tok===state.speechId&&Number.isInteger(e.charIndex))markCaption(text,e.charIndex)};
-    u.onend=()=>{if(tok!==state.speechId)return;clearInterval(lipTimer);setSpeaking(false);$('dialogText').textContent=text;setContextMood()};
-    u.onerror=()=>{if(tok!==state.speechId)return;clearInterval(lipTimer);setSpeaking(false)};
-    activeSpeech=u;window.speechSynthesis.speak(u);
-  }catch{setSpeaking(false);toaste('تعذّر تشغيل الصوت من المتصفح.')}
-}
+
 function modelStatusLabel(){
   if(modelHealth.reachable===null)return 'جارِ فحص الاتصال';
   if(!modelHealth.configured)return 'المودل غير مهيّأ';
@@ -325,12 +313,18 @@ function renderResult(){
 }
 
 async function requestActualReply({styleKey=null,tone=state.tone,instruction=null,history=[]}={}){
-  const result=await fetch('/api/reply',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+  const payload={
     message:state.message, relation:state.relation, goal:userGoal(),
     style_key:styleKey, tone, instruction, history
-  })});
-  let body={};try{body=await result.json()}catch{}
-  if(!result.ok)throw new Error(typeof body.detail==='string'?body.detail:'فشل اتصال المودل ('+result.status+')');
+  };
+  let body;
+  if(capabilities.model_transport==='gradio'){
+    body=await window.labeqSpaceReply(payload);
+  }else{
+    const result=await fetch('/api/reply',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    try{body=await result.json()}catch{body={}}
+    if(!result.ok)throw new Error(typeof body.detail==='string'?body.detail:'فشل اتصال المودل ('+result.status+')');
+  }
   if(typeof body.reply!=='string'||!body.reply.trim()||body.mock!==false)throw new Error('لم يرجع المودل ردًا مولّدًا صالحًا');
   return body;
 }
@@ -352,6 +346,9 @@ async function realVariant({styleKey=state.style,tone=state.tone,instruction=nul
     const history=instruction?[{role:'user',content:state.message.slice(0,500)},{role:'assistant',content:state.modelReply.slice(0,500)}]:[];
     const data=await requestActualReply({styleKey,tone,instruction,history});
     if(version!==state.version)return;
+    const tooSimilar=data.reply.trim()===previous.reply.trim() ||
+      data.quality_warnings?.some(warning=>warning.includes('تشبه الرد السابق جدًا'));
+    if(tooSimilar)throw Error('الصياغة قريبة من الرد السابق. جرّبي اختيار أسلوب ثاني.');
     useRealReply(data,styleKey);state.tone=tone;
     if(previous.style!==state.style && previous.reply!==state.modelReply){
       state.comparison={before:previous,after:{style:state.style,reply:state.modelReply}};
@@ -448,21 +445,20 @@ function showMic(on){$('micBtn').classList.toggle('recording',on);$('micLabel').
 async function recordWithScribe(){let stream;try{stream=await navigator.mediaDevices.getUserMedia({audio:true});let chunks=[];const recorder=new MediaRecorder(stream);state.recorder=recorder;state.recording=true;showMic(true);recorder.ondataavailable=e=>{if(e.data.size)chunks.push(e.data)};recorder.onstop=async()=>{stream.getTracks().forEach(t=>t.stop());state.recording=false;showMic(false);try{const blob=new Blob(chunks,{type:recorder.mimeType||'audio/webm'});const form=new FormData();form.append('file',blob,'scenario.webm');toaste('أحوّل التسجيل إلى نص...');const res=await fetch('/api/transcribe',{method:'POST',body:form});const d=await res.json();if(!res.ok)throw Error(d.detail);$('scenarioInput').value=[state.message,d.text].filter(Boolean).join(' ');$('scenarioInput').dispatchEvent(new Event('input'));setContextMood();toaste('تم تحويل الصوت؛ راجعي النص')}catch{toaste('فشل تفريغ الصوت، جربي الكتابة')}};recorder.start()}catch{if(stream)stream.getTracks().forEach(t=>t.stop());toaste('اسمحي بالوصول للميكروفون ثم حاولي مرة ثانية')}}
 async function checkCapabilities(){
   if(location.protocol==='file:'){
-    const v=preferredBrowserVoice();
-    $('voiceMetaText').textContent=v?'صوت تجريبي من جهازك':'صوت الجهاز (حسب المتصفح)';
+    $('voiceMetaText').textContent='صوت مها يحتاج خادم الصوت';
     return;
   }
   try{
-    const r=await fetch('/api/capabilities');if(!r.ok)return;
-    capabilities=await r.json();
-    if(capabilities.tts){
-      $('voiceMeta').classList.add('ready');
-      $('voiceMetaText').textContent=capabilities.voice_name||'الصوت متصل';
-    }else{
-      $('voiceMetaText').textContent=capabilities.tts_provider==='munsit'?'مها · تحتاج إعداد منصت':'الصوت الحالي: جهازك (تجريبي)';
-    }
+    const response=await fetch('/api/capabilities');
+    if(!response.ok)throw Error('Voice service unavailable');
+    capabilities=await response.json();
+    $('voiceMeta').classList.toggle('ready',!!capabilities.tts);
+    $('voiceMetaText').textContent=capabilities.tts
+      ?(capabilities.voice_name||'الصوت متصل')
+      :'صوت مها غير متاح حاليًا';
   }catch{
-    $('voiceMetaText').textContent='صوت تجريبي من الجهاز';
+    $('voiceMeta').classList.remove('ready');
+    $('voiceMetaText').textContent='صوت مها غير متاح حاليًا';
   }
 }
 
