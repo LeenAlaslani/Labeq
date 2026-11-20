@@ -7,9 +7,11 @@ import subprocess
 import tempfile
 
 from huggingface_hub import CommitOperationAdd, HfApi
+from huggingface_hub.utils import disable_progress_bars
 
 
 def main():
+    disable_progress_bars()
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--space", required=True)
     parser.add_argument("--commit", default="HEAD")

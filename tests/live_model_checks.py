@@ -54,10 +54,20 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--url", required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--hf-auth", action="store_true", help="Use the local HF login for this HTTPS Space only")
     args = parser.parse_args()
     args.output.parent.mkdir(parents=True, exist_ok=True)
     output = json.loads(args.output.read_text()) if args.output.exists() else []
-    with httpx.Client(base_url=args.url, timeout=150) as client:
+    headers = {}
+    if args.hf_auth:
+        if args.url.rstrip("/") != "https://leeennn009-labeq.hf.space":
+            raise ValueError("HF credentials are restricted to the LABEQ Space")
+        from huggingface_hub import get_token
+        token = get_token()
+        if not token:
+            raise RuntimeError("Authenticate with hf auth login first")
+        headers["Authorization"] = "Bearer " + token
+    with httpx.Client(base_url=args.url, timeout=150, headers=headers) as client:
         health = client.get("/api/model-health")
         health.raise_for_status()
         assert health.json()["model_loaded"] and health.json()["faisal_loaded"], health.json()

@@ -38,7 +38,14 @@ window.labeqSpaceReply=async function(payload){
           pending=pending.slice(boundary+2);
           const event=frame.split('\n').find(line=>line.startsWith('event:'))?.slice(6).trim();
           const data=frame.split('\n').filter(line=>line.startsWith('data:')).map(line=>line.slice(5).trimStart()).join('\n');
-          if(event==='error')throw Error('تعذّر التوليد أو انتهت حصة GPU. جرّبي لاحقًا.');
+          if(event==='error'){
+            let reason='';
+            try{reason=JSON.parse(data)?.error||''}catch{}
+            if(/quota|runs limit|credits|authenticate/i.test(reason)){
+              throw Error('انتهت حصة GPU المجانية. افتحي التطبيق من صفحة Hugging Face بعد تسجيل الدخول، أو جرّبي لاحقًا.');
+            }
+            throw Error('تعذّر التوليد أو انتهت حصة GPU. جرّبي لاحقًا.');
+          }
           if(event==='complete'){
             const result=JSON.parse(data)?.[0];
             if(!result||result.reply_source!=='qwen_lora_generated')throw Error('رجع المودل استجابة غير صالحة.');

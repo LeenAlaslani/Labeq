@@ -44,6 +44,7 @@ async function run(events) {
   const reply = await run('event: heartbeat\r\ndata: null\r\n\r\nevent: complete\r\ndata: ' + JSON.stringify([result]) + '\r\n\r\n');
   assert.strictEqual(reply.reply, result.reply);
   await assert.rejects(run('event: error\ndata: "quota"\n\n'), /انتهت حصة GPU/);
+  await assert.rejects(run('event: error\ndata: {"error":"You have exceeded your ZeroGPU runs limit"}\n\n'), /تسجيل الدخول/);
   await assert.rejects(run('event: heartbeat\ndata: null\n\n'), /قبل اكتمال الرد/);
   console.log('Space client queue tests: PASS');
 })().catch(error => { console.error(error); process.exitCode = 1; });

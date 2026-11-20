@@ -17,6 +17,6 @@ The Saudi LoRA v2 candidate completed two epochs locally. Its held-out review fo
 
 Faisal is Omer Nacar's Jev-inspired Arabic decision model under CC BY-NC 4.0. This Space is an attributed noncommercial research demonstration.
 
-Configure the private adapter repository and its exact revision as LABEQ_ADAPTER_REPO and LABEQ_ADAPTER_REVISION. Store private model access in the HF_TOKEN Space secret. Maha speech additionally needs the original Munsit provider secrets and authorized usage credits.
+Configure the private adapter repository and its exact revision as LABEQ_ADAPTER_REPO and LABEQ_ADAPTER_REVISION. Store private model access in the HF_TOKEN Space secret. Maha speech additionally needs the original Munsit provider secrets and activation through LABEQ_VOICE_ENABLED.
 
 Source and team credits are at https://github.com/LeenAlaslani/Labeq.

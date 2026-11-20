@@ -396,7 +396,7 @@ async function analyze(){
     $('emptyResult').hidden=false;$('filledResult').hidden=true;
     $('confidenceNote').textContent='تعذّر استخراج الاقتراح. تأكدي من اتصال الخادم وأعيدي المحاولة.';
     checkModelHealth();
-    setDialogue('ما قدرت أوصل للمودل. تأكدي من تشغيل خادم API.','تعذّر الاتصال',false);
+    setDialogue('تعذّر الوصول لخدمة الاقتراح. جرّبي مرة ثانية بعد قليل.','تعذّر الاتصال',false);
     toaste(err.message);
   }finally{
     state.analyzeBusy=false;$('analyzeBtn').disabled=false;$('analyzeBtn').textContent='اقترحي لي ردًا ✦';setContextMood();

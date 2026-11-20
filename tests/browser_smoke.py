@@ -171,6 +171,7 @@ def main():
     parser.add_argument("--mock-web", help="Test duplicate rewrite handling against this FastAPI web URL")
     parser.add_argument("--chrome")
     parser.add_argument("--screenshots", type=Path)
+    parser.add_argument("--hf-auth", action="store_true", help="Use local HF auth only for the LABEQ Space")
     args = parser.parse_args()
     if args.screenshots:
         args.screenshots.mkdir(parents=True, exist_ok=True)
@@ -180,6 +181,16 @@ def main():
             desktop = browser.new_context(viewport={"width": 1440, "height": 960},
                                           permissions=["clipboard-read", "clipboard-write"])
             page = desktop.new_page()
+            if args.hf_auth:
+                if args.real.rstrip("/") != "https://leeennn009-labeq.hf.space":
+                    raise ValueError("HF credentials are restricted to the LABEQ Space")
+                from huggingface_hub import get_token
+                token = get_token()
+                if not token:
+                    raise RuntimeError("Authenticate with hf auth login first")
+                page.route("https://leeennn009-labeq.hf.space/**", lambda route: route.continue_(
+                    headers={**route.request.headers, "Authorization": "Bearer " + token}
+                ))
             errors = []
             page.on("pageerror", lambda error: errors.append(str(error)))
             page.goto(args.real, wait_until="networkidle")
@@ -197,6 +208,23 @@ def main():
         page.goto(args.demo, wait_until="networkidle")
         demo_flow(page, args.screenshots)
         assert not errors, errors
+        if args.real:
+            page = mobile.new_page()
+            if args.hf_auth:
+                page.route("https://leeennn009-labeq.hf.space/**", lambda route: route.continue_(
+                    headers={**route.request.headers, "Authorization": "Bearer " + token}
+                ))
+            page.goto(args.real, wait_until="networkidle")
+            onboard(page)
+            with page.expect_response(lambda res: "/model/gradio_api/call/reply/" in res.url or res.url.endswith("/api/reply"), timeout=160000) as pending:
+                page.locator("#analyzeBtn").click()
+            payload = model_response(pending.value)
+            assert payload["reply_source"] == "qwen_lora_generated" and payload["router_source"] == "faisal", payload
+            expect(page.locator("#replyText")).to_have_text(payload["reply"])
+            assert page.evaluate("document.documentElement.scrollWidth <= innerWidth")
+            expect(page.locator("#listenReplyBtn")).to_be_disabled()
+            capture(page, args.screenshots, "mobile-public")
+            print("Public mobile inference and inactive Maha controls passed.")
         print("Browser smoke passed for", "desktop real inference and mobile demo" if args.real else "mobile demo")
 
 
