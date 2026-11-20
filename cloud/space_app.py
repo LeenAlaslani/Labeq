@@ -52,7 +52,10 @@ def main():
     app = create_app(engine, spaces.GPU(duration=60))
     engine.load()
     app.state.gradio_model.update(model_loaded=True, faisal_loaded=engine.faisal_ready)
-    uvicorn.run(app, host="0.0.0.0", port=int(os.getenv("PORT", "7860")))
+    # Gradio Spaces reserve their frontend port for the platform's Node proxy.
+    # The Python application must use the assigned Gradio backend port.
+    port = int(os.getenv("GRADIO_SERVER_PORT", os.getenv("PORT", "7860")))
+    uvicorn.run(app, host="0.0.0.0", port=port)
 
 
 if __name__ == "__main__":
