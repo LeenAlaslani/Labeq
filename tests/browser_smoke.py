@@ -19,7 +19,8 @@ def onboard(page, screenshots=None):
     expect(page.locator("html")).to_have_attribute("dir", "rtl")
     expect(page.locator("#nextBtn")).to_be_disabled()
     # Disable automatic playback while keeping voice actions available.
-    page.locator("#muteBtn").click()
+    if page.locator("#muteBtn").is_enabled():
+        page.locator("#muteBtn").click()
     capture(page, screenshots, "onboarding")
     page.get_by_role("textbox", name="اسمك", exact=True).fill("لين")
     page.locator("#nextBtn").click()
@@ -112,8 +113,7 @@ def demo_flow(page, screenshots):
             }
         };
     }""")
-    page.locator("#listenReplyBtn").click()
-    expect(page.locator("#toast")).to_contain_text("صوت مها غير متاح")
+    expect(page.locator("#listenReplyBtn")).to_be_disabled()
     expect(page.locator("#voiceMetaText")).to_contain_text("صوت مها غير متاح")
     assert page.evaluate("window.testSpokenText") is None
     page.locator("#editScenarioBtn").click()

@@ -40,6 +40,7 @@ ALLOWED_MUNSIT_BASES = {
 API_KEY = os.environ.get("ELEVENLABS_API_KEY", "").strip()
 VOICE_ID = os.environ.get("ELEVENLABS_VOICE_ID", "").strip()
 TTS_MODEL = os.environ.get("ELEVENLABS_MODEL_ID", "eleven_multilingual_v2").strip()
+VOICE_ENABLED = os.environ.get("LABEQ_VOICE_ENABLED", "1") == "1"
 MODEL_MODE = os.environ.get("LABEQ_MODEL_MODE", "real" if configured() else "demo").lower()
 
 app = FastAPI(title="LABEQ Experience", version="0.1.0")
@@ -136,6 +137,7 @@ def capabilities():
     else:
         voice_enabled = False
         voice_label = "صوت غير مهيأ"
+    voice_enabled = voice_enabled and VOICE_ENABLED
     gradio_model = getattr(app.state, "gradio_model", None)
     return {
         "model_transport": "gradio" if gradio_model else "http",
@@ -290,6 +292,8 @@ async def munsit_speak(text: str) -> dict:
 
 @app.post("/api/speak")
 async def speak(req: SpeechRequest):
+    if not VOICE_ENABLED:
+        raise HTTPException(503, "Maha voice is inactive.")
     if TTS_PROVIDER == "munsit":
         return await munsit_speak(req.text)
     if TTS_PROVIDER == "azure":

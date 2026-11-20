@@ -142,7 +142,15 @@ function stopSpeech(){
   setSpeaking(false);
   $('dialogText').textContent=state.currentSpeech;
 }
+function setVoiceReady(ready){
+  for(const name of ['repeatBtn','listenReplyBtn','muteBtn']){
+    const button=$(name);
+    button.disabled=!ready;
+    button.title=ready?'صوت مها':'صوت مها غير متاح حاليًا';
+  }
+}
 function voiceUnavailable(message='صوت مها غير متاح حاليًا'){
+  setVoiceReady(false);
   $('voiceMeta').classList.remove('ready');
   $('voiceMetaText').textContent=message;
   toaste(message);
@@ -434,6 +442,7 @@ function toggleMicrophone(){
 function showMic(on){$('micBtn').classList.toggle('recording',on);$('micLabel').textContent=on?'إيقاف التسجيل':'احكيه بصوتك';$('recIndicator').hidden=!on}
 async function recordWithScribe(){let stream;try{stream=await navigator.mediaDevices.getUserMedia({audio:true});let chunks=[];const recorder=new MediaRecorder(stream);state.recorder=recorder;state.recording=true;showMic(true);recorder.ondataavailable=e=>{if(e.data.size)chunks.push(e.data)};recorder.onstop=async()=>{stream.getTracks().forEach(t=>t.stop());state.recording=false;showMic(false);try{const blob=new Blob(chunks,{type:recorder.mimeType||'audio/webm'});const form=new FormData();form.append('file',blob,'scenario.webm');toaste('أحوّل التسجيل إلى نص...');const res=await fetch('/api/transcribe',{method:'POST',body:form});const d=await res.json();if(!res.ok)throw Error(d.detail);$('scenarioInput').value=[state.message,d.text].filter(Boolean).join(' ');state.message=$('scenarioInput').value;setContextMood();toaste('تم تحويل الصوت؛ راجعي النص')}catch{toaste('فشل تفريغ الصوت، جربي الكتابة')}};recorder.start()}catch{if(stream)stream.getTracks().forEach(t=>t.stop());toaste('اسمحي بالوصول للميكروفون ثم حاولي مرة ثانية')}}
 async function checkCapabilities(){
+  setVoiceReady(false);
   if(isPortfolioDemo){
     $('voiceMetaText').textContent='صوت مها غير متاح في نسخة العرض';
     return;
@@ -442,6 +451,7 @@ async function checkCapabilities(){
     const response=await fetch('/api/capabilities');
     if(!response.ok)throw Error('Voice service unavailable');
     capabilities=await response.json();
+    setVoiceReady(!!capabilities.tts);
     $('voiceMeta').classList.toggle('ready',!!capabilities.tts);
     $('voiceMetaText').textContent=capabilities.tts
       ?(capabilities.voice_name||'الصوت متصل')

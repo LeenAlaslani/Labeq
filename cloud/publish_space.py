@@ -40,8 +40,7 @@ def main():
         readme = content("cloud/SPACE_README.md").decode()
         readme += f"\nSource commit {source}.\n"
         (directory / "README.md").write_text(readme)
-        (directory / "requirements-web.txt").write_bytes(content("requirements.txt"))
-        (directory / "requirements.txt").write_bytes(content("cloud/requirements-zerogpu.txt"))
+        (directory / "requirements.txt").write_bytes(content("requirements.txt") + b"\n" + content("cloud/requirements-zerogpu.txt"))
         manifest = {
             "source_commit": source,
             "files_sha256": {
