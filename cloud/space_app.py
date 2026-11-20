@@ -48,8 +48,10 @@ def main():
     from cloud.torch_engine import SpaceEngine
 
     os.environ["LABEQ_MODEL_MODE"] = "real"
-    engine = SpaceEngine().load()
+    engine = SpaceEngine()
     app = create_app(engine, spaces.GPU(duration=60))
+    engine.load()
+    app.state.gradio_model.update(model_loaded=True, faisal_loaded=engine.faisal_ready)
     uvicorn.run(app, host="0.0.0.0", port=int(os.getenv("PORT", "7860")))
 
 
