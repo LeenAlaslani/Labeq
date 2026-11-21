@@ -2,6 +2,8 @@
 
 The Space serves the existing V16 HTML, JavaScript, CSS, and Maha artwork at its root. The model callback is mounted at /model through Gradio. The browser sends a queued request, receives a completion event, and displays the returned source metadata.
 
+An optional [CPU entry point](CPU_SERVING.md) preserves the same interface and actual Qwen/Saudi/Faisal models while using CPU for the default reply callback. Its private tests, measured timings and quality failures are separate from public GPU results. Use `--backend cpu` explicitly; this does not select or qualify a new adapter. The running health endpoint reports its actual Git source, weights, policy and model-library versions for CPU studies.
+
 At startup, the original Saudi pilot adapter and Faisal adapter load onto the same Qwen3.5-4B base, pinned with its tokenizer to revision `851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a`. PEFT reads adapter tensors on CPU before ZeroGPU packs the CUDA transfer. A GPU callback performs Faisal option scoring, Qwen base planning, Saudi LoRA response generation, and grounded JSON review. One callback runs at a time. The Space uses the free zero-a10g hardware, with a 60-second GPU reservation for ordinary requests and 90 seconds for longer contexts and a bounded queue. These are reservations for the larger bounded review budgets, not measured latency guarantees. Account quota can prevent a request from starting.
 
 ## Account and model setup

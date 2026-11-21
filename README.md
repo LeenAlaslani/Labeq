@@ -72,6 +72,8 @@ Saudi LoRA v2 completed two epochs and 479 optimizer updates with final validati
 
 A separate compositional experiment completed two epochs on 274 records, including 48 explicitly AI-authored additions. On 16 frozen diagnostic cases, strict sendable-Saudi passes were base 0, pilot 1, v2 3 and experimental epoch one 5, according to a blinded assistant assessment. The candidate missed the predeclared 13/16 gate and both known user regressions. It was not promoted. [Methods, actual training metrics, raw outputs and limitations](evidence/GENERALIZATION.md) document the unresolved quality problem; passing software tests is not evidence that generalization is solved.
 
+A further [long-form experiment](training/generalization_v3/README.md) completed two epochs on 498 records. Its epoch checkpoints passed 1/4 and 0/4 strict development cases, below the frozen 4/4 gate. The same-policy pilot passed 2/4 and v2 passed 1/4; these four development cases are not an unseen benchmark. Both new adapters were preserved without promotion, and the fresh test remains unopened. [CPU serving](cloud/CPU_SERVING.md) has separate real routing, timing, and failure evidence.
+
 ## Run locally
 
 ### Interactive demo
