@@ -19,7 +19,7 @@ import re
 from LABEQ_V15_Goal_Fix import alignment_flags, brief_for, intent_guidance
 from saudi_register import (
     SAUDI_EXAMPLES, SAUDI_SYSTEM, clean_writing, explicit_fusha,
-    register_instruction, register_warnings,
+    normalize_saudi, register_instruction, register_warnings, writing_style,
 )
 
 
@@ -165,7 +165,7 @@ def reply_v16(self, message, relation="صديق", goal="أبي رد مناسب �
     def gen_prompt(extra=""):
         return (
             f"الموقف: {message}\nالعلاقة: {relation}\nالهدف: {goal}\n"
-            f"الأسلوب: {_style_display(style_key)}\n"
+            f"الأسلوب: {writing_style(style_key, modifier)}\nطريقة التواصل: {_style_display(style_key)}\n"
             f"{style_line}\nجنس المتحدث: {speaker_gender}، جنس المخاطب: {recipient_gender}.\n"
             f"{intent_guidance(brief)}\n"
             # The generated coaching plan is advisory; it must not introduce facts into the draft.
@@ -174,11 +174,15 @@ def reply_v16(self, message, relation="صديق", goal="أبي رد مناسب �
             + (f"ملاحظة للمراجعة: {extra}\n" if extra else "")
             + "اكتبي نص الرسالة السعودية للطرف الآخر مباشرة. الرسالة فقط."
         )
+    provenance = {}
     def generate(extra="", retry=False):
-        return clean_writing(self._one_generation(
+        raw = clean_writing(self._one_generation(
             [{"role":"system","content":gen_system}] + examples
             + [{"role":"user","content":gen_prompt(extra)}], retry=retry,
         ), modifier)
+        text, edits = normalize_saudi(raw, modifier, message + " " + goal)
+        provenance[text] = {"draft_before_register_normalization": raw, "register_normalization": edits}
+        return text
     first=generate()
     def check(candidate):
         return list(dict.fromkeys(
@@ -239,6 +243,7 @@ def reply_v16(self, message, relation="صديق", goal="أبي رد مناسب �
         "generator":self.generator if hasattr(self, "generator") else "Qwen3.5-4B + Saudi LoRA",
         "coaching":coach,"review_status":"flagged" if flags else ("model_reviewed" if reviewed else "unverified"),
         "needs_review":bool(flags), "quality_warnings":list(dict.fromkeys(flags)),"was_retried":was_retried,
+        **provenance.get(first.strip(), {}),
     }
 
 

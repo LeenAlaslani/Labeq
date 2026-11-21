@@ -1,6 +1,6 @@
 """Regression checks for register and preserving the reported customer intent."""
-from LABEQ_V16_Coaching_Engine import local_warnings, reply_v16
-from saudi_register import clean_writing, register_instruction, register_warnings
+from LABEQ_V16_Coaching_Engine import local_warnings, reply_v16, semantic_review_issue
+from saudi_register import clean_writing, normalize_saudi, register_instruction, register_warnings, writing_style
 
 
 SCENARIO = (
@@ -32,6 +32,28 @@ def test_explicit_fusha_request_and_other_dialects():
 def test_default_writing_removes_vowels_without_changing_letters():
     assert clean_writing("أُتابعُ الطَّلبَ غدًا") == "أتابع الطلب غدا"
     assert clean_writing("أُتابعُ", "اكتبي بالتشكيل") == "أُتابعُ"
+
+
+def test_surface_edit_preserves_negation_tense_numbers_and_quoted_text():
+    text = 'ما أردت أن أغير موعد 12 مايو. لا أستطيع تأكيده. سأخبرك. قال «أود أن أتأكد».'
+    edited, changes = normalize_saudi(text)
+    assert edited == 'ما كنت أبي أغير موعد 12 مايو. ما أقدر أؤكده. بعطيك خبر. قال «أود أن أتأكد».'
+    assert changes
+    assert normalize_saudi(text, "اكتبي بالفصحى")[0] == text
+    assert normalize_saudi("لا أريد موعدا جديدا")[0] == "ما أبي موعدا جديدا"
+    assert normalize_saudi("لا أستطيع المساعدة")[0] == "لا أستطيع المساعدة"
+    assert normalize_saudi("لن أستطيع أساعدك")[0] == "ما بأقدر أساعدك"
+
+
+def test_present_followup_is_changed_to_future_only_when_requested():
+    assert normalize_saudi("أعتذر وأتابع الطلب")[0] == "أعتذر وأتابع الطلب"
+    assert normalize_saudi("أعتذر وأتابع الطلب وأخبرك", context=SCENARIO)[0] == "أعتذر وبأتابع الطلب وأعطيك خبر"
+
+
+def test_writing_labels_match_training_without_changing_communication_style():
+    assert writing_style("diplomatic") == "عفوي"
+    assert writing_style("clarify") == "واضح"
+    assert writing_style("apology", "اجعلي الصياغة رسمية ومهنية") == "مهني"
 
 
 def test_model_approval_does_not_override_register_and_followup_checks():
@@ -102,4 +124,30 @@ def test_advisory_opinion_does_not_veto_a_concrete_intent_repair():
     result = reply_v16(Engine(), "نسيت موعد صديقتي", "صديق", "أعتذر عن غلطتي", "اعتذار")
     assert result["reply"].startswith("حقك علي")
     assert result["was_retried"] and result["needs_review"]
+
+
+def test_specific_deadline_concern_triggers_repair_without_demanding_a_new_date():
+    assert semantic_review_issue("وعود بالوقت المناسب مما يتعارض مع عدم إعطاء موعد")
+    assert not semantic_review_issue("الرسالة تفتقر إلى تحديد موعد جديد")
+
+    class Engine:
+        def load(self):
+            return self
+
+        def predict_style(self, *args):
+            return "diplomatic", "faisal"
+
+        def _one_generation(self, messages, retry=False, use_adapter=True):
+            if use_adapter:
+                return (
+                    "نعتذر لك عن التأخير. بأتابع الطلب، وما أبي أعطيك موعد وأنا مو متأكد."
+                    if retry else "نعتذر لك عن التأخير. بأتابع الطلب عشان نوصله لك بالوقت المناسب."
+                )
+            if "بالوقت المناسب" in messages[-1]["content"]:
+                return "النتيجة: غير مناسب\nالسبب: وعود بالوقت المناسب مما يتعارض مع عدم إعطاء موعد"
+            return "النتيجة: مناسب"
+
+    result = reply_v16(Engine(), SCENARIO, "عميل", "ننهي الخلاف")
+    assert result["was_retried"]
+    assert "مو متأكد" in result["reply"] and not result["needs_review"]
 
