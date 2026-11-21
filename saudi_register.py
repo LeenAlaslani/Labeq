@@ -67,6 +67,7 @@ _PHRASES = (
     ("الذي", "اللي"), ("التي", "اللي"),
     ("قبل أن", "قبل ما"), ("حتى أتأكد", "لين أتأكد"),
     ("حتى نتأكد", "لين نتأكد"), ("حتى يتضح", "لين يتضح"),
+    ("ممكن أوضح لي", "ممكن توضيح"), ("ممكن أشرح لي", "ممكن شرح"),
 )
 
 
@@ -97,6 +98,13 @@ def normalize_saudi(text, modifier="", context=""):
             segment, count = re.subn(r"(?<!\w)وأتابع(?!\w)", "وبأتابع", segment)
             if count:
                 edits.append("وأتابع → وبأتابع (requested follow-up)")
+        if re.search(r"(?:تقليل|أقلل)\s+من(?:ك|ه|ها|كم|هن)(?:\W|$)", context):
+            segment, count = re.subn(
+                r"(?<!\w)(ما (?:قصدت|قصدي)(?: إني)? )أقلل عليك(?=[،.!؟]|$)",
+                r"\1أقلل منك", segment,
+            )
+            if count:
+                edits.append("أقلل عليك → أقلل منك (explicit disrespect context)")
         parts[index] = segment
     return "".join(parts), list(dict.fromkeys(edits))
 

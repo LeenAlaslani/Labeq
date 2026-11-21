@@ -56,6 +56,16 @@ def test_writing_labels_match_training_without_changing_communication_style():
     assert writing_style("apology", "اجعلي الصياغة رسمية ومهنية") == "مهني"
 
 
+def test_clear_collocation_repairs_do_not_change_burden_or_quoted_speech():
+    text = "ما قصدت إني أقلل عليك، بس أبي أسألك."
+    assert normalize_saudi(text, context="فهمت سؤالي على إنه تقليل منها")[0] == "ما قصدت إني أقلل منك، بس أبي أسألك."
+    burden = "ما قصدت إني أقلل عليك الشغل."
+    assert normalize_saudi(burden, context="تقليل من شغلها")[0] == burden
+    assert normalize_saudi("ممكن أوضح لي المطلوب؟")[0] == "ممكن توضيح المطلوب؟"
+    assert normalize_saudi("ممكن أوضح لك المطلوب؟")[0] == "ممكن أوضح لك المطلوب؟"
+    assert normalize_saudi('قال «ممكن أوضح لي المطلوب؟»')[0] == 'قال «ممكن أوضح لي المطلوب؟»'
+
+
 def test_model_approval_does_not_override_register_and_followup_checks():
     class Engine:
         generator = "test fixture"
