@@ -6,6 +6,7 @@ private adapter repository and its already configured Hub read access.
 """
 from contextlib import nullcontext
 import hashlib
+from importlib.metadata import version
 import json
 import os
 from pathlib import Path
@@ -46,6 +47,7 @@ class ConfiguredTorchEngine(LabeqEngine):
         policy=os.getenv('LABEQ_WRITER_POLICY')
         if policy:self.writer_system,self.writer_examples=read_policy(policy)
         self.deadline=0
+        self.environment_versions={name:version(name) for name in ['torch','transformers','peft','gradio','spaces','huggingface_hub']}
 
     def load(self):
         with self.lock:
