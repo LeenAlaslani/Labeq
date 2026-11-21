@@ -33,7 +33,7 @@ def main():
         name for name in names
         if name.startswith("assets/")
         or ("/" not in name and Path(name).suffix in {".py", ".js", ".html", ".css"})
-        or name in {"cloud/space_app.py", "cloud/torch_engine.py", "cloud/cpu_engine.py", "cloud/cpu_space_app.py", "LICENSE-CODE"}
+        or name in {"cloud/space_app.py", "cloud/torch_engine.py", "cloud/cpu_engine.py", "cloud/cpu_space_app.py", "training/generalization_v3/policy.json", "LICENSE-CODE"}
     ]
 
     def content(name):

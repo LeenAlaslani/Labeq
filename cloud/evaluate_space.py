@@ -31,13 +31,19 @@ def main():
     token=get_token() if info.private else False
     domain=runtime.raw['domains'][0]['domain'];url='https://'+domain
     headers={'Authorization':'Bearer '+token} if token else {}
+    identity=None
+    identity_fields=['source_commit','base_revision','adapter_revision','adapter_sha256',
+        'writer_policy_sha256','repetition_penalty','generator','compute_backend','environment_versions']
     def health():
         response=httpx.get(url+'/api/model-health',headers=headers,timeout=20)
         response.raise_for_status();data=response.json()
         if data.get('source_commit')!=args.source:
             raise RuntimeError('Live application source differs from the expected Git commit')
+        if identity is not None and {key:data.get(key) for key in identity_fields}!=identity:
+            raise RuntimeError('Model configuration changed during evaluation')
         return data
     observed=health()
+    identity={key:observed.get(key) for key in identity_fields}
     args.out.mkdir(parents=True,exist_ok=False)
     cases=json.loads(args.cases.read_text());cases=cases['cases'] if isinstance(cases,dict) else cases
     manifest={'observed_at_utc':datetime.now(timezone.utc).isoformat(),'space':args.space,

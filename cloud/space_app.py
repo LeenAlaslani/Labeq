@@ -71,6 +71,8 @@ def create_app(engine, gpu_decorator, *, gpu_engine=None, max_queue_size=8):
         "adapter_sha256":getattr(engine,"adapter_sha256",None),
         "environment_versions":getattr(engine,"environment_versions",None),
         "source_commit":manifest.get('source_commit'),
+        "writer_policy_sha256":getattr(engine,'writer_policy_sha256',None),
+        "repetition_penalty":getattr(engine,'repetition_penalty',None),
     }
     # The existing FastAPI HTML is the frontend; Gradio only supplies its queue.
     return gr.mount_gradio_app(app, model_api, path="/model", ssr_mode=False)

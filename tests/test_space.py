@@ -8,6 +8,7 @@ pytest.importorskip("gradio")
 
 from app import app
 from cloud.space_app import create_app
+import cloud.space_app as space_module
 
 
 class FixtureEngine:
@@ -30,8 +31,10 @@ class FixtureEngine:
         return "النتيجة: مناسب"
 
 
-def test_queued_reply_and_real_interface(monkeypatch):
+def test_queued_reply_and_real_interface(monkeypatch,tmp_path):
     monkeypatch.setattr(app.state, "gradio_model", None, raising=False)
+    (tmp_path/'source-manifest.json').write_text(json.dumps({'source_commit':'a'*40}))
+    monkeypatch.setattr(space_module,'ROOT',tmp_path)
     configured = create_app(FixtureEngine(), lambda function: function)
     try:
         with TestClient(configured) as client:
@@ -39,7 +42,9 @@ def test_queued_reply_and_real_interface(monkeypatch):
             assert page.status_code == 200 and "space_client.js" in page.text
             capabilities = client.get("/api/capabilities").json()
             assert capabilities["model_transport"] == "gradio"
-            assert client.get("/api/model-health").json()["faisal_loaded"]
+            health=client.get("/api/model-health").json()
+            assert health["faisal_loaded"]
+            assert health['source_commit']=='a'*40
             submitted = client.post("/model/gradio_api/call/reply", json={"data": [{
                 "message": "زميلتي تطلب مساعدتي كل يوم وأنا عندي شغلي",
                 "relation": "عمل", "goal": "أوضح حدودي", "generation_mode": "مولّد فقط",

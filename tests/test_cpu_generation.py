@@ -23,6 +23,7 @@ def fixture_engine(tokens):
     engine.device_name = 'cpu'; engine.compute_backend = 'torch-cpu'
     engine.lock = RLock(); engine.deadline = time.monotonic() + 120
     engine.generation_trace = []
+    engine.repetition_penalty=1.08
     engine.model = SimpleNamespace(set_adapter=lambda name: None, generate=generate,
                                    disable_adapter=nullcontext)
     engine.processor = SimpleNamespace(eos_token_id=9, decode=lambda *a, **k: 'رد فعلي')
@@ -53,3 +54,10 @@ def test_cpu_expired_request_does_not_start_another_generation():
     with pytest.raises(TimeoutError):
         engine._one_generation([])
     assert options == {}
+
+
+def test_optional_gpu_backend_respects_the_same_configured_penalty():
+    engine, options = fixture_engine([3, 9])
+    engine.device_name='cuda';engine.repetition_penalty=1.0
+    assert engine._one_generation([])=='رد فعلي'
+    assert options['repetition_penalty']==1.0

@@ -46,8 +46,11 @@ class ConfiguredTorchEngine(LabeqEngine):
         self.generator=f'Qwen3.5-4B + {label} (Transformers, bfloat16, {device})'
         policy=os.getenv('LABEQ_WRITER_POLICY')
         if policy:self.writer_system,self.writer_examples=read_policy(policy)
+        self.writer_policy_sha256=hashlib.sha256(Path(policy).read_bytes()).hexdigest() if policy else None
+        self.repetition_penalty=float(os.getenv('LABEQ_REPETITION_PENALTY','1.08'))
+        if not 1<=self.repetition_penalty<=1.3:raise ValueError('Unsupported repetition penalty')
         self.deadline=0
-        self.environment_versions={name:version(name) for name in ['torch','transformers','peft','gradio','spaces','huggingface_hub']}
+        self.environment_versions={name:version(name) for name in ['torch','transformers','peft','gradio','spaces','huggingface_hub','accelerate','safetensors']}
 
     def load(self):
         with self.lock:
@@ -94,7 +97,7 @@ class ConfiguredTorchEngine(LabeqEngine):
             self.model.set_adapter('saudi');inputs=self._inputs(messages)
             eos=self.processor.eos_token_id;stop_ids=set(eos if isinstance(eos,(list,tuple)) else [eos])
             options={'max_new_tokens':max_tokens,'max_time':min(phase_budget,remaining-1),
-                'do_sample':retry,'repetition_penalty':1.08,'pad_token_id':eos,'eos_token_id':eos,'forced_eos_token_id':None}
+                'do_sample':retry,'repetition_penalty':self.repetition_penalty,'pad_token_id':eos,'eos_token_id':eos,'forced_eos_token_id':None}
             if retry:options.update(temperature=.45,top_p=.85)
             context=nullcontext() if use_adapter else self.model.disable_adapter()
             start=time.monotonic()
