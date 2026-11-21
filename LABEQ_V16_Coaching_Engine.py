@@ -117,6 +117,16 @@ def _parse_review(text):
     return None,""
 
 
+def semantic_review_issue(issue):
+    """Only specific meaning concerns can trigger a model-directed rewrite."""
+    return bool(re.search(
+        r"(?:وعد|وعود|موعد|التزام).*(?:يناقض|يتعارض|غير مذكور|غير مؤكد)|"
+        r"(?:اختلق|اختلاق|غير مذكور).*(?:سبب|موعد|وعد|خطأ)|"
+        r"(?:أغفل|تجاهل|يتجاهل).*(?:الهدف|المتابعة|الاعتذار|التكرار)|"
+        r"غيّر الهدف|عكس الأدوار", issue or "",
+    ))
+
+
 def reply_v16(self, message, relation="صديق", goal="أبي رد مناسب وواضح",
               style="تلقائي", speaker_gender="غير محدد", recipient_gender="غير محدد",
               history=None, generation_mode="موجّه"):
@@ -194,24 +204,30 @@ def reply_v16(self, message, relation="صديق", goal="أبي رد مناسب �
         )
         return _parse_review(self._one_generation([{"role":"user","content":prompt}], use_adapter=False))
 
-    flags = check(first)
+    hard_flags = check(first)
+    flags = list(hard_flags)
     # A fallible style opinion must not automatically rewrite a grounded draft.
     # Concrete register/intent diagnostics drive the bounded rewrite; the model's
     # remaining concerns are still returned to the user as review warnings.
-    was_retried = bool(flags)
     reviewed, issue = review(first)
     if reviewed is False:
         flags.append(issue)
+        if semantic_review_issue(issue):
+            hard_flags.append(issue)
+    was_retried = bool(hard_flags)
     if was_retried:
         try:
             reason = "؛ ".join(flags)
             revised = generate("أصلحي الملاحظات التالية: " + reason, retry=True)
             if revised.strip():
-                new_flags = check(revised)
+                new_hard_flags = check(revised)
+                new_flags = list(new_hard_flags)
                 new_review, new_issue = review(revised)
                 if new_review is False:
                     new_flags.append(new_issue)
-                if not first.strip() or (new_review is not False and len(new_flags) < len(flags)):
+                    if semantic_review_issue(new_issue):
+                        new_hard_flags.append(new_issue)
+                if not first.strip() or len(new_hard_flags) < len(hard_flags):
                     first, flags, reviewed = revised, new_flags, new_review
         except Exception:
             pass

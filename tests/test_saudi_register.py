@@ -88,3 +88,18 @@ def test_advisory_style_opinion_does_not_rewrite_a_grounded_saudi_reply():
 def test_apology_instruction_is_not_an_apology_message():
     assert local_warnings("اعتذري عن نسيان الموعد", "نسيت موعد صديقتي", "أعتذر عن غلطتي", "apology")
 
+
+def test_advisory_opinion_does_not_veto_a_concrete_intent_repair():
+    class Engine:
+        def load(self):
+            return self
+
+        def _one_generation(self, messages, retry=False, use_adapter=True):
+            if use_adapter:
+                return "حقك علي، نسيت الموعد وخليتك تنتظرين." if retry else "اعتذري عن نسيان الموعد."
+            return "النتيجة: غير مناسب\nالسبب: العبارة قصيرة"
+
+    result = reply_v16(Engine(), "نسيت موعد صديقتي", "صديق", "أعتذر عن غلطتي", "اعتذار")
+    assert result["reply"].startswith("حقك علي")
+    assert result["was_retried"] and result["needs_review"]
+
