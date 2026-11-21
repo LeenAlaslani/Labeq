@@ -90,3 +90,18 @@ def test_identical_normalized_retries_preserve_the_selected_raw_draft():
     assert result['draft_before_register_normalization'].startswith('لا أريد')
     assert attempts[1]['draft_before_register_normalization'].startswith('ما أبي')
     assert result['register_normalization']==attempts[0]['register_normalization']
+
+
+def test_rejected_retry_cannot_relabel_the_first_selected_adapter():
+    class Engine:
+        def load(self):pass
+        def _one_generation(self,messages,retry=False,use_adapter=True,**kwargs):
+            if use_adapter:
+                self.last_writer_provenance={'generator':'second-model' if retry else 'first-model'}
+                return 'حقك علي، أنت مهمة عندي.' if retry else 'كنت مشغول، أرجو تفهميني.'
+            if 'أربع سطور' in messages[-1]['content']:return ''
+            return review('missing','لم يعتذر عن الخطأ')
+    result=reply_v16(Engine(),MESSAGE,'صديق',GOAL,'اعتذار')
+    assert result['was_retried']
+    assert result['generator']=='first-model'
+    assert result['writer_provenance']['generator']=='first-model'

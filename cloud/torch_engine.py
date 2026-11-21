@@ -23,6 +23,7 @@ class SpaceEngine(LabeqEngine):
         self.generator = f"Qwen3.5-4B + {label} (Transformers, bfloat16)"
         self.adapter_revision = revision
         self.base_revision = BASE_REVISION
+        self.faisal_revision = FAISAL_REVISION
 
     def load(self):
         with self.lock:

@@ -33,7 +33,8 @@ def main():
     headers={'Authorization':'Bearer '+token} if token else {}
     identity=None
     identity_fields=['source_commit','base_revision','adapter_revision','adapter_sha256',
-        'writer_policy_sha256','repetition_penalty','generator','compute_backend','environment_versions']
+        'writer_policy_sha256','repetition_penalty','generator','compute_backend','environment_versions',
+        'candidate_adapter_shas','candidate_policy_sha256','v2_adapter_revision','planning_model_revision','planning_weights_sha256']
     def health():
         response=httpx.get(url+'/api/model-health',headers=headers,timeout=20)
         response.raise_for_status();data=response.json()
@@ -63,6 +64,7 @@ def main():
                 'goal':case['goal'],'style':case.get('style','تلقائي'),
                 'history':case.get('history',[]),'generation_mode':'مولّد فقط'},api_name=args.api_name)
             if not isinstance(result,dict) or not result.get('reply') or result.get('mock') is True:
+                row['diagnostic_result']=result
                 raise RuntimeError('Expected an actual nonempty model response')
             if result.get('reply_source') not in {'qwen_lora_generated','qwen_base_generated','ollama_generated'}:
                 raise RuntimeError('Unexpected generation source')

@@ -189,7 +189,10 @@ def reply_v16(self, message, relation="صديق", goal="أبي رد مناسب �
             + [{"role":"user","content":gen_prompt(extra, reference or (previous if modifier else ""))}], retry=retry, max_tokens=256,
         ), modifier)
         text, edits = normalize_saudi(raw, modifier, message + " " + goal)
-        return {"reply":text,"draft_before_register_normalization":raw,"register_normalization":edits}
+        record={"reply":text,"draft_before_register_normalization":raw,"register_normalization":edits}
+        provenance=getattr(self,'last_writer_provenance',None)
+        if provenance:record['writer_provenance']=dict(provenance)
+        return record
     selected_record=generate()
     first=selected_record["reply"]
     def check(candidate):
@@ -245,7 +248,8 @@ def reply_v16(self, message, relation="صديق", goal="أبي رد مناسب �
     return {
         "reply":first.strip(),"style_used":_style_display(style_key),"router_source":router_source,
         "reply_source":getattr(self,"reply_source","qwen_lora_generated"), "style_key":style_key if style_key in {"polite","firm","diplomatic","apology","clarify"} else (selected or "polite"),
-        "generator":self.generator if hasattr(self, "generator") else "Qwen3.5-4B + Saudi LoRA",
+        "generator":selected_record.get('writer_provenance',{}).get('generator',getattr(self,'generator',"Qwen3.5-4B + Saudi LoRA")),
+        "writer_provenance":selected_record.get('writer_provenance',{}),
         "coaching":coach,"review_status":"flagged" if flags else ("model_reviewed" if reviewed else "unverified"),
         "needs_review":bool(flags), "quality_warnings":list(dict.fromkeys(flags)),"was_retried":was_retried,
         "semantic_review":judgment, "generation_candidates":attempts, "retry_error":retry_error,
