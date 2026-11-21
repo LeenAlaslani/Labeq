@@ -7,6 +7,14 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 
+def gpu_duration(payload):
+    if not isinstance(payload, dict):
+        return 20
+    length = len(str(payload.get("message", ""))) + len(str(payload.get("goal", "")))
+    length += len(str(payload.get("history", "")))
+    return 20 if length <= 800 else 30
+
+
 def create_app(engine, gpu_decorator):
     import gradio as gr
 
@@ -51,7 +59,7 @@ def main():
     os.environ["LABEQ_MODEL_MODE"] = "real"
     print("LABEQ: preparing adapter and queued callback", flush=True)
     engine = SpaceEngine()
-    app = create_app(engine, spaces.GPU(duration=30))
+    app = create_app(engine, spaces.GPU(duration=gpu_duration))
     print("LABEQ: loading Qwen and both adapters", flush=True)
     engine.load()
     print("LABEQ: model loaded; starting FastAPI", flush=True)

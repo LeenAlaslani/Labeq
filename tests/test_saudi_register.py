@@ -111,6 +111,11 @@ def test_apology_instruction_is_not_an_apology_message():
     assert local_warnings("اعتذري عن نسيان الموعد", "نسيت موعد صديقتي", "أعتذر عن غلطتي", "apology")
 
 
+def test_reflexive_clarification_error_is_flagged_but_a_direct_question_is_allowed():
+    assert local_warnings("ما حددت لي نسخة أو وقت تسليم، ممكن أوضح لي المطلوب؟", "المشرفة طلبت ملف", "أطلب توضيح", "clarify")
+    assert not local_warnings("ممكن توضحين لي أي نسخة مطلوبة ومتى موعد التسليم؟", "المشرفة طلبت ملف", "أطلب توضيح", "clarify")
+
+
 def test_advisory_opinion_does_not_veto_a_concrete_intent_repair():
     class Engine:
         def load(self):

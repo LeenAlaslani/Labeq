@@ -99,6 +99,8 @@ def local_warnings(reply, message, goal, style, last_reply=""):
         flags.append("الرد قد ينسب للمستخدم خطأ غير مذكور")
     if style == "clarify" and not re.search(r"؟|\?|(?:^|\s)(?:وش|إيش|ايش|هل|ممكن)(?:\s|$)", text):
         flags.append("صياغة طلب التوضيح تحتاج سؤالًا محددًا للطرف الآخر")
+    if style == "clarify" and re.search(r"ممكن\s+أ(?:وضح|شرح)\s+لي", text):
+        flags.append("السؤال خلط بين المتحدث والمخاطب؛ اطلب من الطرف الآخر هو يوضح لك المطلوب")
     if last_reply and SequenceMatcher(None,_clean(last_reply),text).ratio() > 0.88:
         flags.append("الصياغة الجديدة تشبه الرد السابق جدًا ولم تتغير بشكل مفيد")
     if re.search(r"(?:إني|أني)\s+(?:بأتابع|بتابع|براجع)|أبي\s+أتابع", message):
