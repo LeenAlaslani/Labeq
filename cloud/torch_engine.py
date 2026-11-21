@@ -18,7 +18,8 @@ class SpaceEngine(LabeqEngine):
             allow_patterns=["adapter_config.json", "adapter_model.safetensors"],
         )
         super().__init__(Path(directory), use_faisal=True)
-        self.generator = "Qwen3.5-4B + Saudi LoRA pilot (Transformers, bfloat16)"
+        label = os.getenv("LABEQ_ADAPTER_LABEL", "Saudi LoRA pilot")
+        self.generator = f"Qwen3.5-4B + {label} (Transformers, bfloat16)"
         self.adapter_revision = revision
 
     def load(self):

@@ -48,3 +48,7 @@ The original Munsit credentials and configured Najdi female Maha identity were v
 ## Remaining work
 
 Independent Saudi Arabic review, stronger intent preservation and grounded coaching, and a later voice playback check remain open. Shared GPU quotas and cold starts affect access. The noncommercial Faisal license and separate model, dataset, artwork, and voice-provider terms continue to apply.
+
+## Saudi register follow-up
+
+The later [Saudi register repair](SAUDI_REGISTER.md) keeps the original pilot, adds audited wording edits and concrete meaning checks, and records a fresh public customer screenshot. It does not retrain or promote v2.

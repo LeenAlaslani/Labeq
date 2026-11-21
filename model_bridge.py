@@ -112,12 +112,17 @@ async def remote_reply(payload: dict) -> dict:
     safe_coaching = {k: str(coaching[k])[:180] for k in ("core", "objective", "strategy", "risk")
                      if k in coaching and isinstance(coaching[k], str)}
     warnings = data.get("quality_warnings")
+    register_edits = data.get("register_normalization")
+    raw_draft = data.get("draft_before_register_normalization")
     return {
         "reply": reply.strip(), "style": key,
         "coaching": safe_coaching,
         "review_status": data.get("review_status", "unverified"),
         "style_used": data.get("style_used") or "غير محدد",
         "router_source": router, "reply_source": source,
+        "register_normalization": [item[:200] for item in register_edits if isinstance(item, str)][:20]
+        if isinstance(register_edits, list) else [],
+        "draft_before_register_normalization": raw_draft[:1200] if isinstance(raw_draft, str) else None,
         "needs_review": bool(data.get("needs_review", False)),
         "quality_warnings": [item[:180] for item in warnings if isinstance(item, str)][:5]
         if isinstance(warnings, list) else [],

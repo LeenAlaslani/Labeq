@@ -12,7 +12,7 @@ The live research demo runs V16 with Faisal decision routing and Qwen3.5-4B with
 
 A message can be grammatically correct and miss the user's intent. «ما أقدر أساعدك اليوم» declines today's request. «ودي أساعدك بس ما أقدر أساعدك كل يوم وأنا عندي شغلي» communicates an ongoing boundary while acknowledging the relationship. The distinction is essential when proposing a reply for repeated requests, misunderstandings, or apologies.
 
-LABEQ keeps the situation, relationship, and goal as separate inputs. Communication style changes how the message is expressed. Register is another control, with conversational Saudi Arabic for many personal exchanges and clear professional Arabic for work and customer interactions.
+LABEQ keeps the situation, relationship, and goal as separate inputs. Communication style changes how the message is expressed. Register is another control, with conversational Saudi Arabic for personal exchanges and respectful, natural Saudi Arabic for work and customer interactions. Professional tone does not automatically switch the reply to formal MSA.
 
 ## Features
 
@@ -25,7 +25,7 @@ LABEQ keeps the situation, relationship, and goal as separate inputs. Communicat
 
 | Onboarding | Public model reply |
 | --- | --- |
-| ![LABEQ onboarding](screenshots/release-onboarding.png) | ![Public Qwen and pilot Saudi LoRA reply routed by Faisal](screenshots/release-generated-reply.png) |
+| ![LABEQ onboarding](screenshots/release-onboarding.png) | ![Public Qwen and pilot Saudi LoRA reply routed by Faisal](screenshots/saudi-customer-result.png) |
 
 [Relationship](screenshots/release-relationship.png) · [Goal](screenshots/release-goal.png) · [Situation](screenshots/release-situation.png) · [Coaching](screenshots/release-coaching.png) · [Style comparison](screenshots/release-style-comparison.png) · [Public mobile](screenshots/release-mobile-public.png)
 
@@ -44,7 +44,8 @@ flowchart LR
     F --> E
     A --> E
     E --> G["Qwen3.5-4B + Saudi LoRA draft"]
-    G --> H["Heuristics + Qwen base review"]
+    G --> L["Saudi wording + recorded edits"]
+    L --> H["Heuristics + Qwen base review"]
     H -->|"Flagged"| I["One revised draft and review"]
     H --> J["Reply, coaching, and source metadata"]
     I --> J
@@ -58,6 +59,8 @@ flowchart LR
 ## Dataset and evaluation
 
 The approved package contains 958 training examples, including 178 human-approved revisions and 780 unchanged synthetic examples. Two reviewed candidates were held out of training due to meaning risks. The validation and test splits each contain 114 examples. The 38-case review set takes one example per held-out scenario from the test split.
+
+The [Saudi register repair](evidence/SAUDI_REGISTER.md) documents the actual customer before/after response, trained writing labels, meaning safeguards, and transparent surface edits.
 
 Saudi LoRA v2 completed two epochs and 479 optimizer updates with final validation loss 1.8040. The [38-scenario evaluation](training/EVALUATION.md) documents the base, pilot, and v2 outputs, automatic diagnostics, and qualitative concerns. The pilot remains the incumbent research baseline because v2 still changes intent and produces unnatural phrasing in important cases. Independent human evaluation remains open. Raw data and checkpoints are supplied separately.
 
@@ -106,7 +109,7 @@ Dictation uses the browser's Arabic recognition when available, with optional El
 ## Tests and deployment
 
 ```bash
-python -m pip install pytest playwright "gradio>=6,<7"
+python -m pip install pytest playwright "gradio>=6,<7" "safetensors>=0.6,<1"
 python -m pytest -q
 node tests/test_v16_coach.js
 node tests/test_space_client.js
