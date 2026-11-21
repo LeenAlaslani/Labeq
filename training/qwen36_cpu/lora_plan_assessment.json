@@ -1,0 +1,561 @@
+{
+  "reviewer": "Assistant, not independent human review. Model labels hidden for local text judgment, but earlier same-variant outputs were already known.",
+  "conditions": {
+    "clean": {
+      "assessment": [
+        {
+          "candidate": "D01-1",
+          "case": {
+            "id": "D01",
+            "relation": "عمل",
+            "goal": "أطلب تصحيح بدون اتهام",
+            "message": "اسم المتطوعة انحذف من قائمة المشاركين وما أعرف السبب. أبي أطلب يرجع اسمها وأشكر المنظم على تعبه بدون ما أفترض إنه قصد يستبعدها."
+          },
+          "reply": "ممكن ترجع اسم المتطوعة من القائمة؟ ما أعرف السبب، وأبي أتأكد من صحة الحذف. شكرا على تعبك.",
+          "strict_pass": false,
+          "reason": "Return from the list uses the wrong direction and leaves restoration unclear."
+        },
+        {
+          "candidate": "D01-2",
+          "case": {
+            "id": "D01",
+            "relation": "عمل",
+            "goal": "أطلب تصحيح بدون اتهام",
+            "message": "اسم المتطوعة انحذف من قائمة المشاركين وما أعرف السبب. أبي أطلب يرجع اسمها وأشكر المنظم على تعبه بدون ما أفترض إنه قصد يستبعدها."
+          },
+          "reply": "أهلاً بك، أود أن أطلب منكم إرجاع اسم المتطوعة إلى القائمة، وأشكركم على مجهودكم الكبير في تنظيم هذا العمل، دون أن أفترض أي سبب محدد لإزالتها.",
+          "strict_pass": false,
+          "reason": "Formal MSA and instruction narration are unsuitable for the requested plain Saudi wording."
+        },
+        {
+          "candidate": "D01-3",
+          "case": {
+            "id": "D01",
+            "relation": "عمل",
+            "goal": "أطلب تصحيح بدون اتهام",
+            "message": "اسم المتطوعة انحذف من قائمة المشاركين وما أعرف السبب. أبي أطلب يرجع اسمها وأشكر المنظم على تعبه بدون ما أفترض إنه قصد يستبعدها."
+          },
+          "reply": "ممكن ترجع اسم المتطوعة للقائمة؟ ما أعرف السبب انحذفت، وحبيت أتأكد منك. أشكرك على تعبه ووقتك.",
+          "strict_pass": false,
+          "reason": "Third-person thanks is incorrect in a directly addressed message."
+        },
+        {
+          "candidate": "D01-4",
+          "case": {
+            "id": "D01",
+            "relation": "عمل",
+            "goal": "أطلب تصحيح بدون اتهام",
+            "message": "اسم المتطوعة انحذف من قائمة المشاركين وما أعرف السبب. أبي أطلب يرجع اسمها وأشكر المنظم على تعبه بدون ما أفترض إنه قصد يستبعدها."
+          },
+          "reply": "السلام عليكم، اسم المتطوعة ما يظهر في القائمة، وأرجو مراجعة الأمر وإعادتها، وأشكركم على الجهد.",
+          "strict_pass": true,
+          "reason": "Restores the missing participant and thanks the organiser without assigning intent; sendable professional wording."
+        },
+        {
+          "candidate": "D01-5",
+          "case": {
+            "id": "D01",
+            "relation": "عمل",
+            "goal": "أطلب تصحيح بدون اتهام",
+            "message": "اسم المتطوعة انحذف من قائمة المشاركين وما أعرف السبب. أبي أطلب يرجع اسمها وأشكر المنظم على تعبه بدون ما أفترض إنه قصد يستبعدها."
+          },
+          "reply": "السلام عليكم، لاحظت إن اسم المتطوعة ما موجود في القائمة، ممكن توضحون سببها؟",
+          "strict_pass": false,
+          "reason": "Asks the reason but omits restoration and thanks."
+        },
+        {
+          "candidate": "D02-1",
+          "case": {
+            "id": "D02",
+            "relation": "أهل",
+            "goal": "أرفض جزء وأقبل جزء",
+            "message": "أختي طلبت أطبخ وأوصل الأكل لعزيمتها. أقدر أطبخ بس ما أقدر أوصل، وأبي أوضح لها ترتب التوصيل بدون ما أتحجج بشي مو مذكور."
+          },
+          "reply": "أقدر أطبخ لك، بس توصيل الأكل ما أقدر أمسكه. رتبي التوصيل من طرفك، وتكون إني قبولت الطبخ فقط.",
+          "strict_pass": false,
+          "reason": "Malformed appended sentence requires repair."
+        },
+        {
+          "candidate": "D02-2",
+          "case": {
+            "id": "D02",
+            "relation": "أهل",
+            "goal": "أرفض جزء وأقبل جزء",
+            "message": "أختي طلبت أطبخ وأوصل الأكل لعزيمتها. أقدر أطبخ بس ما أقدر أوصل، وأبي أوضح لها ترتب التوصيل بدون ما أتحجج بشي مو مذكور."
+          },
+          "reply": "يا قلبي أقدر أطبخ لك، بس ما أقدر أوصلها، وأتمنى ترتب التوصيل.",
+          "strict_pass": false,
+          "reason": "Addresses the explicitly female sister with a masculine delivery-arrangement verb."
+        },
+        {
+          "candidate": "D02-3",
+          "case": {
+            "id": "D02",
+            "relation": "أهل",
+            "goal": "أرفض جزء وأقبل جزء",
+            "message": "أختي طلبت أطبخ وأوصل الأكل لعزيمتها. أقدر أطبخ بس ما أقدر أوصل، وأبي أوضح لها ترتب التوصيل بدون ما أتحجج بشي مو مذكور."
+          },
+          "reply": "أقدر أطبخ لك بس التوصيل ما أقدر أوفره، رتبه من طرفك.",
+          "strict_pass": false,
+          "reason": "Masculine imperative for the explicitly female sister."
+        },
+        {
+          "candidate": "D02-4",
+          "case": {
+            "id": "D02",
+            "relation": "أهل",
+            "goal": "أرفض جزء وأقبل جزء",
+            "message": "أختي طلبت أطبخ وأوصل الأكل لعزيمتها. أقدر أطبخ بس ما أقدر أوصل، وأبي أوضح لها ترتب التوصيل بدون ما أتحجج بشي مو مذكور."
+          },
+          "reply": "يا أختي، أقدر أطبخ لك، لكنني مش قادر أوصل الأكل، فالتوصيل لازم تترتبينه أنت بنفسك.",
+          "strict_pass": false,
+          "reason": "Egyptian wording and malformed arrangement phrase."
+        },
+        {
+          "candidate": "D02-5",
+          "case": {
+            "id": "D02",
+            "relation": "أهل",
+            "goal": "أرفض جزء وأقبل جزء",
+            "message": "أختي طلبت أطبخ وأوصل الأكل لعزيمتها. أقدر أطبخ بس ما أقدر أوصل، وأبي أوضح لها ترتب التوصيل بدون ما أتحجج بشي مو مذكور."
+          },
+          "reply": "أقدّر أطبخ، بس ما أقدر أوصل، وأبي أتركك ترتب التوصيل بنفسك.",
+          "strict_pass": false,
+          "reason": "Incorrect gender agreement in the recipient arrangement verb."
+        },
+        {
+          "candidate": "D03-1",
+          "case": {
+            "id": "D03",
+            "relation": "صديق",
+            "goal": "أعتذر عن تصرفي",
+            "message": "ضحكت على اقتراح خويي قدام الشباب. أبي أعتذر عن الضحك وأعترف إنه ضايقه وأوضح إني أحترم رأيه بدون ما أقول كنت أمزح أو أطلب منه ما يزعل."
+          },
+          "reply": "يا بطل، أنا عايز أعتذر عن ضحكتي على اقتراحك قدام الشباب، لأنني أدري إن الضحك ده ضايقك، وأنا أحترم رأيك ولا قصدني إني كنت أمزح أو أطلب منك ما يضايقك.",
+          "strict_pass": false,
+          "reason": "Egyptian vocabulary, role defects and instruction narration."
+        },
+        {
+          "candidate": "D03-2",
+          "case": {
+            "id": "D03",
+            "relation": "صديق",
+            "goal": "أعتذر عن تصرفي",
+            "message": "ضحكت على اقتراح خويي قدام الشباب. أبي أعتذر عن الضحك وأعترف إنه ضايقه وأوضح إني أحترم رأيه بدون ما أقول كنت أمزح أو أطلب منه ما يزعل."
+          },
+          "reply": "أعتذر عن ضحكتي على اقتراحك، وأدرك أن الأمر أزعجك، وأقدّر رأيك.",
+          "strict_pass": false,
+          "reason": "Formal reflective MSA dominates the personal friend message."
+        },
+        {
+          "candidate": "D03-3",
+          "case": {
+            "id": "D03",
+            "relation": "صديق",
+            "goal": "أعتذر عن تصرفي",
+            "message": "ضحكت على اقتراح خويي قدام الشباب. أبي أعتذر عن الضحك وأعترف إنه ضايقه وأوضح إني أحترم رأيه بدون ما أقول كنت أمزح أو أطلب منه ما يزعل."
+          },
+          "reply": "أعتذر عن ضحكتي على اقتراحك، وأدري إنّه ضايقك، وأحترم رأيك.",
+          "strict_pass": true,
+          "reason": "Apology, impact acknowledgment and respect are all clear in sendable Saudi wording."
+        },
+        {
+          "candidate": "D03-4",
+          "case": {
+            "id": "D03",
+            "relation": "صديق",
+            "goal": "أعتذر عن تصرفي",
+            "message": "ضحكت على اقتراح خويي قدام الشباب. أبي أعتذر عن الضحك وأعترف إنه ضايقه وأوضح إني أحترم رأيه بدون ما أقول كنت أمزح أو أطلب منه ما يزعل."
+          },
+          "reply": "حقك علي إني ضحكتك قدام الشباب. كان المفروض أعتذر منك قبل أضحك، وأنا أحترم رأيك ووديته. ضحكتك كان المفروض يكون بيننا فقط.",
+          "strict_pass": false,
+          "reason": "Changes laughing at the idea into making the friend laugh and adds an unrequested private-laughter exception."
+        },
+        {
+          "candidate": "D03-5",
+          "case": {
+            "id": "D03",
+            "relation": "صديق",
+            "goal": "أعتذر عن تصرفي",
+            "message": "ضحكت على اقتراح خويي قدام الشباب. أبي أعتذر عن الضحك وأعترف إنه ضايقه وأوضح إني أحترم رأيه بدون ما أقول كنت أمزح أو أطلب منه ما يزعل."
+          },
+          "reply": "حقك علي إني ضحكتك قدام الناس. كان المفروض ما أضحك عليك، وأنا أحترم رأيك.",
+          "strict_pass": false,
+          "reason": "Changes the action into making the friend laugh."
+        },
+        {
+          "candidate": "D04-1",
+          "case": {
+            "id": "D04",
+            "relation": "عمل",
+            "goal": "أحط حدود مستمرة",
+            "message": "زميلي كل يوم يطلب أكتب تقريره بداله. أبي أوقف هالشي من اليوم ورايح وأوضح إني أقدر أجاوب عن سؤال محدد بس ما أكتب تقاريره كاملة."
+          },
+          "reply": "من اليوم ما أقدر أكتب تقاريرك كاملة، وحبيت أحط هالحد معك بوضوح. أقدر أجاوب عن سؤال محدد إذا يحتاج، بس التقرير كامل ما أكتبه بدالك.",
+          "strict_pass": true,
+          "reason": "Ongoing full-report boundary and specific-question offer; minor awkward ellipsis does not change the meaning."
+        },
+        {
+          "candidate": "D04-2",
+          "case": {
+            "id": "D04",
+            "relation": "عمل",
+            "goal": "أحط حدود مستمرة",
+            "message": "زميلي كل يوم يطلب أكتب تقريره بداله. أبي أوقف هالشي من اليوم ورايح وأوضح إني أقدر أجاوب عن سؤال محدد بس ما أكتب تقاريره كاملة."
+          },
+          "reply": "من اليوم ما أقدر أكتب تقاريرك، بس أقدر أجيبك على الأسئلة اللي تطلبها.",
+          "strict_pass": false,
+          "reason": "The exception becomes any requested questions instead of a specific question."
+        },
+        {
+          "candidate": "D04-3",
+          "case": {
+            "id": "D04",
+            "relation": "عمل",
+            "goal": "أحط حدود مستمرة",
+            "message": "زميلي كل يوم يطلب أكتب تقريره بداله. أبي أوقف هالشي من اليوم ورايح وأوضح إني أقدر أجاوب عن سؤال محدد بس ما أكتب تقاريره كاملة."
+          },
+          "reply": "أبي أوضح لك، ما أقدر أكتب تقريرك كل يوم، بس أقدر أساعدك بسؤال محدد.",
+          "strict_pass": false,
+          "reason": "Daily report refusal leaves occasional full-report writing ambiguous."
+        },
+        {
+          "candidate": "D04-4",
+          "case": {
+            "id": "D04",
+            "relation": "عمل",
+            "goal": "أحط حدود مستمرة",
+            "message": "زميلي كل يوم يطلب أكتب تقريره بداله. أبي أوقف هالشي من اليوم ورايح وأوضح إني أقدر أجاوب عن سؤال محدد بس ما أكتب تقاريره كاملة."
+          },
+          "reply": "من اليوم ما أقدر أكتب تقاريرك كاملة، ورايح أوقف هالطلب. أقدر أجاوب عن سؤال محدد بس، الحصة من كتابة التقرير ما أقدرة أعطيها.",
+          "strict_pass": false,
+          "reason": "Malformed quota/help sentence requires repair."
+        },
+        {
+          "candidate": "D04-5",
+          "case": {
+            "id": "D04",
+            "relation": "عمل",
+            "goal": "أحط حدود مستمرة",
+            "message": "زميلي كل يوم يطلب أكتب تقريره بداله. أبي أوقف هالشي من اليوم ورايح وأوضح إني أقدر أجاوب عن سؤال محدد بس ما أكتب تقاريره كاملة."
+          },
+          "reply": "يا زميلي، من اليوم ما أكتب تقاريرك، بس أقدر أجيبك على الأسئلة المحددة اللي طلبتها.",
+          "strict_pass": false,
+          "reason": "Adds a past request for specific questions not stated in the situation."
+        }
+      ],
+      "manifest": {
+        "cases_sha256": "8861fa10d18357bd9cc77bffa2d7510d68b61726f8dde26ba6f1042bcf4c1761",
+        "base": "/Users/leen/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3",
+        "adapters": {
+          "pilot": {
+            "directory": ".labeq-private/cpu-serving/pilot",
+            "sha256": "983ae8bf1d981e0aafb8a30a2ada4bf6c06284dd65b6f73876cdc6d521c48f3d"
+          },
+          "v2": {
+            "directory": ".labeq-private/LABEQ_Saudi_LoRA_v2",
+            "sha256": "866ca93ca5ad48faf8e92c11acdfe973a9435946903f7fe66d19564ed97d0e6e"
+          },
+          "candidate_1": {
+            "directory": ".labeq-private/longform-v3/epoch-1",
+            "sha256": "1bc02a97d53f5eea07bc5212ed8fc94f0dd5f20b768383daf6540570958fc4cf"
+          },
+          "candidate_2": {
+            "directory": ".labeq-private/longform-v3/candidate",
+            "sha256": "425a13cc1e4d190d18eb73c8201371609c9e4e3db98e24f2473c2a46db43d55f"
+          }
+        },
+        "policy_sha256": "c037b70bf124b00edd31c786684c5c5b2847271fbd6cef05a299a1c96890e527",
+        "automatic_plans_sha256": "87ebb281628fd95ad5f77deca3c481200b5c5500ad9c972673d62053711bd738",
+        "plan_runtime_sources": [
+          "5a8a32fe12a13517555d3510e38b3ac9f4fa393d"
+        ],
+        "manual_oracle": false,
+        "generation": {
+          "max_tokens": 256,
+          "temperature": 0,
+          "thinking": false,
+          "surface_normalization": false
+        }
+      }
+    },
+    "fewshot": {
+      "assessment": [
+        {
+          "candidate": "D01-1",
+          "case": {
+            "id": "D01",
+            "relation": "عمل",
+            "goal": "أطلب تصحيح بدون اتهام",
+            "message": "اسم المتطوعة انحذف من قائمة المشاركين وما أعرف السبب. أبي أطلب يرجع اسمها وأشكر المنظم على تعبه بدون ما أفترض إنه قصد يستبعدها."
+          },
+          "reply": "أشكرك على تعبك، وودي يرجع اسم المتطوعة في القائمة. ما أعرف السبب، وكان المفروض يتأكد من الاسم قبل الحذف.",
+          "strict_pass": false,
+          "reason": "Blames the organiser for failing to check before deletion without evidence."
+        },
+        {
+          "candidate": "D01-2",
+          "case": {
+            "id": "D01",
+            "relation": "عمل",
+            "goal": "أطلب تصحيح بدون اتهام",
+            "message": "اسم المتطوعة انحذف من قائمة المشاركين وما أعرف السبب. أبي أطلب يرجع اسمها وأشكر المنظم على تعبه بدون ما أفترض إنه قصد يستبعدها."
+          },
+          "reply": "السلام عليكم، اسم المتطوعة انحذف من القائمة، وأنا ما أعرف السبب. حبيت أطلب يرجع اسمها عشان نكمل، وأقدر أشكركم على تعبه في التنظيم.",
+          "strict_pass": false,
+          "reason": "Third-person thanks and awkward added purpose require repair."
+        },
+        {
+          "candidate": "D01-3",
+          "case": {
+            "id": "D01",
+            "relation": "عمل",
+            "goal": "أطلب تصحيح بدون اتهام",
+            "message": "اسم المتطوعة انحذف من قائمة المشاركين وما أعرف السبب. أبي أطلب يرجع اسمها وأشكر المنظم على تعبه بدون ما أفترض إنه قصد يستبعدها."
+          },
+          "reply": "أشكرك على تعبك مع القائمة. اسم المتطوعة انحذف وما أعرف السبب، وأبيك ترجع لي اسمها إذا ممكن. كان المفروض يكون هناك توضيح للحذف، ورايح عن قصد الاستبعاد.",
+          "strict_pass": false,
+          "reason": "Malformed intention clause and added complaint."
+        },
+        {
+          "candidate": "D01-4",
+          "case": {
+            "id": "D01",
+            "relation": "عمل",
+            "goal": "أطلب تصحيح بدون اتهام",
+            "message": "اسم المتطوعة انحذف من قائمة المشاركين وما أعرف السبب. أبي أطلب يرجع اسمها وأشكر المنظم على تعبه بدون ما أفترض إنه قصد يستبعدها."
+          },
+          "reply": "أرجو مراجعة اسم المتطوعة في القائمة، وأشكركم على الجهد.",
+          "strict_pass": false,
+          "reason": "Requests review but does not request restoring the missing name."
+        },
+        {
+          "candidate": "D01-5",
+          "case": {
+            "id": "D01",
+            "relation": "عمل",
+            "goal": "أطلب تصحيح بدون اتهام",
+            "message": "اسم المتطوعة انحذف من قائمة المشاركين وما أعرف السبب. أبي أطلب يرجع اسمها وأشكر المنظم على تعبه بدون ما أفترض إنه قصد يستبعدها."
+          },
+          "reply": "السلام عليكم، اسم المتطوعة ما ظهر في القائمة، ممكن توضحون سببه؟ وشكرًا على جهودكم.",
+          "strict_pass": false,
+          "reason": "Asks the reason but omits restoration."
+        },
+        {
+          "candidate": "D02-1",
+          "case": {
+            "id": "D02",
+            "relation": "أهل",
+            "goal": "أرفض جزء وأقبل جزء",
+            "message": "أختي طلبت أطبخ وأوصل الأكل لعزيمتها. أقدر أطبخ بس ما أقدر أوصل، وأبي أوضح لها ترتب التوصيل بدون ما أتحجج بشي مو مذكور."
+          },
+          "reply": "أقدر أطبخ، بس توصيل الأكل ما أقدر أوصله. حبيت أوضح لك من الحين: أطبخ، وترتبي توصيله لعزيمتك.",
+          "strict_pass": false,
+          "reason": "Non-Saudi imperative form needs grammatical repair."
+        },
+        {
+          "candidate": "D02-2",
+          "case": {
+            "id": "D02",
+            "relation": "أهل",
+            "goal": "أرفض جزء وأقبل جزء",
+            "message": "أختي طلبت أطبخ وأوصل الأكل لعزيمتها. أقدر أطبخ بس ما أقدر أوصل، وأبي أوضح لها ترتب التوصيل بدون ما أتحجج بشي مو مذكور."
+          },
+          "reply": "أبي أطبخ لك، بس ما أقدر أوصلها، حبيت ترتبين التوصيل بنفسك.",
+          "strict_pass": true,
+          "reason": "Accepts cooking, refuses delivery and politely asks the sister to arrange it."
+        },
+        {
+          "candidate": "D02-3",
+          "case": {
+            "id": "D02",
+            "relation": "أهل",
+            "goal": "أرفض جزء وأقبل جزء",
+            "message": "أختي طلبت أطبخ وأوصل الأكل لعزيمتها. أقدر أطبخ بس ما أقدر أوصل، وأبي أوضح لها ترتب التوصيل بدون ما أتحجج بشي مو مذكور."
+          },
+          "reply": "أقدر أطبخ، بس التوصيل ما أقدر. حبيت أوضح لك من الحين عشان ترتبين له.",
+          "strict_pass": true,
+          "reason": "Clear acceptance/refusal and request that the sister arrange delivery, without an invented excuse."
+        },
+        {
+          "candidate": "D02-4",
+          "case": {
+            "id": "D02",
+            "relation": "أهل",
+            "goal": "أرفض جزء وأقبل جزء",
+            "message": "أختي طلبت أطبخ وأوصل الأكل لعزيمتها. أقدر أطبخ بس ما أقدر أوصل، وأبي أوضح لها ترتب التوصيل بدون ما أتحجج بشي مو مذكور."
+          },
+          "reply": "أقدر أطبخ، بس ما أقدر أوصل الأكل لعزيمتها. حبيت أوضح لك ترتب التوصيل بنفسك.",
+          "strict_pass": false,
+          "reason": "Changes the directly addressed sister into a third-person host and uses the wrong recipient gender."
+        },
+        {
+          "candidate": "D02-5",
+          "case": {
+            "id": "D02",
+            "relation": "أهل",
+            "goal": "أرفض جزء وأقبل جزء",
+            "message": "أختي طلبت أطبخ وأوصل الأكل لعزيمتها. أقدر أطبخ بس ما أقدر أوصل، وأبي أوضح لها ترتب التوصيل بدون ما أتحجج بشي مو مذكور."
+          },
+          "reply": "أقدر أطبخ، بس ما أقدر أوصل الأكل، حبيت أرتب التوصيل بنفسك.",
+          "strict_pass": false,
+          "reason": "The speaker arranging delivery conflicts with the recipient-yourself form."
+        },
+        {
+          "candidate": "D03-1",
+          "case": {
+            "id": "D03",
+            "relation": "صديق",
+            "goal": "أعتذر عن تصرفي",
+            "message": "ضحكت على اقتراح خويي قدام الشباب. أبي أعتذر عن الضحك وأعترف إنه ضايقه وأوضح إني أحترم رأيه بدون ما أقول كنت أمزح أو أطلب منه ما يزعل."
+          },
+          "reply": "آسف إني ضحكت على اقتراحك قدام الناس، وأدرك إني فزتك. أنا أحترم رأيك ولا أريد إزعاجك، لكنني كنت غير مدرك لحالتك.",
+          "strict_pass": false,
+          "reason": "Malformed impact wording and an invented unawareness excuse."
+        },
+        {
+          "candidate": "D03-2",
+          "case": {
+            "id": "D03",
+            "relation": "صديق",
+            "goal": "أعتذر عن تصرفي",
+            "message": "ضحكت على اقتراح خويي قدام الشباب. أبي أعتذر عن الضحك وأعترف إنه ضايقه وأوضح إني أحترم رأيه بدون ما أقول كنت أمزح أو أطلب منه ما يزعل."
+          },
+          "reply": "آسف ما ضحك على اقتراحك، وأدري إنك زعلت.",
+          "strict_pass": false,
+          "reason": "Negates the laughter and omits respect."
+        },
+        {
+          "candidate": "D03-3",
+          "case": {
+            "id": "D03",
+            "relation": "صديق",
+            "goal": "أعتذر عن تصرفي",
+            "message": "ضحكت على اقتراح خويي قدام الشباب. أبي أعتذر عن الضحك وأعترف إنه ضايقه وأوضح إني أحترم رأيه بدون ما أقول كنت أمزح أو أطلب منه ما يزعل."
+          },
+          "reply": "آفقت ضحك على اقتراحك قدام الناس، وأعتذر منك. أبي أحترم رأيك وبوقف على هالضحك.",
+          "strict_pass": false,
+          "reason": "Malformed apology and respect expressed as a future wish."
+        },
+        {
+          "candidate": "D03-4",
+          "case": {
+            "id": "D03",
+            "relation": "صديق",
+            "goal": "أعتذر عن تصرفي",
+            "message": "ضحكت على اقتراح خويي قدام الشباب. أبي أعتذر عن الضحك وأعترف إنه ضايقه وأوضح إني أحترم رأيه بدون ما أقول كنت أمزح أو أطلب منه ما يزعل."
+          },
+          "reply": "حقك علي إني ضحكتك على اقتراحك قدام الشباب. كان المفروض أحترم ثقتك بهالطريقة، وأنا أحترم رأيك.",
+          "strict_pass": false,
+          "reason": "Changes laughing at the proposal into making the friend laugh."
+        },
+        {
+          "candidate": "D03-5",
+          "case": {
+            "id": "D03",
+            "relation": "صديق",
+            "goal": "أعتذر عن تصرفي",
+            "message": "ضحكت على اقتراح خويي قدام الشباب. أبي أعتذر عن الضحك وأعترف إنه ضايقه وأوضح إني أحترم رأيه بدون ما أقول كنت أمزح أو أطلب منه ما يزعل."
+          },
+          "reply": "حقك علي إني ضحكتك قدام الناس، كان المفروض أحترم رأيك وتكون مريحة لك. أنا أحترمك، والضحك كان مني فقط.",
+          "strict_pass": false,
+          "reason": "Wrong action and malformed impact sentence."
+        },
+        {
+          "candidate": "D04-1",
+          "case": {
+            "id": "D04",
+            "relation": "عمل",
+            "goal": "أحط حدود مستمرة",
+            "message": "زميلي كل يوم يطلب أكتب تقريره بداله. أبي أوقف هالشي من اليوم ورايح وأوضح إني أقدر أجاوب عن سؤال محدد بس ما أكتب تقاريره كاملة."
+          },
+          "reply": "من الحين ما أقدر أكتب تقاريرك كاملة، وحبيت نوضح هالحد عشان ما نعتمد على بعض بهالجزأ. أقدر أجاوب عن سؤال محدد إذا يحتاج، بس التقرير كامل أبيك تكتبه أو تطلب مساعدتي بهالجزأ اللي أقدر.",
+          "strict_pass": false,
+          "reason": "Invents a mutual-dependency motive and expands the help exception."
+        },
+        {
+          "candidate": "D04-2",
+          "case": {
+            "id": "D04",
+            "relation": "عمل",
+            "goal": "أحط حدود مستمرة",
+            "message": "زميلي كل يوم يطلب أكتب تقريره بداله. أبي أوقف هالشي من اليوم ورايح وأوضح إني أقدر أجاوب عن سؤال محدد بس ما أكتب تقاريره كاملة."
+          },
+          "reply": "من اليوم ما أقدر أكتب تقاريرك، بس أقدر أجيبك على أسئلة محددة.",
+          "strict_pass": true,
+          "reason": "Explicit ongoing full-report limit and specific-question offer in acceptable professional wording."
+        },
+        {
+          "candidate": "D04-3",
+          "case": {
+            "id": "D04",
+            "relation": "عمل",
+            "goal": "أحط حدود مستمرة",
+            "message": "زميلي كل يوم يطلب أكتب تقريره بداله. أبي أوقف هالشي من اليوم ورايح وأوضح إني أقدر أجاوب عن سؤال محدد بس ما أكتب تقاريره كاملة."
+          },
+          "reply": "ما أقدر أكتب تقريرك كل يوم، بس إذا كان لديك سؤال محدد أقدر أجاوب عليه.",
+          "strict_pass": false,
+          "reason": "Refuses daily writing rather than all whole reports."
+        },
+        {
+          "candidate": "D04-4",
+          "case": {
+            "id": "D04",
+            "relation": "عمل",
+            "goal": "أحط حدود مستمرة",
+            "message": "زميلي كل يوم يطلب أكتب تقريره بداله. أبي أوقف هالشي من اليوم ورايح وأوضح إني أقدر أجاوب عن سؤال محدد بس ما أكتب تقاريره كاملة."
+          },
+          "reply": "من الحين ما أقدر أكتب تقاريرك كاملة، ورايح أوقف هالطلب. أقدر أجاوب عن سؤال محدد إذا يناسبك، بس التقرير كامل ما أقدر أكتبه بدالك.",
+          "strict_pass": true,
+          "reason": "Clear ongoing full-report boundary and specific-question offer with correct ownership."
+        },
+        {
+          "candidate": "D04-5",
+          "case": {
+            "id": "D04",
+            "relation": "عمل",
+            "goal": "أحط حدود مستمرة",
+            "message": "زميلي كل يوم يطلب أكتب تقريره بداله. أبي أوقف هالشي من اليوم ورايح وأوضح إني أقدر أجاوب عن سؤال محدد بس ما أكتب تقاريره كاملة."
+          },
+          "reply": "من الحين وما أقدر أكتب تقاريرك كاملة، بس ما زلت أقدر أجاوب عن سؤال محدد لو طلبته.",
+          "strict_pass": true,
+          "reason": "Ongoing whole-report boundary and conditional specific-question help; minor extra conjunction does not alter meaning."
+        }
+      ],
+      "manifest": {
+        "cases_sha256": "8861fa10d18357bd9cc77bffa2d7510d68b61726f8dde26ba6f1042bcf4c1761",
+        "base": "/Users/leen/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3",
+        "adapters": {
+          "pilot": {
+            "directory": ".labeq-private/cpu-serving/pilot",
+            "sha256": "983ae8bf1d981e0aafb8a30a2ada4bf6c06284dd65b6f73876cdc6d521c48f3d"
+          },
+          "v2": {
+            "directory": ".labeq-private/LABEQ_Saudi_LoRA_v2",
+            "sha256": "866ca93ca5ad48faf8e92c11acdfe973a9435946903f7fe66d19564ed97d0e6e"
+          },
+          "candidate_1": {
+            "directory": ".labeq-private/longform-v3/epoch-1",
+            "sha256": "1bc02a97d53f5eea07bc5212ed8fc94f0dd5f20b768383daf6540570958fc4cf"
+          },
+          "candidate_2": {
+            "directory": ".labeq-private/longform-v3/candidate",
+            "sha256": "425a13cc1e4d190d18eb73c8201371609c9e4e3db98e24f2473c2a46db43d55f"
+          }
+        },
+        "policy_sha256": "0eae240980146aaf8fd0f2ae90f76f4e1affde346ba04021c65a03c445a14ffb",
+        "automatic_plans_sha256": "87ebb281628fd95ad5f77deca3c481200b5c5500ad9c972673d62053711bd738",
+        "plan_runtime_sources": [
+          "5a8a32fe12a13517555d3510e38b3ac9f4fa393d"
+        ],
+        "manual_oracle": false,
+        "generation": {
+          "max_tokens": 256,
+          "temperature": 0,
+          "thinking": false,
+          "surface_normalization": false
+        }
+      }
+    }
+  }
+}
