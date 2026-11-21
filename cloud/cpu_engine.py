@@ -90,7 +90,7 @@ class ConfiguredTorchEngine(LabeqEngine):
         with self.lock:
             remaining=self.deadline-time.monotonic()
             if remaining<=1:raise TimeoutError('CPU reply budget exhausted')
-            phase_budget=45 if use_adapter else (15 if max_tokens<=256 else 30)
+            phase_budget=45 if use_adapter else (30 if max_tokens<=256 else 40)
             self.model.set_adapter('saudi');inputs=self._inputs(messages)
             eos=self.processor.eos_token_id;stop_ids=set(eos if isinstance(eos,(list,tuple)) else [eos])
             options={'max_new_tokens':max_tokens,'max_time':min(phase_budget,remaining-1),

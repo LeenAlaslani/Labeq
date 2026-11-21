@@ -43,7 +43,7 @@ def test_cpu_time_stop_rejects_partial_text_before_token_cap():
 def test_cpu_complete_review_has_bounded_time_and_actual_stop():
     engine, options = fixture_engine([3, 9])
     assert engine._one_generation([], use_adapter=False, max_tokens=640) == 'رد فعلي'
-    assert options['max_time'] == 30
+    assert options['max_time'] == 40
     assert engine.last_generation['finish_reason'] == 'stop'
 
 
