@@ -6,7 +6,7 @@
 
 [Try the public demo](https://leeennn009-labeq.hf.space/) · [العربية](README_AR.md) · [Training and evaluation](training/README.md) · [Model card](MODEL_CARD.md)
 
-The live research demo runs V16 with Faisal decision routing and Qwen3.5-4B with the Saudi pilot LoRA on Hugging Face ZeroGPU. Gradio queues inference requests behind the Arabic interface, and FastAPI serves the UI and protected provider integrations. Shared GPU availability can affect waiting time. After the anonymous allowance, open the [Hugging Face Space](https://huggingface.co/spaces/leeennn009/LABEQ) with your own login. [Release evidence](evidence/RELEASE.md) records actual results and limitations.
+The live research demo runs V16 with actual Faisal routing and Qwen3.5-4B with the retained Saudi pilot LoRA on a free Hugging Face Space. The current default reply route uses CPU; a separate ZeroGPU inference API remains available. Gradio queues requests behind the Arabic interface, and FastAPI serves the UI and protected provider integrations. [New anonymous public browser checks](evidence/PUBLIC_CPU.md) record genuine desktop/mobile inference, exact deployed source and remaining quality limitations.
 
 ## Why Saudi Arabic pragmatics matter
 
@@ -25,17 +25,17 @@ LABEQ keeps the situation, relationship, and goal as separate inputs. Communicat
 
 | Onboarding | Public model reply |
 | --- | --- |
-| ![LABEQ onboarding](screenshots/release-onboarding.png) | ![Public Qwen and pilot Saudi LoRA reply routed by Faisal](screenshots/saudi-customer-result.png) |
+| ![Latest public LABEQ onboarding](screenshots/public-cpu-onboarding.png) | ![Actual public CPU Qwen and pilot Saudi LoRA customer reply routed by Faisal](screenshots/public-cpu-customer.png) |
 
-[Relationship](screenshots/release-relationship.png) · [Goal](screenshots/release-goal.png) · [Situation](screenshots/release-situation.png) · [Coaching](screenshots/release-coaching.png) · [Style comparison](screenshots/release-style-comparison.png) · [Public mobile](screenshots/release-mobile-public.png)
+[New public mobile](screenshots/public-cpu-mobile-privacy.png) · [Earlier relationship flow](screenshots/release-relationship.png) · [Earlier coaching](screenshots/release-coaching.png) · [Earlier style comparison](screenshots/release-style-comparison.png)
 
-The earlier release screenshots above were captured from the public V16 application. Replies and coaching come from actual Qwen inference with the pilot Saudi LoRA and the stated routing source. The separately retained release-mobile-demo.png shows the archived written-example preview.
+The new captures show the actual public CPU application using the pinned bfloat16 Qwen base and unchanged pilot. The customer case completed in 31.0 seconds; one successful known case does not establish generalization. The earlier linked images retain their original public-release provenance. The separately retained release-mobile-demo.png shows the archived written-example preview.
 
 | New privacy-boundary check | New apology check |
 | --- | --- |
-| ![Latest local Qwen/Faisal privacy check](screenshots/generalization-pilot-privacy.png) | ![Latest local Qwen/Faisal apology check](screenshots/generalization-pilot-apology.png) |
+| ![Actual public CPU Qwen/Faisal privacy check](screenshots/public-cpu-privacy.png) | ![Actual public CPU Qwen/Faisal apology check](screenshots/public-cpu-apology.png) |
 
-These new captures use the latest local MLX application with actual pilot generation and Faisal routing. They retain the unsuccessful replies and visible review state; they are not hosted bfloat16 results or approved example answers. [Generalization evidence](evidence/GENERALIZATION.md) includes the experimental adapter captures and raw records.
+These anonymous public captures retain the unsuccessful replies and visible review state. Both requests used genuine pilot generation and Faisal routing; neither passed semantic acceptance. [Exact requests, results and screenshot hashes](evidence/PUBLIC_CPU.json) distinguish functionality from quality. [Generalization evidence](evidence/GENERALIZATION.md) retains the earlier local experiments.
 
 ## Model architecture
 

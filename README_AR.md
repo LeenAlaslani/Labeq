@@ -4,7 +4,7 @@
 
 [جرّبي العرض العام](https://leeennn009-labeq.hf.space/) · [English](README.md) · [دليل التدريب والتقييم](training/README.md) · [بطاقة النماذج](MODEL_CARD.md)
 
-يشغّل التطبيق العام واجهة V16 مع استدلال فعلي عبر Hugging Face ZeroGPU. يختار فيصل الأسلوب، ويولّد Qwen3.5-4B مع محوّل LoRA السعودي التجريبي الرد وشرح الموقف. تنظم Gradio الطلبات في طابور، وتخدم FastAPI الواجهة ونقاط الاتصال. قد يلزم تسجيل الدخول من [صفحة Hugging Face](https://huggingface.co/spaces/leeennn009/LABEQ) بعد انتهاء الحد المجاني للزائر. يسجل [تقرير الإصدار](evidence/RELEASE.md) الاختبارات الفعلية وحدود جودة الردود.
+يشغّل التطبيق العام واجهة V16 مع استدلال فعلي على المعالج ضمن استضافة Hugging Face المجانية، مع مسار ZeroGPU منفصل متاح. يختار فيصل الأسلوب، ويولّد Qwen3.5-4B مع محوّل LoRA السعودي السابق الرد، ويقدّم النموذج الأساسي شرحًا ومراجعة استرشاديين. تنظم Gradio الطلبات، وتخدم FastAPI الواجهة ونقاط الاتصال. يوثّق [فحص النشر الجديد](evidence/PUBLIC_CPU.md) طلبات فعلية دون تسجيل دخول، على الحاسوب والجوال، مع نسخة المصدر وحدود جودة الردود.
 
 ## الفكرة
 
@@ -17,17 +17,17 @@
 
 ## الواجهة
 
-![رد من Qwen مع المحوّل التجريبي وتوجيه فيصل في التطبيق العام](screenshots/saudi-customer-result.png)
+![رد فعلي من Qwen على المعالج مع المحوّل السابق وتوجيه فيصل في التطبيق العام](screenshots/public-cpu-customer.png)
 
-[خطوة التعارف](screenshots/release-onboarding.png) · [اختيار العلاقة](screenshots/release-relationship.png) · [اختيار الهدف](screenshots/release-goal.png) · [كتابة الموقف](screenshots/release-situation.png) · [شرح الموقف](screenshots/release-coaching.png) · [مقارنة الأسلوبين](screenshots/release-style-comparison.png) · [التطبيق العام على الجوال](screenshots/release-mobile-public.png)
+[التعارف من النسخة العامة الجديدة](screenshots/public-cpu-onboarding.png) · [النسخة الجديدة على الجوال](screenshots/public-cpu-mobile-privacy.png) · [شرح الموقف من الإصدار السابق](screenshots/release-coaching.png) · [مقارنة الأسلوبين من الإصدار السابق](screenshots/release-style-comparison.png)
 
 يوثّق [إصلاح الصياغة السعودية](evidence/SAUDI_REGISTER.md) الرد الفعلي قبل التعديل وبعده، مع فصل أسلوب التواصل عن طريقة الكتابة وتنقيح العبارات الفصيحة مع فحص المعنى. بقي المحوّل التجريبي السابق كما هو.
 
 | فحص الخصوصية الجديد | فحص الاعتذار الجديد |
 | --- | --- |
-| ![الرد الفعلي محليًا على موقف الخصوصية](screenshots/generalization-pilot-privacy.png) | ![الرد الفعلي محليًا على موقف الاعتذار](screenshots/generalization-pilot-apology.png) |
+| ![الرد الفعلي العام على موقف الخصوصية](screenshots/public-cpu-privacy.png) | ![الرد الفعلي العام على موقف الاعتذار](screenshots/public-cpu-apology.png) |
 
-هذه صور جديدة من أحدث تطبيق محلي عبر MLX، بتوليد فعلي من المحوّل السابق وتوجيه فيصل. تعرض الردود غير الناجحة وحالة المراجعة كما ظهرت، ولا تمثل ردودًا معتمدة أو اختبارًا لبيئة bfloat16 العامة. يضم [تقرير التعميم](evidence/GENERALIZATION.md) صور المحوّل الجديد وسجلات المقارنة.
+هذه صور جديدة من التطبيق العام الفعلي عبر bfloat16 على المعالج، دون تسجيل دخول أو تعديل الردود. نجح توليد موقف العميل خلال نحو 31 ثانية، لكن فحصي الخصوصية والاعتذار ما زالا ناقصين دلاليًا. اكتمل أيضًا طلب فعلي على الجوال خلال 43.9 ثانية دون تجاوز عرض الشاشة. تفصل [سجلات الطلبات والصور](evidence/PUBLIC_CPU.json) نجاح التشغيل عن جودة اللغة، ويحتفظ [تقرير التعميم](evidence/GENERALIZATION.md) بالتجارب المحلية السابقة.
 
 ## كيف يعمل
 

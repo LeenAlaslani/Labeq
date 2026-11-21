@@ -1,0 +1,399 @@
+{
+  "observed_at_utc": "2026-11-21T20:40:33.272551+00:00",
+  "source_commit": "9c02faa425e7142408a7c79f5ec5848ca189d672",
+  "space_commit": "154a09cee5630c4e8557c45b7cf19fed04710fbb",
+  "url": "https://leeennn009-labeq.hf.space",
+  "health": {
+    "configured": true,
+    "reachable": true,
+    "model_loaded": true,
+    "faisal_loaded": true,
+    "generator": "Qwen3.5-4B + Saudi pilot LoRA (Transformers, bfloat16, cpu)",
+    "adapter_revision": "db2cf3390e5d163a58309df949aef58acb7bbd9a",
+    "base_revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+    "compute_backend": "torch-cpu",
+    "adapter_sha256": "983ae8bf1d981e0aafb8a30a2ada4bf6c06284dd65b6f73876cdc6d521c48f3d",
+    "environment_versions": {
+      "torch": "2.13.0",
+      "transformers": "5.23.0",
+      "peft": "0.22.0",
+      "gradio": "6.32.0",
+      "spaces": "0.52.1",
+      "huggingface_hub": "2.4.0",
+      "accelerate": "1.16.0",
+      "safetensors": "0.8.0"
+    },
+    "source_commit": "9c02faa425e7142408a7c79f5ec5848ca189d672",
+    "writer_policy_sha256": null,
+    "repetition_penalty": 1.08
+  },
+  "hardware": "zero-a10g",
+  "requested_hardware": "zero-a10g",
+  "callback_auth": "anonymous; no credentials sent to public app",
+  "served_source": {
+    "index.html": {
+      "expected_sha256": "2e05d29ea5f4e4b2b280188f5b35321341a4f7a517b56dd23132ab018091d709",
+      "actual_sha256": "2e05d29ea5f4e4b2b280188f5b35321341a4f7a517b56dd23132ab018091d709",
+      "matches": true
+    },
+    "app.js": {
+      "expected_sha256": "8d78671f222ad6dfdf98bafa8cd5ebbfa1ed1feb16e9dbc25b34d6646b151240",
+      "actual_sha256": "8d78671f222ad6dfdf98bafa8cd5ebbfa1ed1feb16e9dbc25b34d6646b151240",
+      "matches": true
+    },
+    "space_client.js": {
+      "expected_sha256": "434bcf0218b2d258999faaad3200efe681f81374963088714fe24124acdd0b21",
+      "actual_sha256": "434bcf0218b2d258999faaad3200efe681f81374963088714fe24124acdd0b21",
+      "matches": true
+    },
+    "coach.js": {
+      "expected_sha256": "2723a3d7fc45c7f3ebdbf79466809245515ab5ec244fa75657c2a5def79f62b6",
+      "actual_sha256": "2723a3d7fc45c7f3ebdbf79466809245515ab5ec244fa75657c2a5def79f62b6",
+      "matches": true
+    },
+    "styles.css": {
+      "expected_sha256": "de8cb891839f0d2824aeca85a198937d6cc0ce8f18a4316f00e1fd168ed3f57d",
+      "actual_sha256": "de8cb891839f0d2824aeca85a198937d6cc0ce8f18a4316f00e1fd168ed3f57d",
+      "matches": true
+    }
+  },
+  "capabilities": {
+    "model_transport": "gradio",
+    "tts": false,
+    "tts_provider": "munsit",
+    "voice_name": "مها · نجدية — منصت",
+    "stt": false,
+    "model_mode": "real",
+    "model_configured": true
+  },
+  "browser_checks": [
+    {
+      "url": "https://leeennn009-labeq.hf.space/",
+      "case": {
+        "id": "R01",
+        "family": "user_regression_already_seen",
+        "message": "صديقتي دايم تسألني عن أمور شخصية ما أحب أتكلم عنها، وإذا ما جاوبتها تزعل وتقول إني ما أثق فيها. أبي أوضح لها إن خصوصيتي مهمة بالنسبة لي وإن مو كل شيء لازم أشاركه معها، بس بنفس الوقت ما أبي أخسر صداقتنا.",
+        "relation": "صديق",
+        "goal": "أحط حدود"
+      },
+      "capture_method": "Observed original queued client return",
+      "actual_frontend_request": {
+        "data": [
+          {
+            "message": "صديقتي دايم تسألني عن أمور شخصية ما أحب أتكلم عنها، وإذا ما جاوبتها تزعل وتقول إني ما أثق فيها. أبي أوضح لها إن خصوصيتي مهمة بالنسبة لي وإن مو كل شيء لازم أشاركه معها، بس بنفس الوقت ما أبي أخسر صداقتنا.",
+            "relation": "صديق",
+            "goal": "أوضح حدودي بدون تجريح",
+            "style": "تلقائي",
+            "history": [],
+            "generation_mode": "مولّد فقط"
+          }
+        ]
+      },
+      "response": {
+        "reply": "أقدر اهتمامك، بس بعض الأمور شخصية ولا أشاركها مع أحد.",
+        "style_used": "حازم",
+        "router_source": "faisal",
+        "reply_source": "qwen_lora_generated",
+        "style_key": "firm",
+        "generator": "Qwen3.5-4B + Saudi pilot LoRA (Transformers, bfloat16, cpu)",
+        "coaching": {
+          "core": "الصديقة تسأل عن أمور شخصية ويحب عدم الإجابة خوفاً من الزعل والتهم بالعدم الثقة.",
+          "objective": "توضيح أهمية الخصوصية وعدم إجبار المشاركة مع الحفاظ على الصداقة.",
+          "strategy": "شرح أن عدم الإجابة ليس شكاً في الثقة بل احترام للحدود الشخصية التي لا يتغير بها الأمر.",
+          "risk": "الاعتقاد بأن رفض الحديث يعني خسارة الصداقة أو أنه خطأ من طرفها في طلب المعلومات."
+        },
+        "review_status": "flagged",
+        "needs_review": true,
+        "quality_warnings": [
+          "تعذر التحقق من المراجعة الدلالية؛ الصياغة تحتاج مراجعة"
+        ],
+        "was_retried": false,
+        "semantic_review": {
+          "valid": false,
+          "checks": [],
+          "unsupported": [],
+          "issues": [],
+          "error": "invalid_or_ungrounded_review"
+        },
+        "generation_candidates": [
+          {
+            "reply": "أقدر اهتمامك، بس بعض الأمور شخصية ولا أشاركها مع أحد.",
+            "draft_before_register_normalization": "أقدر اهتمامك، بس بعض الأمور شخصية ولا أشاركها مع أحد.",
+            "register_normalization": [],
+            "review": {
+              "valid": false,
+              "checks": [],
+              "unsupported": [],
+              "issues": [],
+              "error": "invalid_or_ungrounded_review"
+            },
+            "warnings": [
+              "تعذر التحقق من المراجعة الدلالية؛ الصياغة تحتاج مراجعة"
+            ]
+          }
+        ],
+        "retry_error": null,
+        "coaching_status": "model_generated",
+        "coaching_error": null,
+        "draft_before_register_normalization": "أقدر اهتمامك، بس بعض الأمور شخصية ولا أشاركها مع أحد.",
+        "register_normalization": [],
+        "style": "firm",
+        "mock": false
+      },
+      "screenshot": "screenshots/public-cpu-privacy.png",
+      "screenshot_sha256": "6d8c921ab745995c4fc740313107f9c17b9e57a05574fd4bae59eb95981a1ff0",
+      "strict_semantic_pass": false,
+      "assessment": "Omits reassurance about trust and the friendship"
+    },
+    {
+      "url": "https://leeennn009-labeq.hf.space/",
+      "case": {
+        "id": "R02",
+        "family": "user_regression_already_seen",
+        "message": "اتفقت مع صديقتي نطلع سوا وبعد ما جهزت نفسها اعتذرت لها بآخر لحظة لأني كنت مشغولة ونسيت أبلغها بدري. زعلت مني وحست إني ما أقدر وقتها، وأبي أعتذر لها بطريقة صادقة بدون ما أبرر لنفسي وأوضح لها إنها مهمة عندي",
+        "relation": "صديق",
+        "goal": "أعتذر وأصلح الموقف"
+      },
+      "capture_method": "Observed original queued client return",
+      "actual_frontend_request": {
+        "data": [
+          {
+            "message": "اتفقت مع صديقتي نطلع سوا وبعد ما جهزت نفسها اعتذرت لها بآخر لحظة لأني كنت مشغولة ونسيت أبلغها بدري. زعلت مني وحست إني ما أقدر وقتها، وأبي أعتذر لها بطريقة صادقة بدون ما أبرر لنفسي وأوضح لها إنها مهمة عندي",
+            "relation": "صديق",
+            "goal": "أعتذر وأصلح الموقف",
+            "style": "تلقائي",
+            "history": [],
+            "generation_mode": "مولّد فقط"
+          }
+        ]
+      },
+      "response": {
+        "reply": "ما أقدر ألتزم بالوقت، وأعتذر منك قبل ما أضررك.",
+        "style_used": "اعتذار",
+        "router_source": "faisal",
+        "reply_source": "qwen_lora_generated",
+        "style_key": "apology",
+        "generator": "Qwen3.5-4B + Saudi pilot LoRA (Transformers, bfloat16, cpu)",
+        "coaching": {},
+        "review_status": "flagged",
+        "needs_review": true,
+        "quality_warnings": [
+          "تعذر التحقق من المراجعة الدلالية؛ الصياغة تحتاج مراجعة"
+        ],
+        "was_retried": false,
+        "semantic_review": {
+          "valid": false,
+          "checks": [],
+          "unsupported": [],
+          "issues": [],
+          "error": "invalid_or_ungrounded_review"
+        },
+        "generation_candidates": [
+          {
+            "reply": "ما أقدر ألتزم بالوقت، وأعتذر منك قبل ما أضررك.",
+            "draft_before_register_normalization": "ما أقدر ألتزم بالوقت، وأعتذر منك قبل ما أضررك.",
+            "register_normalization": [],
+            "review": {
+              "valid": false,
+              "checks": [],
+              "unsupported": [],
+              "issues": [],
+              "error": "invalid_or_ungrounded_review"
+            },
+            "warnings": [
+              "تعذر التحقق من المراجعة الدلالية؛ الصياغة تحتاج مراجعة"
+            ]
+          }
+        ],
+        "retry_error": null,
+        "coaching_status": "unavailable",
+        "coaching_error": "GenerationBudgetError",
+        "draft_before_register_normalization": "ما أقدر ألتزم بالوقت، وأعتذر منك قبل ما أضررك.",
+        "register_normalization": [],
+        "style": "apology",
+        "mock": false
+      },
+      "screenshot": "screenshots/public-cpu-apology.png",
+      "screenshot_sha256": "708b5d5712fade839a86e31810096dcba38ba2734f7ce705011cd3eda6baa8bd",
+      "strict_semantic_pass": false,
+      "assessment": "Replaces the past cancellation apology with a future inability to commit; omits accountability and reassurance"
+    },
+    {
+      "url": "https://leeennn009-labeq.hf.space/",
+      "case": {
+        "id": "C01",
+        "relation": "عميل",
+        "goal": "ننهي الخلاف",
+        "message": "عميل زعل لأن طلبه تأخر عن الموعد اللي وعدناه فيه، وأنا أبي أعتذر له وأوضح إني بتابع الموضوع بدون ما أعطيه موعد جديد مو متأكد منه. أبي أحافظ على ثقته وأحل الخلاف بطريقة محترمة."
+      },
+      "request_wall_seconds": 30.97097925003618,
+      "capture_method": "Observed original queued client return",
+      "actual_frontend_request": {
+        "data": [
+          {
+            "message": "عميل زعل لأن طلبه تأخر عن الموعد اللي وعدناه فيه، وأنا أبي أعتذر له وأوضح إني بتابع الموضوع بدون ما أعطيه موعد جديد مو متأكد منه. أبي أحافظ على ثقته وأحل الخلاف بطريقة محترمة.",
+            "relation": "عميل",
+            "goal": "أحل سوء الفهم بهدوء",
+            "style": "تلقائي",
+            "history": [],
+            "generation_mode": "مولّد فقط"
+          }
+        ]
+      },
+      "response": {
+        "reply": "أعتذر عن التأخير، وبأتابع الموضوع حتى أطلع لك جواب نهائي.",
+        "style_used": "دبلوماسي",
+        "router_source": "faisal",
+        "reply_source": "qwen_lora_generated",
+        "style_key": "diplomatic",
+        "generator": "Qwen3.5-4B + Saudi pilot LoRA (Transformers, bfloat16, cpu)",
+        "coaching": {
+          "core": "تأخر العميل عن الموعد المتفق عليه مع عدم وجود موعد جديد.",
+          "objective": "توضيح متابعة الطلب دون تقديم موعد غير مؤكد وحفظ الثقة.",
+          "strategy": "الاعتذار بصدق وتأكيد متابعة العمل مع انتظار التحديث القادم.",
+          "risk": "لا فرض موعد جديد قبل التأكد من جاهزية التنفيذ فعلياً."
+        },
+        "review_status": "flagged",
+        "needs_review": true,
+        "quality_warnings": [
+          "تعذر التحقق من المراجعة الدلالية؛ الصياغة تحتاج مراجعة"
+        ],
+        "was_retried": false,
+        "semantic_review": {
+          "valid": false,
+          "checks": [],
+          "unsupported": [],
+          "issues": [],
+          "error": "invalid_or_ungrounded_review"
+        },
+        "generation_candidates": [
+          {
+            "reply": "أعتذر عن التأخير، وبأتابع الموضوع حتى أطلع لك جواب نهائي.",
+            "draft_before_register_normalization": "أعتذر عن التأخير، وأتابع الموضوع حتى أطلع لك جواب نهائي.",
+            "register_normalization": [
+              "وأتابع → وبأتابع (requested follow-up)"
+            ],
+            "review": {
+              "valid": false,
+              "checks": [],
+              "unsupported": [],
+              "issues": [],
+              "error": "invalid_or_ungrounded_review"
+            },
+            "warnings": [
+              "تعذر التحقق من المراجعة الدلالية؛ الصياغة تحتاج مراجعة"
+            ]
+          }
+        ],
+        "retry_error": null,
+        "coaching_status": "model_generated",
+        "coaching_error": null,
+        "draft_before_register_normalization": "أعتذر عن التأخير، وأتابع الموضوع حتى أطلع لك جواب نهائي.",
+        "register_normalization": [
+          "وأتابع → وبأتابع (requested follow-up)"
+        ],
+        "style": "diplomatic",
+        "mock": false
+      },
+      "screenshot": "screenshots/public-cpu-customer.png",
+      "screenshot_sha256": "598ba96d2cec395721884d62f8f50c47d9d2a1b63dd88132d73fe9a0ae01366f",
+      "strict_semantic_pass": true,
+      "assessment": "Assistant: apologises for delay, promises the requested follow-up without inventing a date or business fact; plain professional Saudi wording. One known case, not generalization evidence."
+    }
+  ],
+  "reviewer": "Assistant; no independent human review",
+  "quality_conclusion": "All three real anonymous public callbacks completed with Faisal. The known customer case is sendable under assistant assessment; privacy and apology regressions fail. Generalization is unresolved.",
+  "mobile_check": {
+    "observed_at_utc": "2026-11-21T20:49:09.575789+00:00",
+    "url": "https://leeennn009-labeq.hf.space/",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "case": {
+      "id": "R01",
+      "family": "user_regression_already_seen",
+      "message": "صديقتي دايم تسألني عن أمور شخصية ما أحب أتكلم عنها، وإذا ما جاوبتها تزعل وتقول إني ما أثق فيها. أبي أوضح لها إن خصوصيتي مهمة بالنسبة لي وإن مو كل شيء لازم أشاركه معها، بس بنفس الوقت ما أبي أخسر صداقتنا.",
+      "relation": "صديق",
+      "goal": "أحط حدود"
+    },
+    "request_wall_seconds": 43.889399708015844,
+    "capture_method": "Observed original queued client return",
+    "actual_frontend_request": {
+      "data": [
+        {
+          "message": "صديقتي دايم تسألني عن أمور شخصية ما أحب أتكلم عنها، وإذا ما جاوبتها تزعل وتقول إني ما أثق فيها. أبي أوضح لها إن خصوصيتي مهمة بالنسبة لي وإن مو كل شيء لازم أشاركه معها، بس بنفس الوقت ما أبي أخسر صداقتنا.",
+          "relation": "صديق",
+          "goal": "أوضح حدودي بدون تجريح",
+          "style": "تلقائي",
+          "history": [],
+          "generation_mode": "مولّد فقط"
+        }
+      ]
+    },
+    "response": {
+      "reply": "أقدر اهتمامك، بس بعض الأمور شخصية ولا أشاركها مع أحد.",
+      "style_used": "حازم",
+      "router_source": "faisal",
+      "reply_source": "qwen_lora_generated",
+      "style_key": "firm",
+      "generator": "Qwen3.5-4B + Saudi pilot LoRA (Transformers, bfloat16, cpu)",
+      "coaching": {
+        "core": "الصديقة تسأل عن أمور شخصية ويحب عدم الإجابة خوفاً من الزعل والتهم بالعدم الثقة.",
+        "objective": "توضيح أهمية الخصوصية وعدم إجبار المشاركة مع الحفاظ على الصداقة.",
+        "strategy": "شرح أن عدم الإجابة ليس شكاً في الثقة بل احترام للحدود الشخصية التي لا يتغير بها الأمر.",
+        "risk": "الاعتقاد بأن رفض الحديث يعني خسارة الصداقة أو أنه خطأ من طرفها في طلب المعلومات."
+      },
+      "review_status": "flagged",
+      "needs_review": true,
+      "quality_warnings": [
+        "تعذر التحقق من المراجعة الدلالية؛ الصياغة تحتاج مراجعة"
+      ],
+      "was_retried": false,
+      "semantic_review": {
+        "valid": false,
+        "checks": [],
+        "unsupported": [],
+        "issues": [],
+        "error": "invalid_or_ungrounded_review"
+      },
+      "generation_candidates": [
+        {
+          "reply": "أقدر اهتمامك، بس بعض الأمور شخصية ولا أشاركها مع أحد.",
+          "draft_before_register_normalization": "أقدر اهتمامك، بس بعض الأمور شخصية ولا أشاركها مع أحد.",
+          "register_normalization": [],
+          "review": {
+            "valid": false,
+            "checks": [],
+            "unsupported": [],
+            "issues": [],
+            "error": "invalid_or_ungrounded_review"
+          },
+          "warnings": [
+            "تعذر التحقق من المراجعة الدلالية؛ الصياغة تحتاج مراجعة"
+          ]
+        }
+      ],
+      "retry_error": null,
+      "coaching_status": "model_generated",
+      "coaching_error": null,
+      "draft_before_register_normalization": "أقدر اهتمامك، بس بعض الأمور شخصية ولا أشاركها مع أحد.",
+      "register_normalization": [],
+      "style": "firm",
+      "mock": false
+    },
+    "screenshot": "screenshots/public-cpu-mobile-privacy.png",
+    "screenshot_sha256": "b9db232c310e4ca2899fcf40da3b6ac85d7e403b0f390ad75f3ea7f5f14c4550",
+    "strict_semantic_pass": false,
+    "assessment": "Same known privacy case retains missing reassurance; mobile capture verifies actual generation and layout only."
+  },
+  "onboarding_check": {
+    "url": "https://leeennn009-labeq.hf.space",
+    "screenshot": "screenshots/public-cpu-onboarding.png",
+    "sha256": "8aaee6baf7ebca2e2e3f4dd750bc9738ecc961d65e7c78341399ba8a14d2ca4a",
+    "rtl": true,
+    "initial_next_disabled": true,
+    "voice_control_disabled": true,
+    "horizontal_overflow": false
+  }
+}
