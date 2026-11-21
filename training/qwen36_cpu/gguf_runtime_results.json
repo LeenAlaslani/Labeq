@@ -1,0 +1,952 @@
+{
+  "status": "failed_private_GGUF_production_runtime_gate",
+  "reviewer": "Assistant; independent human Saudi review pending",
+  "strict_reply_passes": 1,
+  "full_pipeline_qualified": false,
+  "manifest": {
+    "observed_at_utc": "2026-11-21T22:22:04.815383+00:00",
+    "space": "leeennn009/LABEQ-4B-quality-check",
+    "space_commit": "87b0b6b97c4b90cd4f1ae01407674ef9d484bf08",
+    "source_commit": "1556b0071fdfca485324a861d72acf22e9004a00",
+    "url": "https://leeennn009-labeq-4b-quality-check.hf.space",
+    "private": true,
+    "callback_auth": "stored private-session login",
+    "api_name": "/reply",
+    "case_sha256": "8861fa10d18357bd9cc77bffa2d7510d68b61726f8dde26ba6f1042bcf4c1761",
+    "gradio_client_version": "2.7.2",
+    "health": {
+      "configured": true,
+      "reachable": true,
+      "model_loaded": true,
+      "faisal_loaded": true,
+      "generator": "Qwen3.5-4B + Saudi pilot LoRA/Saudi LoRA v2 candidates; Qwen3.6 semantic planning, selection and review (CPU)",
+      "adapter_revision": "db2cf3390e5d163a58309df949aef58acb7bbd9a",
+      "base_revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+      "faisal_revision": "38849bdac4b7850c19587f78f5fe16c38adefac1",
+      "compute_backend": "llama-cpp-cpu-ensemble",
+      "adapter_sha256": "983ae8bf1d981e0aafb8a30a2ada4bf6c06284dd65b6f73876cdc6d521c48f3d",
+      "environment_versions": {
+        "torch": "2.13.0",
+        "transformers": "5.23.0",
+        "peft": "0.22.0",
+        "gradio": "6.32.0",
+        "spaces": "0.52.1",
+        "huggingface_hub": "2.4.0",
+        "accelerate": "1.16.0",
+        "safetensors": "0.8.0",
+        "llama-cpp-python": "0.3.36"
+      },
+      "source_commit": "1556b0071fdfca485324a861d72acf22e9004a00",
+      "writer_policy_sha256": null,
+      "repetition_penalty": 1.0,
+      "candidate_adapter_shas": {
+        "pilot": "983ae8bf1d981e0aafb8a30a2ada4bf6c06284dd65b6f73876cdc6d521c48f3d",
+        "v2": "a9b352107884ad906e9913e827c7e075d3ad39c990db75c6ba561eb9e4d2bdef"
+      },
+      "candidate_configurations": [
+        "pilot_clean",
+        "pilot_fewshot",
+        "v2_clean",
+        "v2_fewshot"
+      ],
+      "candidate_policy_sha256": {
+        "clean": "c037b70bf124b00edd31c786684c5c5b2847271fbd6cef05a299a1c96890e527",
+        "fewshot": "0eae240980146aaf8fd0f2ae90f76f4e1affde346ba04021c65a03c445a14ffb"
+      },
+      "v2_adapter_revision": "local-QA-copy-of-2ffa7c65fe94b057462162a63644f68a927a4053",
+      "planning_model": "Qwen/Qwen3.6-35B-A3B",
+      "planning_model_revision": "345d467b117d1fd5eda9b879a5988de9ae5f47a7",
+      "planning_weights_sha256": "d1a395809f65a43a13ad119eb4e7acdef1ac6d68120f39902c8ab96e72794a59",
+      "planning_weights_verified": true,
+      "candidate_selection_model": "Qwen/Qwen3.6-35B-A3B",
+      "review_model": "Qwen/Qwen3.6-35B-A3B",
+      "writer_runtime": "GGUF Q4_K_M base, F32 LoRA, CPU",
+      "writer_gguf_repository": "unsloth/Qwen3.5-4B-GGUF",
+      "writer_gguf_revision": "e87f176479d0855a907a41277aca2f8ee7a09523",
+      "writer_gguf_sha256": "00fe7986ff5f6b463e62455821146049db6f9313603938a70800d1fb69ef11a4",
+      "writer_gguf_adapters": {
+        "pilot": {
+          "peft_sha256": "983ae8bf1d981e0aafb8a30a2ada4bf6c06284dd65b6f73876cdc6d521c48f3d",
+          "gguf_sha256": "2617c55eef3fa899bca612c210391d89a761395bd561ffe3b49d51c4e67ce229",
+          "gguf_file": "pilot.gguf",
+          "tensor_count": 256,
+          "all_factors_exact": true,
+          "format": "F32 GGUF LoRA, alpha/r=1; no merged or quantized adapter factors",
+          "converter_repository": "ggml-org/llama.cpp",
+          "converter_revision": "0c1e57098bba43ac29e6e3b677cdceebdd22334f"
+        },
+        "v2": {
+          "peft_sha256": "a9b352107884ad906e9913e827c7e075d3ad39c990db75c6ba561eb9e4d2bdef",
+          "gguf_sha256": "907ca93b8d7d3c7840eea789eb785f628b5f66e7d15a4bed9c77bf6792c3e89c",
+          "gguf_file": "v2.gguf",
+          "tensor_count": 256,
+          "all_factors_exact": true,
+          "format": "F32 GGUF LoRA, alpha/r=1; no merged or quantized adapter factors",
+          "converter_repository": "ggml-org/llama.cpp",
+          "converter_revision": "0c1e57098bba43ac29e6e3b677cdceebdd22334f"
+        }
+      }
+    }
+  },
+  "fresh_S01_S16_outputs_generated": false,
+  "public_adapter_changed": false,
+  "cases": [
+    {
+      "case": {
+        "id": "D01",
+        "relation": "عمل",
+        "goal": "أطلب تصحيح بدون اتهام",
+        "message": "اسم المتطوعة انحذف من قائمة المشاركين وما أعرف السبب. أبي أطلب يرجع اسمها وأشكر المنظم على تعبه بدون ما أفترض إنه قصد يستبعدها."
+      },
+      "reply": "السلام عليكم، اسم المتطوعة ما ظهر في القائمة، ممكن تراجعونه؟ وشكرا على جهودكم.",
+      "wall_seconds": 88.565,
+      "assessment": {
+        "strict_pass": false,
+        "reason": "Requests review of the list but omits the explicitly requested restoration. Two pilot candidates retained restoration; the selector preferred an incomplete v2 candidate and review falsely marked the compound request met."
+      },
+      "writer_provenance": {
+        "configuration": "v2_fewshot",
+        "adapter": "v2",
+        "adapter_sha256": "a9b352107884ad906e9913e827c7e075d3ad39c990db75c6ba561eb9e4d2bdef",
+        "adapter_revision": "local-QA-copy-of-2ffa7c65fe94b057462162a63644f68a927a4053",
+        "policy_sha256": "0eae240980146aaf8fd0f2ae90f76f4e1affde346ba04021c65a03c445a14ffb",
+        "selection_model": "Qwen/Qwen3.6-35B-A3B",
+        "selection_label": "B",
+        "generator": "Qwen3.5-4B + Saudi LoRA v2 (GGUF Q4_K_M base, F32 LoRA, CPU; Qwen3.6 planning/selection/review)"
+      },
+      "automatic_meaning_plan": {
+        "facts": [
+          "Volunteer's name removed from participant list",
+          "Reason for removal unknown",
+          "Relationship is professional",
+          "Goal is correction without accusation"
+        ],
+        "acts": [
+          "Request restoration of volunteer's name",
+          "Thank organizer for effort"
+        ],
+        "avoid": [
+          "Assume intentional exclusion",
+          "Accuse organizer",
+          "State reason for removal as fact"
+        ]
+      },
+      "coaching": {
+        "core": "اسم المتطوعة انحذف من قائمة المشاركين وما فيه سبب واضح.",
+        "objective": "أطلب ترجيع الاسم وشكر المنظم على تعبه بدون ما أتهمه أو أفترض نية.",
+        "strategy": "تواصل مهذب مع المنظم تطلب فيه توضيح السبب واستعادة الاسم.",
+        "risk": "تجنب افتراض أن الحذف كان مقصوداً أو خطأً متعمداً من المنظم."
+      },
+      "semantic_review": {
+        "valid": true,
+        "checks": [
+          {
+            "source_quote": "اسم المتطوعة انحذف من قائمة المشاركين وما أعرف السبب.",
+            "status": "met",
+            "reason": ""
+          },
+          {
+            "source_quote": "أبي أطلب يرجع اسمها وأشكر المنظم على تعبه بدون ما أفترض إنه قصد يستبعدها.",
+            "status": "met",
+            "reason": ""
+          },
+          {
+            "source_quote": "أطلب تصحيح بدون اتهام",
+            "status": "met",
+            "reason": ""
+          }
+        ],
+        "unsupported": [],
+        "issues": [],
+        "language_issues": []
+      },
+      "review_status": "model_reviewed",
+      "candidate_attempts": [
+        {
+          "retry": false,
+          "candidates": {
+            "pilot_clean": {
+              "reply": "أرجو مراجعة قائمة المشاركين وإضافة اسم المتطوعة، وأقدّر جهودكم في التنظيم.",
+              "generation": {
+                "generation_tokens": 21,
+                "seconds": 6.7574889970128424,
+                "finish_reason": "stop",
+                "timed_out": false,
+                "compute_backend": "llama-cpp-cpu-lora",
+                "phase": "writer",
+                "max_tokens": 256,
+                "max_seconds": 22,
+                "decoded_text": "أرجو مراجعة قائمة المشاركين وإضافة اسم المتطوعة، وأقدّر جهودكم في التنظيم."
+              },
+              "adapter": "pilot",
+              "adapter_sha256": "983ae8bf1d981e0aafb8a30a2ada4bf6c06284dd65b6f73876cdc6d521c48f3d",
+              "adapter_revision": "db2cf3390e5d163a58309df949aef58acb7bbd9a",
+              "policy_sha256": "c037b70bf124b00edd31c786684c5c5b2847271fbd6cef05a299a1c96890e527"
+            },
+            "pilot_fewshot": {
+              "reply": "أرجو مراجعة قائمة المشاركين وإضافة اسم المتطوعة، وشكرًا على جهودك في التنظيم.",
+              "generation": {
+                "generation_tokens": 22,
+                "seconds": 11.576016557984985,
+                "finish_reason": "stop",
+                "timed_out": false,
+                "compute_backend": "llama-cpp-cpu-lora",
+                "phase": "writer",
+                "max_tokens": 256,
+                "max_seconds": 22,
+                "decoded_text": "أرجو مراجعة قائمة المشاركين وإضافة اسم المتطوعة، وشكرًا على جهودك في التنظيم."
+              },
+              "adapter": "pilot",
+              "adapter_sha256": "983ae8bf1d981e0aafb8a30a2ada4bf6c06284dd65b6f73876cdc6d521c48f3d",
+              "adapter_revision": "db2cf3390e5d163a58309df949aef58acb7bbd9a",
+              "policy_sha256": "0eae240980146aaf8fd0f2ae90f76f4e1affde346ba04021c65a03c445a14ffb"
+            },
+            "v2_clean": {
+              "reply": "السلام عليكم، اسم المتطوعة ما ظهر في القائمة، ممكن تراجعونه؟ وشكرًا على جهودكم.",
+              "generation": {
+                "generation_tokens": 24,
+                "seconds": 6.682237716973759,
+                "finish_reason": "stop",
+                "timed_out": false,
+                "compute_backend": "llama-cpp-cpu-lora",
+                "phase": "writer",
+                "max_tokens": 256,
+                "max_seconds": 22,
+                "decoded_text": "السلام عليكم، اسم المتطوعة ما ظهر في القائمة، ممكن تراجعونه؟ وشكرًا على جهودكم."
+              },
+              "adapter": "v2",
+              "adapter_sha256": "a9b352107884ad906e9913e827c7e075d3ad39c990db75c6ba561eb9e4d2bdef",
+              "adapter_revision": "local-QA-copy-of-2ffa7c65fe94b057462162a63644f68a927a4053",
+              "policy_sha256": "c037b70bf124b00edd31c786684c5c5b2847271fbd6cef05a299a1c96890e527"
+            },
+            "v2_fewshot": {
+              "reply": "السلام عليكم، اسم المتطوعة ما ظهر في القائمة، ممكن تراجعونه؟ وشكرًا على جهودكم.",
+              "generation": {
+                "generation_tokens": 24,
+                "seconds": 11.124302748008631,
+                "finish_reason": "stop",
+                "timed_out": false,
+                "compute_backend": "llama-cpp-cpu-lora",
+                "phase": "writer",
+                "max_tokens": 256,
+                "max_seconds": 22,
+                "decoded_text": "السلام عليكم، اسم المتطوعة ما ظهر في القائمة، ممكن تراجعونه؟ وشكرًا على جهودكم."
+              },
+              "adapter": "v2",
+              "adapter_sha256": "a9b352107884ad906e9913e827c7e075d3ad39c990db75c6ba561eb9e4d2bdef",
+              "adapter_revision": "local-QA-copy-of-2ffa7c65fe94b057462162a63644f68a927a4053",
+              "policy_sha256": "0eae240980146aaf8fd0f2ae90f76f4e1affde346ba04021c65a03c445a14ffb"
+            }
+          },
+          "failures": [],
+          "selection_task": {
+            "state": {
+              "الموقف": "اسم المتطوعة انحذف من قائمة المشاركين وما أعرف السبب. أبي أطلب يرجع اسمها وأشكر المنظم على تعبه بدون ما أفترض إنه قصد يستبعدها.",
+              "العلاقة": "عمل",
+              "الهدف": "أطلب تصحيح بدون اتهام",
+              "automatic_advisory_plan": {
+                "facts": [
+                  "Volunteer's name removed from participant list",
+                  "Reason for removal unknown",
+                  "Relationship is professional",
+                  "Goal is correction without accusation"
+                ],
+                "acts": [
+                  "Request restoration of volunteer's name",
+                  "Thank organizer for effort"
+                ],
+                "avoid": [
+                  "Assume intentional exclusion",
+                  "Accuse organizer",
+                  "State reason for removal as fact"
+                ]
+              }
+            },
+            "question": "أي رسالة جاهزة للإرسال تحقق كل ما طلبه المستخدم وتحفظ القيود والأدوار والجنس، بدون عذر أو معلومة أو وعد مخترع؟ يجب أن تكون سعودية طبيعية وسليمة لغويا، مع مهنية بسيطة في العمل والعميل. لا تختَر ردا ناقصا لمجرد أنه ألطف. إذا لم يصلح أي رد كما هو فاختر خيار عدم وجود رد صالح.",
+            "options": [
+              {
+                "label": "A",
+                "key": "candidate_0",
+                "description": "أرجو مراجعة قائمة المشاركين وإضافة اسم المتطوعة، وأقدّر جهودكم في التنظيم."
+              },
+              {
+                "label": "B",
+                "key": "candidate_1",
+                "description": "السلام عليكم، اسم المتطوعة ما ظهر في القائمة، ممكن تراجعونه؟ وشكرًا على جهودكم."
+              },
+              {
+                "label": "C",
+                "key": "candidate_2",
+                "description": "السلام عليكم، اسم المتطوعة ما ظهر في القائمة، ممكن تراجعونه؟ وشكرًا على جهودكم."
+              },
+              {
+                "label": "D",
+                "key": "candidate_3",
+                "description": "أرجو مراجعة قائمة المشاركين وإضافة اسم المتطوعة، وشكرًا على جهودك في التنظيم."
+              },
+              {
+                "label": "E",
+                "key": "none",
+                "description": "لا يوجد رد صالح للإرسال كما هو؛ كل الردود تحتاج تعديل"
+              }
+            ]
+          },
+          "anonymous_key": {
+            "A": "pilot_clean",
+            "B": "v2_fewshot",
+            "C": "v2_clean",
+            "D": "pilot_fewshot"
+          },
+          "selection_label": "B",
+          "selected_configuration": "v2_fewshot"
+        }
+      ]
+    },
+    {
+      "case": {
+        "id": "D02",
+        "relation": "أهل",
+        "goal": "أرفض جزء وأقبل جزء",
+        "message": "أختي طلبت أطبخ وأوصل الأكل لعزيمتها. أقدر أطبخ بس ما أقدر أوصل، وأبي أوضح لها ترتب التوصيل بدون ما أتحجج بشي مو مذكور."
+      },
+      "reply": "أقدر أطبخ لك، بس ما أقدر أوصل الأكل، وأبي ترتبين التوصيل بنفسك.",
+      "wall_seconds": 103.051,
+      "assessment": {
+        "strict_pass": true,
+        "reason": "Preserves cooking acceptance, delivery refusal and sister arranging delivery; direct Saudi wording without invented excuse. Coaching risk text separately contains pronoun/grammar problems."
+      },
+      "writer_provenance": {
+        "configuration": "v2_fewshot",
+        "adapter": "v2",
+        "adapter_sha256": "a9b352107884ad906e9913e827c7e075d3ad39c990db75c6ba561eb9e4d2bdef",
+        "adapter_revision": "local-QA-copy-of-2ffa7c65fe94b057462162a63644f68a927a4053",
+        "policy_sha256": "0eae240980146aaf8fd0f2ae90f76f4e1affde346ba04021c65a03c445a14ffb",
+        "selection_model": "Qwen/Qwen3.6-35B-A3B",
+        "selection_label": "C",
+        "generator": "Qwen3.5-4B + Saudi LoRA v2 (GGUF Q4_K_M base, F32 LoRA, CPU; Qwen3.6 planning/selection/review)"
+      },
+      "automatic_meaning_plan": {
+        "facts": [
+          "Sister requested user to cook and deliver food to her gathering.",
+          "User can cook.",
+          "User cannot deliver.",
+          "Relationship is family.",
+          "Goal is to accept cooking but refuse delivery."
+        ],
+        "acts": [
+          "User accepts the request to cook.",
+          "User informs sister that they cannot deliver the food.",
+          "User states that sister must arrange delivery herself."
+        ],
+        "avoid": [
+          "Do not make excuses not mentioned in the context.",
+          "Do not invent intentions.",
+          "Do not promise alternatives.",
+          "Do not claim delivery is impossible for reasons other than user's inability."
+        ]
+      },
+      "coaching": {
+        "core": "أختك طلبت منك تطبخي وتوصلي الأكل لعزيمتها، وأنتِ تقدرين تطبخين بس ما تقدرين توصلي.",
+        "objective": "تقبلي طلب الطبخ وتوضحي لها إنها هي اللي ترتب التوصيل بنفسها.",
+        "strategy": "ردي عليها بوضوح إنك جاهزة للطبخ، لكن التوصيل خارج عن قدرتك وتحتاج ترتبه هي.",
+        "risk": "ما تطلبي منها تتحملين مسؤولية التوصيل أو تطلبي منها تسامحينك، فقط وضحي القيد."
+      },
+      "semantic_review": {
+        "valid": true,
+        "checks": [
+          {
+            "source_quote": "أختي طلبت أطبخ وأوصل الأكل لعزيمتها.",
+            "status": "met",
+            "reason": ""
+          },
+          {
+            "source_quote": "أقدر أطبخ بس ما أقدر أوصل،",
+            "status": "met",
+            "reason": ""
+          },
+          {
+            "source_quote": "وأبي أوضح لها ترتب التوصيل بدون ما أتحجج بشي مو مذكور.",
+            "status": "met",
+            "reason": ""
+          },
+          {
+            "source_quote": "أرفض جزء وأقبل جزء",
+            "status": "met",
+            "reason": ""
+          }
+        ],
+        "unsupported": [],
+        "issues": [],
+        "language_issues": []
+      },
+      "review_status": "model_reviewed",
+      "candidate_attempts": [
+        {
+          "retry": false,
+          "candidates": {
+            "pilot_clean": {
+              "reply": "أقدرك أطبخ، بس ما أقدر أوصل، وأنتي لازم ترتبي التوصيل بنفسك.",
+              "generation": {
+                "generation_tokens": 24,
+                "seconds": 7.715652408020105,
+                "finish_reason": "stop",
+                "timed_out": false,
+                "compute_backend": "llama-cpp-cpu-lora",
+                "phase": "writer",
+                "max_tokens": 256,
+                "max_seconds": 22,
+                "decoded_text": "أقدرك أطبخ، بس ما أقدر أوصل، وأنتي لازم ترتبي التوصيل بنفسك."
+              },
+              "adapter": "pilot",
+              "adapter_sha256": "983ae8bf1d981e0aafb8a30a2ada4bf6c06284dd65b6f73876cdc6d521c48f3d",
+              "adapter_revision": "db2cf3390e5d163a58309df949aef58acb7bbd9a",
+              "policy_sha256": "c037b70bf124b00edd31c786684c5c5b2847271fbd6cef05a299a1c96890e527"
+            },
+            "pilot_fewshot": {
+              "reply": "أقدرك أطبخ، بس ما أقدر أوصل الأكل. أنتي اللي تقدرين ترتبين التوصيل.",
+              "generation": {
+                "generation_tokens": 26,
+                "seconds": 12.308360203052871,
+                "finish_reason": "stop",
+                "timed_out": false,
+                "compute_backend": "llama-cpp-cpu-lora",
+                "phase": "writer",
+                "max_tokens": 256,
+                "max_seconds": 22,
+                "decoded_text": "أقدرك أطبخ، بس ما أقدر أوصل الأكل. أنتي اللي تقدرين ترتبين التوصيل."
+              },
+              "adapter": "pilot",
+              "adapter_sha256": "983ae8bf1d981e0aafb8a30a2ada4bf6c06284dd65b6f73876cdc6d521c48f3d",
+              "adapter_revision": "db2cf3390e5d163a58309df949aef58acb7bbd9a",
+              "policy_sha256": "0eae240980146aaf8fd0f2ae90f76f4e1affde346ba04021c65a03c445a14ffb"
+            },
+            "v2_clean": {
+              "reply": "أقدر أطبخ لك، بس ما أقدر أوصل الأكل، وأتمنى ترتب التوصيل بنفسك.",
+              "generation": {
+                "generation_tokens": 25,
+                "seconds": 7.633136054966599,
+                "finish_reason": "stop",
+                "timed_out": false,
+                "compute_backend": "llama-cpp-cpu-lora",
+                "phase": "writer",
+                "max_tokens": 256,
+                "max_seconds": 22,
+                "decoded_text": "أقدر أطبخ لك، بس ما أقدر أوصل الأكل، وأتمنى ترتب التوصيل بنفسك."
+              },
+              "adapter": "v2",
+              "adapter_sha256": "a9b352107884ad906e9913e827c7e075d3ad39c990db75c6ba561eb9e4d2bdef",
+              "adapter_revision": "local-QA-copy-of-2ffa7c65fe94b057462162a63644f68a927a4053",
+              "policy_sha256": "c037b70bf124b00edd31c786684c5c5b2847271fbd6cef05a299a1c96890e527"
+            },
+            "v2_fewshot": {
+              "reply": "أقدر أطبخ لك، بس ما أقدر أوصل الأكل، وأبي ترتبين التوصيل بنفسك.",
+              "generation": {
+                "generation_tokens": 25,
+                "seconds": 11.867084582045209,
+                "finish_reason": "stop",
+                "timed_out": false,
+                "compute_backend": "llama-cpp-cpu-lora",
+                "phase": "writer",
+                "max_tokens": 256,
+                "max_seconds": 22,
+                "decoded_text": "أقدر أطبخ لك، بس ما أقدر أوصل الأكل، وأبي ترتبين التوصيل بنفسك."
+              },
+              "adapter": "v2",
+              "adapter_sha256": "a9b352107884ad906e9913e827c7e075d3ad39c990db75c6ba561eb9e4d2bdef",
+              "adapter_revision": "local-QA-copy-of-2ffa7c65fe94b057462162a63644f68a927a4053",
+              "policy_sha256": "0eae240980146aaf8fd0f2ae90f76f4e1affde346ba04021c65a03c445a14ffb"
+            }
+          },
+          "failures": [],
+          "selection_task": {
+            "state": {
+              "الموقف": "أختي طلبت أطبخ وأوصل الأكل لعزيمتها. أقدر أطبخ بس ما أقدر أوصل، وأبي أوضح لها ترتب التوصيل بدون ما أتحجج بشي مو مذكور.",
+              "العلاقة": "أهل",
+              "الهدف": "أرفض جزء وأقبل جزء",
+              "automatic_advisory_plan": {
+                "facts": [
+                  "Sister requested user to cook and deliver food to her gathering.",
+                  "User can cook.",
+                  "User cannot deliver.",
+                  "Relationship is family.",
+                  "Goal is to accept cooking but refuse delivery."
+                ],
+                "acts": [
+                  "User accepts the request to cook.",
+                  "User informs sister that they cannot deliver the food.",
+                  "User states that sister must arrange delivery herself."
+                ],
+                "avoid": [
+                  "Do not make excuses not mentioned in the context.",
+                  "Do not invent intentions.",
+                  "Do not promise alternatives.",
+                  "Do not claim delivery is impossible for reasons other than user's inability."
+                ]
+              }
+            },
+            "question": "أي رسالة جاهزة للإرسال تحقق كل ما طلبه المستخدم وتحفظ القيود والأدوار والجنس، بدون عذر أو معلومة أو وعد مخترع؟ يجب أن تكون سعودية طبيعية وسليمة لغويا، مع مهنية بسيطة في العمل والعميل. لا تختَر ردا ناقصا لمجرد أنه ألطف. إذا لم يصلح أي رد كما هو فاختر خيار عدم وجود رد صالح.",
+            "options": [
+              {
+                "label": "A",
+                "key": "candidate_0",
+                "description": "أقدر أطبخ لك، بس ما أقدر أوصل الأكل، وأتمنى ترتب التوصيل بنفسك."
+              },
+              {
+                "label": "B",
+                "key": "candidate_1",
+                "description": "أقدرك أطبخ، بس ما أقدر أوصل الأكل. أنتي اللي تقدرين ترتبين التوصيل."
+              },
+              {
+                "label": "C",
+                "key": "candidate_2",
+                "description": "أقدر أطبخ لك، بس ما أقدر أوصل الأكل، وأبي ترتبين التوصيل بنفسك."
+              },
+              {
+                "label": "D",
+                "key": "candidate_3",
+                "description": "أقدرك أطبخ، بس ما أقدر أوصل، وأنتي لازم ترتبي التوصيل بنفسك."
+              },
+              {
+                "label": "E",
+                "key": "none",
+                "description": "لا يوجد رد صالح للإرسال كما هو؛ كل الردود تحتاج تعديل"
+              }
+            ]
+          },
+          "anonymous_key": {
+            "A": "v2_clean",
+            "B": "pilot_fewshot",
+            "C": "v2_fewshot",
+            "D": "pilot_clean"
+          },
+          "selection_label": "C",
+          "selected_configuration": "v2_fewshot"
+        }
+      ]
+    },
+    {
+      "case": {
+        "id": "D03",
+        "relation": "صديق",
+        "goal": "أعتذر عن تصرفي",
+        "message": "ضحكت على اقتراح خويي قدام الشباب. أبي أعتذر عن الضحك وأعترف إنه ضايقه وأوضح إني أحترم رأيه بدون ما أقول كنت أمزح أو أطلب منه ما يزعل."
+      },
+      "reply": "أعتذر عن ضحكتي على اقتراحك أمام الناس، وأدرك أن هذا تصرف كان يضايقك، وأؤكد لك احترام رأيك.",
+      "wall_seconds": 93.103,
+      "assessment": {
+        "strict_pass": false,
+        "reason": "Formal unnatural personal apology (أمام الناس، أدرك، أؤكد لك احترام رأيك). Other pool candidates contain negation or grammar errors. Coaching changes خويي (friend) to أخوي (brother). Automated review falsely accepts the text."
+      },
+      "writer_provenance": {
+        "configuration": "pilot_clean",
+        "adapter": "pilot",
+        "adapter_sha256": "983ae8bf1d981e0aafb8a30a2ada4bf6c06284dd65b6f73876cdc6d521c48f3d",
+        "adapter_revision": "db2cf3390e5d163a58309df949aef58acb7bbd9a",
+        "policy_sha256": "c037b70bf124b00edd31c786684c5c5b2847271fbd6cef05a299a1c96890e527",
+        "selection_model": "Qwen/Qwen3.6-35B-A3B",
+        "selection_label": "D",
+        "generator": "Qwen3.5-4B + Saudi pilot LoRA (GGUF Q4_K_M base, F32 LoRA, CPU; Qwen3.6 planning/selection/review)"
+      },
+      "automatic_meaning_plan": {
+        "facts": [
+          "User laughed at brother's suggestion in front of others.",
+          "Brother was upset by the laughter.",
+          "User respects brother's opinion."
+        ],
+        "acts": [
+          "User apologizes for laughing.",
+          "User acknowledges that the behavior upset the brother.",
+          "User states respect for the brother's opinion."
+        ],
+        "avoid": [
+          "Do not claim the laughter was a joke.",
+          "Do not ask the brother not to be upset."
+        ]
+      },
+      "coaching": {
+        "core": "ضحكت على اقتراح أخوي قدام الشباب وضايقه الأمر.",
+        "objective": "أعتذر عن الضحك وأؤكد إني أحترم رأيه.",
+        "strategy": "أوجه اعتذار مباشر لأخوي عن تصرفي وأوضح تقديري لرأيه.",
+        "risk": "تجنب قول \"كنت أمزح\" أو طلبه ما يزعل."
+      },
+      "semantic_review": {
+        "valid": true,
+        "checks": [
+          {
+            "source_quote": "ضحكت على اقتراح خويي قدام الشباب.",
+            "status": "met",
+            "reason": ""
+          },
+          {
+            "source_quote": "أبي أعتذر عن الضحك وأعترف إنه ضايقه وأوضح إني أحترم رأيه بدون ما أقول كنت أمزح أو أطلب منه ما يزعل.",
+            "status": "met",
+            "reason": ""
+          },
+          {
+            "source_quote": "أعتذر عن تصرفي",
+            "status": "met",
+            "reason": ""
+          }
+        ],
+        "unsupported": [],
+        "issues": [],
+        "language_issues": []
+      },
+      "review_status": "model_reviewed",
+      "candidate_attempts": [
+        {
+          "retry": false,
+          "candidates": {
+            "pilot_clean": {
+              "reply": "أعتذر عن ضحكتي على اقتراحك أمام الناس، وأدرك أن هذا تصرف كان يضايقك، وأؤكد لك احترام رأيك.",
+              "generation": {
+                "generation_tokens": 34,
+                "seconds": 7.79041356901871,
+                "finish_reason": "stop",
+                "timed_out": false,
+                "compute_backend": "llama-cpp-cpu-lora",
+                "phase": "writer",
+                "max_tokens": 256,
+                "max_seconds": 22,
+                "decoded_text": "أعتذر عن ضحكتي على اقتراحك أمام الناس، وأدرك أن هذا تصرف كان يضايقك، وأؤكد لك احترام رأيك."
+              },
+              "adapter": "pilot",
+              "adapter_sha256": "983ae8bf1d981e0aafb8a30a2ada4bf6c06284dd65b6f73876cdc6d521c48f3d",
+              "adapter_revision": "db2cf3390e5d163a58309df949aef58acb7bbd9a",
+              "policy_sha256": "c037b70bf124b00edd31c786684c5c5b2847271fbd6cef05a299a1c96890e527"
+            },
+            "pilot_fewshot": {
+              "reply": "آسف ما ضحك عليك قدام الناس، وأفهم إنك تزعلت. أنا أحترم رأيك، وأعتذر عن تصرفي.",
+              "generation": {
+                "generation_tokens": 32,
+                "seconds": 12.338624996016733,
+                "finish_reason": "stop",
+                "timed_out": false,
+                "compute_backend": "llama-cpp-cpu-lora",
+                "phase": "writer",
+                "max_tokens": 256,
+                "max_seconds": 22,
+                "decoded_text": "آسف ما ضحك عليك قدام الناس، وأفهم إنك تزعلت. أنا أحترم رأيك، وأعتذر عن تصرفي."
+              },
+              "adapter": "pilot",
+              "adapter_sha256": "983ae8bf1d981e0aafb8a30a2ada4bf6c06284dd65b6f73876cdc6d521c48f3d",
+              "adapter_revision": "db2cf3390e5d163a58309df949aef58acb7bbd9a",
+              "policy_sha256": "0eae240980146aaf8fd0f2ae90f76f4e1affde346ba04021c65a03c445a14ffb"
+            },
+            "v2_clean": {
+              "reply": "أعتذر عن ضحكتي على اقتراحك قدام الناس، وأقدر إنك ضايقك.",
+              "generation": {
+                "generation_tokens": 25,
+                "seconds": 7.236862451012712,
+                "finish_reason": "stop",
+                "timed_out": false,
+                "compute_backend": "llama-cpp-cpu-lora",
+                "phase": "writer",
+                "max_tokens": 256,
+                "max_seconds": 22,
+                "decoded_text": "أعتذر عن ضحكتي على اقتراحك قدام الناس، وأقدر إنك ضايقك."
+              },
+              "adapter": "v2",
+              "adapter_sha256": "a9b352107884ad906e9913e827c7e075d3ad39c990db75c6ba561eb9e4d2bdef",
+              "adapter_revision": "local-QA-copy-of-2ffa7c65fe94b057462162a63644f68a927a4053",
+              "policy_sha256": "c037b70bf124b00edd31c786684c5c5b2847271fbd6cef05a299a1c96890e527"
+            },
+            "v2_fewshot": {
+              "reply": "آفقت ضحك على اقتراحك قدام الناس، وأعتذر عنك. فهمت إنك ضايقك، وأحترم رأيك.",
+              "generation": {
+                "generation_tokens": 34,
+                "seconds": 12.39249502500752,
+                "finish_reason": "stop",
+                "timed_out": false,
+                "compute_backend": "llama-cpp-cpu-lora",
+                "phase": "writer",
+                "max_tokens": 256,
+                "max_seconds": 22,
+                "decoded_text": "آفقت ضحك على اقتراحك قدام الناس، وأعتذر عنك. فهمت إنك ضايقك، وأحترم رأيك."
+              },
+              "adapter": "v2",
+              "adapter_sha256": "a9b352107884ad906e9913e827c7e075d3ad39c990db75c6ba561eb9e4d2bdef",
+              "adapter_revision": "local-QA-copy-of-2ffa7c65fe94b057462162a63644f68a927a4053",
+              "policy_sha256": "0eae240980146aaf8fd0f2ae90f76f4e1affde346ba04021c65a03c445a14ffb"
+            }
+          },
+          "failures": [],
+          "selection_task": {
+            "state": {
+              "الموقف": "ضحكت على اقتراح خويي قدام الشباب. أبي أعتذر عن الضحك وأعترف إنه ضايقه وأوضح إني أحترم رأيه بدون ما أقول كنت أمزح أو أطلب منه ما يزعل.",
+              "العلاقة": "صديق",
+              "الهدف": "أعتذر عن تصرفي",
+              "automatic_advisory_plan": {
+                "facts": [
+                  "User laughed at brother's suggestion in front of others.",
+                  "Brother was upset by the laughter.",
+                  "User respects brother's opinion."
+                ],
+                "acts": [
+                  "User apologizes for laughing.",
+                  "User acknowledges that the behavior upset the brother.",
+                  "User states respect for the brother's opinion."
+                ],
+                "avoid": [
+                  "Do not claim the laughter was a joke.",
+                  "Do not ask the brother not to be upset."
+                ]
+              }
+            },
+            "question": "أي رسالة جاهزة للإرسال تحقق كل ما طلبه المستخدم وتحفظ القيود والأدوار والجنس، بدون عذر أو معلومة أو وعد مخترع؟ يجب أن تكون سعودية طبيعية وسليمة لغويا، مع مهنية بسيطة في العمل والعميل. لا تختَر ردا ناقصا لمجرد أنه ألطف. إذا لم يصلح أي رد كما هو فاختر خيار عدم وجود رد صالح.",
+            "options": [
+              {
+                "label": "A",
+                "key": "candidate_0",
+                "description": "أعتذر عن ضحكتي على اقتراحك قدام الناس، وأقدر إنك ضايقك."
+              },
+              {
+                "label": "B",
+                "key": "candidate_1",
+                "description": "آسف ما ضحك عليك قدام الناس، وأفهم إنك تزعلت. أنا أحترم رأيك، وأعتذر عن تصرفي."
+              },
+              {
+                "label": "C",
+                "key": "candidate_2",
+                "description": "آفقت ضحك على اقتراحك قدام الناس، وأعتذر عنك. فهمت إنك ضايقك، وأحترم رأيك."
+              },
+              {
+                "label": "D",
+                "key": "candidate_3",
+                "description": "أعتذر عن ضحكتي على اقتراحك أمام الناس، وأدرك أن هذا تصرف كان يضايقك، وأؤكد لك احترام رأيك."
+              },
+              {
+                "label": "E",
+                "key": "none",
+                "description": "لا يوجد رد صالح للإرسال كما هو؛ كل الردود تحتاج تعديل"
+              }
+            ]
+          },
+          "anonymous_key": {
+            "A": "v2_clean",
+            "B": "pilot_fewshot",
+            "C": "v2_fewshot",
+            "D": "pilot_clean"
+          },
+          "selection_label": "D",
+          "selected_configuration": "pilot_clean"
+        }
+      ]
+    },
+    {
+      "case": {
+        "id": "D04",
+        "relation": "عمل",
+        "goal": "أحط حدود مستمرة",
+        "message": "زميلي كل يوم يطلب أكتب تقريره بداله. أبي أوقف هالشي من اليوم ورايح وأوضح إني أقدر أجاوب عن سؤال محدد بس ما أكتب تقاريره كاملة."
+      },
+      "reply": "أوقف عن كتابة تقاريرك من اليوم، وأقدر أجاوب عن أسئلة محددة، بس ما أقدر أكتب التقرير كامل.",
+      "wall_seconds": 93.132,
+      "assessment": {
+        "strict_pass": false,
+        "reason": "Preserves the recurring boundary and limited questions, but أوقف عن كتابة تقاريرك is stiff translated wording. Fails the same strict naturalness criterion as BF16."
+      },
+      "writer_provenance": {
+        "configuration": "pilot_fewshot",
+        "adapter": "pilot",
+        "adapter_sha256": "983ae8bf1d981e0aafb8a30a2ada4bf6c06284dd65b6f73876cdc6d521c48f3d",
+        "adapter_revision": "db2cf3390e5d163a58309df949aef58acb7bbd9a",
+        "policy_sha256": "0eae240980146aaf8fd0f2ae90f76f4e1affde346ba04021c65a03c445a14ffb",
+        "selection_model": "Qwen/Qwen3.6-35B-A3B",
+        "selection_label": "B",
+        "generator": "Qwen3.5-4B + Saudi pilot LoRA (GGUF Q4_K_M base, F32 LoRA, CPU; Qwen3.6 planning/selection/review)"
+      },
+      "automatic_meaning_plan": {
+        "facts": [
+          "Colleague asks user to write reports daily",
+          "User wants to stop this practice immediately",
+          "User can answer specific questions",
+          "User cannot write full reports"
+        ],
+        "acts": [
+          "State intention to stop writing colleague's reports from today",
+          "Clarify that user can answer specific questions",
+          "Clarify that user cannot write full reports"
+        ],
+        "avoid": [
+          "Write the colleague's reports",
+          "Make excuses",
+          "Promise alternatives",
+          "Offer to write reports in the future"
+        ]
+      },
+      "coaching": {
+        "core": "زميلك يطلب منك كتابة تقاريره اليومية بدل منه.",
+        "objective": "توقف عن كتابة التقارير وتوضح إنك تقدر تجاوب على سؤال محدد بس.",
+        "strategy": "أخبره اليوم إنك ما راح تكتب تقاريره كاملة من الآن فصاعدًا.",
+        "risk": "لا تعد بكتابة تقارير في المستقبل أو تقدم بدائل غير محددة."
+      },
+      "semantic_review": {
+        "valid": true,
+        "checks": [
+          {
+            "source_quote": "زميلي كل يوم يطلب أكتب تقريره بداله.",
+            "status": "met",
+            "reason": ""
+          },
+          {
+            "source_quote": "أبي أوقف هالشي من اليوم ورايح وأوضح إني أقدر أجاوب عن سؤال محدد بس ما أكتب تقاريره كاملة.",
+            "status": "met",
+            "reason": ""
+          },
+          {
+            "source_quote": "أحط حدود مستمرة",
+            "status": "met",
+            "reason": ""
+          }
+        ],
+        "unsupported": [],
+        "issues": [],
+        "language_issues": []
+      },
+      "review_status": "model_reviewed",
+      "candidate_attempts": [
+        {
+          "retry": false,
+          "candidates": {
+            "pilot_clean": {
+              "reply": "أوقف من اليوم ما أكتب تقاريرك، وأبقى أساعدك فقط في الإجابة عن أسئلتك المحددة.",
+              "generation": {
+                "generation_tokens": 27,
+                "seconds": 7.101298958994448,
+                "finish_reason": "stop",
+                "timed_out": false,
+                "compute_backend": "llama-cpp-cpu-lora",
+                "phase": "writer",
+                "max_tokens": 256,
+                "max_seconds": 22,
+                "decoded_text": "أوقف من اليوم ما أكتب تقاريرك، وأبقى أساعدك فقط في الإجابة عن أسئلتك المحددة."
+              },
+              "adapter": "pilot",
+              "adapter_sha256": "983ae8bf1d981e0aafb8a30a2ada4bf6c06284dd65b6f73876cdc6d521c48f3d",
+              "adapter_revision": "db2cf3390e5d163a58309df949aef58acb7bbd9a",
+              "policy_sha256": "c037b70bf124b00edd31c786684c5c5b2847271fbd6cef05a299a1c96890e527"
+            },
+            "pilot_fewshot": {
+              "reply": "أوقف عن كتابة تقاريرك من اليوم، وأقدر أجاوب عن أسئلة محددة، بس ما أقدر أكتب التقرير كامل.",
+              "generation": {
+                "generation_tokens": 29,
+                "seconds": 12.126115575956646,
+                "finish_reason": "stop",
+                "timed_out": false,
+                "compute_backend": "llama-cpp-cpu-lora",
+                "phase": "writer",
+                "max_tokens": 256,
+                "max_seconds": 22,
+                "decoded_text": "أوقف عن كتابة تقاريرك من اليوم، وأقدر أجاوب عن أسئلة محددة، بس ما أقدر أكتب التقرير كامل."
+              },
+              "adapter": "pilot",
+              "adapter_sha256": "983ae8bf1d981e0aafb8a30a2ada4bf6c06284dd65b6f73876cdc6d521c48f3d",
+              "adapter_revision": "db2cf3390e5d163a58309df949aef58acb7bbd9a",
+              "policy_sha256": "0eae240980146aaf8fd0f2ae90f76f4e1affde346ba04021c65a03c445a14ffb"
+            },
+            "v2_clean": {
+              "reply": "أعتذر عن كتابة تقاريرك كاملة، لكن أقدر أساعدك بالإجابة على أسئلة محددة.",
+              "generation": {
+                "generation_tokens": 22,
+                "seconds": 7.008288704964798,
+                "finish_reason": "stop",
+                "timed_out": false,
+                "compute_backend": "llama-cpp-cpu-lora",
+                "phase": "writer",
+                "max_tokens": 256,
+                "max_seconds": 22,
+                "decoded_text": "أعتذر عن كتابة تقاريرك كاملة، لكن أقدر أساعدك بالإجابة على أسئلة محددة."
+              },
+              "adapter": "v2",
+              "adapter_sha256": "a9b352107884ad906e9913e827c7e075d3ad39c990db75c6ba561eb9e4d2bdef",
+              "adapter_revision": "local-QA-copy-of-2ffa7c65fe94b057462162a63644f68a927a4053",
+              "policy_sha256": "c037b70bf124b00edd31c786684c5c5b2847271fbd6cef05a299a1c96890e527"
+            },
+            "v2_fewshot": {
+              "reply": "ما أقدر أكتب تقاريرك بدلًا مني، وأرجو توقف الطلب من اليوم. أقدر أساعدك بس إذا كان سؤال محدد.",
+              "generation": {
+                "generation_tokens": 32,
+                "seconds": 12.769413981994148,
+                "finish_reason": "stop",
+                "timed_out": false,
+                "compute_backend": "llama-cpp-cpu-lora",
+                "phase": "writer",
+                "max_tokens": 256,
+                "max_seconds": 22,
+                "decoded_text": "ما أقدر أكتب تقاريرك بدلًا مني، وأرجو توقف الطلب من اليوم. أقدر أساعدك بس إذا كان سؤال محدد."
+              },
+              "adapter": "v2",
+              "adapter_sha256": "a9b352107884ad906e9913e827c7e075d3ad39c990db75c6ba561eb9e4d2bdef",
+              "adapter_revision": "local-QA-copy-of-2ffa7c65fe94b057462162a63644f68a927a4053",
+              "policy_sha256": "0eae240980146aaf8fd0f2ae90f76f4e1affde346ba04021c65a03c445a14ffb"
+            }
+          },
+          "failures": [],
+          "selection_task": {
+            "state": {
+              "الموقف": "زميلي كل يوم يطلب أكتب تقريره بداله. أبي أوقف هالشي من اليوم ورايح وأوضح إني أقدر أجاوب عن سؤال محدد بس ما أكتب تقاريره كاملة.",
+              "العلاقة": "عمل",
+              "الهدف": "أحط حدود مستمرة",
+              "automatic_advisory_plan": {
+                "facts": [
+                  "Colleague asks user to write reports daily",
+                  "User wants to stop this practice immediately",
+                  "User can answer specific questions",
+                  "User cannot write full reports"
+                ],
+                "acts": [
+                  "State intention to stop writing colleague's reports from today",
+                  "Clarify that user can answer specific questions",
+                  "Clarify that user cannot write full reports"
+                ],
+                "avoid": [
+                  "Write the colleague's reports",
+                  "Make excuses",
+                  "Promise alternatives",
+                  "Offer to write reports in the future"
+                ]
+              }
+            },
+            "question": "أي رسالة جاهزة للإرسال تحقق كل ما طلبه المستخدم وتحفظ القيود والأدوار والجنس، بدون عذر أو معلومة أو وعد مخترع؟ يجب أن تكون سعودية طبيعية وسليمة لغويا، مع مهنية بسيطة في العمل والعميل. لا تختَر ردا ناقصا لمجرد أنه ألطف. إذا لم يصلح أي رد كما هو فاختر خيار عدم وجود رد صالح.",
+            "options": [
+              {
+                "label": "A",
+                "key": "candidate_0",
+                "description": "أوقف من اليوم ما أكتب تقاريرك، وأبقى أساعدك فقط في الإجابة عن أسئلتك المحددة."
+              },
+              {
+                "label": "B",
+                "key": "candidate_1",
+                "description": "أوقف عن كتابة تقاريرك من اليوم، وأقدر أجاوب عن أسئلة محددة، بس ما أقدر أكتب التقرير كامل."
+              },
+              {
+                "label": "C",
+                "key": "candidate_2",
+                "description": "أعتذر عن كتابة تقاريرك كاملة، لكن أقدر أساعدك بالإجابة على أسئلة محددة."
+              },
+              {
+                "label": "D",
+                "key": "candidate_3",
+                "description": "ما أقدر أكتب تقاريرك بدلًا مني، وأرجو توقف الطلب من اليوم. أقدر أساعدك بس إذا كان سؤال محدد."
+              },
+              {
+                "label": "E",
+                "key": "none",
+                "description": "لا يوجد رد صالح للإرسال كما هو؛ كل الردود تحتاج تعديل"
+              }
+            ]
+          },
+          "anonymous_key": {
+            "A": "pilot_clean",
+            "B": "pilot_fewshot",
+            "C": "v2_clean",
+            "D": "v2_fewshot"
+          },
+          "selection_label": "B",
+          "selected_configuration": "pilot_fewshot"
+        }
+      ]
+    }
+  ]
+}

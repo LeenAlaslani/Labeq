@@ -21,9 +21,11 @@ For a later qualified deployment, response weights must remain in authorized pri
 
 The public Q8 teacher has an immutable revision/checksum and no Saudi response adapter. Its [documented build-time preloading](https://huggingface.co/docs/hub/spaces-config-reference) uses the default Hub cache, followed by a complete SHA-256 check before loading. The observed private allocation had 16 CPU cores and a 104 GB memory limit; this is not a free-resource guarantee. The original Faisal noncommercial attribution and all upstream model/data terms still apply.
 
-Before any public selection, the combined system must pass actual bfloat16 development, both known-user UI regressions, then the still-unused 16-case test and latency/contrast gates. Its evidence cannot be described as proof that an individual adapter alone generalized.
+Before any public selection, the combined system must pass development in its explicitly selected production runtime, both known-user UI regressions, then the still-unused 16-case test and latency/contrast gates. Its evidence cannot be described as proof that an individual adapter alone generalized.
 
 
 The actual BF16 production-runtime gate subsequently failed: 2/4 strict development replies, including a falsely accepted formal apology. [Exact results](../training/qwen36_cpu/bf16_runtime_results.json) preserve candidates and coaching as generated. No fresh test outputs were opened.
 
 A separate [GGUF runtime comparison](../training/qwen36_cpu/gguf_runtime_protocol.json) retains every F32 LoRA factor exactly while changing the public response base to pinned Q4_K_M. It is not a new trained adapter or evidence of quality. Private QA additionally passes `--private-gguf /path/to/verified/conversions`, sets `LABEQ_WRITER_RUNTIME=gguf` and `LABEQ_GGUF_ADAPTER_DIR=private-qa-gguf`, and records both conversion manifests and the base checksum in health. Actual original Faisal still runs on BF16. The same development, UI and fresh-test gates apply to this explicitly separate runtime; passing a raw MLX study cannot substitute for them.
+
+The actual GGUF comparison also failed (1/4 strict replies); see [the complete report](../evidence/GENERALIZATION_RUNTIME.md). Neither runtime is publicly selected.
