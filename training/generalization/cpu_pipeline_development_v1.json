@@ -1,0 +1,707 @@
+{
+  "status": "first_full_pipeline_not_qualified",
+  "reviewer": "Assistant, not independent human validation",
+  "manifest": {
+    "at_utc": "2026-11-21T16:11:02.178896+00:00",
+    "space_source_revision": "2fd535a8bfc62a9e687a3c6940167adffdbe185b",
+    "metadata": {
+      "backend": "llama.cpp CPU writer; n_gpu_layers=0; separate real Faisal GPU route",
+      "llama_cpp_python": "0.3.36",
+      "model": "Qwen/Qwen3.5-35B-A3B",
+      "gguf_revision": "bc014a17be43adabd7066b7a86075ff935c6a4e2",
+      "gguf_sha256": "3b46d1066bc91cc2d613e3bc22ce691dd77e6f0d33c9060690d24ce6de494375",
+      "base_revision": "2508b2437e382c605eb0fc52b83f5545960f6b4a",
+      "loaded": false,
+      "faisal_loaded": true,
+      "faisal_revision": "38849bdac4b7850c19587f78f5fe16c38adefac1",
+      "limits": {
+        "cpu.max": "1600000 100000",
+        "memory.max": "104000000000"
+      },
+      "disk_free_bytes": 2379051626496,
+      "cpu_count": 192
+    },
+    "mode": "Actual V16 pipeline with real CPU Faisal, no GPU callback requested",
+    "case_file": "training/generalization/dev.json"
+  },
+  "results": [
+    {
+      "case": {
+        "id": "D01",
+        "relation": "عمل",
+        "goal": "أطلب تصحيح بدون اتهام",
+        "message": "اسم المتطوعة انحذف من قائمة المشاركين وما أعرف السبب. أبي أطلب يرجع اسمها وأشكر المنظم على تعبه بدون ما أفترض إنه قصد يستبعدها."
+      },
+      "result": {
+        "metadata": {
+          "backend": "llama.cpp CPU writer; n_gpu_layers=0; separate real Faisal GPU route",
+          "llama_cpp_python": "0.3.36",
+          "model": "Qwen/Qwen3.5-35B-A3B",
+          "gguf_revision": "bc014a17be43adabd7066b7a86075ff935c6a4e2",
+          "gguf_sha256": "3b46d1066bc91cc2d613e3bc22ce691dd77e6f0d33c9060690d24ce6de494375",
+          "base_revision": "2508b2437e382c605eb0fc52b83f5545960f6b4a",
+          "loaded": true,
+          "faisal_loaded": true,
+          "faisal_revision": "38849bdac4b7850c19587f78f5fe16c38adefac1",
+          "limits": {
+            "cpu.max": "1600000 100000",
+            "memory.max": "104000000000"
+          },
+          "disk_free_bytes": 2347506040832,
+          "cpu_count": 192
+        },
+        "rows": [
+          {
+            "id": "D01",
+            "response": {
+              "reply": "أبغاك ترجع اسم المتطوعة للقائمة، ولا أعرف السبب لحذفها. وشكرا لك على تعبك وجهدك، وجزاك الله خيرا.",
+              "style_used": "لبق",
+              "router_source": "faisal",
+              "reply_source": "qwen_base_generated",
+              "style_key": "polite",
+              "generator": "Qwen3.5-35B-A3B (GGUF Q4_K_M, CPU; no response adapter)",
+              "coaching": {
+                "core": "اسم المتطوعة حُذف من القائمة دون سبب معلوم.",
+                "objective": "طلب إعادة الاسم مع شكر المنظم دون افتراض نية الاستبعاد.",
+                "strategy": "مراسلة رسمية تطلب توضيح السبب وإرجاع الاسم بلباقة.",
+                "risk": "لا تفسري الحذف كخطأ مقصود من المنظم أو إهمال منه."
+              },
+              "review_status": "flagged",
+              "needs_review": true,
+              "quality_warnings": [
+                "تعذر التحقق من المراجعة الدلالية؛ الصياغة تحتاج مراجعة"
+              ],
+              "was_retried": false,
+              "semantic_review": {
+                "valid": false,
+                "checks": [],
+                "unsupported": [],
+                "issues": [],
+                "error": "invalid_or_ungrounded_review"
+              },
+              "generation_candidates": [
+                {
+                  "reply": "أبغاك ترجع اسم المتطوعة للقائمة، ولا أعرف السبب لحذفها. وشكرا لك على تعبك وجهدك، وجزاك الله خيرا.",
+                  "draft_before_register_normalization": "أبغاك ترجع اسم المتطوعة للقائمة، ولا أعرف السبب لحذفها. وشكرا لك على تعبك وجهدك، وجزاك الله خيرا.",
+                  "register_normalization": [],
+                  "review": {
+                    "valid": false,
+                    "checks": [],
+                    "unsupported": [],
+                    "issues": [],
+                    "error": "invalid_or_ungrounded_review"
+                  },
+                  "warnings": [
+                    "تعذر التحقق من المراجعة الدلالية؛ الصياغة تحتاج مراجعة"
+                  ]
+                }
+              ],
+              "retry_error": null,
+              "coaching_status": "model_generated",
+              "coaching_error": null,
+              "draft_before_register_normalization": "أبغاك ترجع اسم المتطوعة للقائمة، ولا أعرف السبب لحذفها. وشكرا لك على تعبك وجهدك، وجزاك الله خيرا.",
+              "register_normalization": [],
+              "router_compute": "CPU"
+            },
+            "seconds": 63.84849144995678,
+            "generation_trace": [
+              {
+                "messages": [
+                  {
+                    "role": "user",
+                    "content": "أنتِ مستشارة تواصل سعودية. لخصي بكلام سعودي بسيط ما قاله المستخدم فقط، دون افتراض مشاعر أو أخطاء أو وعود. حددي مين اللي تأخر أو غلط بدقة، ولا تعكسي الأدوار. اجمعي الطلبات والقيود من نص الموقف كله. اكتبي أربع سطور قصيرة بهذه التسميات بالضبط، ولا تكتبي رسالة الرد:\nجوهر الموقف: [المشكلة المحددة كما وردت]\nالهدف: [ما الذي يريد تحقيقه فعلاً]\nالخطوة: [التصرف التواصلي الذي يحقق الهدف دون تصعيد]\nانتبهي: [تفسير خاطئ واحد يجب تجنبه]\nالموقف: اسم المتطوعة انحذف من قائمة المشاركين وما أعرف السبب. أبي أطلب يرجع اسمها وأشكر المنظم على تعبه بدون ما أفترض إنه قصد يستبعدها.\nالعلاقة: عمل\nهدف المستخدم: أطلب تصحيح بدون اتهام"
+                  }
+                ],
+                "text": "جوهر الموقف: اسم المتطوعة حُذف من القائمة دون سبب معلوم.\nالهدف: طلب إعادة الاسم مع شكر المنظم دون افتراض نية الاستبعاد.\nالخطوة: مراسلة رسمية تطلب توضيح السبب وإرجاع الاسم بلباقة.\nانتبهي: لا تفسري الحذف كخطأ مقصود من المنظم أو إهمال منه.",
+                "finish_reason": "stop",
+                "usage": {
+                  "prompt_tokens": 219,
+                  "completion_tokens": 86,
+                  "total_tokens": 305
+                },
+                "max_tokens": 256,
+                "retry": false
+              },
+              {
+                "messages": [
+                  {
+                    "role": "system",
+                    "content": "You write a message that the USER can send to the other person. Read the entire situation and goal. Preserve every requested action and constraint, including partial agreement, duration and uncertainty. Use only the stated facts. Keep speaker and recipient roles and gender correct. Do not invent excuses, promises or obligations. Write natural Saudi Arabic suitable for the relationship, like a real WhatsApp message, not translated formal Arabic. Cover all the meaning without unnecessary length. Output only the message to the recipient."
+                  },
+                  {
+                    "role": "user",
+                    "content": "الموقف: مديري طلب أداوم الجمعة والسبت. أقدر أداوم الجمعة بس ما أقدر السبت. أبي أوضح له اليومين بدون ما أذكر أسباب شخصية أو أرفض الطلب كله.\nالعلاقة: عمل\nالهدف: أرفض جزء وأقبل جزء\nالأسلوب: عفوي\nاكتب الرسالة للطرف الآخر، واحفظ كل الطلبات والقيود بدون اختصار يضيع المعنى."
+                  },
+                  {
+                    "role": "assistant",
+                    "content": "أقدر أداوم الجمعة، بس السبت ما أقدر. حبيت أوضح لك من الحين عشان تقدر ترتب التغطية ليوم السبت."
+                  },
+                  {
+                    "role": "user",
+                    "content": "الموقف: قريبتي تعلق على وزني بكل جمعة. أبي أطلب توقف التعليق على جسمي نهائيًا وأقول إني أبي جلستنا تكون مريحة، بدون اعتذار عن جسمي.\nالعلاقة: أهل\nالهدف: أحط حد مستمر\nالأسلوب: عفوي\nاكتب الرسالة للطرف الآخر، واحفظ كل الطلبات والقيود بدون اختصار يضيع المعنى."
+                  },
+                  {
+                    "role": "assistant",
+                    "content": "ودي جلستنا تكون مريحة لنا، والتعليقات على جسمي تضايقني. أبيك توقفين التعليق على وزني من الحين ورايح، مو بس بهالجلسة."
+                  },
+                  {
+                    "role": "user",
+                    "content": "الموقف: نسيت مناسبة تخرج أختي وما هنأتها. أبي أعتذر عن نسياني وأقول إني فخور فيها وأتفهم زعلها بدون ما أقول إنها حساسة أو أتحجج بالشغل.\nالعلاقة: أهل\nالهدف: أعتذر وأوضح الأثر\nالأسلوب: عفوي\nاكتب الرسالة للطرف الآخر، واحفظ كل الطلبات والقيود بدون اختصار يضيع المعنى."
+                  },
+                  {
+                    "role": "assistant",
+                    "content": "آسف إني نسيت أهنئك بتخرجك، ومعك حق تزعلين مني. أنا فخور فيك وباللي حققتيه، وكان المفروض أشاركك فرحتك بوقتها."
+                  },
+                  {
+                    "role": "user",
+                    "content": "الموقف: اسم المتطوعة انحذف من قائمة المشاركين وما أعرف السبب. أبي أطلب يرجع اسمها وأشكر المنظم على تعبه بدون ما أفترض إنه قصد يستبعدها.\nالعلاقة: عمل\nالهدف: أطلب تصحيح بدون اتهام\nالأسلوب: عفوي\nاكتب الرسالة للطرف الآخر، واحفظ كل الطلبات والقيود بدون اختصار يضيع المعنى.\nطريقة التواصل: لبق\nنبرة لطيفة ومحترمة. حافظ على كل ما طلبه الشخص، ولا تضف اعتذارا أو وعدا أو طلبا من عندك."
+                  }
+                ],
+                "text": "أبغاك ترجع اسم المتطوعة للقائمة، ولا أعرف السبب لحذفها. وشكراً لك على تعبك وجهدك، وجزاك الله خيراً.",
+                "finish_reason": "stop",
+                "usage": {
+                  "prompt_tokens": 670,
+                  "completion_tokens": 41,
+                  "total_tokens": 711
+                },
+                "max_tokens": 256,
+                "retry": false
+              },
+              {
+                "messages": [
+                  {
+                    "role": "user",
+                    "content": "راجع الرسالة مقابل طلب المستخدم. استخرج كل طلب وقيد مهم من النص الأصلي، وقيّم كل واحد منفصلا. فرّق بين الفعل المطلوب، والأثر على العلاقة، وما منع المستخدم إضافته. لا تختزل طلبات متعددة إلى عنوان عام. لا تضف شروطا من عندك ولا تطلب عذرا أو وعدا لم يطلبه المستخدم. source_quote اقتباس حرفي قصير من الموقف أو الهدف يثبت الشرط. status إما met أو missing أو contradicted. reason سبب لا يتجاوز 12 كلمة يصف الخلل إن وجد. unsupported قائمة اقتباسات حرفية من الرسالة تتضمن حقائق أو أعذارا أو وعودا غير مسندة، وليست مجرد اختلاف في الأسلوب. إذا لا يوجد خلها فارغة. اكتب JSON فقط بهذا الشكل: {\"checks\":[{\"source_quote\":\"...\",\"status\":\"met\",\"reason\":\"\"}],\"unsupported\":[]}\nطريقة الكتابة: اكتب بسعودية مهنية محترمة مثل رسالة واتساب للعمل: واضحة وطبيعية، مو خطاب فصيح ولا مزاح وألقاب مبالغ فيها.\nالموقف: اسم المتطوعة انحذف من قائمة المشاركين وما أعرف السبب. أبي أطلب يرجع اسمها وأشكر المنظم على تعبه بدون ما أفترض إنه قصد يستبعدها.\nالعلاقة: عمل\nالهدف: أطلب تصحيح بدون اتهام\nالرسالة: أبغاك ترجع اسم المتطوعة للقائمة، ولا أعرف السبب لحذفها. وشكرا لك على تعبك وجهدك، وجزاك الله خيرا."
+                  }
+                ],
+                "text": "{\n  \"checks\": [\n    {\n      \"source_quote\": \"أبغاك ترجع اسم المتطوعة للقائمة\",\n      \"status\": \"met\",\n      \"reason\": \"طلب تصحيح مباشر دون اتهام.\"\n    },\n    {\n      \"source_quote\": \"ولا أعرف السبب لحذفها\",\n      \"status\": \"met\",\n      \"reason\": \"يوضح عدم الفرضية بنوايا سيئة.\"\n    },\n    {\n      \"source_quote\": \"وشكرا لك على تعبك وجهدك، وجزاك الله خيرا\",\n      \"status\": \"met\",\n      \"reason\": \"شكر يعزز العلاقة الإيجابية.\"\n    }\n  ],\n  \"unsupported\": []\n}",
+                "finish_reason": "stop",
+                "usage": {
+                  "prompt_tokens": 342,
+                  "completion_tokens": 167,
+                  "total_tokens": 509
+                },
+                "max_tokens": 640,
+                "retry": false
+              }
+            ]
+          }
+        ]
+      },
+      "request_seconds": 148.94986354210414
+    },
+    {
+      "case": {
+        "id": "D02",
+        "relation": "أهل",
+        "goal": "أرفض جزء وأقبل جزء",
+        "message": "أختي طلبت أطبخ وأوصل الأكل لعزيمتها. أقدر أطبخ بس ما أقدر أوصل، وأبي أوضح لها ترتب التوصيل بدون ما أتحجج بشي مو مذكور."
+      },
+      "result": {
+        "metadata": {
+          "backend": "llama.cpp CPU writer; n_gpu_layers=0; separate real Faisal GPU route",
+          "llama_cpp_python": "0.3.36",
+          "model": "Qwen/Qwen3.5-35B-A3B",
+          "gguf_revision": "bc014a17be43adabd7066b7a86075ff935c6a4e2",
+          "gguf_sha256": "3b46d1066bc91cc2d613e3bc22ce691dd77e6f0d33c9060690d24ce6de494375",
+          "base_revision": "2508b2437e382c605eb0fc52b83f5545960f6b4a",
+          "loaded": true,
+          "faisal_loaded": true,
+          "faisal_revision": "38849bdac4b7850c19587f78f5fe16c38adefac1",
+          "limits": {
+            "cpu.max": "1600000 100000",
+            "memory.max": "104000000000"
+          },
+          "disk_free_bytes": 2347454164992,
+          "cpu_count": 192
+        },
+        "rows": [
+          {
+            "id": "D02",
+            "response": {
+              "reply": "أقدر أطبخ لك، بس ما أقدر أوصل الأكل. لازم ترتبين التوصيل بنفسك عشان يوصلها في وقتها.",
+              "style_used": "حازم",
+              "router_source": "faisal",
+              "reply_source": "qwen_base_generated",
+              "style_key": "firm",
+              "generator": "Qwen3.5-35B-A3B (GGUF Q4_K_M, CPU; no response adapter)",
+              "coaching": {
+                "core": "أختي طلبت أطبخ وأوصل الأكل، لكن المستخدم يقدر يطبخ فقط ولا يقدر ينقل الطلب.",
+                "objective": "يرفض مهمة التوصيل ويوافق على الطبخ مع ترتيب طريقة التوصيل بنفسه.",
+                "strategy": "تقبل الطبخ وتوضح مباشرة أن التوصيل على حسابها أو عبر شخص آخر بدون ذرائع.",
+                "risk": "لا تفسر الرفض على أنه عدم رغبة في مساعدة الأخت أو كسل."
+              },
+              "review_status": "flagged",
+              "needs_review": true,
+              "quality_warnings": [
+                "تعذر التحقق من المراجعة الدلالية؛ الصياغة تحتاج مراجعة"
+              ],
+              "was_retried": false,
+              "semantic_review": {
+                "valid": false,
+                "checks": [],
+                "unsupported": [],
+                "issues": [],
+                "error": "invalid_or_ungrounded_review"
+              },
+              "generation_candidates": [
+                {
+                  "reply": "أقدر أطبخ لك، بس ما أقدر أوصل الأكل. لازم ترتبين التوصيل بنفسك عشان يوصلها في وقتها.",
+                  "draft_before_register_normalization": "أقدر أطبخ لك، بس ما أقدر أوصل الأكل. لازم ترتبين التوصيل بنفسك عشان يوصلها في وقتها.",
+                  "register_normalization": [],
+                  "review": {
+                    "valid": false,
+                    "checks": [],
+                    "unsupported": [],
+                    "issues": [],
+                    "error": "invalid_or_ungrounded_review"
+                  },
+                  "warnings": [
+                    "تعذر التحقق من المراجعة الدلالية؛ الصياغة تحتاج مراجعة"
+                  ]
+                }
+              ],
+              "retry_error": null,
+              "coaching_status": "model_generated",
+              "coaching_error": null,
+              "draft_before_register_normalization": "أقدر أطبخ لك، بس ما أقدر أوصل الأكل. لازم ترتبين التوصيل بنفسك عشان يوصلها في وقتها.",
+              "register_normalization": [],
+              "router_compute": "CPU"
+            },
+            "seconds": 41.019319284008816,
+            "generation_trace": [
+              {
+                "messages": [
+                  {
+                    "role": "user",
+                    "content": "أنتِ مستشارة تواصل سعودية. لخصي بكلام سعودي بسيط ما قاله المستخدم فقط، دون افتراض مشاعر أو أخطاء أو وعود. حددي مين اللي تأخر أو غلط بدقة، ولا تعكسي الأدوار. اجمعي الطلبات والقيود من نص الموقف كله. اكتبي أربع سطور قصيرة بهذه التسميات بالضبط، ولا تكتبي رسالة الرد:\nجوهر الموقف: [المشكلة المحددة كما وردت]\nالهدف: [ما الذي يريد تحقيقه فعلاً]\nالخطوة: [التصرف التواصلي الذي يحقق الهدف دون تصعيد]\nانتبهي: [تفسير خاطئ واحد يجب تجنبه]\nالموقف: أختي طلبت أطبخ وأوصل الأكل لعزيمتها. أقدر أطبخ بس ما أقدر أوصل، وأبي أوضح لها ترتب التوصيل بدون ما أتحجج بشي مو مذكور.\nالعلاقة: أهل\nهدف المستخدم: أرفض جزء وأقبل جزء"
+                  }
+                ],
+                "text": "جوهر الموقف: أختي طلبت أطبخ وأوصل الأكل، لكن المستخدم يقدر يطبخ فقط ولا يقدر ينقل الطلب.\nالهدف: يرفض مهمة التوصيل ويوافق على الطبخ مع ترتيب طريقة التوصيل بنفسه.\nالخطوة: تقبل الطبخ وتوضح مباشرة أن التوصيل على حسابها أو عبر شخص آخر بدون ذرائع.\nانتبهي: لا تفسر الرفض على أنه عدم رغبة في مساعدة الأخت أو كسل.",
+                "finish_reason": "stop",
+                "usage": {
+                  "prompt_tokens": 226,
+                  "completion_tokens": 103,
+                  "total_tokens": 329
+                },
+                "max_tokens": 256,
+                "retry": false
+              },
+              {
+                "messages": [
+                  {
+                    "role": "system",
+                    "content": "You write a message that the USER can send to the other person. Read the entire situation and goal. Preserve every requested action and constraint, including partial agreement, duration and uncertainty. Use only the stated facts. Keep speaker and recipient roles and gender correct. Do not invent excuses, promises or obligations. Write natural Saudi Arabic suitable for the relationship, like a real WhatsApp message, not translated formal Arabic. Cover all the meaning without unnecessary length. Output only the message to the recipient."
+                  },
+                  {
+                    "role": "user",
+                    "content": "الموقف: مديري طلب أداوم الجمعة والسبت. أقدر أداوم الجمعة بس ما أقدر السبت. أبي أوضح له اليومين بدون ما أذكر أسباب شخصية أو أرفض الطلب كله.\nالعلاقة: عمل\nالهدف: أرفض جزء وأقبل جزء\nالأسلوب: عفوي\nاكتب الرسالة للطرف الآخر، واحفظ كل الطلبات والقيود بدون اختصار يضيع المعنى."
+                  },
+                  {
+                    "role": "assistant",
+                    "content": "أقدر أداوم الجمعة، بس السبت ما أقدر. حبيت أوضح لك من الحين عشان تقدر ترتب التغطية ليوم السبت."
+                  },
+                  {
+                    "role": "user",
+                    "content": "الموقف: قريبتي تعلق على وزني بكل جمعة. أبي أطلب توقف التعليق على جسمي نهائيًا وأقول إني أبي جلستنا تكون مريحة، بدون اعتذار عن جسمي.\nالعلاقة: أهل\nالهدف: أحط حد مستمر\nالأسلوب: عفوي\nاكتب الرسالة للطرف الآخر، واحفظ كل الطلبات والقيود بدون اختصار يضيع المعنى."
+                  },
+                  {
+                    "role": "assistant",
+                    "content": "ودي جلستنا تكون مريحة لنا، والتعليقات على جسمي تضايقني. أبيك توقفين التعليق على وزني من الحين ورايح، مو بس بهالجلسة."
+                  },
+                  {
+                    "role": "user",
+                    "content": "الموقف: نسيت مناسبة تخرج أختي وما هنأتها. أبي أعتذر عن نسياني وأقول إني فخور فيها وأتفهم زعلها بدون ما أقول إنها حساسة أو أتحجج بالشغل.\nالعلاقة: أهل\nالهدف: أعتذر وأوضح الأثر\nالأسلوب: عفوي\nاكتب الرسالة للطرف الآخر، واحفظ كل الطلبات والقيود بدون اختصار يضيع المعنى."
+                  },
+                  {
+                    "role": "assistant",
+                    "content": "آسف إني نسيت أهنئك بتخرجك، ومعك حق تزعلين مني. أنا فخور فيك وباللي حققتيه، وكان المفروض أشاركك فرحتك بوقتها."
+                  },
+                  {
+                    "role": "user",
+                    "content": "الموقف: أختي طلبت أطبخ وأوصل الأكل لعزيمتها. أقدر أطبخ بس ما أقدر أوصل، وأبي أوضح لها ترتب التوصيل بدون ما أتحجج بشي مو مذكور.\nالعلاقة: أهل\nالهدف: أرفض جزء وأقبل جزء\nالأسلوب: واضح\nاكتب الرسالة للطرف الآخر، واحفظ كل الطلبات والقيود بدون اختصار يضيع المعنى.\nطريقة التواصل: حازم\nنبرة واضحة وثابتة باحترام. التزم بنفس حدود المستخدم ونطاقها ومدتها؛ لا تخترع حصة مساعدة أو موعدا أو بديلا."
+                  }
+                ],
+                "text": "أقدر أطبخ لك، بس ما أقدر أوصل الأكل. لازم ترتبين التوصيل بنفسك عشان يوصلها في وقتها.",
+                "finish_reason": "stop",
+                "usage": {
+                  "prompt_tokens": 682,
+                  "completion_tokens": 31,
+                  "total_tokens": 713
+                },
+                "max_tokens": 256,
+                "retry": false
+              },
+              {
+                "messages": [
+                  {
+                    "role": "user",
+                    "content": "راجع الرسالة مقابل طلب المستخدم. استخرج كل طلب وقيد مهم من النص الأصلي، وقيّم كل واحد منفصلا. فرّق بين الفعل المطلوب، والأثر على العلاقة، وما منع المستخدم إضافته. لا تختزل طلبات متعددة إلى عنوان عام. لا تضف شروطا من عندك ولا تطلب عذرا أو وعدا لم يطلبه المستخدم. source_quote اقتباس حرفي قصير من الموقف أو الهدف يثبت الشرط. status إما met أو missing أو contradicted. reason سبب لا يتجاوز 12 كلمة يصف الخلل إن وجد. unsupported قائمة اقتباسات حرفية من الرسالة تتضمن حقائق أو أعذارا أو وعودا غير مسندة، وليست مجرد اختلاف في الأسلوب. إذا لا يوجد خلها فارغة. اكتب JSON فقط بهذا الشكل: {\"checks\":[{\"source_quote\":\"...\",\"status\":\"met\",\"reason\":\"\"}],\"unsupported\":[]}\nطريقة الكتابة: اكتب بسعودية يومية مثل ما تكلم شخص قريب منك، بدون فصحى متكلفة ولا مبالغة بالعامية.\nالموقف: أختي طلبت أطبخ وأوصل الأكل لعزيمتها. أقدر أطبخ بس ما أقدر أوصل، وأبي أوضح لها ترتب التوصيل بدون ما أتحجج بشي مو مذكور.\nالعلاقة: أهل\nالهدف: أرفض جزء وأقبل جزء\nالرسالة: أقدر أطبخ لك، بس ما أقدر أوصل الأكل. لازم ترتبين التوصيل بنفسك عشان يوصلها في وقتها."
+                  }
+                ],
+                "text": "```json\n{\n  \"checks\": [\n    {\n      \"source_quote\": \"أقدر أطبخ لك\",\n      \"status\": \"met\",\n      \"reason\": \"وافق على طلب الطبخ مباشرة.\"\n    },\n    {\n      \"source_quote\": \"ما أقدر أوصل الأكل\",\n      \"status\": \"met\",\n      \"reason\": \"رفض بوضوح طلب التوصيل دون حجج.\"\n    },\n    {\n      \"source_quote\": \"لازم ترتبين التوصيل بنفسك عشان يوصلها في وقتها\",\n      \"status\": \"met\",\n      \"reason\": \"أوضح أن الترتيب عليها عشان الوقت.\"\n    }\n  ],\n  \"unsupported\": []\n}\n```",
+                "finish_reason": "stop",
+                "usage": {
+                  "prompt_tokens": 334,
+                  "completion_tokens": 164,
+                  "total_tokens": 498
+                },
+                "max_tokens": 640,
+                "retry": false
+              }
+            ]
+          }
+        ]
+      },
+      "request_seconds": 41.912389875156805
+    },
+    {
+      "case": {
+        "id": "D03",
+        "relation": "صديق",
+        "goal": "أعتذر عن تصرفي",
+        "message": "ضحكت على اقتراح خويي قدام الشباب. أبي أعتذر عن الضحك وأعترف إنه ضايقه وأوضح إني أحترم رأيه بدون ما أقول كنت أمزح أو أطلب منه ما يزعل."
+      },
+      "result": {
+        "metadata": {
+          "backend": "llama.cpp CPU writer; n_gpu_layers=0; separate real Faisal GPU route",
+          "llama_cpp_python": "0.3.36",
+          "model": "Qwen/Qwen3.5-35B-A3B",
+          "gguf_revision": "bc014a17be43adabd7066b7a86075ff935c6a4e2",
+          "gguf_sha256": "3b46d1066bc91cc2d613e3bc22ce691dd77e6f0d33c9060690d24ce6de494375",
+          "base_revision": "2508b2437e382c605eb0fc52b83f5545960f6b4a",
+          "loaded": true,
+          "faisal_loaded": true,
+          "faisal_revision": "38849bdac4b7850c19587f78f5fe16c38adefac1",
+          "limits": {
+            "cpu.max": "1600000 100000",
+            "memory.max": "104000000000"
+          },
+          "disk_free_bytes": 2347408625664,
+          "cpu_count": 192
+        },
+        "rows": [
+          {
+            "id": "D03",
+            "response": {
+              "reply": "آسف على ضحكي على اقتراحك قدام الشباب، وحقك تزعل إني ضايقك. أقدر رأيك وحفظتك، وما كان مفروض أضحك عليه.",
+              "style_used": "اعتذار",
+              "router_source": "faisal",
+              "reply_source": "qwen_base_generated",
+              "style_key": "apology",
+              "generator": "Qwen3.5-35B-A3B (GGUF Q4_K_M, CPU; no response adapter)",
+              "coaching": {
+                "core": "ضحكت على اقتراح أخيك أمام الشباب مما أزعجه.",
+                "objective": "تعتذر عن الضحك وتعترف بتأثيره عليه مع إظهار احترام رأيه دون ذكر الممازحة.",
+                "strategy": "تتوجه له بطلب اعتذار مباشر وواضح يركز على تقبل مشاعره واحترام رأيه.",
+                "risk": "تجنب أي ذكر لكلمة \"مزح\" أو محاولة تبرير الضحك كسبب للتصرف."
+              },
+              "review_status": "flagged",
+              "needs_review": true,
+              "quality_warnings": [
+                "تعذر التحقق من المراجعة الدلالية؛ الصياغة تحتاج مراجعة"
+              ],
+              "was_retried": false,
+              "semantic_review": {
+                "valid": false,
+                "checks": [],
+                "unsupported": [],
+                "issues": [],
+                "error": "invalid_or_ungrounded_review"
+              },
+              "generation_candidates": [
+                {
+                  "reply": "آسف على ضحكي على اقتراحك قدام الشباب، وحقك تزعل إني ضايقك. أقدر رأيك وحفظتك، وما كان مفروض أضحك عليه.",
+                  "draft_before_register_normalization": "آسف على ضحكي على اقتراحك قدام الشباب، وحقك تزعل إنني ضايقك. أقدر رأيك وحفظتك، وما كان مفروض أضحك عليه.",
+                  "register_normalization": [
+                    "إنني → إني"
+                  ],
+                  "review": {
+                    "valid": false,
+                    "checks": [],
+                    "unsupported": [],
+                    "issues": [],
+                    "error": "invalid_or_ungrounded_review"
+                  },
+                  "warnings": [
+                    "تعذر التحقق من المراجعة الدلالية؛ الصياغة تحتاج مراجعة"
+                  ]
+                }
+              ],
+              "retry_error": null,
+              "coaching_status": "model_generated",
+              "coaching_error": null,
+              "draft_before_register_normalization": "آسف على ضحكي على اقتراحك قدام الشباب، وحقك تزعل إنني ضايقك. أقدر رأيك وحفظتك، وما كان مفروض أضحك عليه.",
+              "register_normalization": [
+                "إنني → إني"
+              ],
+              "router_compute": "CPU"
+            },
+            "seconds": 45.63341297901934,
+            "generation_trace": [
+              {
+                "messages": [
+                  {
+                    "role": "user",
+                    "content": "أنتِ مستشارة تواصل سعودية. لخصي بكلام سعودي بسيط ما قاله المستخدم فقط، دون افتراض مشاعر أو أخطاء أو وعود. حددي مين اللي تأخر أو غلط بدقة، ولا تعكسي الأدوار. اجمعي الطلبات والقيود من نص الموقف كله. اكتبي أربع سطور قصيرة بهذه التسميات بالضبط، ولا تكتبي رسالة الرد:\nجوهر الموقف: [المشكلة المحددة كما وردت]\nالهدف: [ما الذي يريد تحقيقه فعلاً]\nالخطوة: [التصرف التواصلي الذي يحقق الهدف دون تصعيد]\nانتبهي: [تفسير خاطئ واحد يجب تجنبه]\nالموقف: ضحكت على اقتراح خويي قدام الشباب. أبي أعتذر عن الضحك وأعترف إنه ضايقه وأوضح إني أحترم رأيه بدون ما أقول كنت أمزح أو أطلب منه ما يزعل.\nالعلاقة: صديق\nهدف المستخدم: أعتذر عن تصرفي"
+                  }
+                ],
+                "text": "جوهر الموقف: ضحكت على اقتراح أخيك أمام الشباب مما أزعجه.\nالهدف: تعتذر عن الضحك وتعترف بتأثيره عليه مع إظهار احترام رأيه دون ذكر الممازحة.\nالخطوة: تتوجه له بطلب اعتذار مباشر وواضح يركز على تقبل مشاعره واحترام رأيه.\nانتبهي: تجنب أي ذكر لكلمة \"مزح\" أو محاولة تبرير الضحك كسبب للتصرف.",
+                "finish_reason": "stop",
+                "usage": {
+                  "prompt_tokens": 229,
+                  "completion_tokens": 106,
+                  "total_tokens": 335
+                },
+                "max_tokens": 256,
+                "retry": false
+              },
+              {
+                "messages": [
+                  {
+                    "role": "system",
+                    "content": "You write a message that the USER can send to the other person. Read the entire situation and goal. Preserve every requested action and constraint, including partial agreement, duration and uncertainty. Use only the stated facts. Keep speaker and recipient roles and gender correct. Do not invent excuses, promises or obligations. Write natural Saudi Arabic suitable for the relationship, like a real WhatsApp message, not translated formal Arabic. Cover all the meaning without unnecessary length. Output only the message to the recipient."
+                  },
+                  {
+                    "role": "user",
+                    "content": "الموقف: مديري طلب أداوم الجمعة والسبت. أقدر أداوم الجمعة بس ما أقدر السبت. أبي أوضح له اليومين بدون ما أذكر أسباب شخصية أو أرفض الطلب كله.\nالعلاقة: عمل\nالهدف: أرفض جزء وأقبل جزء\nالأسلوب: عفوي\nاكتب الرسالة للطرف الآخر، واحفظ كل الطلبات والقيود بدون اختصار يضيع المعنى."
+                  },
+                  {
+                    "role": "assistant",
+                    "content": "أقدر أداوم الجمعة، بس السبت ما أقدر. حبيت أوضح لك من الحين عشان تقدر ترتب التغطية ليوم السبت."
+                  },
+                  {
+                    "role": "user",
+                    "content": "الموقف: قريبتي تعلق على وزني بكل جمعة. أبي أطلب توقف التعليق على جسمي نهائيًا وأقول إني أبي جلستنا تكون مريحة، بدون اعتذار عن جسمي.\nالعلاقة: أهل\nالهدف: أحط حد مستمر\nالأسلوب: عفوي\nاكتب الرسالة للطرف الآخر، واحفظ كل الطلبات والقيود بدون اختصار يضيع المعنى."
+                  },
+                  {
+                    "role": "assistant",
+                    "content": "ودي جلستنا تكون مريحة لنا، والتعليقات على جسمي تضايقني. أبيك توقفين التعليق على وزني من الحين ورايح، مو بس بهالجلسة."
+                  },
+                  {
+                    "role": "user",
+                    "content": "الموقف: نسيت مناسبة تخرج أختي وما هنأتها. أبي أعتذر عن نسياني وأقول إني فخور فيها وأتفهم زعلها بدون ما أقول إنها حساسة أو أتحجج بالشغل.\nالعلاقة: أهل\nالهدف: أعتذر وأوضح الأثر\nالأسلوب: عفوي\nاكتب الرسالة للطرف الآخر، واحفظ كل الطلبات والقيود بدون اختصار يضيع المعنى."
+                  },
+                  {
+                    "role": "assistant",
+                    "content": "آسف إني نسيت أهنئك بتخرجك، ومعك حق تزعلين مني. أنا فخور فيك وباللي حققتيه، وكان المفروض أشاركك فرحتك بوقتها."
+                  },
+                  {
+                    "role": "user",
+                    "content": "الموقف: ضحكت على اقتراح خويي قدام الشباب. أبي أعتذر عن الضحك وأعترف إنه ضايقه وأوضح إني أحترم رأيه بدون ما أقول كنت أمزح أو أطلب منه ما يزعل.\nالعلاقة: صديق\nالهدف: أعتذر عن تصرفي\nالأسلوب: عفوي\nاكتب الرسالة للطرف الآخر، واحفظ كل الطلبات والقيود بدون اختصار يضيع المعنى.\nطريقة التواصل: اعتذار\nنبرة صادقة ومراعية للأثر. إذا طلب الشخص الاعتذار فاكتب اعتذاره هو، واحفظ تحمله للمسؤولية وحدوده؛ لا تنسب له خطأ أو عذرا غير مذكور."
+                  }
+                ],
+                "text": "آسف على ضحكي على اقتراحك قدام الشباب، وحقك تزعل إنني ضايقك. أقدّر رأيك وحفظتك، وما كان مفروض أضحك عليه.",
+                "finish_reason": "stop",
+                "usage": {
+                  "prompt_tokens": 695,
+                  "completion_tokens": 44,
+                  "total_tokens": 739
+                },
+                "max_tokens": 256,
+                "retry": false
+              },
+              {
+                "messages": [
+                  {
+                    "role": "user",
+                    "content": "راجع الرسالة مقابل طلب المستخدم. استخرج كل طلب وقيد مهم من النص الأصلي، وقيّم كل واحد منفصلا. فرّق بين الفعل المطلوب، والأثر على العلاقة، وما منع المستخدم إضافته. لا تختزل طلبات متعددة إلى عنوان عام. لا تضف شروطا من عندك ولا تطلب عذرا أو وعدا لم يطلبه المستخدم. source_quote اقتباس حرفي قصير من الموقف أو الهدف يثبت الشرط. status إما met أو missing أو contradicted. reason سبب لا يتجاوز 12 كلمة يصف الخلل إن وجد. unsupported قائمة اقتباسات حرفية من الرسالة تتضمن حقائق أو أعذارا أو وعودا غير مسندة، وليست مجرد اختلاف في الأسلوب. إذا لا يوجد خلها فارغة. اكتب JSON فقط بهذا الشكل: {\"checks\":[{\"source_quote\":\"...\",\"status\":\"met\",\"reason\":\"\"}],\"unsupported\":[]}\nطريقة الكتابة: اكتب بسعودية يومية مثل ما تكلم شخص قريب منك، بدون فصحى متكلفة ولا مبالغة بالعامية.\nالموقف: ضحكت على اقتراح خويي قدام الشباب. أبي أعتذر عن الضحك وأعترف إنه ضايقه وأوضح إني أحترم رأيه بدون ما أقول كنت أمزح أو أطلب منه ما يزعل.\nالعلاقة: صديق\nالهدف: أعتذر عن تصرفي\nالرسالة: آسف على ضحكي على اقتراحك قدام الشباب، وحقك تزعل إني ضايقك. أقدر رأيك وحفظتك، وما كان مفروض أضحك عليه."
+                  }
+                ],
+                "text": "{\n\"checks\": [\n{\n\"source_quote\": \"آسف على ضحكي على اقتراحك قدام الشباب\",\n\"status\": \"met\",\n\"reason\": \"اعتذر عن الضحك مباشرة بدون عذر.\"\n},\n{\n\"source_quote\": \"حقك تزعل إني ضايقك\",\n\"status\": \"met\",\n\"reason\": \"اعترف بأنه ضايقه بوضوح.\"\n},\n{\n\"source_quote\": \"أقدر رأيك وحفظتك\",\n\"status\": \"met\",\n\"reason\": \"أظهر احترام رأيه.\"\n},\n{\n\"source_quote\": \"وما كان مفروض أضحك عليه\",\n\"status\": \"met\",\n\"reason\": \"لم يقل إنه كان يمزح أو يطلب منه ما يزعل.\"\n}\n],\n\"unsupported\": []\n}",
+                "finish_reason": "stop",
+                "usage": {
+                  "prompt_tokens": 349,
+                  "completion_tokens": 186,
+                  "total_tokens": 535
+                },
+                "max_tokens": 640,
+                "retry": false
+              }
+            ]
+          }
+        ]
+      },
+      "request_seconds": 46.30190175003372
+    },
+    {
+      "case": {
+        "id": "D04",
+        "relation": "عمل",
+        "goal": "أحط حدود مستمرة",
+        "message": "زميلي كل يوم يطلب أكتب تقريره بداله. أبي أوقف هالشي من اليوم ورايح وأوضح إني أقدر أجاوب عن سؤال محدد بس ما أكتب تقاريره كاملة."
+      },
+      "result": {
+        "metadata": {
+          "backend": "llama.cpp CPU writer; n_gpu_layers=0; separate real Faisal GPU route",
+          "llama_cpp_python": "0.3.36",
+          "model": "Qwen/Qwen3.5-35B-A3B",
+          "gguf_revision": "bc014a17be43adabd7066b7a86075ff935c6a4e2",
+          "gguf_sha256": "3b46d1066bc91cc2d613e3bc22ce691dd77e6f0d33c9060690d24ce6de494375",
+          "base_revision": "2508b2437e382c605eb0fc52b83f5545960f6b4a",
+          "loaded": true,
+          "faisal_loaded": true,
+          "faisal_revision": "38849bdac4b7850c19587f78f5fe16c38adefac1",
+          "limits": {
+            "cpu.max": "1600000 100000",
+            "memory.max": "104000000000"
+          },
+          "disk_free_bytes": 2351039356928,
+          "cpu_count": 192
+        },
+        "rows": [
+          {
+            "id": "D04",
+            "response": {
+              "reply": "من اليوم ورايح ما أقدر أكتب تقريرك بدالك. أقدر أجاوبك عن سؤال محدد إذا احتجت توضيح، بس ما أستطيع أكتب التقارير كاملة.",
+              "style_used": "حازم",
+              "router_source": "faisal",
+              "reply_source": "qwen_base_generated",
+              "style_key": "firm",
+              "generator": "Qwen3.5-35B-A3B (GGUF Q4_K_M, CPU; no response adapter)",
+              "coaching": {
+                "core": "زميلك يطلب منك يوميًا كتابة تقريره بدلًا عنه، وأنتِ ترفضين الاستمرار في هذا الطلب.",
+                "objective": "وضع حدود واضحة تمنع تكرار طلب كتابة التقارير كاملة، مع الاستعداد للإجابة عن أسئلة محددة فقط.",
+                "strategy": "إخبار الزميل مباشرة من اليوم أنك لن تكتبي تقريره، لكنك مستعدة للإجابة عن استفسارات محددة تخص عمله.",
+                "risk": "تجنب تفسير رفضك على أنه إهمال أو عدم تعاون، بل هو تطبيق للحدود المهنية."
+              },
+              "review_status": "flagged",
+              "needs_review": true,
+              "quality_warnings": [
+                "تعذر التحقق من المراجعة الدلالية؛ الصياغة تحتاج مراجعة"
+              ],
+              "was_retried": false,
+              "semantic_review": {
+                "valid": false,
+                "checks": [],
+                "unsupported": [],
+                "issues": [],
+                "error": "invalid_or_ungrounded_review"
+              },
+              "generation_candidates": [
+                {
+                  "reply": "من اليوم ورايح ما أقدر أكتب تقريرك بدالك. أقدر أجاوبك عن سؤال محدد إذا احتجت توضيح، بس ما أستطيع أكتب التقارير كاملة.",
+                  "draft_before_register_normalization": "من اليوم ورايح ما أقدر أكتب تقريرك بدالك. أقدر أجاوبك عن سؤال محدد إذا احتجت توضيح، بس ما أستطيع أكتب التقارير كاملة.",
+                  "register_normalization": [],
+                  "review": {
+                    "valid": false,
+                    "checks": [],
+                    "unsupported": [],
+                    "issues": [],
+                    "error": "invalid_or_ungrounded_review"
+                  },
+                  "warnings": [
+                    "تعذر التحقق من المراجعة الدلالية؛ الصياغة تحتاج مراجعة"
+                  ]
+                }
+              ],
+              "retry_error": null,
+              "coaching_status": "model_generated",
+              "coaching_error": null,
+              "draft_before_register_normalization": "من اليوم ورايح ما أقدر أكتب تقريرك بدالك. أقدر أجاوبك عن سؤال محدد إذا احتجت توضيح، بس ما أستطيع أكتب التقارير كاملة.",
+              "register_normalization": [],
+              "router_compute": "CPU"
+            },
+            "seconds": 43.04099509300431,
+            "generation_trace": [
+              {
+                "messages": [
+                  {
+                    "role": "user",
+                    "content": "أنتِ مستشارة تواصل سعودية. لخصي بكلام سعودي بسيط ما قاله المستخدم فقط، دون افتراض مشاعر أو أخطاء أو وعود. حددي مين اللي تأخر أو غلط بدقة، ولا تعكسي الأدوار. اجمعي الطلبات والقيود من نص الموقف كله. اكتبي أربع سطور قصيرة بهذه التسميات بالضبط، ولا تكتبي رسالة الرد:\nجوهر الموقف: [المشكلة المحددة كما وردت]\nالهدف: [ما الذي يريد تحقيقه فعلاً]\nالخطوة: [التصرف التواصلي الذي يحقق الهدف دون تصعيد]\nانتبهي: [تفسير خاطئ واحد يجب تجنبه]\nالموقف: زميلي كل يوم يطلب أكتب تقريره بداله. أبي أوقف هالشي من اليوم ورايح وأوضح إني أقدر أجاوب عن سؤال محدد بس ما أكتب تقاريره كاملة.\nالعلاقة: عمل\nهدف المستخدم: أحط حدود مستمرة"
+                  }
+                ],
+                "text": "جوهر الموقف: زميلك يطلب منك يوميًا كتابة تقريره بدلًا عنه، وأنتِ ترفضين الاستمرار في هذا الطلب.\nالهدف: وضع حدود واضحة تمنع تكرار طلب كتابة التقارير كاملة، مع الاستعداد للإجابة عن أسئلة محددة فقط.\nالخطوة: إخبار الزميل مباشرة من اليوم أنك لن تكتبي تقريره، لكنك مستعدة للإجابة عن استفسارات محددة تخص عمله.\nانتبهي: تجنب تفسير رفضك على أنه إهمال أو عدم تعاون، بل هو تطبيق للحدود المهنية.",
+                "finish_reason": "stop",
+                "usage": {
+                  "prompt_tokens": 220,
+                  "completion_tokens": 117,
+                  "total_tokens": 337
+                },
+                "max_tokens": 256,
+                "retry": false
+              },
+              {
+                "messages": [
+                  {
+                    "role": "system",
+                    "content": "You write a message that the USER can send to the other person. Read the entire situation and goal. Preserve every requested action and constraint, including partial agreement, duration and uncertainty. Use only the stated facts. Keep speaker and recipient roles and gender correct. Do not invent excuses, promises or obligations. Write natural Saudi Arabic suitable for the relationship, like a real WhatsApp message, not translated formal Arabic. Cover all the meaning without unnecessary length. Output only the message to the recipient."
+                  },
+                  {
+                    "role": "user",
+                    "content": "الموقف: مديري طلب أداوم الجمعة والسبت. أقدر أداوم الجمعة بس ما أقدر السبت. أبي أوضح له اليومين بدون ما أذكر أسباب شخصية أو أرفض الطلب كله.\nالعلاقة: عمل\nالهدف: أرفض جزء وأقبل جزء\nالأسلوب: عفوي\nاكتب الرسالة للطرف الآخر، واحفظ كل الطلبات والقيود بدون اختصار يضيع المعنى."
+                  },
+                  {
+                    "role": "assistant",
+                    "content": "أقدر أداوم الجمعة، بس السبت ما أقدر. حبيت أوضح لك من الحين عشان تقدر ترتب التغطية ليوم السبت."
+                  },
+                  {
+                    "role": "user",
+                    "content": "الموقف: قريبتي تعلق على وزني بكل جمعة. أبي أطلب توقف التعليق على جسمي نهائيًا وأقول إني أبي جلستنا تكون مريحة، بدون اعتذار عن جسمي.\nالعلاقة: أهل\nالهدف: أحط حد مستمر\nالأسلوب: عفوي\nاكتب الرسالة للطرف الآخر، واحفظ كل الطلبات والقيود بدون اختصار يضيع المعنى."
+                  },
+                  {
+                    "role": "assistant",
+                    "content": "ودي جلستنا تكون مريحة لنا، والتعليقات على جسمي تضايقني. أبيك توقفين التعليق على وزني من الحين ورايح، مو بس بهالجلسة."
+                  },
+                  {
+                    "role": "user",
+                    "content": "الموقف: نسيت مناسبة تخرج أختي وما هنأتها. أبي أعتذر عن نسياني وأقول إني فخور فيها وأتفهم زعلها بدون ما أقول إنها حساسة أو أتحجج بالشغل.\nالعلاقة: أهل\nالهدف: أعتذر وأوضح الأثر\nالأسلوب: عفوي\nاكتب الرسالة للطرف الآخر، واحفظ كل الطلبات والقيود بدون اختصار يضيع المعنى."
+                  },
+                  {
+                    "role": "assistant",
+                    "content": "آسف إني نسيت أهنئك بتخرجك، ومعك حق تزعلين مني. أنا فخور فيك وباللي حققتيه، وكان المفروض أشاركك فرحتك بوقتها."
+                  },
+                  {
+                    "role": "user",
+                    "content": "الموقف: زميلي كل يوم يطلب أكتب تقريره بداله. أبي أوقف هالشي من اليوم ورايح وأوضح إني أقدر أجاوب عن سؤال محدد بس ما أكتب تقاريره كاملة.\nالعلاقة: عمل\nالهدف: أحط حدود مستمرة\nالأسلوب: واضح\nاكتب الرسالة للطرف الآخر، واحفظ كل الطلبات والقيود بدون اختصار يضيع المعنى.\nطريقة التواصل: حازم\nنبرة واضحة وثابتة باحترام. التزم بنفس حدود المستخدم ونطاقها ومدتها؛ لا تخترع حصة مساعدة أو موعدا أو بديلا."
+                  }
+                ],
+                "text": "من اليوم ورايح ما أقدر أكتب تقريرك بدالك. أقدر أجاوبك عن سؤال محدد إذا احتجت توضيح، بس ما أستطيع أكتب التقارير كاملة.",
+                "finish_reason": "stop",
+                "usage": {
+                  "prompt_tokens": 676,
+                  "completion_tokens": 40,
+                  "total_tokens": 716
+                },
+                "max_tokens": 256,
+                "retry": false
+              },
+              {
+                "messages": [
+                  {
+                    "role": "user",
+                    "content": "راجع الرسالة مقابل طلب المستخدم. استخرج كل طلب وقيد مهم من النص الأصلي، وقيّم كل واحد منفصلا. فرّق بين الفعل المطلوب، والأثر على العلاقة، وما منع المستخدم إضافته. لا تختزل طلبات متعددة إلى عنوان عام. لا تضف شروطا من عندك ولا تطلب عذرا أو وعدا لم يطلبه المستخدم. source_quote اقتباس حرفي قصير من الموقف أو الهدف يثبت الشرط. status إما met أو missing أو contradicted. reason سبب لا يتجاوز 12 كلمة يصف الخلل إن وجد. unsupported قائمة اقتباسات حرفية من الرسالة تتضمن حقائق أو أعذارا أو وعودا غير مسندة، وليست مجرد اختلاف في الأسلوب. إذا لا يوجد خلها فارغة. اكتب JSON فقط بهذا الشكل: {\"checks\":[{\"source_quote\":\"...\",\"status\":\"met\",\"reason\":\"\"}],\"unsupported\":[]}\nطريقة الكتابة: اكتب بسعودية مهنية محترمة مثل رسالة واتساب للعمل: واضحة وطبيعية، مو خطاب فصيح ولا مزاح وألقاب مبالغ فيها.\nالموقف: زميلي كل يوم يطلب أكتب تقريره بداله. أبي أوقف هالشي من اليوم ورايح وأوضح إني أقدر أجاوب عن سؤال محدد بس ما أكتب تقاريره كاملة.\nالعلاقة: عمل\nالهدف: أحط حدود مستمرة\nالرسالة: من اليوم ورايح ما أقدر أكتب تقريرك بدالك. أقدر أجاوبك عن سؤال محدد إذا احتجت توضيح، بس ما أستطيع أكتب التقارير كاملة."
+                  }
+                ],
+                "text": "{\n\"checks\": [\n{\n\"source_quote\": \"من اليوم ورايح ما أقدر أكتب تقريرك بدالك\",\n\"status\": \"met\",\n\"reason\": \"وضعت حدًا واضحًا ومستمرًا لطلب التقرير.\"\n},\n{\n\"source_quote\": \"أقدر أجاوبك عن سؤال محدد إذا احتجت توضيح\",\n\"status\": \"met\",\n\"reason\": \"حددت بديلاً مقبولاً يخدم العمل دون تجاوز الحدود.\"\n},\n{\n\"source_quote\": \"ما أستطيع أكتب التقارير كاملة\",\n\"status\": \"met\",\n\"reason\": \"أزالت الغموض حول نطاق المساعدة المتوقعة.\"\n}\n],\n\"unsupported\": []\n}",
+                "finish_reason": "stop",
+                "usage": {
+                  "prompt_tokens": 343,
+                  "completion_tokens": 160,
+                  "total_tokens": 503
+                },
+                "max_tokens": 640,
+                "retry": false
+              }
+            ]
+          }
+        ]
+      },
+      "request_seconds": 44.441009665839374
+    }
+  ],
+  "strict_development_passes": 2,
+  "strict_pass_ids": [
+    "D01",
+    "D04"
+  ],
+  "valid_model_reviews": 0,
+  "assessment": {
+    "D01": "Pass reply: restoration, thanks and uncertainty, no intent accusation.",
+    "D02": "Fails sendability: عشان يوصلها has unclear/wrong agreement after الأكل and needs grammatical repair.",
+    "D03": "Fails: أقدر رأيك وحفظتك is not a natural meaningful collocation; coaching also changes friend to brother.",
+    "D04": "Pass reply: permanent limit and specific-question exception retained, without an invented quota."
+  },
+  "review_failure": "All reviewer source_quote fields were copied from the candidate rather than the original user source and were correctly rejected. No false review pass occurred.",
+  "followup": "Separate source-ID development iteration frozen before results. Fresh holdout not opened."
+}

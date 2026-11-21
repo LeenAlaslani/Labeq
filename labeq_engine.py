@@ -218,7 +218,7 @@ class LabeqEngine:
             gen_kw = {
                 "max_new_tokens": max_tokens,
                 "do_sample": retry,
-                "repetition_penalty": 1.08,
+                "repetition_penalty": getattr(self,"repetition_penalty",1.08),
                 "pad_token_id": pad if pad is not None else eos,
                 "eos_token_id": eos,
             }

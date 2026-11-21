@@ -40,11 +40,11 @@ window.labeqSpaceReply=async function(payload){
           const data=frame.split('\n').filter(line=>line.startsWith('data:')).map(line=>line.slice(5).trimStart()).join('\n');
           if(event==='error'){
             let reason='';
-            try{reason=JSON.parse(data)?.error||''}catch{}
+            try{const detail=JSON.parse(data);reason=typeof detail==='string'?detail:(detail?.error||'')}catch{}
             if(/quota|runs limit|credits|authenticate/i.test(reason)){
               throw Error('انتهت حصة GPU المجانية. افتحي التطبيق من صفحة Hugging Face بعد تسجيل الدخول، أو جرّبي لاحقًا.');
             }
-            throw Error('تعذّر التوليد أو انتهت حصة GPU. جرّبي لاحقًا.');
+            throw Error('تعذّر توليد رد مكتمل. جرّبي مرة ثانية.');
           }
           if(event==='complete'){
             const result=JSON.parse(data)?.[0];

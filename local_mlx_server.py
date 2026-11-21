@@ -39,6 +39,9 @@ async def lifespan(app):
             os.getenv("LABEQ_WRITER_POLICY") or None,
         )
     else:
+        if os.getenv("LABEQ_WRITER_POLICY"):
+            from writing_policy import read_policy
+            router.writer_system,router.writer_examples=read_policy(os.environ["LABEQ_WRITER_POLICY"])
         app.state.engine=router
     yield
 

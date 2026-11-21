@@ -1,0 +1,149 @@
+{
+  "status": "completed_not_qualified",
+  "experiment": "Separate assistant-curated long-form v3; not approved v2",
+  "training_source_commit": "15c9a30ace9e2aa5ecfbf4d4cc8604670a5e8bc1",
+  "training": {
+    "epochs": 2,
+    "optimizer_updates": 249,
+    "micro_iterations": 498,
+    "sequences": 996,
+    "target_tokens": 39354,
+    "elapsed_seconds": 3357.1294638749678,
+    "peak_memory_gb": 6.158636296,
+    "final_training_loss_last_report": 0.34240048996945643,
+    "validation": {
+      "val_loss": 2.321781109984687,
+      "val_nll": 2.321781109984687,
+      "val_token_accuracy": 0.542649727767695,
+      "val_num_padded_tokens": 1293,
+      "val_num_processed_tokens": 27905,
+      "val_num_sequences": 114,
+      "val_num_tokens": 2204,
+      "val_num_vision_tokens": 0,
+      "val_perplexity": 10.193814451182012,
+      "val_time": 30.93747508409433,
+      "val_compute_time": 30.92839091643691,
+      "val_padded_tokens_per_second": 41.80624861776545,
+      "val_processed_tokens_per_second": 902.2454506409473,
+      "val_sequences_per_second": 3.685933752842429,
+      "val_tokens_per_second": 71.26138588828697,
+      "val_vision_tokens_per_second": 0.0
+    }
+  },
+  "data_manifest": {
+    "approved_completion_count": 178,
+    "approved_completions_preserved_verbatim": true,
+    "synthetic_unique": 80,
+    "synthetic_views_per_situation": 4,
+    "writing_views": "عفوي/واضح for every case; مهني additionally for work, university and customers; repeated views explicit",
+    "training_rows": 498,
+    "unique_training_prompts": 374,
+    "seed": 3407,
+    "synthetic_median_words": 27.0,
+    "validation_rows": 114,
+    "no_exact_protected_case_overlap": true,
+    "independent_human_review": false,
+    "limitations": "Assistant-authored and curated references, not approved gold. Exact-string overlap prevention is not a semantic contamination guarantee. Lower validation loss is not a quality score.",
+    "sha256": {
+      "/Users/leen/Downloads/LABEQ_Final_Training_Package 2/data/train_gold_178.jsonl": "14569dfec9244cde11babcc1a2a323a07a831346ec34b35f543d08e2e4ec1e2b",
+      "/Users/leen/Downloads/LABEQ_Final_Training_Package 2/data/validation_114.jsonl": "6eda2322d3cf7198c90c32454f95016fab608c0da3a0ddece11d56a77eef323a",
+      "/Users/leen/Documents/ChatGPT/لبق/training/generalization_v3/policy.json": "c037b70bf124b00edd31c786684c5c5b2847271fbd6cef05a299a1c96890e527",
+      "/Users/leen/Documents/ChatGPT/لبق/training/generalization_v3/synthetic.json": "c796d38447b153b91a594945e75aa60745cbbb92afe729351cddb10acc8cd181",
+      ".labeq-private/longform-v3/data/train.jsonl": "dedc2fe8619ceeb6e594abcb7a2241f89703e99c31b3e923a9b79443ac75a715",
+      ".labeq-private/longform-v3/data/validation.jsonl": "e5e1955ae644d89562aa922996d1ea67d9fa106839722eddb6884e8c1eada640",
+      "/Users/leen/Documents/ChatGPT/لبق/training/generalization/cpu_candidate_holdout.json": "0389dafe6b9a0fad92b1acc12239e3ce3b9792b9d6bc19d8ca6f0c8f68daf60f"
+    }
+  },
+  "checkpoints": {
+    "epoch-1": {
+      "mlx_sha256": "1bc02a97d53f5eea07bc5212ed8fc94f0dd5f20b768383daf6540570958fc4cf",
+      "conversion": {
+        "source_sha256": "1bc02a97d53f5eea07bc5212ed8fc94f0dd5f20b768383daf6540570958fc4cf",
+        "peft_sha256": "b92cb55e4a32cb558e88af7792d4a825412daed0c8c1b387f4839fb31be0480a",
+        "tensor_count": 352,
+        "rank": 16,
+        "mlx_scale": 1.0,
+        "peft_alpha": 16,
+        "exact_transpose_roundtrip": true,
+        "sampled_delta_equivalence": true
+      }
+    },
+    "epoch-2": {
+      "mlx_sha256": "425a13cc1e4d190d18eb73c8201371609c9e4e3db98e24f2473c2a46db43d55f",
+      "conversion": {
+        "source_sha256": "425a13cc1e4d190d18eb73c8201371609c9e4e3db98e24f2473c2a46db43d55f",
+        "peft_sha256": "473f6caca8898f685b24ed9023433c636be9cfe1caff16c53a10d139db4113c1",
+        "tensor_count": 352,
+        "rank": 16,
+        "mlx_scale": 1.0,
+        "peft_alpha": 16,
+        "exact_transpose_roundtrip": true,
+        "sampled_delta_equivalence": true
+      }
+    }
+  },
+  "development": {
+    "summary": {
+      "candidate_1": {
+        "strict_passes": 1,
+        "cases": 4,
+        "passed": [
+          "D04"
+        ]
+      },
+      "base": {
+        "strict_passes": 0,
+        "cases": 4,
+        "passed": []
+      },
+      "candidate_2": {
+        "strict_passes": 0,
+        "cases": 4,
+        "passed": []
+      },
+      "pilot": {
+        "strict_passes": 2,
+        "cases": 4,
+        "passed": [
+          "D01",
+          "D04"
+        ]
+      },
+      "v2": {
+        "strict_passes": 1,
+        "cases": 4,
+        "passed": [
+          "D03"
+        ]
+      }
+    },
+    "key": {
+      "D01-1": "candidate_1",
+      "D01-2": "base",
+      "D01-3": "candidate_2",
+      "D01-4": "pilot",
+      "D01-5": "v2",
+      "D02-1": "candidate_2",
+      "D02-2": "v2",
+      "D02-3": "candidate_1",
+      "D02-4": "base",
+      "D02-5": "pilot",
+      "D03-1": "base",
+      "D03-2": "pilot",
+      "D03-3": "v2",
+      "D03-4": "candidate_2",
+      "D03-5": "candidate_1",
+      "D04-1": "candidate_2",
+      "D04-2": "pilot",
+      "D04-3": "v2",
+      "D04-4": "candidate_1",
+      "D04-5": "base"
+    }
+  },
+  "development_qualification_required": 4,
+  "selected_for_diagnostics_only": "epoch-1",
+  "fresh_test_opened": false,
+  "fresh_test_sha256": "0389dafe6b9a0fad92b1acc12239e3ce3b9792b9d6bc19d8ca6f0c8f68daf60f",
+  "promotion": false,
+  "decision": "Neither checkpoint meets the frozen 4/4 development gate; preserve incumbent pilot and do not open the fresh holdout. Loss is token likelihood, not meaning/dialect quality."
+}

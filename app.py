@@ -45,7 +45,7 @@ MODEL_MODE = os.environ.get("LABEQ_MODEL_MODE", "real" if configured() else "dem
 
 app = FastAPI(title="LABEQ Experience", version="0.1.0")
 REQUEST_LIMIT = max(0, int(os.getenv("LABEQ_REQUESTS_PER_MINUTE", "30")))
-LIMITED_PATHS = {"/api/reply", "/api/predict", "/api/speak", "/api/transcribe", "/model/gradio_api/call/reply"}
+LIMITED_PATHS = {"/api/reply", "/api/predict", "/api/speak", "/api/transcribe", "/model/gradio_api/call/reply", "/model/gradio_api/call/reply_gpu"}
 request_windows = OrderedDict()
 
 

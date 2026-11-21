@@ -1,0 +1,157 @@
+{
+  "status": "raw_CPU_writer_not_qualified",
+  "reviewer": "Assistant, not independent human validation",
+  "fresh_holdout_opened": false,
+  "greedy": {
+    "policy_sha256": "0eae240980146aaf8fd0f2ae90f76f4e1affde346ba04021c65a03c445a14ffb",
+    "result": {
+      "metadata": {
+        "backend": "llama.cpp CPU writer; n_gpu_layers=0; separate real Faisal GPU route",
+        "llama_cpp_python": "0.3.36",
+        "model": "Qwen/Qwen3.5-35B-A3B",
+        "gguf_revision": "bc014a17be43adabd7066b7a86075ff935c6a4e2",
+        "gguf_sha256": "3b46d1066bc91cc2d613e3bc22ce691dd77e6f0d33c9060690d24ce6de494375",
+        "base_revision": "2508b2437e382c605eb0fc52b83f5545960f6b4a",
+        "loaded": true,
+        "faisal_loaded": true,
+        "faisal_revision": "38849bdac4b7850c19587f78f5fe16c38adefac1",
+        "limits": {
+          "cpu.max": "1600000 100000",
+          "memory.max": "104000000000"
+        },
+        "disk_free_bytes": 2381139505152,
+        "cpu_count": 192
+      },
+      "rows": [
+        {
+          "id": "D01",
+          "reply": "لاحظت إن اسم المتطوعة انحذف من القائمة، ما أعرف السبب. أبي ترجع اسمها عشان نكمل مع بعض. شكراً لك على تعبك وجهدك.",
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 630,
+            "completion_tokens": 41,
+            "total_tokens": 671
+          },
+          "seconds": 14.61345430201618
+        },
+        {
+          "id": "D02",
+          "reply": "أقدر أطبخ لك الأكل، بس ما أقدر أوصله. حبيت أطلب منك ترتبين التوصيل بنفسك، وأنا أجهزه وأرسله لك جاهز.",
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 637,
+            "completion_tokens": 40,
+            "total_tokens": 677
+          },
+          "seconds": 13.518321674026083
+        },
+        {
+          "id": "D03",
+          "reply": "آسف إن ضحكت على اقتراحك قدام الشباب، وعرفت إنه ضايقك. رأيك عندي مهم ومحترم، وما كان قصدي إني أضايقك.",
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 640,
+            "completion_tokens": 41,
+            "total_tokens": 681
+          },
+          "seconds": 13.937032232992351
+        },
+        {
+          "id": "D04",
+          "reply": "من اليوم ورايح ما أقدر أكتب تقريرك بدالي، بس إذا عندك سؤال محدد أو نقطة تحتاج توضيح، أنا جاهز أساعدك فيها.",
+          "finish_reason": "stop",
+          "usage": {
+            "prompt_tokens": 631,
+            "completion_tokens": 36,
+            "total_tokens": 667
+          },
+          "seconds": 13.321631954051554
+        }
+      ]
+    }
+  },
+  "sampled": {
+    "metadata": {
+      "backend": "llama.cpp CPU writer; n_gpu_layers=0; separate real Faisal GPU route",
+      "llama_cpp_python": "0.3.36",
+      "model": "Qwen/Qwen3.5-35B-A3B",
+      "gguf_revision": "bc014a17be43adabd7066b7a86075ff935c6a4e2",
+      "gguf_sha256": "3b46d1066bc91cc2d613e3bc22ce691dd77e6f0d33c9060690d24ce6de494375",
+      "base_revision": "2508b2437e382c605eb0fc52b83f5545960f6b4a",
+      "loaded": true,
+      "faisal_loaded": true,
+      "faisal_revision": "38849bdac4b7850c19587f78f5fe16c38adefac1",
+      "limits": {
+        "cpu.max": "1600000 100000",
+        "memory.max": "104000000000"
+      },
+      "disk_free_bytes": 2380913459200,
+      "cpu_count": 192
+    },
+    "rows": [
+      {
+        "id": "D01",
+        "reply": "لاحظت إن اسم المتطوعة انحذف من القائمة، هل ممكن ترجعونه؟ شكراً لك على كل الجهد والتعب اللي تبذله.",
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 630,
+          "completion_tokens": 32,
+          "total_tokens": 662
+        },
+        "seconds": 12.98001788003603
+      },
+      {
+        "id": "D02",
+        "reply": "أقدر أطبخ لك، بس ما أقدر أوصل. حبيت أقولك من الحين عشان ترتبي التوصيل بنفسك أو من شخص آخر، عشان ما تتأخري في العزومة.",
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 637,
+          "completion_tokens": 46,
+          "total_tokens": 683
+        },
+        "seconds": 15.290470475971233
+      },
+      {
+        "id": "D03",
+        "reply": "آسف على الضحك اللي صار قدام الشباب، أعرف إنه ضايقك. أنا أحترم رأيك جدًا وما كان يقصدني المزح، حبيت أعتذر لك مباشرة.",
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 640,
+          "completion_tokens": 41,
+          "total_tokens": 681
+        },
+        "seconds": 14.044288149045315
+      },
+      {
+        "id": "D04",
+        "reply": "من الحين ورايح ما أقدر أكتب تقريرك بدالي، بس إذا عندك سؤال محدد أجاوبك عليه.",
+        "finish_reason": "stop",
+        "usage": {
+          "prompt_tokens": 631,
+          "completion_tokens": 29,
+          "total_tokens": 660
+        },
+        "seconds": 11.80152417899808
+      }
+    ]
+  },
+  "assessments": {
+    "greedy": {
+      "D01": "Fails: adds an unstated shared-participation purpose (عشان نكمل مع بعض).",
+      "D02": "Fails strict sendability: arranging delivery stays with sister, but final أرسله لك ambiguously promises sending by speaker and needs repair.",
+      "D03": "Fails: adds unsupported absence-of-intent explanation.",
+      "D04": "Fails: بدالي reverses whose work is being done."
+    },
+    "sampled": {
+      "D01": "Pass: direct restoration request, thanks, no intent accusation; respectful plural acceptable.",
+      "D02": "Pass: cook yes, delivery no, sister arranges; added purpose is not an asserted excuse or promise.",
+      "D03": "Fails: malformed joking explanation contradicts explicit constraint.",
+      "D04": "Fails: بدالي reverses roles."
+    }
+  },
+  "strict_development_passes": {
+    "greedy": 0,
+    "sampled": 2
+  },
+  "next_study": "Separate full-pipeline protocol frozen before its own development output; raw failures are not relabeled."
+}

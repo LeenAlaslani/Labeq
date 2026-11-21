@@ -25,7 +25,7 @@ def parse_review(text, message, goal, candidate):
         raw = raw[7:-3].strip()
     try:
         obj = json.loads(raw)
-        if not isinstance(obj,dict) or set(obj)!={"checks","unsupported"}:
+        if not isinstance(obj,dict) or set(obj) not in ({"checks","unsupported"},{"checks","unsupported","language_issues"}):
             raise ValueError("schema")
         if not isinstance(obj["checks"],list) or not 1 <= len(obj["checks"]) <= 12:
             raise ValueError("checks")
@@ -48,9 +48,21 @@ def parse_review(text, message, goal, candidate):
             seen.add(quote)
         if any(not isinstance(q,str) or len(q.strip())<4 or q not in candidate for q in obj["unsupported"]):
             raise ValueError("ungrounded candidate quote")
+        language=obj.get("language_issues",[])
+        if not isinstance(language,list) or len(language)>8:
+            raise ValueError("language issues")
+        for issue in language:
+            if not isinstance(issue,dict) or set(issue)!={"quote","reason"}:
+                raise ValueError("language issue schema")
+            quote,reason=issue["quote"],issue["reason"]
+            if not isinstance(quote,str) or len(quote.strip())<2 or quote not in candidate:
+                raise ValueError("ungrounded language issue")
+            if not isinstance(reason,str) or not reason.strip() or len(reason)>220:
+                raise ValueError("language issue reason")
         issues = [f"{c['source_quote']}: {c['reason']}" for c in obj["checks"] if c["status"]!="met"]
         issues += ["تفصيل غير مسند في الرسالة: " + q for q in obj["unsupported"]]
-        result.update(valid=True,checks=obj["checks"],unsupported=obj["unsupported"],issues=issues)
+        issues += ["صياغة تحتاج تعديل: " + x["quote"] + ": " + x["reason"] for x in language]
+        result.update(valid=True,checks=obj["checks"],unsupported=obj["unsupported"],language_issues=language,issues=issues)
     except (ValueError, TypeError, KeyError):
         result["error"]="invalid_or_ungrounded_review"
     return result

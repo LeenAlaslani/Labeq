@@ -1,0 +1,375 @@
+{
+  "manifest": {
+    "cases_sha256": "8861fa10d18357bd9cc77bffa2d7510d68b61726f8dde26ba6f1042bcf4c1761",
+    "base": "/Users/leen/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3",
+    "adapters": {
+      "pilot": {
+        "directory": ".labeq-private/cpu-serving/pilot",
+        "sha256": "983ae8bf1d981e0aafb8a30a2ada4bf6c06284dd65b6f73876cdc6d521c48f3d"
+      },
+      "v2": {
+        "directory": ".labeq-private/LABEQ_Saudi_LoRA_v2",
+        "sha256": "866ca93ca5ad48faf8e92c11acdfe973a9435946903f7fe66d19564ed97d0e6e"
+      },
+      "candidate_1": {
+        "directory": ".labeq-private/longform-v3/epoch-1",
+        "sha256": "1bc02a97d53f5eea07bc5212ed8fc94f0dd5f20b768383daf6540570958fc4cf"
+      },
+      "candidate_2": {
+        "directory": ".labeq-private/longform-v3/candidate",
+        "sha256": "425a13cc1e4d190d18eb73c8201371609c9e4e3db98e24f2473c2a46db43d55f"
+      }
+    },
+    "policy_sha256": "c037b70bf124b00edd31c786684c5c5b2847271fbd6cef05a299a1c96890e527",
+    "generation": {
+      "max_tokens": 256,
+      "temperature": 0,
+      "thinking": false,
+      "surface_normalization": false
+    }
+  },
+  "raw_results": [
+    {
+      "case": {
+        "id": "D01",
+        "relation": "عمل",
+        "goal": "أطلب تصحيح بدون اتهام",
+        "message": "اسم المتطوعة انحذف من قائمة المشاركين وما أعرف السبب. أبي أطلب يرجع اسمها وأشكر المنظم على تعبه بدون ما أفترض إنه قصد يستبعدها."
+      },
+      "outputs": {
+        "base": {
+          "reply": "أهلاً بك، أتمنى لك التوفيق في عملك، هل يمكنني الرجوع إلى اسم المتطوعة من القائمة؟",
+          "seconds": 1.366,
+          "generation": {
+            "finish_reason": "stop",
+            "generation_tokens": 30,
+            "max_tokens": 256,
+            "decoded_text": "أهلاً بك، أتمنى لك التوفيق في عملك، هل يمكنني الرجوع إلى اسم المتطوعة من القائمة؟",
+            "format_cleanup_applied": false
+          }
+        },
+        "pilot": {
+          "reply": "أرجو مراجعة قائمة المشاركين وإضافة اسم المتطوعة، وأقدّر مجهودكم في تنظيم الفعالية.",
+          "seconds": 0.854,
+          "generation": {
+            "finish_reason": "stop",
+            "generation_tokens": 26,
+            "max_tokens": 256,
+            "decoded_text": "أرجو مراجعة قائمة المشاركين وإضافة اسم المتطوعة، وأقدّر مجهودكم في تنظيم الفعالية.",
+            "format_cleanup_applied": false
+          }
+        },
+        "v2": {
+          "reply": "السلام عليكم، لاحظت إن اسم المتطوعة ما موجود في القائمة، ممكن توضحون سببه؟",
+          "seconds": 0.924,
+          "generation": {
+            "finish_reason": "stop",
+            "generation_tokens": 25,
+            "max_tokens": 256,
+            "decoded_text": "السلام عليكم، لاحظت إن اسم المتطوعة ما موجود في القائمة، ممكن توضحون سببه؟",
+            "format_cleanup_applied": false
+          }
+        },
+        "candidate_1": {
+          "reply": "السلام عليكم، اسم المتطوعة انحذف من القائمة وأنا ما أعرف السبب. أبي يرجع اسمها إذا ممكن. شكرا على تعبه، وودي نراجع القائمة بدل ما نفترض إن المقصود استبعادها.",
+          "seconds": 1.796,
+          "generation": {
+            "finish_reason": "stop",
+            "generation_tokens": 52,
+            "max_tokens": 256,
+            "decoded_text": "السلام عليكم، اسم المتطوعة انحذف من القائمة وأنا ما أعرف السبب. أبي يرجع اسمها إذا ممكن. شكرا على تعبه، وودي نراجع القائمة بدل ما نفترض إن المقصود استبعادها.",
+            "format_cleanup_applied": false
+          }
+        },
+        "candidate_2": {
+          "reply": "السلام عليكم، اسم المتطوعة انحذف من القائمة وأنا مو متأكد من السبب. ممكن ترجع لي اسمها إذا يناسبكم؟ أشكرك على تعبه، وحبيت أتأكد منك قبل أفترض إن القصد كان استبعادها.",
+          "seconds": 1.895,
+          "generation": {
+            "finish_reason": "stop",
+            "generation_tokens": 56,
+            "max_tokens": 256,
+            "decoded_text": "السلام عليكم، اسم المتطوعة انحذف من القائمة وأنا مو متأكد من السبب. ممكن ترجع لي اسمها إذا يناسبكم؟ أشكرك على تعبه، وحبيت أتأكد منك قبل أفترض إن القصد كان استبعادها.",
+            "format_cleanup_applied": false
+          }
+        }
+      }
+    },
+    {
+      "case": {
+        "id": "D02",
+        "relation": "أهل",
+        "goal": "أرفض جزء وأقبل جزء",
+        "message": "أختي طلبت أطبخ وأوصل الأكل لعزيمتها. أقدر أطبخ بس ما أقدر أوصل، وأبي أوضح لها ترتب التوصيل بدون ما أتحجج بشي مو مذكور."
+      },
+      "outputs": {
+        "base": {
+          "reply": "يا أختي، أقدر أطبخ لك بس ما أقدر أروح وأوصلها، فإني ما أريد أتحجج بشي ما كتبه، فإياك أن ترتبي لي التوصيل بنفسك.",
+          "seconds": 1.318,
+          "generation": {
+            "finish_reason": "stop",
+            "generation_tokens": 50,
+            "max_tokens": 256,
+            "decoded_text": "يا أختي، أقدر أطبخ لك بس ما أقدر أروح وأوصلها، فإني ما أريد أتحجج بشي ما كتبه، فإياك أن ترتبي لي التوصيل بنفسك.",
+            "format_cleanup_applied": false
+          }
+        },
+        "pilot": {
+          "reply": "أقدّر أطبخ، بس ما أقدر أوصل، وأبي أشرح لك ترتيب التوصيل.",
+          "seconds": 0.842,
+          "generation": {
+            "finish_reason": "stop",
+            "generation_tokens": 23,
+            "max_tokens": 256,
+            "decoded_text": "أقدّر أطبخ، بس ما أقدر أوصل، وأبي أشرح لك ترتيب التوصيل.",
+            "format_cleanup_applied": false
+          }
+        },
+        "v2": {
+          "reply": "يا قلبي أقدر أطبخ لك، بس ما أقدر أجي أوصلها.",
+          "seconds": 0.822,
+          "generation": {
+            "finish_reason": "stop",
+            "generation_tokens": 20,
+            "max_tokens": 256,
+            "decoded_text": "يا قلبي أقدر أطبخ لك، بس ما أقدر أجي أوصلها.",
+            "format_cleanup_applied": false
+          }
+        },
+        "candidate_1": {
+          "reply": "أقدر أطبخ لك بس توصيل الأكل ما أقدر، رتبه من طرفك.",
+          "seconds": 0.932,
+          "generation": {
+            "finish_reason": "stop",
+            "generation_tokens": 22,
+            "max_tokens": 256,
+            "decoded_text": "أقدر أطبخ لك بس توصيل الأكل ما أقدر، رتبه من طرفك.",
+            "format_cleanup_applied": false
+          }
+        },
+        "candidate_2": {
+          "reply": "أقدر أطبخ لك بس توصيل الأكل ما أقدر أمسكه، رتبي التوصيل من طرفك. طهيته أقدره وأبي أوضح لك حدودي بهالجزأين.",
+          "seconds": 1.573,
+          "generation": {
+            "finish_reason": "stop",
+            "generation_tokens": 44,
+            "max_tokens": 256,
+            "decoded_text": "أقدر أطبخ لك بس توصيل الأكل ما أقدر أمسكه، رتبي التوصيل من طرفك. طهيته أقدره وأبي أوضح لك حدودي بهالجزأين.",
+            "format_cleanup_applied": false
+          }
+        }
+      }
+    },
+    {
+      "case": {
+        "id": "D03",
+        "relation": "صديق",
+        "goal": "أعتذر عن تصرفي",
+        "message": "ضحكت على اقتراح خويي قدام الشباب. أبي أعتذر عن الضحك وأعترف إنه ضايقه وأوضح إني أحترم رأيه بدون ما أقول كنت أمزح أو أطلب منه ما يزعل."
+      },
+      "outputs": {
+        "base": {
+          "reply": "يا خويي، ضحكت على اقتراحك قدام الشباب وأنا ضايق، وأعتذر منك على ما فات، وأقول إنني أحترم رأيك ولا قصد لي أن أكون متهور أو أطلب منك شيئًا يزعجك.",
+          "seconds": 1.514,
+          "generation": {
+            "finish_reason": "stop",
+            "generation_tokens": 57,
+            "max_tokens": 256,
+            "decoded_text": "يا خويي، ضحكت على اقتراحك قدام الشباب وأنا ضايق، وأعتذر منك على ما فات، وأقول إنني أحترم رأيك ولا قصد لي أن أكون متهور أو أطلب منك شيئًا يزعجك.",
+            "format_cleanup_applied": false
+          }
+        },
+        "pilot": {
+          "reply": "أعتذر عن ضحكتي على اقتراحك، وأدرك أن الأمر كان ضايقك، وأقدّر رأيك.",
+          "seconds": 0.999,
+          "generation": {
+            "finish_reason": "stop",
+            "generation_tokens": 31,
+            "max_tokens": 256,
+            "decoded_text": "أعتذر عن ضحكتي على اقتراحك، وأدرك أن الأمر كان ضايقك، وأقدّر رأيك.",
+            "format_cleanup_applied": false
+          }
+        },
+        "v2": {
+          "reply": "أعتذر إن ضحكتي على اقتراحك قدام الناس زعلتك، وأحترم رأيك.",
+          "seconds": 0.964,
+          "generation": {
+            "finish_reason": "stop",
+            "generation_tokens": 25,
+            "max_tokens": 256,
+            "decoded_text": "أعتذر إن ضحكتي على اقتراحك قدام الناس زعلتك، وأحترم رأيك.",
+            "format_cleanup_applied": false
+          }
+        },
+        "candidate_1": {
+          "reply": "حقك علي إني ضحكتك قدام الناس. كان المفروض أعتذر منك، وودي أعترف إن اقتراحك كان ضايقني. أحترم رأيك، والضحك عليك كان تصرفي غلط.",
+          "seconds": 1.917,
+          "generation": {
+            "finish_reason": "stop",
+            "generation_tokens": 50,
+            "max_tokens": 256,
+            "decoded_text": "حقك علي إني ضحكتك قدام الناس. كان المفروض أعتذر منك، وودي أعترف إن اقتراحك كان ضايقني. أحترم رأيك، والضحك عليك كان تصرفي غلط.",
+            "format_cleanup_applied": false
+          }
+        },
+        "candidate_2": {
+          "reply": "حقك علي إني ضحكتك قدام الشباب. كان المفروض أعتذر منك على اللي قلت، وحبيت أوضح إني كان رايك ضايقني. أحترم رأيك وأنت لي صديق، والضحك عليك كان غلط مني.",
+          "seconds": 2.09,
+          "generation": {
+            "finish_reason": "stop",
+            "generation_tokens": 58,
+            "max_tokens": 256,
+            "decoded_text": "حقك علي إني ضحكتك قدام الشباب. كان المفروض أعتذر منك على اللي قلت، وحبيت أوضح إني كان رايك ضايقني. أحترم رأيك وأنت لي صديق، والضحك عليك كان غلط مني.",
+            "format_cleanup_applied": false
+          }
+        }
+      }
+    },
+    {
+      "case": {
+        "id": "D04",
+        "relation": "عمل",
+        "goal": "أحط حدود مستمرة",
+        "message": "زميلي كل يوم يطلب أكتب تقريره بداله. أبي أوقف هالشي من اليوم ورايح وأوضح إني أقدر أجاوب عن سؤال محدد بس ما أكتب تقاريره كاملة."
+      },
+      "outputs": {
+        "base": {
+          "reply": "يا زميلي، من اليوم ما أقدر أكتب تقريرك بدلًا، بس أقدر أجاوب عن سؤال محدد إن شاء الله.",
+          "seconds": 0.905,
+          "generation": {
+            "finish_reason": "stop",
+            "generation_tokens": 31,
+            "max_tokens": 256,
+            "decoded_text": "يا زميلي، من اليوم ما أقدر أكتب تقريرك بدلًا، بس أقدر أجاوب عن سؤال محدد إن شاء الله.",
+            "format_cleanup_applied": false
+          }
+        },
+        "pilot": {
+          "reply": "أقدّر أجاوب عن سؤال محدد، بس ما أقدر أكتب تقاريرك كاملة.",
+          "seconds": 0.803,
+          "generation": {
+            "finish_reason": "stop",
+            "generation_tokens": 22,
+            "max_tokens": 256,
+            "decoded_text": "أقدّر أجاوب عن سؤال محدد، بس ما أقدر أكتب تقاريرك كاملة.",
+            "format_cleanup_applied": false
+          }
+        },
+        "v2": {
+          "reply": "أفهم إنك محتاج التقرير، بس ما أقدر أكتبه لك كامل كل يوم.",
+          "seconds": 0.848,
+          "generation": {
+            "finish_reason": "stop",
+            "generation_tokens": 22,
+            "max_tokens": 256,
+            "decoded_text": "أفهم إنك محتاج التقرير، بس ما أقدر أكتبه لك كامل كل يوم.",
+            "format_cleanup_applied": false
+          }
+        },
+        "candidate_1": {
+          "reply": "أقدر أجاوب عن سؤال محدد، بس من اليوم ما أكتب تقاريرك كاملة بدالك. ودي أحط هالحد واضح بيننا.",
+          "seconds": 1.274,
+          "generation": {
+            "finish_reason": "stop",
+            "generation_tokens": 34,
+            "max_tokens": 256,
+            "decoded_text": "أقدر أجاوب عن سؤال محدد، بس من اليوم ما أكتب تقاريرك كاملة بدالك. ودي أحط هالحد واضح بيننا.",
+            "format_cleanup_applied": false
+          }
+        },
+        "candidate_2": {
+          "reply": "حبيت أوضح لك من الحين ما أقدر أكتب تقاريرك بدالي. أقدر أجاوب عن سؤال محدد معك، بس التقرير كامل ما أكتبه. ودي يكون هالحد واضح بيننا.",
+          "seconds": 1.736,
+          "generation": {
+            "finish_reason": "stop",
+            "generation_tokens": 48,
+            "max_tokens": 256,
+            "decoded_text": "حبيت أوضح لك من الحين ما أقدر أكتب تقاريرك بدالي. أقدر أجاوب عن سؤال محدد معك، بس التقرير كامل ما أكتبه. ودي يكون هالحد واضح بيننا.",
+            "format_cleanup_applied": false
+          }
+        }
+      }
+    }
+  ],
+  "label_key": [
+    {
+      "candidate": "D01-1",
+      "model": "candidate_1"
+    },
+    {
+      "candidate": "D01-2",
+      "model": "base"
+    },
+    {
+      "candidate": "D01-3",
+      "model": "candidate_2"
+    },
+    {
+      "candidate": "D01-4",
+      "model": "pilot"
+    },
+    {
+      "candidate": "D01-5",
+      "model": "v2"
+    },
+    {
+      "candidate": "D02-1",
+      "model": "candidate_2"
+    },
+    {
+      "candidate": "D02-2",
+      "model": "v2"
+    },
+    {
+      "candidate": "D02-3",
+      "model": "candidate_1"
+    },
+    {
+      "candidate": "D02-4",
+      "model": "base"
+    },
+    {
+      "candidate": "D02-5",
+      "model": "pilot"
+    },
+    {
+      "candidate": "D03-1",
+      "model": "base"
+    },
+    {
+      "candidate": "D03-2",
+      "model": "pilot"
+    },
+    {
+      "candidate": "D03-3",
+      "model": "v2"
+    },
+    {
+      "candidate": "D03-4",
+      "model": "candidate_2"
+    },
+    {
+      "candidate": "D03-5",
+      "model": "candidate_1"
+    },
+    {
+      "candidate": "D04-1",
+      "model": "candidate_2"
+    },
+    {
+      "candidate": "D04-2",
+      "model": "pilot"
+    },
+    {
+      "candidate": "D04-3",
+      "model": "v2"
+    },
+    {
+      "candidate": "D04-4",
+      "model": "candidate_1"
+    },
+    {
+      "candidate": "D04-5",
+      "model": "base"
+    }
+  ]
+}

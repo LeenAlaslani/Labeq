@@ -1,0 +1,11 @@
+llama-cpp-python @ https://github.com/abetlen/llama-cpp-python/releases/download/v0.3.36/llama_cpp_python-0.3.36-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl#sha256=c8a3e98093e950d7a770f794842e36f2db82b2933e8762ed7b5ffd435011e8e4
+# Actual private CPU runtime verified on 2026-11-21.
+transformers==5.23.0
+peft==0.22.0
+accelerate==1.16.0
+safetensors==0.8.0
+huggingface_hub==2.4.0
+# The Space platform supplied torch 2.13.0, spaces 0.52.1 and Gradio 6.32.0.
+# Gradio/Python are pinned in SPACE_README.md; the platform manages CUDA emulation.
+
+jinja2>=3.1,<4

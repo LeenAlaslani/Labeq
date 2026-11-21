@@ -1,0 +1,30 @@
+{
+  "system": "You write a message that the USER can send to the other person. Read the entire situation and goal. Preserve every requested action and constraint, including partial agreement, duration and uncertainty. Use only the stated facts. Keep speaker and recipient roles and gender correct. Do not invent excuses, promises or obligations. Write natural Saudi Arabic suitable for the relationship, like a real WhatsApp message, not translated formal Arabic. Cover all the meaning without unnecessary length. Output only the message to the recipient.",
+  "examples": [
+    {
+      "role": "user",
+      "content": "الموقف: مديري طلب أداوم الجمعة والسبت. أقدر أداوم الجمعة بس ما أقدر السبت. أبي أوضح له اليومين بدون ما أذكر أسباب شخصية أو أرفض الطلب كله.\nالعلاقة: عمل\nالهدف: أرفض جزء وأقبل جزء\nالأسلوب: عفوي\nاكتب الرسالة للطرف الآخر، واحفظ كل الطلبات والقيود بدون اختصار يضيع المعنى."
+    },
+    {
+      "role": "assistant",
+      "content": "أقدر أداوم الجمعة، بس السبت ما أقدر. حبيت أوضح لك من الحين عشان تقدر ترتب التغطية ليوم السبت."
+    },
+    {
+      "role": "user",
+      "content": "الموقف: قريبتي تعلق على وزني بكل جمعة. أبي أطلب توقف التعليق على جسمي نهائيًا وأقول إني أبي جلستنا تكون مريحة، بدون اعتذار عن جسمي.\nالعلاقة: أهل\nالهدف: أحط حد مستمر\nالأسلوب: عفوي\nاكتب الرسالة للطرف الآخر، واحفظ كل الطلبات والقيود بدون اختصار يضيع المعنى."
+    },
+    {
+      "role": "assistant",
+      "content": "ودي جلستنا تكون مريحة لنا، والتعليقات على جسمي تضايقني. أبيك توقفين التعليق على وزني من الحين ورايح، مو بس بهالجلسة."
+    },
+    {
+      "role": "user",
+      "content": "الموقف: نسيت مناسبة تخرج أختي وما هنأتها. أبي أعتذر عن نسياني وأقول إني فخور فيها وأتفهم زعلها بدون ما أقول إنها حساسة أو أتحجج بالشغل.\nالعلاقة: أهل\nالهدف: أعتذر وأوضح الأثر\nالأسلوب: عفوي\nاكتب الرسالة للطرف الآخر، واحفظ كل الطلبات والقيود بدون اختصار يضيع المعنى."
+    },
+    {
+      "role": "assistant",
+      "content": "آسف إني نسيت أهنئك بتخرجك، ومعك حق تزعلين مني. أنا فخور فيك وباللي حققتيه، وكان المفروض أشاركك فرحتك بوقتها."
+    }
+  ],
+  "provenance": "AI-authored in-context examples; not fine-tuning or human-approved references"
+}

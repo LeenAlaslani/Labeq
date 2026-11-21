@@ -19,7 +19,9 @@ def main():
     p.add_argument("--data",type=Path,required=True)
     p.add_argument("--model",required=True)
     p.add_argument("--out",type=Path,required=True)
+    p.add_argument("--learning-rate",type=float,default=1e-4)
     args=p.parse_args()
+    if not 0<args.learning_rate<=1e-2:p.error('learning-rate must be positive and at most 0.01')
     import mlx.core as mx
     import mlx.optimizers as optim
     import numpy as np
@@ -45,11 +47,11 @@ def main():
         steps_per_save=epoch_steps,steps_per_report=10,adapter_file=str(args.out/"adapters.safetensors"),
         train_on_completions=True,grad_checkpoint=True)
     updates=cfg.iters//2; warmup=max(1,round(updates*.05))
-    lr=optim.join_schedules([optim.linear_schedule(1e-7,1e-4,warmup),optim.cosine_decay(1e-4,updates-warmup)],[warmup])
+    lr=optim.join_schedules([optim.linear_schedule(1e-7,args.learning_rate,warmup),optim.cosine_decay(args.learning_rate,updates-warmup)],[warmup])
     trainer=Trainer(model,cfg,optimizer=optim.AdamW(lr,weight_decay=0),train_dataset=train,eval_dataset=val,
         processing_class=processor,prepared=True,seed=3407)
     details={"status":"experimental_not_approved_v2","config":asdict(cfg),"targets":TARGETS,"seed":3407,
-        "rank":16,"alpha":16,"lr":1e-4,"epochs":2,"base":args.model,"mlx":version("mlx"),
+        "rank":16,"alpha":16,"lr":args.learning_rate,"epochs":2,"base":args.model,"mlx":version("mlx"),
         "mlx_vlm":version("mlx-vlm"),"device":str(mx.default_device()),"data_manifest":manifest}
     (args.out/"run_config.json").write_text(json.dumps(details,ensure_ascii=False,indent=2))
     print(json.dumps({"steps":cfg.iters,"train_rows":len(train),"target_suffixes":TARGETS}),flush=True)

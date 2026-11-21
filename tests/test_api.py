@@ -195,6 +195,7 @@ def test_web_rate_limit(web_client, monkeypatch, upstream):
     assert web_client.post("/api/reply", json=SCENARIO).status_code == 200
     limited = web_client.post("/api/reply", json=SCENARIO)
     assert limited.status_code == 429
+    assert web_client.post('/model/gradio_api/call/reply_gpu',json={'data':[SCENARIO]}).status_code==429
     assert int(limited.headers["retry-after"]) >= 1
     assert web_client.get("/api/capabilities").status_code == 200
 

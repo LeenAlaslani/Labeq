@@ -1,0 +1,7 @@
+# Separate Qwen3.6 CPU diagnostic
+
+This tests an unadapted, eight-bit Qwen3.6-35B-A3B writer on existing free CPU resources after the long-form 4B LoRA experiment failed its development gate. It is not a Saudi LoRA, does not overwrite its completed training, and is not configured in the public application. The [frozen protocol](protocol.json) identifies the model, tokenizer, quantization, sampler, policies, gates and still-unused fresh test.
+
+The official [model card](https://huggingface.co/Qwen/Qwen3.6-35B-A3B/tree/345d467b117d1fd5eda9b879a5988de9ae5f47a7) supplies the non-thinking sampling settings. The [quantizer's pinned repository](https://huggingface.co/unsloth/Qwen3.6-35B-A3B-GGUF/tree/a483e9e6cbd595906af30beda3187c2663a1118c) supplies the public Q8 file and checksum. All GGUF bytes are verified before loading. `n_gpu_layers=0` keeps writing on CPU. The separately registered GPU route executes genuine original Faisal scoring; the evaluated full pipeline explicitly uses the actual CPU Faisal adapter and does not invoke that GPU function.
+
+Only four previously exposed development cases may be generated initially, under the two frozen policies. The clean policy uses no reference answers; the few-shot policy contains three already published AI-authored examples, never UI results. No provider secret or trained private model file belongs in this diagnostic package. Do not call a valid review schema or a successful download a quality result.

@@ -1,0 +1,54 @@
+{
+  "observed_at_utc": "2026-11-21T15:51:02.123385+00:00",
+  "source_commit": "eb61c869b169d6a3018fb1814628a3cd567003c8",
+  "space_commit": "f302ce8a1a992cc88e3b9895f932eef4a847cb48",
+  "url": "https://leeennn009-labeq.hf.space",
+  "authentication": "anonymous; no credential injection",
+  "health": {
+    "configured": true,
+    "reachable": true,
+    "model_loaded": true,
+    "faisal_loaded": true,
+    "generator": "Qwen3.5-4B + Saudi LoRA pilot (Transformers, bfloat16)",
+    "adapter_revision": "db2cf3390e5d163a58309df949aef58acb7bbd9a",
+    "base_revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a"
+  },
+  "capabilities": {
+    "model_transport": "gradio",
+    "tts": false,
+    "tts_provider": "munsit",
+    "voice_name": "مها · نجدية — منصت",
+    "stt": false,
+    "model_mode": "real",
+    "model_configured": true
+  },
+  "case": {
+    "id": "R01",
+    "family": "user_regression_already_seen",
+    "message": "صديقتي دايم تسألني عن أمور شخصية ما أحب أتكلم عنها، وإذا ما جاوبتها تزعل وتقول إني ما أثق فيها. أبي أوضح لها إن خصوصيتي مهمة بالنسبة لي وإن مو كل شيء لازم أشاركه معها، بس بنفس الوقت ما أبي أخسر صداقتنا.",
+    "relation": "صديق",
+    "goal": "أحط حدود"
+  },
+  "seconds": 0.5202319170348346,
+  "http_status": 200,
+  "stream": "event: error\ndata: {\"error\": \"You have exceeded your ZeroGPU runs limit. Authenticate with a Hugging Face token for more quota - https://huggingface.co/settings/tokens\", \"duration\": 10, \"visible\": true, \"title\": \"ZeroGPU quota exceeded\"}\n\n",
+  "outcome": "inference_unavailable",
+  "displayed_error": "انتهت حصة GPU المجانية. افتحي التطبيق من صفحة Hugging Face بعد تسجيل الدخول، أو جرّبي لاحقًا.",
+  "verified_space_revision": "f302ce8a1a992cc88e3b9895f932eef4a847cb48",
+  "hardware": "zero-a10g",
+  "runtime_stage": "RUNNING",
+  "frontend_sha256": {
+    "app.js": {
+      "expected": "8d78671f222ad6dfdf98bafa8cd5ebbfa1ed1feb16e9dbc25b34d6646b151240",
+      "observed": "8d78671f222ad6dfdf98bafa8cd5ebbfa1ed1feb16e9dbc25b34d6646b151240",
+      "matches": true
+    },
+    "space_client.js": {
+      "expected": "61967f5e56fe0010c4b2b502c40a6e3ea457b3e9de4bc63235cc0c3f32b6b00c",
+      "observed": "61967f5e56fe0010c4b2b502c40a6e3ea457b3e9de4bc63235cc0c3f32b6b00c",
+      "matches": true
+    }
+  },
+  "frontend_hash_check_at_utc": "2026-11-21T15:57:33.813009+00:00",
+  "inference_interpretation": "Actual browser request rejected by free GPU quota. This is not a successful final hosted pipeline check. Local screenshots and base-only bf16 diagnostic are distinct."
+}

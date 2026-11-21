@@ -1,0 +1,8 @@
+# Actual private CPU runtime verified on 2026-11-21.
+transformers==5.23.0
+peft==0.22.0
+accelerate==1.16.0
+safetensors==0.8.0
+huggingface_hub==2.4.0
+# The Space platform supplied torch 2.13.0, spaces 0.52.1 and Gradio 6.32.0.
+# Gradio/Python are pinned in SPACE_README.md; the platform manages CUDA emulation.
