@@ -37,3 +37,5 @@ Public checks also exercised friendship misunderstanding and workplace clarifica
 The CPU suite covers the meaning checks, negation/tense/quotation safeguards, transparent response metadata, and lossless conversion of the preserved MLX adapter. The MLX-to-PEFT utility verifies all 256 real tensors by exact transpose roundtrip and sampled delta equivalence, without retraining or overwriting the original checkpoint. That conversion does not itself authorize a change of the deployed adapter.
 
 Ordinary short requests reserve 20 seconds of shared GPU time; longer contexts reserve 30 seconds. Queue waiting and account quota still apply. Maha's original voice configuration, artwork, playback and lip-sync integration remain preserved and speech remains inactive.
+
+The last additional live repeat after the narrow clarification repair was blocked by the free account quota (30 seconds requested, 24 seconds remaining). The rule itself passed CPU regression tests; this later live repeat is not reported as successful. The previously captured real public customer response remains the before/after evidence. No paid hardware, credits, or subscription was activated.

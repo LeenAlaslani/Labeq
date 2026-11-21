@@ -156,5 +156,12 @@
       "register_normalization": []
     },
     "source_commit": "523db3cce0c2350eadc510ddf2fbb87dd882c995"
+  },
+  "final_live_retry": {
+    "status": "blocked_by_free_gpu_quota",
+    "requested_gpu_seconds": 30,
+    "remaining_gpu_seconds": 24,
+    "no_paid_resources_enabled": true,
+    "scope": "The additional live repeat after the last narrow grammar repair; the earlier actual public customer screenshot and three completed cases remain recorded separately."
   }
 }
