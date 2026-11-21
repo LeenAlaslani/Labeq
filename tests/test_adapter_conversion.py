@@ -15,10 +15,9 @@ def source_adapter(root):
     (source / "adapter_config.json").write_text(json.dumps({
         "lora_parameters": {"rank": 2, "scale": 0.5, "keys": [prefix]},
     }))
-    save_file({
-        prefix + ".lora_a": np.array([[1., 2.], [3., 4.], [5., 6.]], dtype=np.float32),
-        prefix + ".lora_b": np.array([[1., 2.], [3., 4.]], dtype=np.float32),
-    }, str(source / "adapters.safetensors"))
+    a=np.zeros((9216,2),dtype=np.float32);a[:3]=[[1.,2.],[3.,4.],[5.,6.]]
+    b=np.zeros((2,2560),dtype=np.float32);b[:,:2]=[[1.,2.],[3.,4.]]
+    save_file({prefix+".lora_a":a,prefix+".lora_b":b},str(source/"adapters.safetensors"))
     return source
 
 
@@ -31,7 +30,10 @@ def test_conversion_preserves_the_delta_and_does_not_modify_source(tmp_path):
     assert config["r"] == 2 and config["lora_alpha"] == 1
     weights = load_file(str(output / "adapter_model.safetensors"))
     a, b = (weights["base_model.model.model.language_model.layers.0.mlp.down_proj.lora_" + side + ".weight"] for side in ("A", "B"))
-    np.testing.assert_allclose(np.array([[1., 0., 0.]]) @ a.T @ b.T * 0.5, [[3.5, 5.]])
+    x=np.zeros((1,9216));x[0,0]=1
+    delta=x@a.T@b.T*.5
+    np.testing.assert_allclose(delta[:,:2],[[3.5,5.]])
+    assert not delta[:,2:].any()
     assert (source / "adapters.safetensors").read_bytes() == before
     assert manifest["exact_transpose_roundtrip"]
 

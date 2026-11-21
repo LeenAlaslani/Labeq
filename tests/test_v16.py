@@ -1,10 +1,14 @@
 """CPU-only checks. These don't test real model quality or Colab serving."""
-import unittest,sys
+import unittest,sys,json
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 import LABEQ_V16_Coaching_Engine as v16
 import labeq_engine as base
 from model_bridge import request_payload
+
+def approval(prompt):
+    quote=prompt.split("الموقف: ",1)[1].split("\nالعلاقة:",1)[0]
+    return json.dumps({"checks":[{"source_quote":quote,"status":"met","reason":""}],"unsupported":[]},ensure_ascii=False)
 
 class Tests(unittest.TestCase):
     def test_plan_parsing_and_no_fabrication(self):
@@ -28,12 +32,12 @@ class Tests(unittest.TestCase):
         calls=[]
         def load(self):return self
         def predict(self,m,r,g):return 'polite','faisal'
-        def generate(self,messages,retry=False,use_adapter=True):
+        def generate(self,messages,retry=False,use_adapter=True,max_tokens=256):
             prompt=messages[-1]['content'];calls.append((prompt,use_adapter))
             if not use_adapter and 'أربع سطور' in prompt:
                 return 'جوهر الموقف: المساعدة اليومية تضغط على وقتها\nالهدف: توضيح حدود المساعدة\nالخطوة: ابدئي بتقدير الصداقة ثم ارفضي التكرار\nانتبهي: لا توعدين بوقت آخر'
-            if not use_adapter and 'قيّمي الرسالة' in prompt:
-                return 'النتيجة: مناسب\nالسبب: حافظت الرسالة على هدف المستخدم'
+            if not use_adapter and 'source_quote' in prompt:
+                return approval(prompt)
             if 'طريقة التواصل: اعتذار' in prompt:
                 return 'آسفة إني ما أقدر أساعدك كل يوم، عندي شغلي وأحتاج أركز عليه. أتمنى تتفهمين.'
             return 'أحب أساعدك، بس صعب علي أساعدك كل يوم وأنا عندي شغلي. أتمنى تتفهمين إني ما أقدر كل مرة.'
@@ -69,7 +73,7 @@ def test_flagged_candidate_is_reviewed_again_after_retry():
         def load(self):
             pass
 
-        def _one_generation(self, messages, retry=False, use_adapter=True):
+        def _one_generation(self, messages, retry=False, use_adapter=True, max_tokens=256):
             if use_adapter:
                 return (
                     "أحب أساعدك، بس ما أقدر أساعد كل يوم وأنا عندي شغلي."
@@ -78,7 +82,7 @@ def test_flagged_candidate_is_reviewed_again_after_retry():
             prompt = messages[-1]["content"]
             if "أربع سطور" in prompt:
                 return "جوهر الموقف: تتكرر طلبات المساعدة"
-            return "النتيجة: مناسب" if "الرسالة: أحب" in prompt else "النتيجة: غير مناسب\nالسبب: حول الحد إلى تأجيل"
+            return approval(prompt) if "الرسالة: أحب" in prompt else json.dumps({"checks":[{"source_quote":"كل يوم","status":"contradicted","reason":"حول الحد إلى تأجيل"}],"unsupported":[]},ensure_ascii=False)
 
     output = v16.reply_v16(Engine(), "زميلتي تطلب المساعدة كل يوم وأنا عندي شغلي", "عمل", "أوضح حدودي", "حازم")
     assert output["was_retried"]

@@ -142,7 +142,7 @@ class MlxEngine:
             )
         return finish_reply(result.text)
 
-    def _one_generation(self, messages, retry=False, use_adapter=True):
-        return self.generate(messages, "saudi" if use_adapter else "base", temperature=0.45 if retry else 0.0)
+    def _one_generation(self, messages, retry=False, use_adapter=True, max_tokens=256):
+        return self.generate(messages, "saudi" if use_adapter else "base", temperature=0.45 if retry else 0.0, max_tokens=max_tokens)
 
     reply = reply_v16

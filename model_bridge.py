@@ -124,6 +124,7 @@ async def remote_reply(payload: dict) -> dict:
         if isinstance(register_edits, list) else [],
         "draft_before_register_normalization": raw_draft[:1200] if isinstance(raw_draft, str) else None,
         "needs_review": bool(data.get("needs_review", False)),
+        "was_retried": data.get("was_retried") is True,
         "quality_warnings": [item[:180] for item in warnings if isinstance(item, str)][:5]
         if isinstance(warnings, list) else [],
         "generator": data.get("generator") if isinstance(data.get("generator"), str) else None,

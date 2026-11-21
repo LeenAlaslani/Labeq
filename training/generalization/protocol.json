@@ -1,0 +1,22 @@
+{
+  "purpose":"Diagnostic evaluation of compositional Saudi message writing, not a population-level accuracy estimate",
+  "development_cases":4,
+  "held_out_cases":16,
+  "held_out_families":12,
+  "minimal_contrasts":4,
+  "known_user_regressions":2,
+  "raw_generation":{"same_base":true,"same_prompt":true,"temperature":0,"max_tokens":256,"thinking":false,"register_replacements":false},
+  "checkpoint_selection":"Inspect only the four development cases, then choose the epoch checkpoint before opening holdout outputs. Break ties in favor of the earlier checkpoint.",
+  "review_dimensions":["Each listed requirement met, missing or contradicted","Unsupported facts, excuses or promises","Correct speaker/addressee and gender when stated","Natural Saudi wording suitable for the relationship","Ready to send without factual or grammatical repair"],
+  "strict_case_pass":"All three requirements met, no unsupported assertion, no role/gender error, and sendable Saudi text. Do not treat absence of a literal phrase as failure when meaning is preserved.",
+  "reviewer":"Assistant assessment; independent human review pending. Anonymous candidates are provided for independent review.",
+  "promotion_gates":{
+    "raw_holdout_strict_passes_minimum":13,
+    "raw_strict_passes_must_exceed_incumbent":true,
+    "all_four_minimal_contrast_pairs_preserve_changed_intent":true,
+    "both_user_regressions_pass":true,
+    "no_claim_of_generalization_from_training_loss_or_unit_tests":true,
+    "production_bfloat16_runtime_checks_required":true
+  },
+  "failure_policy":"Preserve existing adapters and publish honest evidence. A failed diagnostic is not grounds to silently promote a candidate. Any later tuning on this holdout turns it into development data and requires a fresh test set."
+}

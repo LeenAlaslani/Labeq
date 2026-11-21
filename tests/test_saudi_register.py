@@ -1,6 +1,12 @@
 """Regression checks for register and preserving the reported customer intent."""
-from LABEQ_V16_Coaching_Engine import local_warnings, reply_v16, semantic_review_issue
+from LABEQ_V16_Coaching_Engine import local_warnings, reply_v16
+import json
 from saudi_register import clean_writing, normalize_saudi, register_instruction, register_warnings, writing_style
+
+
+def approval(prompt):
+    quote = prompt.split("الموقف: ",1)[1].split("\nالعلاقة:",1)[0]
+    return json.dumps({"checks":[{"source_quote":quote,"status":"met","reason":""}],"unsupported":[]},ensure_ascii=False)
 
 
 SCENARIO = (
@@ -76,11 +82,11 @@ def test_model_approval_does_not_override_register_and_followup_checks():
         def predict_style(self, *args):
             return "diplomatic", "faisal"
 
-        def _one_generation(self, messages, retry=False, use_adapter=True):
+        def _one_generation(self, messages, retry=False, use_adapter=True, max_tokens=256):
             if not use_adapter:
                 if "أربع سطور" in messages[-1]["content"]:
                     return "الخطوة: لا تعتذر للعميل واطلب منه الاتصال بمدير آخر"
-                return "النتيجة: مناسب"
+                return approval(messages[-1]["content"])
             # A mistaken generated plan must not become a generation instruction.
             assert "اطلب منه الاتصال بمدير آخر" not in messages[-1]["content"]
             return (
@@ -105,7 +111,7 @@ def test_advisory_style_opinion_does_not_rewrite_a_grounded_saudi_reply():
         def predict_style(self, *args):
             return "diplomatic", "faisal"
 
-        def _one_generation(self, messages, retry=False, use_adapter=True):
+        def _one_generation(self, messages, retry=False, use_adapter=True, max_tokens=256):
             if use_adapter:
                 self.drafts += 1
                 return "نعتذر لك عن التأخير. بأتابع الموضوع، وما أبي أعطيك موعد وأنا مو متأكد."
@@ -131,7 +137,7 @@ def test_advisory_opinion_does_not_veto_a_concrete_intent_repair():
         def load(self):
             return self
 
-        def _one_generation(self, messages, retry=False, use_adapter=True):
+        def _one_generation(self, messages, retry=False, use_adapter=True, max_tokens=256):
             if use_adapter:
                 return "حقك علي، نسيت الموعد وخليتك تنتظرين." if retry else "اعتذري عن نسيان الموعد."
             return "النتيجة: غير مناسب\nالسبب: العبارة قصيرة"
@@ -141,28 +147,19 @@ def test_advisory_opinion_does_not_veto_a_concrete_intent_repair():
     assert result["was_retried"] and result["needs_review"]
 
 
-def test_specific_deadline_concern_triggers_repair_without_demanding_a_new_date():
-    assert semantic_review_issue("وعود بالوقت المناسب مما يتعارض مع عدم إعطاء موعد")
-    assert not semantic_review_issue("الرسالة تفتقر إلى تحديد موعد جديد")
-
+def test_grounded_deadline_concern_triggers_repair_without_demanding_a_new_date():
     class Engine:
-        def load(self):
-            return self
-
-        def predict_style(self, *args):
-            return "diplomatic", "faisal"
-
-        def _one_generation(self, messages, retry=False, use_adapter=True):
+        def load(self):return self
+        def predict_style(self,*args):return "diplomatic","faisal"
+        def _one_generation(self,messages,retry=False,use_adapter=True,max_tokens=256):
             if use_adapter:
-                return (
-                    "نعتذر لك عن التأخير. بأتابع الطلب، وما أبي أعطيك موعد وأنا مو متأكد."
-                    if retry else "نعتذر لك عن التأخير. بأتابع الطلب عشان نوصله لك بالوقت المناسب."
-                )
-            if "بالوقت المناسب" in messages[-1]["content"]:
-                return "النتيجة: غير مناسب\nالسبب: وعود بالوقت المناسب مما يتعارض مع عدم إعطاء موعد"
-            return "النتيجة: مناسب"
-
-    result = reply_v16(Engine(), SCENARIO, "عميل", "ننهي الخلاف")
+                return ("نعتذر لك عن التأخير. بأتابع الطلب، وما أبي أعطيك موعد وأنا مو متأكد."
+                        if retry else "نعتذر لك عن التأخير. بأتابع الطلب عشان نوصله لك بالوقت المناسب.")
+            prompt=messages[-1]["content"]
+            if "أربع سطور" in prompt:return ""
+            if "بالوقت المناسب" in prompt:
+                return json.dumps({"checks":[{"source_quote":"بدون ما أعطيه موعد جديد مو متأكد منه","status":"contradicted","reason":"وعد غير مؤكد"}],"unsupported":[]},ensure_ascii=False)
+            return approval(prompt)
+    result=reply_v16(Engine(),SCENARIO,"عميل","ننهي الخلاف")
     assert result["was_retried"]
     assert "مو متأكد" in result["reply"] and not result["needs_review"]
-

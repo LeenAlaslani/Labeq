@@ -22,7 +22,7 @@ class FixtureEngine:
     def predict_style(self, *args):
         return "firm", "faisal"
 
-    def _one_generation(self, messages, retry=False, use_adapter=True):
+    def _one_generation(self, messages, retry=False, use_adapter=True, max_tokens=256):
         if use_adapter:
             return "ما أقدر أساعدك كل يوم، عندي شغلي وأحتاج أركز عليه."
         if "أربع سطور" in messages[-1]["content"]:

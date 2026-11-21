@@ -205,7 +205,7 @@ class LabeqEngine:
             finally:
                 self.model.set_adapter("saudi")
 
-    def _one_generation(self, messages: list[dict], retry: bool = False, use_adapter: bool = True) -> str:
+    def _one_generation(self, messages: list[dict], retry: bool = False, use_adapter: bool = True, max_tokens: int = 256) -> str:
         with self.lock:
             self.model.set_adapter("saudi")
             inputs = self._inputs(messages)
@@ -216,7 +216,7 @@ class LabeqEngine:
             if pad is None and hasattr(self.processor, 'tokenizer'):
                 pad = self.processor.tokenizer.pad_token_id
             gen_kw = {
-                "max_new_tokens": 125,
+                "max_new_tokens": max_tokens,
                 "do_sample": retry,
                 "repetition_penalty": 1.08,
                 "pad_token_id": pad if pad is not None else eos,
