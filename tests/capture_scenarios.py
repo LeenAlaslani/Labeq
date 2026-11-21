@@ -15,6 +15,7 @@ def main():
     parser.add_argument("--out",type=Path,required=True)
     parser.add_argument("--chrome")
     parser.add_argument("--expected-source",choices=["qwen_lora_generated","qwen_base_generated","ollama_generated"],default="qwen_lora_generated")
+    parser.add_argument("--allow-rule-fallback",action="store_true",help="Record an explicitly labeled real routing fallback")
     args=parser.parse_args()
     parsed=urlparse(args.url)
     if parsed.scheme not in {"http","https"} or parsed.hostname not in {"127.0.0.1","localhost","leeennn009-labeq.hf.space"}:
@@ -22,22 +23,23 @@ def main():
     cases=json.loads(args.cases.read_text())
     args.out.mkdir(parents=True,exist_ok=False)
     goals={"أحط حدود":"أوضح حدودي","أعتذر وأصلح الموقف":"أصلح غلطتي"}
+    relations={'صديق':'صديق / صديقة','صديقة':'صديق / صديقة','عائلة':'أحد من العائلة','أهل':'أحد من العائلة','عمل':'زميل / مدير','عميل':'عميل'}
     with sync_playwright() as p:
         browser=p.chromium.launch(executable_path=args.chrome)
         try:
             for case in cases:
-                if case["relation"]!="صديق":raise ValueError("These captures use the friend relationship")
+                if case['relation'] not in relations:raise ValueError('Unsupported capture relationship')
                 page=browser.new_page(viewport={"width":1440,"height":1060})
                 page.goto(args.url,wait_until="networkidle",timeout=90000)
                 if page.locator("#muteBtn").is_enabled():page.locator("#muteBtn").click()
                 page.get_by_role("textbox",name="اسمك",exact=True).fill("لين")
                 page.locator("#nextBtn").click()
-                page.get_by_role("button",name="صديق / صديقة").click()
+                page.get_by_role("button",name=relations[case['relation']],exact=True).click()
                 page.locator("#nextBtn").click()
-                page.get_by_role("button",name=re.compile(goals[case["goal"]])).click()
+                page.get_by_role("button",name=re.compile(goals.get(case["goal"],case["goal"]))).click()
                 page.locator("#nextBtn").click()
                 page.locator("#scenarioInput").fill(case["message"])
-                with page.expect_response(lambda r:r.url.endswith("/api/reply") or "/model/gradio_api/call/reply/" in r.url,timeout=180000) as pending:
+                with page.expect_request(lambda r:r.method=='POST' and (r.url.endswith('/api/reply') or r.url.endswith('/model/gradio_api/call/reply')),timeout=180000) as submitted, page.expect_response(lambda r:r.url.endswith("/api/reply") or "/model/gradio_api/call/reply/" in r.url,timeout=180000) as pending:
                     page.locator("#analyzeBtn").click()
                 response=pending.value
                 if not response.ok:raise RuntimeError(f"Inference HTTP {response.status}")
@@ -46,12 +48,13 @@ def main():
                     if len(parts)!=2:raise RuntimeError(response.text()[:500])
                     result=json.loads(parts[1].split("\n")[0])[0]
                 else:result=response.json()
-                if result.get("reply_source")!=args.expected_source or result.get("router_source")!="faisal":
+                routes={'faisal','rule_fallback'} if args.allow_rule_fallback else {'faisal'}
+                if result.get("reply_source")!=args.expected_source or result.get("router_source") not in routes:
                     raise RuntimeError("Capture requires the declared real generation source and actual Faisal routing")
                 expect(page.locator("#replyText")).to_have_text(result["reply"],timeout=15000)
                 expect(page.locator("#toast")).not_to_have_class(re.compile(r"\bshow\b"),timeout=15000)
                 page.screenshot(path=args.out/f"{case['id']}.png",full_page=True,animations="disabled")
-                (args.out/f"{case['id']}.json").write_text(json.dumps({"url":page.url,"case":case,"response":result},ensure_ascii=False,indent=2))
+                (args.out/f"{case['id']}.json").write_text(json.dumps({"url":page.url,"case":case,"actual_frontend_request":submitted.value.post_data_json,"response":result},ensure_ascii=False,indent=2))
                 print(json.dumps({"id":case["id"],"reply":result["reply"]},ensure_ascii=False),flush=True)
                 page.close()
         finally:browser.close()

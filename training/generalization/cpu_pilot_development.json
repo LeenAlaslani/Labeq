@@ -1,0 +1,420 @@
+{
+  "study": "Actual CPU pilot development; transport feasibility only, not quality qualification",
+  "manifest": {
+    "observed_at_utc": "2026-11-21T17:59:08.118871+00:00",
+    "space": "leeennn009/LABEQ-4B-quality-check",
+    "space_commit": "7dbc46bb9afcaa81e6d5621a656f4912a56e0808",
+    "source_commit": "93d196dce771b9f298c742c44b159e2c4d8bd67e",
+    "url": "https://leeennn009-labeq-4b-quality-check.hf.space",
+    "private": true,
+    "callback_auth": "stored private-session login",
+    "api_name": "/reply",
+    "case_sha256": "8861fa10d18357bd9cc77bffa2d7510d68b61726f8dde26ba6f1042bcf4c1761",
+    "gradio_client_version": "2.7.2",
+    "health": {
+      "configured": true,
+      "reachable": true,
+      "model_loaded": true,
+      "faisal_loaded": true,
+      "generator": "Qwen3.5-4B + Saudi pilot LoRA (Transformers, bfloat16, cpu)",
+      "adapter_revision": "db2cf3390e5d163a58309df949aef58acb7bbd9a",
+      "base_revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+      "compute_backend": "torch-cpu",
+      "adapter_sha256": "983ae8bf1d981e0aafb8a30a2ada4bf6c06284dd65b6f73876cdc6d521c48f3d",
+      "environment_versions": {
+        "torch": "2.13.0",
+        "transformers": "5.23.0",
+        "peft": "0.22.0",
+        "gradio": "6.32.0",
+        "spaces": "0.52.1",
+        "huggingface_hub": "2.4.0"
+      },
+      "source_commit": "93d196dce771b9f298c742c44b159e2c4d8bd67e"
+    }
+  },
+  "rows": [
+    {
+      "case": {
+        "id": "D01",
+        "relation": "عمل",
+        "goal": "أطلب تصحيح بدون اتهام",
+        "message": "اسم المتطوعة انحذف من قائمة المشاركين وما أعرف السبب. أبي أطلب يرجع اسمها وأشكر المنظم على تعبه بدون ما أفترض إنه قصد يستبعدها."
+      },
+      "response": {
+        "reply": "أرجو مراجعة اسم المتطوعة في القائمة وإعادته، وأقدر جهودكم.",
+        "style_used": "لبق",
+        "router_source": "faisal",
+        "reply_source": "qwen_lora_generated",
+        "style_key": "polite",
+        "generator": "Qwen3.5-4B + Saudi pilot LoRA (Transformers, bfloat16, cpu)",
+        "coaching": {
+          "core": "انحذف اسم المتطوعة من القائمة دون معرفة السبب.",
+          "objective": "طلب إعادة الاسم مع شكر المنظم على جهوده.",
+          "strategy": "مراسلة المنظم لتوضيح الحذف وإبداء الشكر قبل استرجاع الاسم.",
+          "risk": "عدم افتراض أن الحذف كان مقصوداً لاستبعادها."
+        },
+        "review_status": "flagged",
+        "needs_review": true,
+        "quality_warnings": [
+          "تعذر التحقق من المراجعة الدلالية؛ الصياغة تحتاج مراجعة"
+        ],
+        "was_retried": false,
+        "semantic_review": {
+          "valid": false,
+          "checks": [],
+          "unsupported": [],
+          "issues": [],
+          "error": "invalid_or_ungrounded_review"
+        },
+        "generation_candidates": [
+          {
+            "reply": "أرجو مراجعة اسم المتطوعة في القائمة وإعادته، وأقدر جهودكم.",
+            "draft_before_register_normalization": "أرجو مراجعة اسم المتطوعة في القائمة وإعادته، وأقدر جهودكم.",
+            "register_normalization": [],
+            "review": {
+              "valid": false,
+              "checks": [],
+              "unsupported": [],
+              "issues": [],
+              "error": "invalid_or_ungrounded_review"
+            },
+            "warnings": [
+              "تعذر التحقق من المراجعة الدلالية؛ الصياغة تحتاج مراجعة"
+            ]
+          }
+        ],
+        "retry_error": null,
+        "coaching_status": "model_generated",
+        "coaching_error": null,
+        "draft_before_register_normalization": "أرجو مراجعة اسم المتطوعة في القائمة وإعادته، وأقدر جهودكم.",
+        "register_normalization": [],
+        "generation_trace": [
+          {
+            "generation_tokens": 77,
+            "seconds": 16.245643585000835,
+            "finish_reason": "stop",
+            "compute_backend": "torch-cpu",
+            "phase": "plan",
+            "max_tokens": 256,
+            "max_seconds": 30,
+            "decoded_text": "جوهر الموقف: انحذف اسم المتطوعة من القائمة دون معرفة السبب.\nالهدف: طلب إعادة الاسم مع شكر المنظم على جهوده.\nالخطوة: مراسلة المنظم لتوضيح الحذف وإبداء الشكر قبل استرجاع الاسم.\nانتبهي: عدم افتراض أن الحذف كان مقصوداً لاستبعادها."
+          },
+          {
+            "generation_tokens": 21,
+            "seconds": 6.492437838999649,
+            "finish_reason": "stop",
+            "compute_backend": "torch-cpu",
+            "phase": "writer",
+            "max_tokens": 256,
+            "max_seconds": 45,
+            "decoded_text": "أرجو مراجعة اسم المتطوعة في القائمة وإعادته، وأقدّر جهودكم."
+          },
+          {
+            "generation_tokens": 49,
+            "seconds": 12.619103574000292,
+            "finish_reason": "stop",
+            "compute_backend": "torch-cpu",
+            "phase": "review",
+            "max_tokens": 640,
+            "max_seconds": 40,
+            "decoded_text": "{\n\"checks\":[\n{\"source_quote\":\"أرجو مراجعة اسم المتطوعة في القائمة وإعادته\",\"status\":\"missing\",\"reason\":\"لم يتم ذكر سبب الحذف أو إعادة الاسم\"}],\n\"unsupported\":[]\n}"
+          }
+        ]
+      },
+      "wall_seconds": 38.382
+    },
+    {
+      "case": {
+        "id": "D02",
+        "relation": "أهل",
+        "goal": "أرفض جزء وأقبل جزء",
+        "message": "أختي طلبت أطبخ وأوصل الأكل لعزيمتها. أقدر أطبخ بس ما أقدر أوصل، وأبي أوضح لها ترتب التوصيل بدون ما أتحجج بشي مو مذكور."
+      },
+      "response": {
+        "reply": "أقترح أطبخ لك، لكن ما أقدر أوصل، وأرجو تظليين في البيت.",
+        "style_used": "حازم",
+        "router_source": "faisal",
+        "reply_source": "qwen_lora_generated",
+        "style_key": "firm",
+        "generator": "Qwen3.5-4B + Saudi pilot LoRA (Transformers, bfloat16, cpu)",
+        "coaching": {
+          "core": "أختي طلبت الطبخ والتوصيل، وأنا أستطيع الطبخ فقط.",
+          "objective": "قبول الطبخ مع رفض التوصيل بوضوح دون تحجج.",
+          "strategy": "إخبارها أنني سأطبخ وأتركها تنظم التوصيل بنفسها.",
+          "risk": "عدم تحميل مسؤولية التوصيل على شخص غير مسؤول عنه."
+        },
+        "review_status": "flagged",
+        "needs_review": true,
+        "quality_warnings": [
+          "تعذر التحقق من المراجعة الدلالية؛ الصياغة تحتاج مراجعة"
+        ],
+        "was_retried": false,
+        "semantic_review": {
+          "valid": false,
+          "checks": [],
+          "unsupported": [],
+          "issues": [],
+          "error": "invalid_or_ungrounded_review"
+        },
+        "generation_candidates": [
+          {
+            "reply": "أقترح أطبخ لك، لكن ما أقدر أوصل، وأرجو تظليين في البيت.",
+            "draft_before_register_normalization": "أقترح أطبخ لك، لكن ما أقدر أوصل، وأرجو تظليين في البيت.",
+            "register_normalization": [],
+            "review": {
+              "valid": false,
+              "checks": [],
+              "unsupported": [],
+              "issues": [],
+              "error": "invalid_or_ungrounded_review"
+            },
+            "warnings": [
+              "تعذر التحقق من المراجعة الدلالية؛ الصياغة تحتاج مراجعة"
+            ]
+          }
+        ],
+        "retry_error": null,
+        "coaching_status": "model_generated",
+        "coaching_error": null,
+        "draft_before_register_normalization": "أقترح أطبخ لك، لكن ما أقدر أوصل، وأرجو تظليين في البيت.",
+        "register_normalization": [],
+        "generation_trace": [
+          {
+            "generation_tokens": 80,
+            "seconds": 16.536290009999902,
+            "finish_reason": "stop",
+            "compute_backend": "torch-cpu",
+            "phase": "plan",
+            "max_tokens": 256,
+            "max_seconds": 30,
+            "decoded_text": "جوهر الموقف: أختي طلبت الطبخ والتوصيل، وأنا أستطيع الطبخ فقط.\nالهدف: قبول الطبخ مع رفض التوصيل بوضوح دون تحجج.\nالخطوة: إخبارها أنني سأطبخ وأتركها تنظم التوصيل بنفسها.\nانتبهي: عدم تحميل مسؤولية التوصيل على شخص غير مسؤول عنه."
+          },
+          {
+            "generation_tokens": 26,
+            "seconds": 8.884838415000559,
+            "finish_reason": "stop",
+            "compute_backend": "torch-cpu",
+            "phase": "writer",
+            "max_tokens": 256,
+            "max_seconds": 45,
+            "decoded_text": "أقترح أطبخ لك، لكن ما أقدر أوصّل، وأرجو تظليين في البيت."
+          },
+          {
+            "generation_tokens": 97,
+            "seconds": 23.67908617500052,
+            "finish_reason": "stop",
+            "compute_backend": "torch-cpu",
+            "phase": "review",
+            "max_tokens": 640,
+            "max_seconds": 40,
+            "decoded_text": "```json\n{\n  \"checks\": [\n    {\n      \"source_quote\": \"أقترح أطبخ لك\",\n      \"status\": \"met\",\n      \"reason\": \"\"\n    },\n    {\n      \"source_quote\": \"ما أقدر أوصل\",\n      \"status\": \"missing\",\n      \"reason\": \"لم تذكر ترتيب التوصيل\"\n    }\n  ],\n  \"unsupported\": []\n}\n```"
+          }
+        ]
+      },
+      "wall_seconds": 51.748
+    },
+    {
+      "case": {
+        "id": "D03",
+        "relation": "صديق",
+        "goal": "أعتذر عن تصرفي",
+        "message": "ضحكت على اقتراح خويي قدام الشباب. أبي أعتذر عن الضحك وأعترف إنه ضايقه وأوضح إني أحترم رأيه بدون ما أقول كنت أمزح أو أطلب منه ما يزعل."
+      },
+      "response": {
+        "reply": "ما أقدر أعتذر عن الضحك، بس أشوف إنك ضاقت، وأقدر أقدر رأيك.",
+        "style_used": "اعتذار",
+        "router_source": "faisal",
+        "reply_source": "qwen_lora_generated",
+        "style_key": "apology",
+        "generator": "Qwen3.5-4B + Saudi pilot LoRA (Transformers, bfloat16, cpu)",
+        "coaching": {
+          "core": "ضحك المستخدم على اقتراح صديقه أمام الآخرين مما أزعجه.",
+          "objective": "الاعتذار عن الضحك وإظهار احترام الرأي دون تبرير المضحكة.",
+          "strategy": "الاعتذار بوضوح مع توضيح أن الضحك كان غير مقصود ومُزعج.",
+          "risk": "عدم ذكر سبب الضحك أو محاولة تحويل الحديث إلى مزايدة."
+        },
+        "review_status": "flagged",
+        "needs_review": true,
+        "quality_warnings": [
+          "تعذر التحقق من المراجعة الدلالية؛ الصياغة تحتاج مراجعة"
+        ],
+        "was_retried": false,
+        "semantic_review": {
+          "valid": false,
+          "checks": [],
+          "unsupported": [],
+          "issues": [],
+          "error": "invalid_or_ungrounded_review"
+        },
+        "generation_candidates": [
+          {
+            "reply": "ما أقدر أعتذر عن الضحك، بس أشوف إنك ضاقت، وأقدر أقدر رأيك.",
+            "draft_before_register_normalization": "ما أقدر أعتذر عن الضحك، بس أشوف إنك ضاقت، وأقدر أقدر رأيك.",
+            "register_normalization": [],
+            "review": {
+              "valid": false,
+              "checks": [],
+              "unsupported": [],
+              "issues": [],
+              "error": "invalid_or_ungrounded_review"
+            },
+            "warnings": [
+              "تعذر التحقق من المراجعة الدلالية؛ الصياغة تحتاج مراجعة"
+            ]
+          }
+        ],
+        "retry_error": null,
+        "coaching_status": "model_generated",
+        "coaching_error": null,
+        "draft_before_register_normalization": "ما أقدر أعتذر عن الضحك، بس أشوف إنك ضاقت، وأقدر أقدر رأيك.",
+        "register_normalization": [],
+        "generation_trace": [
+          {
+            "generation_tokens": 86,
+            "seconds": 26.600801806999698,
+            "finish_reason": "stop",
+            "compute_backend": "torch-cpu",
+            "phase": "plan",
+            "max_tokens": 256,
+            "max_seconds": 30,
+            "decoded_text": "جوهر الموقف: ضحك المستخدم على اقتراح صديقه أمام الآخرين مما أزعجه.\nالهدف: الاعتذار عن الضحك وإظهار احترام الرأي دون تبرير المضحكة.\nالخطوة: الاعتذار بوضوح مع توضيح أن الضحك كان غير مقصود ومُزعج.\nانتبهي: عدم ذكر سبب الضحك أو محاولة تحويل الحديث إلى مزايدة."
+          },
+          {
+            "generation_tokens": 28,
+            "seconds": 12.476281258999734,
+            "finish_reason": "stop",
+            "compute_backend": "torch-cpu",
+            "phase": "writer",
+            "max_tokens": 256,
+            "max_seconds": 45,
+            "decoded_text": "ما أقدر أعتذر عن الضحك، بس أشوف إنك ضاقت، وأقدر أقدّر رأيك."
+          },
+          {
+            "generation_tokens": 120,
+            "seconds": 36.99289707999924,
+            "finish_reason": "stop",
+            "compute_backend": "torch-cpu",
+            "phase": "review",
+            "max_tokens": 640,
+            "max_seconds": 40,
+            "decoded_text": "```json\n{\n  \"checks\": [\n    {\n      \"source_quote\": \"ما أقدر أعتذر عن الضحك\",\n      \"status\": \"missing\",\n      \"reason\": \"المستخدم رفض الاعتذار صراحة\"\n    },\n    {\n      \"source_quote\": \"أقدر أقدر رأيك\",\n      \"status\": \"contradicted\",\n      \"reason\": \"تجاهل الاعتراف بأن التصرف ضايق الطرف الآخر\"\n    }\n  ],\n  \"unsupported\": []\n}\n```"
+          }
+        ]
+      },
+      "wall_seconds": 79.299
+    },
+    {
+      "case": {
+        "id": "D04",
+        "relation": "عمل",
+        "goal": "أحط حدود مستمرة",
+        "message": "زميلي كل يوم يطلب أكتب تقريره بداله. أبي أوقف هالشي من اليوم ورايح وأوضح إني أقدر أجاوب عن سؤال محدد بس ما أكتب تقاريره كاملة."
+      },
+      "response": {
+        "reply": "أوقف عن طلب كتابة تقاريري بدلتي، وأردف عليك أسئلة محددة.",
+        "style_used": "حازم",
+        "router_source": "faisal",
+        "reply_source": "qwen_lora_generated",
+        "style_key": "firm",
+        "generator": "Qwen3.5-4B + Saudi pilot LoRA (Transformers, bfloat16, cpu)",
+        "coaching": {
+          "core": "الزميل يطلب كتابة تقريره اليومي بدلًا عنه بشكل مستمر.",
+          "objective": "وضع حدود واضحة بأنك ستجيب على أسئلة محددة فقط ولن تكتب التقارير كاملة.",
+          "strategy": "توضيح في اليوم التالي أنك قادر على الإجابة عن سؤال معين لكن لن تقبل طلب الكتابة الكاملة.",
+          "risk": "عدم قبول أي طلب جديد قبل أن يتم الاتفاق على الحدود الجديدة بوضوح تام."
+        },
+        "review_status": "flagged",
+        "needs_review": true,
+        "quality_warnings": [
+          "تعذر التحقق من المراجعة الدلالية؛ الصياغة تحتاج مراجعة"
+        ],
+        "was_retried": false,
+        "semantic_review": {
+          "valid": false,
+          "checks": [],
+          "unsupported": [],
+          "issues": [],
+          "error": "invalid_or_ungrounded_review"
+        },
+        "generation_candidates": [
+          {
+            "reply": "أوقف عن طلب كتابة تقاريري بدلتي، وأردف عليك أسئلة محددة.",
+            "draft_before_register_normalization": "أوقف عن طلب كتابة تقاريري بدلتي، وأردف عليك أسئلة محددة.",
+            "register_normalization": [],
+            "review": {
+              "valid": false,
+              "checks": [],
+              "unsupported": [],
+              "issues": [],
+              "error": "invalid_or_ungrounded_review"
+            },
+            "warnings": [
+              "تعذر التحقق من المراجعة الدلالية؛ الصياغة تحتاج مراجعة"
+            ]
+          }
+        ],
+        "retry_error": null,
+        "coaching_status": "model_generated",
+        "coaching_error": null,
+        "draft_before_register_normalization": "أوقف عن طلب كتابة تقاريري بدلتي، وأردف عليك أسئلة محددة.",
+        "register_normalization": [],
+        "generation_trace": [
+          {
+            "generation_tokens": 90,
+            "seconds": 19.797007010000016,
+            "finish_reason": "stop",
+            "compute_backend": "torch-cpu",
+            "phase": "plan",
+            "max_tokens": 256,
+            "max_seconds": 30,
+            "decoded_text": "جوهر الموقف: الزميل يطلب كتابة تقريره اليومي بدلًا عنه بشكل مستمر.\nالهدف: وضع حدود واضحة بأنك ستجيب على أسئلة محددة فقط ولن تكتب التقارير كاملة.\nالخطوة: توضيح في اليوم التالي أنك قادر على الإجابة عن سؤال معين لكن لن تقبل طلب الكتابة الكاملة.\nانتبهي: عدم قبول أي طلب جديد قبل أن يتم الاتفاق على الحدود الجديدة بوضوح تام."
+          },
+          {
+            "generation_tokens": 19,
+            "seconds": 6.4872371229994314,
+            "finish_reason": "stop",
+            "compute_backend": "torch-cpu",
+            "phase": "writer",
+            "max_tokens": 256,
+            "max_seconds": 45,
+            "decoded_text": "أوقف عن طلب كتابة تقاريري بدلتي، وأردف عليك أسئلة محددة."
+          },
+          {
+            "generation_tokens": 13,
+            "seconds": 4.787063791000037,
+            "finish_reason": "stop",
+            "compute_backend": "torch-cpu",
+            "phase": "review",
+            "max_tokens": 640,
+            "max_seconds": 40,
+            "decoded_text": "```json\n{\"checks\":[],\"unsupported\":[]}\n```"
+          }
+        ]
+      },
+      "wall_seconds": 33.786
+    }
+  ],
+  "assessment": {
+    "reviewer": "Assistant; no independent human review",
+    "strict_passes": 1,
+    "cases": 4,
+    "by_case": {
+      "D01": {
+        "strict_pass": true,
+        "reason": "Requests restoring the missing name and thanks the organiser without attributing intent. Professional wording is sendable, though formal."
+      },
+      "D02": {
+        "strict_pass": false,
+        "reason": "Invents a request to stay at home and omits asking the sister to arrange delivery."
+      },
+      "D03": {
+        "strict_pass": false,
+        "reason": "Refuses the apology instead of apologising; broken grammar and duplicated wording."
+      },
+      "D04": {
+        "strict_pass": false,
+        "reason": "Reverses report ownership and contains malformed pronouns and wording."
+      }
+    }
+  }
+}
