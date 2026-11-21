@@ -51,7 +51,7 @@ def main():
     os.environ["LABEQ_MODEL_MODE"] = "real"
     print("LABEQ: preparing adapter and queued callback", flush=True)
     engine = SpaceEngine()
-    app = create_app(engine, spaces.GPU(duration=60))
+    app = create_app(engine, spaces.GPU(duration=30))
     print("LABEQ: loading Qwen and both adapters", flush=True)
     engine.load()
     print("LABEQ: model loaded; starting FastAPI", flush=True)

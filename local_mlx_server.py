@@ -27,7 +27,6 @@ async def lifespan(app):
         os.getenv("LABEQ_MLX_ADAPTER_DIR", str(ROOT / "mlx_adapter")),
         os.getenv("LABEQ_MLX_FAISAL_DIR") or None,
         os.getenv("LABEQ_MLX_ADAPTER_LABEL", "Saudi LoRA"),
-        editor_path=os.getenv("LABEQ_MLX_EDITOR_MODEL") or None,
     )
     yield
 

@@ -63,10 +63,9 @@ def test_model_approval_does_not_override_register_and_followup_checks():
     assert "بأتابع" in result["reply"]
 
 
-def test_editor_has_original_context_and_reports_its_actual_source():
+def test_advisory_style_opinion_does_not_rewrite_a_grounded_saudi_reply():
     class Engine:
-        editor_enabled = True
-        editor_model_id = "Qwen/Qwen3.5-9B"
+        drafts = 0
 
         def load(self):
             return self
@@ -75,36 +74,17 @@ def test_editor_has_original_context_and_reports_its_actual_source():
             return "diplomatic", "faisal"
 
         def _one_generation(self, messages, retry=False, use_adapter=True):
-            return "أعتذر عن التأخير." if use_adapter else "النتيجة: مناسب"
+            if use_adapter:
+                self.drafts += 1
+                return "نعتذر لك عن التأخير. بأتابع الموضوع، وما أبي أعطيك موعد وأنا مو متأكد."
+            return "النتيجة: غير مناسب\nالسبب: استخدام كلمة بس يضعف النبرة"
 
-        def edit_reply(self, messages):
-            assert SCENARIO in messages[-1]["content"]
-            assert "المسودة الأولية: أعتذر عن التأخير." in messages[-1]["content"]
-            return "نعتذر لك عن التأخير. بأتابع الموضوع، وما أبي أعطيك موعد وأنا مو متأكد."
-
-    output = reply_v16(Engine(), SCENARIO, "عميل", "ننهي الخلاف")
-    assert output["reply_source"] == "qwen_lora_base_edited"
-    assert output["editor_model"] == "Qwen/Qwen3.5-9B"
-    assert output["router_source"] == "faisal"
+    engine = Engine()
+    result = reply_v16(engine, SCENARIO, "عميل", "ننهي الخلاف")
+    assert engine.drafts == 1 and not result["was_retried"]
+    assert result["needs_review"]  # Keep the model's fallible opinion visible.
 
 
-def test_empty_editor_output_is_not_silently_presented_as_edited():
-    import pytest
+def test_apology_instruction_is_not_an_apology_message():
+    assert local_warnings("اعتذري عن نسيان الموعد", "نسيت موعد صديقتي", "أعتذر عن غلطتي", "apology")
 
-    class Engine:
-        editor_enabled = True
-
-        def load(self):
-            return self
-
-        def predict_style(self, *args):
-            return "diplomatic", "faisal"
-
-        def _one_generation(self, *args, **kwargs):
-            return "أعتذر عن التأخير."
-
-        def edit_reply(self, messages):
-            return ""
-
-    with pytest.raises(RuntimeError, match="المحرر"):
-        reply_v16(Engine(), SCENARIO, "عميل", "ننهي الخلاف")

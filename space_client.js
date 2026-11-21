@@ -48,7 +48,7 @@ window.labeqSpaceReply=async function(payload){
           }
           if(event==='complete'){
             const result=JSON.parse(data)?.[0];
-            if(!result||!['qwen_lora_generated','qwen_lora_base_edited'].includes(result.reply_source))throw Error('رجع المودل استجابة غير صالحة.');
+            if(!result||result.reply_source!=='qwen_lora_generated')throw Error('رجع المودل استجابة غير صالحة.');
             return {...result,style:result.style_key,mock:false};
           }
         }

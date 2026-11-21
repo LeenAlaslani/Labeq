@@ -94,7 +94,7 @@ def main():
                 response = client.post("/api/reply", json=payload)
                 response.raise_for_status()
                 result = response.json()
-            assert result["reply_source"] in {"qwen_lora_generated", "qwen_lora_base_edited"} and result["mock"] is False
+            assert result["reply_source"] == "qwen_lora_generated" and result["mock"] is False
             assert result["router_source"] in {"faisal", "rule_fallback"}, result
             assert result["reply"].strip()
             output.append({
