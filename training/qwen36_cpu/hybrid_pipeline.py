@@ -50,9 +50,10 @@ class HybridEngine:
         if messages[-1]['content'].startswith(REVIEW_MARKER):
             return self._review_ids(json.loads(messages[-1]['content'][len(REVIEW_MARKER):]),max_tokens)
         prompt=self.tokenizer.apply_chat_template(messages,tokenize=False,add_generation_prompt=True,enable_thinking=False)
-        result=self.writer.create_completion(prompt=prompt,max_tokens=max_tokens,temperature=.7,top_p=.8,top_k=20,min_p=0.0,presence_penalty=1.5,repeat_penalty=1.,seed=3407,stop=['<|im_end|>','<|endoftext|>'])
+        greedy=getattr(self,'sampler','recommended')=='greedy'
+        result=self.writer.create_completion(prompt=prompt,max_tokens=max_tokens,temperature=(.45 if retry else 0) if greedy else .7,top_p=.8,top_k=20,min_p=0.0,presence_penalty=0 if greedy else 1.5,repeat_penalty=1.,seed=3407,stop=['<|im_end|>','<|endoftext|>'])
         choice=result['choices'][0];text=finish_reply(choice['text'])
-        self.trace.append({'messages':messages,'text':text,'finish_reason':choice['finish_reason'],'usage':result['usage'],'max_tokens':max_tokens,'retry':retry})
+        self.trace.append({'messages':messages,'text':text,'finish_reason':choice['finish_reason'],'usage':result['usage'],'max_tokens':max_tokens,'retry':retry,'sampler':getattr(self,'sampler','recommended')})
         if choice['finish_reason']=='length':raise GenerationBudgetError(text)
         return text
 

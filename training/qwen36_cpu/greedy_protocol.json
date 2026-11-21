@@ -1,0 +1,14 @@
+{
+  "study": "Predeclared development-only greedy follow-up after both recommended-sampling policies failed",
+  "model_and_weights": "Identical pinned Qwen3.6-35B-A3B Q8_0 to protocol.json; no Saudi response adapter",
+  "previous_results": "recommended_results.json: clean 1/4, fewshot 2/4 strict assistant passes. These results remain preserved.",
+  "conditions": ["writer_clean.json", "writer_fewshot.json"],
+  "sampler": {"temperature": 0, "presence_penalty": 0, "repeat_penalty": 1, "top_p": 0.8, "top_k": 20, "min_p": 0, "seed": 3407, "thinking": false, "max_new_tokens": 256},
+  "development_cases": "Four previously exposed dev.json cases only; eight raw outputs total",
+  "selection": "Require 4/4 strictly sendable raw replies; prefer clean policy on ties. No scenario substitution or answer editing.",
+  "pipeline": "Only after raw qualification, require 4/4 actual full-pipeline development passes. Greedy first draft, one optional sampled repair at temperature 0.45, presence penalty 0; source-ID review remains greedy.",
+  "fresh_test": "Same still-unused 16-case set and same 13/16, four-contrast, actual UI and warm-latency gates in protocol.json. Never open it if either development gate fails.",
+  "infrastructure": "Existing owned private free Space; pinned public GGUF preloaded at build time through the documented free Space configuration. Use the default Hub cache so preloading is actually used. No paid hardware or provider secrets.",
+  "preload_reference": "https://huggingface.co/docs/hub/spaces-config-reference#preload-from-hub",
+  "reviewer": "Assistant only; independent human Saudi Arabic review remains pending"
+}
