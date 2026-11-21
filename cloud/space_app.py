@@ -18,7 +18,7 @@ def gpu_duration(payload):
     return 60 if length <= 800 else 90
 
 
-def create_app(engine, gpu_decorator):
+def create_app(engine, gpu_decorator, *, gpu_engine=None, max_queue_size=8):
     import gradio as gr
 
     from app import app
@@ -34,6 +34,15 @@ def create_app(engine, gpu_decorator):
             [turn.model_dump() for turn in request.history], request.generation_mode,
         )
 
+    accelerated=None
+    if gpu_engine is not None:
+        import spaces
+        @spaces.GPU(duration=gpu_duration)
+        def accelerated(payload):
+            request=ReplyRequest.model_validate(payload)
+            return reply_v16(gpu_engine,request.message,request.relation,request.goal,request.style,
+                request.speaker_gender,request.recipient_gender,[turn.model_dump() for turn in request.history],request.generation_mode)
+
     with gr.Blocks(title="LABEQ model API") as model_api:
         request = gr.JSON(visible=False)
         response = gr.JSON(visible=False)
@@ -42,13 +51,18 @@ def create_app(engine, gpu_decorator):
             generate, inputs=request, outputs=response, api_name="reply",
             concurrency_limit=1,
         )
-    model_api.queue(max_size=8, default_concurrency_limit=1)
+        if accelerated is not None:
+            gr.Button('Accelerated model API',visible=False).click(accelerated,inputs=request,outputs=response,
+                api_name='reply_gpu',concurrency_limit=1)
+    model_api.queue(max_size=max_queue_size, default_concurrency_limit=1)
     app.state.gradio_model = {
         "model_loaded": engine.model is not None,
         "faisal_loaded": engine.faisal_ready,
         "generator": engine.generator,
         "adapter_revision": engine.adapter_revision,
         "base_revision": getattr(engine,"base_revision",None),
+        "compute_backend":getattr(engine,"compute_backend",None),
+        "adapter_sha256":getattr(engine,"adapter_sha256",None),
     }
     # The existing FastAPI HTML is the frontend; Gradio only supplies its queue.
     return gr.mount_gradio_app(app, model_api, path="/model", ssr_mode=False)
