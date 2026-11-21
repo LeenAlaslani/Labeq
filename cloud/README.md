@@ -2,7 +2,7 @@
 
 The Space serves the existing V16 HTML, JavaScript, CSS, and Maha artwork at its root. The model callback is mounted at /model through Gradio. The browser sends a queued request, receives a completion event, and displays the returned source metadata.
 
-At startup, the original Saudi pilot adapter and Faisal adapter load onto the same Qwen3.5-4B base. PEFT reads adapter tensors on CPU before ZeroGPU packs the CUDA transfer. A GPU callback performs Faisal option scoring, Qwen base planning, Saudi LoRA response generation, and model review. One callback runs at a time. The Space uses the free zero-a10g hardware, with a 20-second GPU reservation for ordinary short requests and 30 seconds for longer contexts and a bounded queue.
+At startup, the original Saudi pilot adapter and Faisal adapter load onto the same Qwen3.5-4B base, pinned with its tokenizer to revision `851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a`. PEFT reads adapter tensors on CPU before ZeroGPU packs the CUDA transfer. A GPU callback performs Faisal option scoring, Qwen base planning, Saudi LoRA response generation, and grounded JSON review. One callback runs at a time. The Space uses the free zero-a10g hardware, with a 60-second GPU reservation for ordinary requests and 90 seconds for longer contexts and a bounded queue. These are reservations for the larger bounded review budgets, not measured latency guarantees. Account quota can prevent a request from starting.
 
 ## Account and model setup
 
