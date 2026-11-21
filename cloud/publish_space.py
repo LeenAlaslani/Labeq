@@ -51,7 +51,8 @@ def main():
             readme += "\nBackend: actual CPU Qwen/Faisal at /reply; optional real ZeroGPU inference at /reply_gpu. CPU transport does not establish reply quality.\n"
         readme += f"\nSource commit {source}.\n"
         (directory / "README.md").write_text(readme)
-        (directory / "requirements.txt").write_bytes(content("requirements.txt") + b"\n" + content("cloud/requirements-zerogpu.txt"))
+        runtime_requirements='cloud/requirements-cpu.txt' if args.backend=='cpu' else 'cloud/requirements-zerogpu.txt'
+        (directory / "requirements.txt").write_bytes(content("requirements.txt") + b"\n" + content(runtime_requirements))
         adapter_manifest = None
         if args.private_adapter:
             for filename in ('adapter_config.json', 'adapter_model.safetensors'):

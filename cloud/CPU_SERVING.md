@@ -32,6 +32,8 @@ python cloud/publish_space.py --space your-account/LABEQ-private-check \
 
 The publisher requires existing free ZeroGPU hardware, checks requested hardware too, and rejects private-weight uploads to public Spaces. It copies an explicit source selection, excluding `.env`, provider keys and training directories. The deployment manifest records the source and file hashes; the running application's health endpoint reports its loaded source, adapter hash and library versions.
 
+The CPU publisher uses [the exact tested model-library versions](requirements-cpu.txt). The observed platform supplied PyTorch 2.13.0, Spaces 0.52.1, Python 3.12.12 and Gradio 6.32.0. The platform controls its managed runtime; record live health versions again if it changes. Optional `LABEQ_REPETITION_PENALTY` defaults to the incumbent's 1.08 and is included in health metadata. Private v3 development uses 1.0 and its recorded policy hash; that configuration does not establish qualification.
+
 Evaluate explicitly selected, already approved development cases:
 
 ```bash
