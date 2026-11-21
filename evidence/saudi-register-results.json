@@ -1,0 +1,160 @@
+{
+  "date_saudi": "2026-11-21",
+  "url": "https://leeennn009-labeq.hf.space/",
+  "source_commit": "4047753d01b913cf1218e7a3f4ef2f4f648d348e",
+  "space_commit": "6187fb437b1afa6a51499c73c992887d4ae5bcf9",
+  "adapter_repo": "leeennn009/LABEQ-Saudi-LoRA-pilot",
+  "adapter_revision": "db2cf3390e5d163a58309df949aef58acb7bbd9a",
+  "before": {
+    "url": "https://leeennn009-labeq.hf.space/",
+    "input": {
+      "message": "عميل زعل لأن طلبه تأخر عن الموعد اللي وعدناه فيه، وأنا أبي أعتذر له وأوضح إني بتابع الموضوع بدون ما أعطيه موعد جديد مو متأكد منه. أبي أحافظ على ثقته وأحل الخلاف بطريقة محترمة.",
+      "relationship": "عميل",
+      "goal": "ننهي الخلاف"
+    },
+    "response": {
+      "reply": "أعتذر عن التأخير، وما أردت أن أعطيكم موعدًا قبل ما يكون واضحًا.",
+      "style_used": "دبلوماسي",
+      "router_source": "faisal",
+      "reply_source": "qwen_lora_generated",
+      "style_key": "diplomatic",
+      "generator": "Qwen3.5-4B + Saudi LoRA pilot (Transformers, bfloat16)",
+      "coaching": {
+        "core": "تأخر العميل عن الموعد المتفق عليه مع عدم وجود تحديث فوري.",
+        "objective": "توضيح متابعة الطلب دون تقديم موعد جديد غير مؤكد.",
+        "strategy": "إرسال إشعار يوضح حالة العمل الحالي ويطلب الصبر حتى توفر تفاصيل دقيقة.",
+        "risk": "الاعتذار عن التأخير نفسه قبل التحقق من السبب الجذري للمشكلة."
+      },
+      "review_status": "model_reviewed",
+      "needs_review": false,
+      "quality_warnings": [],
+      "was_retried": true
+    },
+    "elapsed_seconds": 14.521
+  },
+  "after": {
+    "url": "https://leeennn009-labeq.hf.space/",
+    "input": {
+      "message": "عميل زعل لأن طلبه تأخر عن الموعد اللي وعدناه فيه، وأنا أبي أعتذر له وأوضح إني بتابع الموضوع بدون ما أعطيه موعد جديد مو متأكد منه. أبي أحافظ على ثقته وأحل الخلاف بطريقة محترمة.",
+      "relation": "عميل",
+      "goal": "ننهي الخلاف"
+    },
+    "result": {
+      "reply": "أعتذر عن التأخير، وبأتابع الموضوع، لكن ما أقدر أعطيك موعد قبل ما أتأكد.",
+      "style_used": "دبلوماسي",
+      "router_source": "faisal",
+      "reply_source": "qwen_lora_generated",
+      "style_key": "diplomatic",
+      "generator": "Qwen3.5-4B + Saudi LoRA pilot (Transformers, bfloat16)",
+      "coaching": {
+        "core": "تأخر العميل عن الموعد المتفق عليه مع عدم وجود موعد جديد.",
+        "objective": "توضيح متابعة الطلب دون تقديم موعد غير مؤكد وحفظ الثقة.",
+        "strategy": "الاعتذار بصدق وتأكيد متابعة العمل مع انتظار التحديث القادم.",
+        "risk": "لا فرض موعد جديد قبل التأكد من جاهزية التنفيذ فعلياً."
+      },
+      "review_status": "model_reviewed",
+      "needs_review": false,
+      "quality_warnings": [],
+      "was_retried": false,
+      "draft_before_register_normalization": "أعتذر عن التأخير، وأتابع الموضوع، لكن ما أقدر أعطيك موعد قبل ما أتأكد.",
+      "register_normalization": [
+        "وأتابع → وبأتابع (requested follow-up)"
+      ]
+    }
+  },
+  "additional_checks": [
+    {
+      "input": {
+        "message": "صديقتي فهمت كلامي في القروب على إنه تقليل منها وأنا قصدي أسأل بس. أبي أوضح قصدي ونحل سوء الفهم.",
+        "relation": "friend",
+        "goal": "أوضح قصدي بدون اتهام ونحل سوء الفهم بهدوء"
+      },
+      "result": {
+        "reply": "ما قصدت إني أقلل عليك، بس أبي أسألك سؤال بسيط.",
+        "style_used": "دبلوماسي",
+        "router_source": "faisal",
+        "reply_source": "qwen_lora_generated",
+        "style_key": "diplomatic",
+        "generator": "Qwen3.5-4B + Saudi LoRA pilot (Transformers, bfloat16)",
+        "coaching": {
+          "core": "صديقة اعتقدت سؤالك في القروب هو تقليل عنها بينما قصدت طلب توضيح بسيط.",
+          "objective": "توضيح نيتك الحقيقية كسؤال وليس نقدًا لحل سوء الفهم بلباقة.",
+          "strategy": "راسلها مباشرة لتؤكد أن سؤالك كان لطيفًا ويهدف للتفاهم دون أي قصد سلبي.",
+          "risk": "لا تتهمها بالخطأ أو تفترض أنها غلطية في تفسيرك حتى لا يزداد الأمر سوءًا."
+        },
+        "review_status": "flagged",
+        "needs_review": true,
+        "quality_warnings": [
+          "استخدام \"ما قصدت\" يضع عبئاً على المتلقي ويبدو دفاعياً بدلاً من توضيح واضح."
+        ],
+        "was_retried": false,
+        "draft_before_register_normalization": "ما قصدت إني أقلل عليك، بس أريد أسألك سؤال بسيط.",
+        "register_normalization": [
+          "أريد → أبي"
+        ]
+      }
+    },
+    {
+      "input": {
+        "message": "المشرفة قالت لي أرسلي الملف قريب وما حددت أي نسخة أو الموعد. أبي أسألها عن النسخة والوقت المطلوب.",
+        "relation": "work",
+        "goal": "أطلب توضيح النسخة المطلوبة وموعد التسليم"
+      },
+      "result": {
+        "reply": "ما حددت لي نسخة أو وقت تسليم، ممكن أوضح لي المطلوب؟",
+        "style_used": "طلب توضيح",
+        "router_source": "faisal",
+        "reply_source": "qwen_lora_generated",
+        "style_key": "clarify",
+        "generator": "Qwen3.5-4B + Saudi LoRA pilot (Transformers, bfloat16)",
+        "coaching": {
+          "core": "المشرفة طلبت إرسال ملف دون تحديد النسخة أو الموعد.",
+          "objective": "سؤال المشرفة عن النسخة المطلوبة وموعد التسليم.",
+          "strategy": "كتابة رسالة واضحة تسأل عن التفاصيل المطلوبة من المشرفة.",
+          "risk": "عدم افتراض أن المشرفة نسي الأمر أو أنها تريد التأخير."
+        },
+        "review_status": "model_reviewed",
+        "needs_review": false,
+        "quality_warnings": [],
+        "was_retried": false,
+        "draft_before_register_normalization": "ما حددت لي نسخة أو وقت تسليم، ممكن أوضح لي المطلوب؟",
+        "register_normalization": []
+      }
+    }
+  ],
+  "screenshot": {
+    "file": "screenshots/saudi-customer-result.png",
+    "sha256": "bbba7abf02c42caf4834cef72001a72f25dacbc8aeac623e54fa5f9644eec830"
+  },
+  "independent_human_reviewers": 0,
+  "clarification_guard_check": {
+    "input": {
+      "message": "المشرفة قالت لي أرسلي الملف قريب وما حددت أي نسخة أو الموعد. أبي أسألها عن النسخة والوقت المطلوب.",
+      "relation": "work",
+      "goal": "أطلب توضيح النسخة المطلوبة وموعد التسليم"
+    },
+    "result": {
+      "reply": "ما حددت لي نسخة أو وقت تسليم، ممكن أوضح لي المطلوب؟",
+      "style_used": "طلب توضيح",
+      "router_source": "faisal",
+      "reply_source": "qwen_lora_generated",
+      "style_key": "clarify",
+      "generator": "Qwen3.5-4B + Saudi LoRA pilot (Transformers, bfloat16)",
+      "coaching": {
+        "core": "المشرفة طلبت إرسال ملف دون تحديد النسخة أو الموعد.",
+        "objective": "سؤال المشرفة عن النسخة المطلوبة وموعد التسليم.",
+        "strategy": "كتابة رسالة واضحة تسأل عن التفاصيل المطلوبة من المشرفة.",
+        "risk": "عدم افتراض أن المشرفة نسي الأمر أو أنها تريد التأخير."
+      },
+      "review_status": "flagged",
+      "needs_review": true,
+      "quality_warnings": [
+        "السؤال خلط بين المتحدث والمخاطب؛ اطلب من الطرف الآخر هو يوضح لك المطلوب"
+      ],
+      "was_retried": true,
+      "draft_before_register_normalization": "ما حددت لي نسخة أو وقت تسليم، ممكن أوضح لي المطلوب؟",
+      "register_normalization": []
+    },
+    "source_commit": "523db3cce0c2350eadc510ddf2fbb87dd882c995"
+  }
+}
