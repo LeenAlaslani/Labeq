@@ -25,7 +25,7 @@ def main():
         with page.expect_response(lambda r: r.url.endswith("/api/reply"), timeout=150000) as pending:
             page.locator("#analyzeBtn").click()
         result = pending.value.json()
-        assert result["reply_source"] == "qwen_lora_generated", result
+        assert result["reply_source"] in {"qwen_lora_generated", "qwen_lora_base_edited"}, result
         text = result["reply"]
         # At most one short clip, within the owner's approved 1,000-credit allowance.
         assert 0 < len(text) <= 150, "Reply exceeds the bounded live speech test"

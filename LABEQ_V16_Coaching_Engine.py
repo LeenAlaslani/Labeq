@@ -163,10 +163,23 @@ def reply_v16(self, message, relation="صديق", goal="أبي رد مناسب �
             + "اكتبي نص الرسالة السعودية للطرف الآخر مباشرة. الرسالة فقط."
         )
     def generate(extra="", retry=False):
-        return clean_writing(self._one_generation(
+        draft = clean_writing(self._one_generation(
             [{"role":"system","content":gen_system}] + examples
             + [{"role":"user","content":gen_prompt(extra)}], retry=retry,
         ), modifier)
+        if not getattr(self, "editor_enabled", False):
+            return draft
+        edited = self.edit_reply(
+            [{"role":"system","content":gen_system}] + examples + [{
+                "role":"user", "content": gen_prompt(extra) + "\n"
+                + f"المسودة الأولية: {draft}\n"
+                + "حرر المسودة لتصير سعودية طبيعية وواضحة. صحح أي معنى يخالف الموقف الأصلي، "
+                + "واحفظ كل الطلبات والقيود. لا تضف موعدا أو عذرا أو التزاما. الرسالة النهائية فقط."
+            }]
+        )
+        if not edited.strip():
+            raise RuntimeError("المحرر لم يولد رسالة")
+        return clean_writing(edited, modifier)
     first=generate()
     def check(candidate):
         return list(dict.fromkeys(
@@ -182,8 +195,8 @@ def reply_v16(self, message, relation="صديق", goal="أبي رد مناسب �
             "هل تحافظ على الهدف الأصلي والأسلوب المطلوب دون اختلاق أسباب أو وعود؟ "
             "احكمي على كل طلب وقيد في الموقف، وليس عنوان الهدف فقط. "
             "لا تطلبي وعدا جديدا لم يطلبه الشخص، ولا تعتبري الاعتذار عن خطأ مذكور مشكلة. "
-            "المطلوب سعودية طبيعية حتى في العمل وخدمة العملاء؛ المهنية لا تستلزم الفصحى. "
-            "لا تقبلي صياغة مصرية أو إدارية متكلفة. "
+            "لا تعتبري كلمة بس نقصا في الحزم، ولا تعتبري الاعتذار كلمة غير سعودية بحد ذاتها. "
+            "لا تضيفي شروطا مثل ذكر سبب أو وعد بموعد تعويض إذا لم يطلبها المستخدم. "
             f"طريقة الكتابة المطلوبة: {register}\n"
             "اكتبي سطرين فقط: النتيجة: مناسب أو غير مناسب. "
             "السبب: [سبب محدد في أقل من 15 كلمة].\n"
@@ -212,13 +225,16 @@ def reply_v16(self, message, relation="صديق", goal="أبي رد مناسب �
             pass
     if not first.strip():raise RuntimeError("المودل لم يولد ردًا")
     coach={k:v for k,v in plan.items() if v}
-    return {
+    result = {
         "reply":first.strip(),"style_used":_style_display(style_key),"router_source":router_source,
         "reply_source":"qwen_lora_generated", "style_key":style_key if style_key in {"polite","firm","diplomatic","apology","clarify"} else (selected or "polite"),
         "generator":self.generator if hasattr(self, "generator") else "Qwen3.5-4B + Saudi LoRA",
         "coaching":coach,"review_status":"flagged" if flags else ("model_reviewed" if reviewed else "unverified"),
         "needs_review":bool(flags), "quality_warnings":list(dict.fromkeys(flags)),"was_retried":was_retried,
     }
+    if getattr(self, "editor_enabled", False):
+        result.update(reply_source="qwen_lora_base_edited", editor_model=self.editor_model_id)
+    return result
 
 
 def install(engine=None):

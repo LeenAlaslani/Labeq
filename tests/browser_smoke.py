@@ -54,7 +54,7 @@ def real_flow(page, screenshots):
     assert response.ok, response.text()
     payload = model_response(response)
     assert payload["router_source"] == "faisal", payload
-    assert payload["reply_source"] == "qwen_lora_generated" and not payload["mock"], payload
+    assert payload["reply_source"] in {"qwen_lora_generated", "qwen_lora_base_edited"} and not payload["mock"], payload
     chosen = page.locator("#replyText")
     expect(chosen).to_have_text(payload["reply"])
     capture(page, screenshots, "generated-reply")
@@ -219,7 +219,7 @@ def main():
             with page.expect_response(lambda res: "/model/gradio_api/call/reply/" in res.url or res.url.endswith("/api/reply"), timeout=160000) as pending:
                 page.locator("#analyzeBtn").click()
             payload = model_response(pending.value)
-            assert payload["reply_source"] == "qwen_lora_generated" and payload["router_source"] == "faisal", payload
+            assert payload["reply_source"] in {"qwen_lora_generated", "qwen_lora_base_edited"} and payload["router_source"] == "faisal", payload
             expect(page.locator("#replyText")).to_have_text(payload["reply"])
             assert page.evaluate("document.documentElement.scrollWidth <= innerWidth")
             expect(page.locator("#listenReplyBtn")).to_be_disabled()

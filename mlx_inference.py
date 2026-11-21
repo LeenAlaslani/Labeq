@@ -17,7 +17,7 @@ PEFT_KEY = re.compile(
 
 
 class MlxEngine:
-    def __init__(self, model_path, response_dir, faisal_dir=None, adapter_label="Saudi LoRA"):
+    def __init__(self, model_path, response_dir, faisal_dir=None, adapter_label="Saudi LoRA", editor_path=None):
         import mlx.core as mx
         from mlx_vlm import load
 
@@ -30,6 +30,12 @@ class MlxEngine:
         self.adapters["saudi"] = self._adapter_layers(response_dir)
         self.faisal_ready = False
         self.generator = f"Qwen3.5-4B + {adapter_label} (MLX 4-bit)"
+        self.editor_enabled = bool(editor_path)
+        self.editor_model_id = Path(editor_path).name if editor_path else ""
+        self.editor = load(editor_path) if editor_path else None
+        if self.editor_enabled:
+            self.editor[0].eval()
+            self.generator += "; Qwen language editor (MLX)"
         if faisal_dir:
             try:
                 self.adapters["faisal"] = self._adapter_layers(faisal_dir)
@@ -143,6 +149,17 @@ class MlxEngine:
         return finish_reply(result.text)
 
     def _one_generation(self, messages, retry=False, use_adapter=True):
+        if not use_adapter and self.editor_enabled:
+            return self.edit_reply(messages)
         return self.generate(messages, "saudi" if use_adapter else "base", temperature=0.45 if retry else 0.0)
+
+    def edit_reply(self, messages):
+        from mlx_vlm import generate
+        model, processor = self.editor
+        prompt = processor.tokenizer.apply_chat_template(
+            messages, tokenize=False, add_generation_prompt=True, enable_thinking=False,
+        )
+        result = generate(model, processor, prompt, max_tokens=180, temperature=0.0, verbose=False)
+        return finish_reply(result.text)
 
     reply = reply_v16

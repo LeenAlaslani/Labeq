@@ -20,6 +20,18 @@ class SpaceEngine(LabeqEngine):
         super().__init__(Path(directory), use_faisal=True)
         self.generator = "Qwen3.5-4B + Saudi LoRA pilot (Transformers, bfloat16)"
         self.adapter_revision = revision
+        self.editor_model_id = os.getenv("LABEQ_EDITOR_MODEL", "").strip()
+        self.editor_revision = os.getenv("LABEQ_EDITOR_REVISION", "").strip()
+        self.editor_enabled = bool(self.editor_model_id)
+        self.editor_model = self.editor_processor = None
+        if self.editor_enabled:
+            if not self.editor_revision:
+                raise ValueError("Pin LABEQ_EDITOR_REVISION when enabling the editor")
+            self.editor_directory = snapshot_download(
+                self.editor_model_id, revision=self.editor_revision,
+                allow_patterns=["*.json", "*.jinja", "*.safetensors"],
+            )
+            self.generator += f"; {self.editor_model_id} language editor"
 
     def load(self):
         with self.lock:
@@ -51,3 +63,35 @@ class SpaceEngine(LabeqEngine):
             self.torch, self.model, self.processor = torch, model, tokenizer
             self.faisal_ready = True
             return self
+
+    def _editor_generation(self, messages):
+        # Called only inside the queued GPU allocation. Streaming to CUDA keeps
+        # the second model out of the Space's CPU startup working set.
+        from transformers import AutoModelForImageTextToText, AutoTokenizer
+        if self.editor_model is None:
+            self.editor_processor = AutoTokenizer.from_pretrained(self.editor_directory)
+            self.editor_model = AutoModelForImageTextToText.from_pretrained(
+                self.editor_directory, dtype=self.torch.bfloat16,
+                device_map={"": "cuda"}, attn_implementation="eager",
+            ).eval()
+        tokenizer = self.editor_processor
+        inputs = tokenizer.apply_chat_template(
+            messages, tokenize=True, add_generation_prompt=True, enable_thinking=False,
+            return_dict=True, return_tensors="pt",
+        )
+        inputs = {key: value.to(self.editor_model.device) for key, value in inputs.items()}
+        with self.torch.inference_mode():
+            output = self.editor_model.generate(
+                **inputs, max_new_tokens=180, do_sample=False, repetition_penalty=1.08,
+                pad_token_id=tokenizer.pad_token_id or tokenizer.eos_token_id,
+            )
+        from labeq_engine import finish_reply
+        return finish_reply(tokenizer.decode(output[0, inputs["input_ids"].shape[-1]:], skip_special_tokens=True))
+
+    def _one_generation(self, messages, retry=False, use_adapter=True):
+        if not use_adapter and self.editor_enabled:
+            return self._editor_generation(messages)
+        return super()._one_generation(messages, retry=retry, use_adapter=use_adapter)
+
+    def edit_reply(self, messages):
+        return self._editor_generation(messages)

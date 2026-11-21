@@ -313,7 +313,8 @@ function renderResult(){
   $('styleChoices').hidden=true;$('changeStyleBtn').setAttribute('aria-expanded','false');$('nav3').classList.add('active');setContextMood();
   if(!state.mock){
     const who=state.routerSource==='faisal'?'الأسلوب اقترحه فيصل':state.routerSource==='rule_fallback'?'الأسلوب حددته قواعد احتياطية':state.routerSource==='user_selected'?'الأسلوب اخترتيه بنفسك':'مصدر الأسلوب غير محدد';
-    $('confidenceNote').textContent=who+' · الرد من Qwen + LoRA · راجعي المعنى قبل الإرسال'+(state.needsReview?' · رُصدت ملاحظة جودة':'');
+    const source=state.replySource==='qwen_lora_base_edited'?'الرد من Qwen + LoRA بتحرير لغوي':'الرد من Qwen + LoRA';
+    $('confidenceNote').textContent=who+' · '+source+' · راجعي المعنى قبل الإرسال'+(state.needsReview?' · رُصدت ملاحظة جودة':'');
   }else{
     $('confidenceNote').textContent='هذه صياغة تجريبية وليست نتيجة مودل.';
   }

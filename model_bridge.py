@@ -6,6 +6,7 @@ import httpx
 from fastapi import HTTPException
 
 ALLOWED_KEYS = {"polite", "firm", "diplomatic", "apology", "clarify"}
+GENERATED_REPLY_SOURCES = {"qwen_lora_generated", "qwen_lora_base_edited"}
 STYLE_AR = {
     "polite": "لطيف", "firm": "حازم", "diplomatic": "دبلوماسي",
     "apology": "اعتذار", "clarify": "طلب توضيح",
@@ -100,7 +101,7 @@ async def remote_reply(payload: dict) -> dict:
     if not isinstance(reply, str) or not reply.strip():
         raise HTTPException(502, "المودل لم يُرجع نص رد صالحًا.")
     source = data.get("reply_source", "unknown")
-    if source != "qwen_lora_generated":
+    if source not in GENERATED_REPLY_SOURCES:
         # Explicitly reject curated responses in real-only UI mode.
         raise HTTPException(502, "المودل لم يرجع رد Qwen LoRA مولّدًا.")
     key = data.get("style_key")
@@ -118,6 +119,7 @@ async def remote_reply(payload: dict) -> dict:
         "review_status": data.get("review_status", "unverified"),
         "style_used": data.get("style_used") or "غير محدد",
         "router_source": router, "reply_source": source,
+        "editor_model": data.get("editor_model"),
         "needs_review": bool(data.get("needs_review", False)),
         "quality_warnings": [item[:180] for item in warnings if isinstance(item, str)][:5]
         if isinstance(warnings, list) else [],
