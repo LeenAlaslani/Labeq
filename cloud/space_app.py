@@ -1,5 +1,6 @@
 """Serve V16 unchanged at / with queued Gradio callbacks on ZeroGPU."""
 import os
+import json
 from pathlib import Path
 import sys
 
@@ -58,6 +59,8 @@ def create_app(engine, gpu_decorator, *, gpu_engine=None, max_queue_size=8):
             gr.Button('Accelerated model API',visible=False).click(accelerated,inputs=request,outputs=response,
                 api_name='reply_gpu',concurrency_limit=1)
     model_api.queue(max_size=max_queue_size, default_concurrency_limit=1)
+    manifest_path=ROOT/'source-manifest.json'
+    manifest=json.loads(manifest_path.read_text()) if manifest_path.exists() else {}
     app.state.gradio_model = {
         "model_loaded": engine.model is not None,
         "faisal_loaded": engine.faisal_ready,
@@ -67,6 +70,7 @@ def create_app(engine, gpu_decorator, *, gpu_engine=None, max_queue_size=8):
         "compute_backend":getattr(engine,"compute_backend",None),
         "adapter_sha256":getattr(engine,"adapter_sha256",None),
         "environment_versions":getattr(engine,"environment_versions",None),
+        "source_commit":manifest.get('source_commit'),
     }
     # The existing FastAPI HTML is the frontend; Gradio only supplies its queue.
     return gr.mount_gradio_app(app, model_api, path="/model", ssr_mode=False)
