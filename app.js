@@ -8,7 +8,7 @@ const state = {
   hasResult:false, editingScenario:true, mock:true, confidence:null, started:false,
   voiceOn:true, currentSpeech:'', speechId:0, audio:null, recording:false,
   recognition:null, recorder:null, audioCtx:null, analyzeBusy:false,
-  modelReply:'', modelStyleUsed:'', routerSource:'', replySource:'', needsReview:false, qualityWarnings:[], variantBusy:false, version:0, comparison:null, coaching:{}, reviewStatus:'unverified'
+  modelReply:'', modelGenerator:'', modelStyleUsed:'', routerSource:'', replySource:'', needsReview:false, qualityWarnings:[], variantBusy:false, version:0, comparison:null, coaching:{}, reviewStatus:'unverified'
 };
 let capabilities={tts:false,stt:false,model_mode:'demo',voice_name:''};
 let modelHealth={configured:null,reachable:null,model_loaded:null,faisal_loaded:null};
@@ -313,7 +313,8 @@ function renderResult(){
   $('styleChoices').hidden=true;$('changeStyleBtn').setAttribute('aria-expanded','false');$('nav3').classList.add('active');setContextMood();
   if(!state.mock){
     const who=state.routerSource==='faisal'?'الأسلوب اقترحه فيصل':state.routerSource==='rule_fallback'?'الأسلوب حددته قواعد احتياطية':state.routerSource==='user_selected'?'الأسلوب اخترتيه بنفسك':'مصدر الأسلوب غير محدد';
-    $('confidenceNote').textContent=who+' · الرد من Qwen + LoRA · راجعي المعنى قبل الإرسال'+(state.needsReview?' · رُصدت ملاحظة جودة':'');
+    const writer=state.replySource==='qwen_lora_generated'?'Qwen + LoRA':(state.modelGenerator.split('(')[0].trim()||'نموذج اللغة');
+    $('confidenceNote').textContent=who+' · الرد من '+writer+' · راجعي المعنى قبل الإرسال'+(state.needsReview?' · رُصدت ملاحظة جودة':'');
   }else{
     $('confidenceNote').textContent='هذه صياغة تجريبية وليست نتيجة مودل.';
   }
@@ -337,7 +338,7 @@ async function requestActualReply({styleKey=null,tone=state.tone,instruction=nul
   return body;
 }
 function useRealReply(data,styleFallback=null){
-  state.modelReply=data.reply; state.modelStyleUsed=data.style_used||'';
+  state.modelReply=data.reply; state.modelGenerator=typeof data.generator==='string'?data.generator:''; state.modelStyleUsed=data.style_used||'';
   state.routerSource=data.router_source||'unknown';state.replySource=data.reply_source||'unknown';
   state.needsReview=!!data.needs_review;state.qualityWarnings=data.quality_warnings||[];
   state.coaching=data.coaching||{};state.reviewStatus=data.review_status||'unverified';

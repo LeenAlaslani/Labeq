@@ -1,0 +1,1851 @@
+{
+  "reviewer": "Assistant assessment, not independent human review",
+  "assessed_at_utc": "2026-11-21T15:24:22.377755+00:00",
+  "blind_input_sha256": "17d1a0f4bba4eaf991c3868ff17bdca4265575aef6ea702f2b8140dce80ccdb6",
+  "strict_rule": "All three meaning requirements met, no unsupported assertion, correct roles/gender, and Saudi text ready to send without factual or grammatical repair. Minor orthographic variants alone do not fail.",
+  "results": [
+    {
+      "candidate": "H01-1",
+      "case": {
+        "id": "H01",
+        "family": "poem_publication",
+        "relation": "صديق",
+        "goal": "أرفض النشر وأحافظ على العلاقة",
+        "message": "خويي يبي ينشر قصيدتي بحسابه ويكتب اسمي، وأنا ما أبي القصيدة تننشر لا باسمي ولا بدونه. أبي أشكره على إعجابه وأرفض النشر كله بدون ما أخليه يحس إني أتهمه.",
+        "requirements": [
+          "شكر على الإعجاب",
+          "رفض نشر القصيدة حتى بدون اسم",
+          "عدم اتهام الصديق أو إعطاء إذن بديل"
+        ]
+      },
+      "reply": "شكرًا على ما أعجبني، بس ما أريد النشر على حسابك.",
+      "assessment": {
+        "requirement_status": [
+          "missing",
+          "met",
+          "met"
+        ],
+        "unsupported": [],
+        "roles_correct": true,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "Thanks for what pleased me reverses the source of the admiration; stiff wording."
+      }
+    },
+    {
+      "candidate": "H01-2",
+      "case": {
+        "id": "H01",
+        "family": "poem_publication",
+        "relation": "صديق",
+        "goal": "أرفض النشر وأحافظ على العلاقة",
+        "message": "خويي يبي ينشر قصيدتي بحسابه ويكتب اسمي، وأنا ما أبي القصيدة تننشر لا باسمي ولا بدونه. أبي أشكره على إعجابه وأرفض النشر كله بدون ما أخليه يحس إني أتهمه.",
+        "requirements": [
+          "شكر على الإعجاب",
+          "رفض نشر القصيدة حتى بدون اسم",
+          "عدم اتهام الصديق أو إعطاء إذن بديل"
+        ]
+      },
+      "reply": "شكرًا على إعجابك بالقصيدة، بس ما أبيها تننشر بحسابك ولا باسمي. إذا ما تنشرها، ما بأس.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "met",
+          "met"
+        ],
+        "unsupported": [],
+        "roles_correct": true,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "All publication rejected, but redundant if you do not publish, no problem is awkward and unclear."
+      }
+    },
+    {
+      "candidate": "H01-3",
+      "case": {
+        "id": "H01",
+        "family": "poem_publication",
+        "relation": "صديق",
+        "goal": "أرفض النشر وأحافظ على العلاقة",
+        "message": "خويي يبي ينشر قصيدتي بحسابه ويكتب اسمي، وأنا ما أبي القصيدة تننشر لا باسمي ولا بدونه. أبي أشكره على إعجابه وأرفض النشر كله بدون ما أخليه يحس إني أتهمه.",
+        "requirements": [
+          "شكر على الإعجاب",
+          "رفض نشر القصيدة حتى بدون اسم",
+          "عدم اتهام الصديق أو إعطاء إذن بديل"
+        ]
+      },
+      "reply": "يا خويي، ودي أشكرك على ما فيك من إعجاب بالقصيدة، لكن ما أقدر أوافقك على النشر في حسابك، سواء بدونه أو باسمي، لأنني ما أريدها تنشر على حسابك.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "met",
+          "met"
+        ],
+        "unsupported": [],
+        "roles_correct": true,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "Meaning mostly retained; ما فيك من إعجاب and سواء بدونه أو باسمي need rewriting."
+      }
+    },
+    {
+      "candidate": "H01-4",
+      "case": {
+        "id": "H01",
+        "family": "poem_publication",
+        "relation": "صديق",
+        "goal": "أرفض النشر وأحافظ على العلاقة",
+        "message": "خويي يبي ينشر قصيدتي بحسابه ويكتب اسمي، وأنا ما أبي القصيدة تننشر لا باسمي ولا بدونه. أبي أشكره على إعجابه وأرفض النشر كله بدون ما أخليه يحس إني أتهمه.",
+        "requirements": [
+          "شكر على الإعجاب",
+          "رفض نشر القصيدة حتى بدون اسم",
+          "عدم اتهام الصديق أو إعطاء إذن بديل"
+        ]
+      },
+      "reply": "أشكرك على قصيدتك، بس ما أبي تنزل على حسابك.",
+      "assessment": {
+        "requirement_status": [
+          "contradicted",
+          "met",
+          "met"
+        ],
+        "unsupported": [],
+        "roles_correct": false,
+        "sendable_saudi": true,
+        "strict_pass": false,
+        "note": "Thanks for YOUR poem reverses the ownership/admiration."
+      }
+    },
+    {
+      "candidate": "H02-1",
+      "case": {
+        "id": "H02",
+        "family": "research_identity",
+        "relation": "جامعة",
+        "goal": "أطلب تصحيح النسبة بدون تصعيد",
+        "message": "في ملخص بحثنا انكتب اسم زميلي على جزء أنا سويته. ما أدري إذا صار بالغلط. أبي أطلب تصحيح نسبة الجزء لي وأوضح إني مقدر شغله هو، بدون ما أتهمه إنه تعمد.",
+        "requirements": [
+          "طلب نسبة الجزء لصاحبه",
+          "تقدير عمل الزميل",
+          "لا اتهام بالتعمد"
+        ]
+      },
+      "reply": "ممكن توضحون كم نسبة الجزء اللي سويته؟ أبي أعدل النسبة في الملخص إذا صار بالغلط.",
+      "assessment": {
+        "requirement_status": [
+          "contradicted",
+          "missing",
+          "met"
+        ],
+        "unsupported": [],
+        "roles_correct": true,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "Asks for a percentage rather than correcting attribution; appreciation absent."
+      }
+    },
+    {
+      "candidate": "H02-2",
+      "case": {
+        "id": "H02",
+        "family": "research_identity",
+        "relation": "جامعة",
+        "goal": "أطلب تصحيح النسبة بدون تصعيد",
+        "message": "في ملخص بحثنا انكتب اسم زميلي على جزء أنا سويته. ما أدري إذا صار بالغلط. أبي أطلب تصحيح نسبة الجزء لي وأوضح إني مقدر شغله هو، بدون ما أتهمه إنه تعمد.",
+        "requirements": [
+          "طلب نسبة الجزء لصاحبه",
+          "تقدير عمل الزميل",
+          "لا اتهام بالتعمد"
+        ]
+      },
+      "reply": "أهلاً بك يا بطل، ودي.\nأنا ما أقدر شغلك، بس في ملخص بحثنا ما أدري إذا صار بالغلط.\nأبي أطلب تصحيح نسبة الجزء لي وأوضح إني مقدر شغله هو، بدون ما أتهمه إنه تعمد.\nأعطيك خبر.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "contradicted",
+          "met"
+        ],
+        "unsupported": [
+          "أعطيك خبر"
+        ],
+        "roles_correct": false,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "Negates appreciation, copies instructions and uses third-person role narration."
+      }
+    },
+    {
+      "candidate": "H02-3",
+      "case": {
+        "id": "H02",
+        "family": "research_identity",
+        "relation": "جامعة",
+        "goal": "أطلب تصحيح النسبة بدون تصعيد",
+        "message": "في ملخص بحثنا انكتب اسم زميلي على جزء أنا سويته. ما أدري إذا صار بالغلط. أبي أطلب تصحيح نسبة الجزء لي وأوضح إني مقدر شغله هو، بدون ما أتهمه إنه تعمد.",
+        "requirements": [
+          "طلب نسبة الجزء لصاحبه",
+          "تقدير عمل الزميل",
+          "لا اتهام بالتعمد"
+        ]
+      },
+      "reply": "يا جماعة، الجزء اللي أنا سويته فيه اسمك، ممكن نراجع النسبة؟",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "missing",
+          "met"
+        ],
+        "unsupported": [],
+        "roles_correct": true,
+        "sendable_saudi": true,
+        "strict_pass": false,
+        "note": "Requests attribution review, but omits appreciation of the colleague."
+      }
+    },
+    {
+      "candidate": "H02-4",
+      "case": {
+        "id": "H02",
+        "family": "research_identity",
+        "relation": "جامعة",
+        "goal": "أطلب تصحيح النسبة بدون تصعيد",
+        "message": "في ملخص بحثنا انكتب اسم زميلي على جزء أنا سويته. ما أدري إذا صار بالغلط. أبي أطلب تصحيح نسبة الجزء لي وأوضح إني مقدر شغله هو، بدون ما أتهمه إنه تعمد.",
+        "requirements": [
+          "طلب نسبة الجزء لصاحبه",
+          "تقدير عمل الزميل",
+          "لا اتهام بالتعمد"
+        ]
+      },
+      "reply": "أقدّر أراجع ما في خلل في توزيع الأسماء، وأخبرك إنني ما أقدر أشوف ما هو جزء مني.",
+      "assessment": {
+        "requirement_status": [
+          "missing",
+          "missing",
+          "met"
+        ],
+        "unsupported": [],
+        "roles_correct": true,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "Incoherent; neither attribution correction nor appreciation conveyed."
+      }
+    },
+    {
+      "candidate": "H03-1",
+      "case": {
+        "id": "H03",
+        "family": "hiking_plan",
+        "relation": "صديق",
+        "goal": "أوضح قراري بدون تغيير قرار غيري",
+        "message": "ربعي ناوين طلعة جبل وأنا قررت ما أشارك هالمرة. أبي أتمنى لهم الوناسة وأوضح إنهم ما يحتاجون يلغون عشاني. ما أبي أخترع عذر ولا أوعد أطلع معهم المرة الجاية.",
+        "requirements": [
+          "عدم المشاركة هذه المرة",
+          "لا حاجة لإلغاء الطلعة",
+          "تمنيات طيبة بلا عذر مختلق أو وعد لاحق"
+        ]
+      },
+      "reply": "أحب أطلع معكم، بس ما يناسبني هالمرة. الله يوفقكم.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "missing",
+          "met"
+        ],
+        "unsupported": [
+          "أحب أطلع معكم"
+        ],
+        "roles_correct": true,
+        "sendable_saudi": true,
+        "strict_pass": false,
+        "note": "Omits no need to cancel; adds an unstated desire to join."
+      }
+    },
+    {
+      "candidate": "H03-2",
+      "case": {
+        "id": "H03",
+        "family": "hiking_plan",
+        "relation": "صديق",
+        "goal": "أوضح قراري بدون تغيير قرار غيري",
+        "message": "ربعي ناوين طلعة جبل وأنا قررت ما أشارك هالمرة. أبي أتمنى لهم الوناسة وأوضح إنهم ما يحتاجون يلغون عشاني. ما أبي أخترع عذر ولا أوعد أطلع معهم المرة الجاية.",
+        "requirements": [
+          "عدم المشاركة هذه المرة",
+          "لا حاجة لإلغاء الطلعة",
+          "تمنيات طيبة بلا عذر مختلق أو وعد لاحق"
+        ]
+      },
+      "reply": "أشكركم على الدعوة، لكن ما أقدّر أشارككم هالمرة.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "missing",
+          "missing"
+        ],
+        "unsupported": [],
+        "roles_correct": true,
+        "sendable_saudi": true,
+        "strict_pass": false,
+        "note": "No reassurance to continue without speaker or good wishes."
+      }
+    },
+    {
+      "candidate": "H03-3",
+      "case": {
+        "id": "H03",
+        "family": "hiking_plan",
+        "relation": "صديق",
+        "goal": "أوضح قراري بدون تغيير قرار غيري",
+        "message": "ربعي ناوين طلعة جبل وأنا قررت ما أشارك هالمرة. أبي أتمنى لهم الوناسة وأوضح إنهم ما يحتاجون يلغون عشاني. ما أبي أخترع عذر ولا أوعد أطلع معهم المرة الجاية.",
+        "requirements": [
+          "عدم المشاركة هذه المرة",
+          "لا حاجة لإلغاء الطلعة",
+          "تمنيات طيبة بلا عذر مختلق أو وعد لاحق"
+        ]
+      },
+      "reply": "أتمنى لكم رحلة جميلة، وقررت ما أشارككم هالمرة. أبيك توضحون إنكم ما تحتاجين تلغين عشاني، وقراري واضح.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "met",
+          "met"
+        ],
+        "unsupported": [],
+        "roles_correct": false,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "Asks recipient to explain, and plural/singular feminine addressee switches."
+      }
+    },
+    {
+      "candidate": "H03-4",
+      "case": {
+        "id": "H03",
+        "family": "hiking_plan",
+        "relation": "صديق",
+        "goal": "أوضح قراري بدون تغيير قرار غيري",
+        "message": "ربعي ناوين طلعة جبل وأنا قررت ما أشارك هالمرة. أبي أتمنى لهم الوناسة وأوضح إنهم ما يحتاجون يلغون عشاني. ما أبي أخترع عذر ولا أوعد أطلع معهم المرة الجاية.",
+        "requirements": [
+          "عدم المشاركة هذه المرة",
+          "لا حاجة لإلغاء الطلعة",
+          "تمنيات طيبة بلا عذر مختلق أو وعد لاحق"
+        ]
+      },
+      "reply": "وعدك، ما أقدر أشارككم هالمرة، ودي.\nأتمنى لكم رحلة موفقة وواحة، وواضح إنكم ما تحتاجين إلغاشني.\nما أقدر أختراع عذر ولا أوعدكم أطلع معكم المرة الجاية.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "contradicted",
+          "met"
+        ],
+        "unsupported": [
+          "وعدك"
+        ],
+        "roles_correct": false,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "Garbled wording and role/gender errors; instruction leakage."
+      }
+    },
+    {
+      "candidate": "H04-1",
+      "case": {
+        "id": "H04",
+        "family": "reading_group",
+        "relation": "صديق",
+        "goal": "أنسحب من دور وأبقى مشاركة",
+        "message": "أنا منسقة نادي القراءة وصار التنسيق ما يناسبني. أبي أترك مسؤولية التنسيق بس أبقى أحضر النقاشات، وأشكرهم على ثقتهم فيني. ما أبي الرسالة تنفهم إني طالعة من النادي كله.",
+        "requirements": [
+          "ترك التنسيق فقط",
+          "البقاء في النقاشات",
+          "شكر الثقة"
+        ]
+      },
+      "reply": "يا ريت، ما أقدر، مو متأكد، بأتابع، أعطيك خبر.\n\nيا ريت، ما أقدر، مو متأكد، بأتابع، أعطيك خبر.\n\nيا ريت، ما أقدر، مو متأكد، بأتابع، أعطيك خبر.\n\nيا ريت، ما أقدر، مو متأكد، بأتابع، أعطيك خبر.\n\nيا ريت، ما أقدر، مو متأكد، بأتابع، أعطيك خبر.\n\nيا ريت، ما أقدر، مو متأكد، بأتابع، أعطيك خبر.\n\nيا ريت، ما أقدر، مو متأكد، بأتابع، أعطيك خبر.\n\nيا ريت، ما أقدر، مو متأكد، بأتابع، أعطيك خبر.\n\nيا ريت، ما أقدر، مو متأكد، بأتابع، أعطيك خبر.\n\nيا ريت، ما أقدر، مو متأكد، بأتابع، أعطيك خبر.\n\nيا ريت، ما أقدر، مو متأكد، بأتابع، أعطيك خبر.\n\nيا ريت، ما أقدر، مو متأكد، بأتابع، أعطيك خبر.\n\nيا ريت،",
+      "assessment": {
+        "requirement_status": [
+          "missing",
+          "missing",
+          "missing"
+        ],
+        "unsupported": [
+          "بأتابع",
+          "أعطيك خبر"
+        ],
+        "roles_correct": true,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "Repeated unrelated vocabulary; no requested meaning."
+      }
+    },
+    {
+      "candidate": "H04-2",
+      "case": {
+        "id": "H04",
+        "family": "reading_group",
+        "relation": "صديق",
+        "goal": "أنسحب من دور وأبقى مشاركة",
+        "message": "أنا منسقة نادي القراءة وصار التنسيق ما يناسبني. أبي أترك مسؤولية التنسيق بس أبقى أحضر النقاشات، وأشكرهم على ثقتهم فيني. ما أبي الرسالة تنفهم إني طالعة من النادي كله.",
+        "requirements": [
+          "ترك التنسيق فقط",
+          "البقاء في النقاشات",
+          "شكر الثقة"
+        ]
+      },
+      "reply": "أشكركم على الثقة بي، وأحب أشارككم في النقاشات بس، وأترك التنسيق.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "met",
+          "met"
+        ],
+        "unsupported": [],
+        "roles_correct": true,
+        "sendable_saudi": true,
+        "strict_pass": true,
+        "note": "Leaves coordination only, stays in discussions and thanks their trust."
+      }
+    },
+    {
+      "candidate": "H04-3",
+      "case": {
+        "id": "H04",
+        "family": "reading_group",
+        "relation": "صديق",
+        "goal": "أنسحب من دور وأبقى مشاركة",
+        "message": "أنا منسقة نادي القراءة وصار التنسيق ما يناسبني. أبي أترك مسؤولية التنسيق بس أبقى أحضر النقاشات، وأشكرهم على ثقتهم فيني. ما أبي الرسالة تنفهم إني طالعة من النادي كله.",
+        "requirements": [
+          "ترك التنسيق فقط",
+          "البقاء في النقاشات",
+          "شكر الثقة"
+        ]
+      },
+      "reply": "شكرًا على الثقة، بس ما أقدر ألتزم بالتنسيق. ودي أبقى أحضر للنقاشات.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "met",
+          "met"
+        ],
+        "unsupported": [],
+        "roles_correct": true,
+        "sendable_saudi": true,
+        "strict_pass": true,
+        "note": "All three acts retained in sendable Saudi text."
+      }
+    },
+    {
+      "candidate": "H04-4",
+      "case": {
+        "id": "H04",
+        "family": "reading_group",
+        "relation": "صديق",
+        "goal": "أنسحب من دور وأبقى مشاركة",
+        "message": "أنا منسقة نادي القراءة وصار التنسيق ما يناسبني. أبي أترك مسؤولية التنسيق بس أبقى أحضر النقاشات، وأشكرهم على ثقتهم فيني. ما أبي الرسالة تنفهم إني طالعة من النادي كله.",
+        "requirements": [
+          "ترك التنسيق فقط",
+          "البقاء في النقاشات",
+          "شكر الثقة"
+        ]
+      },
+      "reply": "شكرًا على ثقتكم فيني، بس دور التنسيق ما يناسبني حاليًا. أبي أبقى أحضر النقاشات، ويا ليت تنسقون معكم.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "met",
+          "met"
+        ],
+        "unsupported": [],
+        "roles_correct": true,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "Final ويا ليت تنسقون معكم is malformed and adds an unclear request."
+      }
+    },
+    {
+      "candidate": "H05-1",
+      "case": {
+        "id": "H05",
+        "family": "shared_subscription",
+        "relation": "صديق",
+        "goal": "أطلب تعديل الاتفاق",
+        "message": "أنا أدفع الاشتراك المشترك وخويي يتأخر يحول حصته كل شهر. أبي أوضح إن هالطريقة ما تناسبني وأطلب كل واحد يدفع حصته قبل التجديد، بدون ما أحمله مبالغ إضافية أو أحدد له تاريخ من عندي.",
+        "requirements": [
+          "المشكلة متكررة وليست هذا الشهر فقط",
+          "دفع الحصة قبل التجديد",
+          "لا مبالغ أو تاريخ مخترع"
+        ]
+      },
+      "reply": "ممكن كل واحد يدفع حصته قبل التجديد؟ هالطريقة ما تناسبني، وودي كل واحد يتحمل حصته قبل ما يتأخر.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "met",
+          "met"
+        ],
+        "unsupported": [],
+        "roles_correct": true,
+        "sendable_saudi": true,
+        "strict_pass": true,
+        "note": "Standing payment method change and dissatisfaction conveyed without date or fee."
+      }
+    },
+    {
+      "candidate": "H05-2",
+      "case": {
+        "id": "H05",
+        "family": "shared_subscription",
+        "relation": "صديق",
+        "goal": "أطلب تعديل الاتفاق",
+        "message": "أنا أدفع الاشتراك المشترك وخويي يتأخر يحول حصته كل شهر. أبي أوضح إن هالطريقة ما تناسبني وأطلب كل واحد يدفع حصته قبل التجديد، بدون ما أحمله مبالغ إضافية أو أحدد له تاريخ من عندي.",
+        "requirements": [
+          "المشكلة متكررة وليست هذا الشهر فقط",
+          "دفع الحصة قبل التجديد",
+          "لا مبالغ أو تاريخ مخترع"
+        ]
+      },
+      "reply": "أحب أعدل طريقة الدفع، كل واحد يدفع حصته قبل التجديد، وأريد ما أتحمل مبالغ إضافية أو أحدد له تاريخ من عندي.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "met",
+          "met"
+        ],
+        "unsupported": [],
+        "roles_correct": true,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "Copies prohibition into message and refers to recipient in third person."
+      }
+    },
+    {
+      "candidate": "H05-3",
+      "case": {
+        "id": "H05",
+        "family": "shared_subscription",
+        "relation": "صديق",
+        "goal": "أطلب تعديل الاتفاق",
+        "message": "أنا أدفع الاشتراك المشترك وخويي يتأخر يحول حصته كل شهر. أبي أوضح إن هالطريقة ما تناسبني وأطلب كل واحد يدفع حصته قبل التجديد، بدون ما أحمله مبالغ إضافية أو أحدد له تاريخ من عندي.",
+        "requirements": [
+          "المشكلة متكررة وليست هذا الشهر فقط",
+          "دفع الحصة قبل التجديد",
+          "لا مبالغ أو تاريخ مخترع"
+        ]
+      },
+      "reply": "أبي نعدل الطريقة، كل واحد يدفع حصته قبل التجديد.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "met",
+          "met"
+        ],
+        "unsupported": [],
+        "roles_correct": true,
+        "sendable_saudi": true,
+        "strict_pass": true,
+        "note": "Request to change the standing method before each renewal conveys dissatisfaction concisely."
+      }
+    },
+    {
+      "candidate": "H05-4",
+      "case": {
+        "id": "H05",
+        "family": "shared_subscription",
+        "relation": "صديق",
+        "goal": "أطلب تعديل الاتفاق",
+        "message": "أنا أدفع الاشتراك المشترك وخويي يتأخر يحول حصته كل شهر. أبي أوضح إن هالطريقة ما تناسبني وأطلب كل واحد يدفع حصته قبل التجديد، بدون ما أحمله مبالغ إضافية أو أحدد له تاريخ من عندي.",
+        "requirements": [
+          "المشكلة متكررة وليست هذا الشهر فقط",
+          "دفع الحصة قبل التجديد",
+          "لا مبالغ أو تاريخ مخترع"
+        ]
+      },
+      "reply": "وعدك، ما أقدر، مو متأكد، بأتابع، أعطيك خبر.\n\nيا خوي، الوعد اللي عندك، الطريقة اللي بتدفع فيها كل واحد حصته قبل التجديد، ما تناسبني، بس أطلب كل واحد يدفع حصته قبل التجديد، بدون ما أحمله مبالغ إضافية أو أحدد له تاريخ من عندي.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "met",
+          "met"
+        ],
+        "unsupported": [
+          "وعدك",
+          "بأتابع",
+          "أعطيك خبر"
+        ],
+        "roles_correct": true,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "Unrelated stock promises and copied instructions."
+      }
+    },
+    {
+      "candidate": "H06-1",
+      "case": {
+        "id": "H06",
+        "family": "plants_care",
+        "relation": "جار",
+        "goal": "أوضح قدرتي بدون وعد زائد",
+        "message": "جاري طلب أسقي زرعه وهو مسافر أسبوع. أقدر أسقيه يومين بس، وما عندي أحد أوصيه على باقي الأيام. أبي أوضح حدود مساعدتي وأخليه يرتب الباقي بنفسه، بدون ما أرفض اليومين أو أوعد ألقى بديل.",
+        "requirements": [
+          "الموافقة على يومين فقط",
+          "الجار يرتب باقي الأسبوع",
+          "لا رفض كامل أو وعد بإيجاد بديل"
+        ]
+      },
+      "reply": "يا ربي يوفقك، ودي أسقيك يومين بس، والباقي ما عندي أحد أوصيه عليه.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "missing",
+          "met"
+        ],
+        "unsupported": [],
+        "roles_correct": false,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "Says water YOU; no request for neighbor to arrange remaining days."
+      }
+    },
+    {
+      "candidate": "H06-2",
+      "case": {
+        "id": "H06",
+        "family": "plants_care",
+        "relation": "جار",
+        "goal": "أوضح قدرتي بدون وعد زائد",
+        "message": "جاري طلب أسقي زرعه وهو مسافر أسبوع. أقدر أسقيه يومين بس، وما عندي أحد أوصيه على باقي الأيام. أبي أوضح حدود مساعدتي وأخليه يرتب الباقي بنفسه، بدون ما أرفض اليومين أو أوعد ألقى بديل.",
+        "requirements": [
+          "الموافقة على يومين فقط",
+          "الجار يرتب باقي الأسبوع",
+          "لا رفض كامل أو وعد بإيجاد بديل"
+        ]
+      },
+      "reply": "أقدّر أسقيك يومين، والباقي ما عندي من يوصي، وأرجو ترتب الباقي بنفسك.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "met",
+          "met"
+        ],
+        "unsupported": [],
+        "roles_correct": false,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "Water YOU rather than plants; ما عندي من يوصي is malformed."
+      }
+    },
+    {
+      "candidate": "H06-3",
+      "case": {
+        "id": "H06",
+        "family": "plants_care",
+        "relation": "جار",
+        "goal": "أوضح قدرتي بدون وعد زائد",
+        "message": "جاري طلب أسقي زرعه وهو مسافر أسبوع. أقدر أسقيه يومين بس، وما عندي أحد أوصيه على باقي الأيام. أبي أوضح حدود مساعدتي وأخليه يرتب الباقي بنفسه، بدون ما أرفض اليومين أو أوعد ألقى بديل.",
+        "requirements": [
+          "الموافقة على يومين فقط",
+          "الجار يرتب باقي الأسبوع",
+          "لا رفض كامل أو وعد بإيجاد بديل"
+        ]
+      },
+      "reply": "أقدر أسقيه يومين، بس باقي الأيام ما عندي أحد أوصيه. إذا هالوقت مناسب لك، ممكن ترتب الباقي بنفسك؟",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "met",
+          "met"
+        ],
+        "unsupported": [],
+        "roles_correct": true,
+        "sendable_saudi": true,
+        "strict_pass": true,
+        "note": "Two days only and neighbor arranging the rest; no invented alternative."
+      }
+    },
+    {
+      "candidate": "H06-4",
+      "case": {
+        "id": "H06",
+        "family": "plants_care",
+        "relation": "جار",
+        "goal": "أوضح قدرتي بدون وعد زائد",
+        "message": "جاري طلب أسقي زرعه وهو مسافر أسبوع. أقدر أسقيه يومين بس، وما عندي أحد أوصيه على باقي الأيام. أبي أوضح حدود مساعدتي وأخليه يرتب الباقي بنفسه، بدون ما أرفض اليومين أو أوعد ألقى بديل.",
+        "requirements": [
+          "الموافقة على يومين فقط",
+          "الجار يرتب باقي الأسبوع",
+          "لا رفض كامل أو وعد بإيجاد بديل"
+        ]
+      },
+      "reply": "ودي أساعدك، بس أقدر أسقيه يومين وما عندي أحد أوصيه.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "missing",
+          "met"
+        ],
+        "unsupported": [],
+        "roles_correct": true,
+        "sendable_saudi": true,
+        "strict_pass": false,
+        "note": "Two-day offer retained, but neighbor arranging the rest not expressed."
+      }
+    },
+    {
+      "candidate": "H07-1",
+      "case": {
+        "id": "H07",
+        "family": "photography_retake",
+        "relation": "عميل",
+        "goal": "أعترف بالخطأ بدون تبرير",
+        "message": "أنا مصورة وحذفت صور جلسة العميل بالغلط. أبي أعتذر عن خطئي وأوضح إني فاهمة إن الصور مهمة له. ما عندي حل مؤكد للحين، فما أبي أوعد أرجعها ولا أطلب منه يتفهم ضغطي.",
+        "requirements": [
+          "اعتذار عن حذف الصور ومسؤولية شخصية",
+          "اعتراف بأهمية الصور",
+          "لا وعد باسترجاعها ولا تبرير بالضغط"
+        ]
+      },
+      "reply": "أعتذر عن الحذف بالغلط، وأدري إن الصور مهمة لك. ما عندي حل مؤكد حاليًا.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "met",
+          "met"
+        ],
+        "unsupported": [],
+        "roles_correct": true,
+        "sendable_saudi": true,
+        "strict_pass": true,
+        "note": "Apology for accidental deletion, importance and no confirmed solution retained."
+      }
+    },
+    {
+      "candidate": "H07-2",
+      "case": {
+        "id": "H07",
+        "family": "photography_retake",
+        "relation": "عميل",
+        "goal": "أعترف بالخطأ بدون تبرير",
+        "message": "أنا مصورة وحذفت صور جلسة العميل بالغلط. أبي أعتذر عن خطئي وأوضح إني فاهمة إن الصور مهمة له. ما عندي حل مؤكد للحين، فما أبي أوعد أرجعها ولا أطلب منه يتفهم ضغطي.",
+        "requirements": [
+          "اعتذار عن حذف الصور ومسؤولية شخصية",
+          "اعتراف بأهمية الصور",
+          "لا وعد باسترجاعها ولا تبرير بالضغط"
+        ]
+      },
+      "reply": "اعتذر عن الخطأ، وفهمت إن الصور مهمة لك. الحين ما عندي حل مؤكد، وما أبي أوعدك أرجعها.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "met",
+          "met"
+        ],
+        "unsupported": [],
+        "roles_correct": true,
+        "sendable_saudi": true,
+        "strict_pass": true,
+        "note": "Responsibility and importance retained; explicitly avoids unconfirmed recovery promise."
+      }
+    },
+    {
+      "candidate": "H07-3",
+      "case": {
+        "id": "H07",
+        "family": "photography_retake",
+        "relation": "عميل",
+        "goal": "أعترف بالخطأ بدون تبرير",
+        "message": "أنا مصورة وحذفت صور جلسة العميل بالغلط. أبي أعتذر عن خطئي وأوضح إني فاهمة إن الصور مهمة له. ما عندي حل مؤكد للحين، فما أبي أوعد أرجعها ولا أطلب منه يتفهم ضغطي.",
+        "requirements": [
+          "اعتذار عن حذف الصور ومسؤولية شخصية",
+          "اعتراف بأهمية الصور",
+          "لا وعد باسترجاعها ولا تبرير بالضغط"
+        ]
+      },
+      "reply": "أعتذر عن حذف صور الجلسة، وأقدر أقدّر أهمية الصور عليك. ما عندي حل حالي، وأرجو تفهم وضعي.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "met",
+          "contradicted"
+        ],
+        "unsupported": [
+          "أرجو تفهم وضعي"
+        ],
+        "roles_correct": true,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "Asks customer to understand own circumstances, contrary to constraint; awkward duplicated verb."
+      }
+    },
+    {
+      "candidate": "H07-4",
+      "case": {
+        "id": "H07",
+        "family": "photography_retake",
+        "relation": "عميل",
+        "goal": "أعترف بالخطأ بدون تبرير",
+        "message": "أنا مصورة وحذفت صور جلسة العميل بالغلط. أبي أعتذر عن خطئي وأوضح إني فاهمة إن الصور مهمة له. ما عندي حل مؤكد للحين، فما أبي أوعد أرجعها ولا أطلب منه يتفهم ضغطي.",
+        "requirements": [
+          "اعتذار عن حذف الصور ومسؤولية شخصية",
+          "اعتراف بأهمية الصور",
+          "لا وعد باسترجاعها ولا تبرير بالضغط"
+        ]
+      },
+      "reply": "وعدك، ما أقدر. حذفت صور الجلسة بالغلط، وأعتذر من خطئي. الفاهمة إن الصور مهمة جداً عندك، وما عندي حل مؤكد للحين. ما أبي أوعد أرجعها ولا أطلب منك تتفهم ضغطي، بس أبتغي أكون صريح معك.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "met",
+          "met"
+        ],
+        "unsupported": [
+          "وعدك"
+        ],
+        "roles_correct": true,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "Malformed الفاهمة and أبتغي; prohibition copied into message."
+      }
+    },
+    {
+      "candidate": "H08-1",
+      "case": {
+        "id": "H08",
+        "family": "interview_privacy",
+        "relation": "عمل",
+        "goal": "أحافظ على خصوصيتي وأجاوب عن العمل",
+        "message": "بالمقابلة سألوني عن تفاصيل عائلية ما أبي أدخل فيها. أبي أرفض هالتفاصيل بأدب وأوضح إني مستعدة أجاوب عن خبرتي ومتطلبات الوظيفة. ما أبي أسحب طلبي للوظيفة ولا أدعي نظام قانوني.",
+        "requirements": [
+          "رفض التفاصيل العائلية",
+          "الاستعداد للإجابة عن الخبرة ومتطلبات الوظيفة",
+          "لا انسحاب أو ادعاء قانوني"
+        ]
+      },
+      "reply": "أقدّر سؤالك، بس أفضل ما أتفصيل في أمور عائلية.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "missing",
+          "met"
+        ],
+        "unsupported": [],
+        "roles_correct": true,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "Work-experience alternative absent; ما أتفصيل malformed."
+      }
+    },
+    {
+      "candidate": "H08-2",
+      "case": {
+        "id": "H08",
+        "family": "interview_privacy",
+        "relation": "عمل",
+        "goal": "أحافظ على خصوصيتي وأجاوب عن العمل",
+        "message": "بالمقابلة سألوني عن تفاصيل عائلية ما أبي أدخل فيها. أبي أرفض هالتفاصيل بأدب وأوضح إني مستعدة أجاوب عن خبرتي ومتطلبات الوظيفة. ما أبي أسحب طلبي للوظيفة ولا أدعي نظام قانوني.",
+        "requirements": [
+          "رفض التفاصيل العائلية",
+          "الاستعداد للإجابة عن الخبرة ومتطلبات الوظيفة",
+          "لا انسحاب أو ادعاء قانوني"
+        ]
+      },
+      "reply": "أهلاً بك يا بطل،\nأنا في مقابلة، وطلبوا مني تفاصيل عن عائلتي، ودي أرفضها بأدب وأقول إنني مستعدة أجاوب عن خبرتي ومتطلبات الوظيفة، ودي ما أقدر أسحب طلبي ولا أدعي نظام قانوني.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "met",
+          "met"
+        ],
+        "unsupported": [],
+        "roles_correct": false,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "Narrates interview and desired actions to a third party, not a sendable recipient message."
+      }
+    },
+    {
+      "candidate": "H08-3",
+      "case": {
+        "id": "H08",
+        "family": "interview_privacy",
+        "relation": "عمل",
+        "goal": "أحافظ على خصوصيتي وأجاوب عن العمل",
+        "message": "بالمقابلة سألوني عن تفاصيل عائلية ما أبي أدخل فيها. أبي أرفض هالتفاصيل بأدب وأوضح إني مستعدة أجاوب عن خبرتي ومتطلبات الوظيفة. ما أبي أسحب طلبي للوظيفة ولا أدعي نظام قانوني.",
+        "requirements": [
+          "رفض التفاصيل العائلية",
+          "الاستعداد للإجابة عن الخبرة ومتطلبات الوظيفة",
+          "لا انسحاب أو ادعاء قانوني"
+        ]
+      },
+      "reply": "أشكرني على اهتمامك، وأفضّل أركز على خبرتي ومهاراتي اللي تناسب الوظيفة.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "met",
+          "met"
+        ],
+        "unsupported": [],
+        "roles_correct": false,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "أشكرني asks recipient to thank the speaker; changes role."
+      }
+    },
+    {
+      "candidate": "H08-4",
+      "case": {
+        "id": "H08",
+        "family": "interview_privacy",
+        "relation": "عمل",
+        "goal": "أحافظ على خصوصيتي وأجاوب عن العمل",
+        "message": "بالمقابلة سألوني عن تفاصيل عائلية ما أبي أدخل فيها. أبي أرفض هالتفاصيل بأدب وأوضح إني مستعدة أجاوب عن خبرتي ومتطلبات الوظيفة. ما أبي أسحب طلبي للوظيفة ولا أدعي نظام قانوني.",
+        "requirements": [
+          "رفض التفاصيل العائلية",
+          "الاستعداد للإجابة عن الخبرة ومتطلبات الوظيفة",
+          "لا انسحاب أو ادعاء قانوني"
+        ]
+      },
+      "reply": "شكرًا على اهتمامك، بس التفاصيل العائلية ما أبي أدخل فيها. مستعدة أشارك خبرتي ومتطلبات الوظيفة، ودي نكمل من هالجزء.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "met",
+          "met"
+        ],
+        "unsupported": [],
+        "roles_correct": true,
+        "sendable_saudi": true,
+        "strict_pass": true,
+        "note": "Declines family details and redirects to experience/job requirements without withdrawing."
+      }
+    },
+    {
+      "candidate": "H09-1",
+      "case": {
+        "id": "H09",
+        "family": "game_team",
+        "relation": "صديق",
+        "goal": "أصلح تصرفي بدون عذر",
+        "message": "أثناء اللعب قفلت المكالمة بوجه فريقي بعد الخسارة. أبي أعتذر عن هالتصرف وأوضح إن خسارتنا مو مبرر أتعامل معهم كذا، وأقول إني أقدرهم. ما أبي أقول إني كنت معصب كعذر.",
+        "requirements": [
+          "اعتذار عن إغلاق المكالمة",
+          "الخسارة ليست مبررا",
+          "تقدير الفريق بلا عذر للمتحدث"
+        ]
+      },
+      "reply": "أعتذر عن قفل المكالمة بعد الخسارة، وأقربك على أن الخسارة مو مبرر أتعامل معك كذا.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "met",
+          "missing"
+        ],
+        "unsupported": [],
+        "roles_correct": false,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "Team appreciation absent; switches to one recipient and malformed وأقربك."
+      }
+    },
+    {
+      "candidate": "H09-2",
+      "case": {
+        "id": "H09",
+        "family": "game_team",
+        "relation": "صديق",
+        "goal": "أصلح تصرفي بدون عذر",
+        "message": "أثناء اللعب قفلت المكالمة بوجه فريقي بعد الخسارة. أبي أعتذر عن هالتصرف وأوضح إن خسارتنا مو مبرر أتعامل معهم كذا، وأقول إني أقدرهم. ما أبي أقول إني كنت معصب كعذر.",
+        "requirements": [
+          "اعتذار عن إغلاق المكالمة",
+          "الخسارة ليست مبررا",
+          "تقدير الفريق بلا عذر للمتحدث"
+        ]
+      },
+      "reply": "أعتذر عن قفل المكالمة، ما كان المفروض أتعامل معكم كذا.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "missing",
+          "missing"
+        ],
+        "unsupported": [],
+        "roles_correct": true,
+        "sendable_saudi": true,
+        "strict_pass": false,
+        "note": "Apology retained; explicit loss not an excuse and team appreciation missing."
+      }
+    },
+    {
+      "candidate": "H09-3",
+      "case": {
+        "id": "H09",
+        "family": "game_team",
+        "relation": "صديق",
+        "goal": "أصلح تصرفي بدون عذر",
+        "message": "أثناء اللعب قفلت المكالمة بوجه فريقي بعد الخسارة. أبي أعتذر عن هالتصرف وأوضح إن خسارتنا مو مبرر أتعامل معهم كذا، وأقول إني أقدرهم. ما أبي أقول إني كنت معصب كعذر.",
+        "requirements": [
+          "اعتذار عن إغلاق المكالمة",
+          "الخسارة ليست مبررا",
+          "تقدير الفريق بلا عذر للمتحدث"
+        ]
+      },
+      "reply": "يا ريت، ما أقدر، ما كنت معصب، الخسارة مو مبرر أتعامل كذا، أقدرهم، عايز أصلح.",
+      "assessment": {
+        "requirement_status": [
+          "missing",
+          "met",
+          "met"
+        ],
+        "unsupported": [],
+        "roles_correct": false,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "No actual apology; third-person أقدرهم and Egyptian عايز."
+      }
+    },
+    {
+      "candidate": "H09-4",
+      "case": {
+        "id": "H09",
+        "family": "game_team",
+        "relation": "صديق",
+        "goal": "أصلح تصرفي بدون عذر",
+        "message": "أثناء اللعب قفلت المكالمة بوجه فريقي بعد الخسارة. أبي أعتذر عن هالتصرف وأوضح إن خسارتنا مو مبرر أتعامل معهم كذا، وأقول إني أقدرهم. ما أبي أقول إني كنت معصب كعذر.",
+        "requirements": [
+          "اعتذار عن إغلاق المكالمة",
+          "الخسارة ليست مبررا",
+          "تقدير الفريق بلا عذر للمتحدث"
+        ]
+      },
+      "reply": "اعتذر عن قفل المكالمة بوجهكم، كان تصرف خاطئ. خسارتنا مو مبرر أتعامل معكم كذا، وأقدركم.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "met",
+          "met"
+        ],
+        "unsupported": [],
+        "roles_correct": true,
+        "sendable_saudi": true,
+        "strict_pass": true,
+        "note": "Specific apology, loss not an excuse and team appreciation retained."
+      }
+    },
+    {
+      "candidate": "H10-1",
+      "case": {
+        "id": "H10",
+        "family": "design_approval",
+        "relation": "عميل",
+        "goal": "أطلب اختيار واضح بدون فرض",
+        "message": "العميلة قالت التصميم حلو بس ما فهمت إذا وافقت عليه أو تبي تعديلات. أبي أشكرها وأسأل إذا نعتمده أو فيه شي تبي نعدله، بدون ما أبدأ التنفيذ أو أعتبر كلامها موافقة نهائية.",
+        "requirements": [
+          "شكر العميلة",
+          "سؤال اعتماد أم تعديل",
+          "لا ادعاء موافقة أو بدء تنفيذ"
+        ]
+      },
+      "reply": "وعدك، التصميم حلو، بس ما فهمت إذا وافقت عليه كحدود أو فيه شي تبي نعدله.\nأشكرك، ودي أتحديد إيه نبدأ التنفيذ، إيه تعديلات أو نعتمده كحدود؟",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "contradicted",
+          "met"
+        ],
+        "unsupported": [
+          "وعدك"
+        ],
+        "roles_correct": true,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "Garbled adoption-as-boundaries text and suggestion to start execution."
+      }
+    },
+    {
+      "candidate": "H10-2",
+      "case": {
+        "id": "H10",
+        "family": "design_approval",
+        "relation": "عميل",
+        "goal": "أطلب اختيار واضح بدون فرض",
+        "message": "العميلة قالت التصميم حلو بس ما فهمت إذا وافقت عليه أو تبي تعديلات. أبي أشكرها وأسأل إذا نعتمده أو فيه شي تبي نعدله، بدون ما أبدأ التنفيذ أو أعتبر كلامها موافقة نهائية.",
+        "requirements": [
+          "شكر العميلة",
+          "سؤال اعتماد أم تعديل",
+          "لا ادعاء موافقة أو بدء تنفيذ"
+        ]
+      },
+      "reply": "الديزيين حلو، بس ما فهمت إذا وافقت عليه أو تبي تعديلات.",
+      "assessment": {
+        "requirement_status": [
+          "missing",
+          "met",
+          "met"
+        ],
+        "unsupported": [],
+        "roles_correct": true,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "Thanks absent; ديزيين and role narration not a clear ready-to-send question."
+      }
+    },
+    {
+      "candidate": "H10-3",
+      "case": {
+        "id": "H10",
+        "family": "design_approval",
+        "relation": "عميل",
+        "goal": "أطلب اختيار واضح بدون فرض",
+        "message": "العميلة قالت التصميم حلو بس ما فهمت إذا وافقت عليه أو تبي تعديلات. أبي أشكرها وأسأل إذا نعتمده أو فيه شي تبي نعدله، بدون ما أبدأ التنفيذ أو أعتبر كلامها موافقة نهائية.",
+        "requirements": [
+          "شكر العميلة",
+          "سؤال اعتماد أم تعديل",
+          "لا ادعاء موافقة أو بدء تنفيذ"
+        ]
+      },
+      "reply": "شكرًا على رأيك، التصميم حلو! هل تعتمدينه كالتالي، أو فيه تعديل تبيين نراجعونه؟",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "met",
+          "met"
+        ],
+        "unsupported": [],
+        "roles_correct": true,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "تعتمدينه كالتالي and تبيين نراجعونه need grammatical repair."
+      }
+    },
+    {
+      "candidate": "H10-4",
+      "case": {
+        "id": "H10",
+        "family": "design_approval",
+        "relation": "عميل",
+        "goal": "أطلب اختيار واضح بدون فرض",
+        "message": "العميلة قالت التصميم حلو بس ما فهمت إذا وافقت عليه أو تبي تعديلات. أبي أشكرها وأسأل إذا نعتمده أو فيه شي تبي نعدله، بدون ما أبدأ التنفيذ أو أعتبر كلامها موافقة نهائية.",
+        "requirements": [
+          "شكر العميلة",
+          "سؤال اعتماد أم تعديل",
+          "لا ادعاء موافقة أو بدء تنفيذ"
+        ]
+      },
+      "reply": "التصميم حلو، بس مو متأكد إذا وافقت عليه، ممكن توضحين؟",
+      "assessment": {
+        "requirement_status": [
+          "missing",
+          "met",
+          "met"
+        ],
+        "unsupported": [],
+        "roles_correct": true,
+        "sendable_saudi": true,
+        "strict_pass": false,
+        "note": "Asks clarification without assuming approval, but thanks absent."
+      }
+    },
+    {
+      "candidate": "H11-1",
+      "case": {
+        "id": "H11",
+        "family": "charity_role",
+        "relation": "عمل",
+        "goal": "أرفض مسؤولية وأعرض مساعدة محددة",
+        "message": "فريق مبادرة طلب مني أدير ميزانية الفعالية. ما أبي أمسك الميزانية، لكن أقدر أساعد بترتيب الكراسي يوم الفعالية. أبي أوضح الفرق وأشكرهم على ثقتهم بدون ما أعطي سبب مالي أو صحي من عندي.",
+        "requirements": [
+          "رفض إدارة الميزانية",
+          "عرض ترتيب الكراسي فقط",
+          "شكر الثقة بلا سبب مختلق"
+        ]
+      },
+      "reply": "شكرًا على ثقتكم، لكن إدارة الميزانية ليست من مهامتي. ممكن أساعد بترتيب الكراسي يوم الفعالية؟",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "met",
+          "contradicted"
+        ],
+        "unsupported": [
+          "إدارة الميزانية ليست من مهامتي"
+        ],
+        "roles_correct": true,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "Invents a job-duty justification; stiff and malformed مهامتي."
+      }
+    },
+    {
+      "candidate": "H11-2",
+      "case": {
+        "id": "H11",
+        "family": "charity_role",
+        "relation": "عمل",
+        "goal": "أرفض مسؤولية وأعرض مساعدة محددة",
+        "message": "فريق مبادرة طلب مني أدير ميزانية الفعالية. ما أبي أمسك الميزانية، لكن أقدر أساعد بترتيب الكراسي يوم الفعالية. أبي أوضح الفرق وأشكرهم على ثقتهم بدون ما أعطي سبب مالي أو صحي من عندي.",
+        "requirements": [
+          "رفض إدارة الميزانية",
+          "عرض ترتيب الكراسي فقط",
+          "شكر الثقة بلا سبب مختلق"
+        ]
+      },
+      "reply": "أقدّر الثقة، بس ما أبي أدير الميزانية، لكن أقدر أساعد في ترتيب المكان.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "missing",
+          "met"
+        ],
+        "unsupported": [],
+        "roles_correct": true,
+        "sendable_saudi": true,
+        "strict_pass": false,
+        "note": "Changes chairs-only offer into arranging the whole place."
+      }
+    },
+    {
+      "candidate": "H11-3",
+      "case": {
+        "id": "H11",
+        "family": "charity_role",
+        "relation": "عمل",
+        "goal": "أرفض مسؤولية وأعرض مساعدة محددة",
+        "message": "فريق مبادرة طلب مني أدير ميزانية الفعالية. ما أبي أمسك الميزانية، لكن أقدر أساعد بترتيب الكراسي يوم الفعالية. أبي أوضح الفرق وأشكرهم على ثقتهم بدون ما أعطي سبب مالي أو صحي من عندي.",
+        "requirements": [
+          "رفض إدارة الميزانية",
+          "عرض ترتيب الكراسي فقط",
+          "شكر الثقة بلا سبب مختلق"
+        ]
+      },
+      "reply": "أهلاً بكم، شكراً على الثقة بي، لكن الميزانية مش من حيتي، ما أقدر أديرها.\nما شاء الله، بس ما عيب، أقدر أساعد بترتيب الكراسي يوم الفعالية، هتكون خدمة مني.\nأنا في وضع، ما أقدر أتحمل المسؤولية المالية، لكن هتعاونكم في التنظيم.\nشكراً جزيلاً على الثقة بي، هتعملوا معاً.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "met",
+          "contradicted"
+        ],
+        "unsupported": [
+          "ما أقدر أتحمل المسؤولية المالية"
+        ],
+        "roles_correct": true,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "Invented financial-capacity reason and mixed dialects."
+      }
+    },
+    {
+      "candidate": "H11-4",
+      "case": {
+        "id": "H11",
+        "family": "charity_role",
+        "relation": "عمل",
+        "goal": "أرفض مسؤولية وأعرض مساعدة محددة",
+        "message": "فريق مبادرة طلب مني أدير ميزانية الفعالية. ما أبي أمسك الميزانية، لكن أقدر أساعد بترتيب الكراسي يوم الفعالية. أبي أوضح الفرق وأشكرهم على ثقتهم بدون ما أعطي سبب مالي أو صحي من عندي.",
+        "requirements": [
+          "رفض إدارة الميزانية",
+          "عرض ترتيب الكراسي فقط",
+          "شكر الثقة بلا سبب مختلق"
+        ]
+      },
+      "reply": "أشكركم على الثقة، لكن ما أقدر أدير الميزانية. ما أقدر أساعد بترتيب الكراسي يوم الفعالية.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "contradicted",
+          "met"
+        ],
+        "unsupported": [],
+        "roles_correct": true,
+        "sendable_saudi": true,
+        "strict_pass": false,
+        "note": "Negates the offered chair-arranging help."
+      }
+    },
+    {
+      "candidate": "H12-1",
+      "case": {
+        "id": "H12",
+        "family": "borrowed_equipment",
+        "relation": "صديق",
+        "goal": "أحط حد دائم باحترام",
+        "message": "خويي يطلب يستعير كاميرتي كل أسبوع. قررت ما أعيرها لأحد من الحين ورايح. أبي أوضح إنه قرار عام مو تقليل فيه، بدون ما أحول الرفض إلى مشغول هالأسبوع أو أخليه ينتظر موافقة بعدين.",
+        "requirements": [
+          "حد مستمر لإعارة الكاميرا",
+          "قرار عام لا تقليل من الصديق",
+          "لا تأجيل أو موافقة لاحقة"
+        ]
+      },
+      "reply": "يا خويي، ما أقدر أعير الكاميرا من الحين، راح أروحها. القرار عام ولا تقلب، ما أحول الرفض لـ \"مشغول\" هالأسبوع، ولا أنتظر موافقة بعدين.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "met",
+          "met"
+        ],
+        "unsupported": [
+          "راح أروحها"
+        ],
+        "roles_correct": true,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "Garbled and copies instructions rather than explaining a general decision."
+      }
+    },
+    {
+      "candidate": "H12-2",
+      "case": {
+        "id": "H12",
+        "family": "borrowed_equipment",
+        "relation": "صديق",
+        "goal": "أحط حد دائم باحترام",
+        "message": "خويي يطلب يستعير كاميرتي كل أسبوع. قررت ما أعيرها لأحد من الحين ورايح. أبي أوضح إنه قرار عام مو تقليل فيه، بدون ما أحول الرفض إلى مشغول هالأسبوع أو أخليه ينتظر موافقة بعدين.",
+        "requirements": [
+          "حد مستمر لإعارة الكاميرا",
+          "قرار عام لا تقليل من الصديق",
+          "لا تأجيل أو موافقة لاحقة"
+        ]
+      },
+      "reply": "ممكن تستعير الكاميرا؟ مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو مو",
+      "assessment": {
+        "requirement_status": [
+          "contradicted",
+          "missing",
+          "contradicted"
+        ],
+        "unsupported": [],
+        "roles_correct": false,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "Asks recipient to lend camera, then repeats مو to budget."
+      }
+    },
+    {
+      "candidate": "H12-3",
+      "case": {
+        "id": "H12",
+        "family": "borrowed_equipment",
+        "relation": "صديق",
+        "goal": "أحط حد دائم باحترام",
+        "message": "خويي يطلب يستعير كاميرتي كل أسبوع. قررت ما أعيرها لأحد من الحين ورايح. أبي أوضح إنه قرار عام مو تقليل فيه، بدون ما أحول الرفض إلى مشغول هالأسبوع أو أخليه ينتظر موافقة بعدين.",
+        "requirements": [
+          "حد مستمر لإعارة الكاميرا",
+          "قرار عام لا تقليل من الصديق",
+          "لا تأجيل أو موافقة لاحقة"
+        ]
+      },
+      "reply": "ما أقدر أعير الكاميرا، وراحت وما أقدر أعطيها لأحد.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "missing",
+          "met"
+        ],
+        "unsupported": [
+          "وراحت"
+        ],
+        "roles_correct": true,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "Invents camera disappearance, omits general-not-personal reassurance."
+      }
+    },
+    {
+      "candidate": "H12-4",
+      "case": {
+        "id": "H12",
+        "family": "borrowed_equipment",
+        "relation": "صديق",
+        "goal": "أحط حد دائم باحترام",
+        "message": "خويي يطلب يستعير كاميرتي كل أسبوع. قررت ما أعيرها لأحد من الحين ورايح. أبي أوضح إنه قرار عام مو تقليل فيه، بدون ما أحول الرفض إلى مشغول هالأسبوع أو أخليه ينتظر موافقة بعدين.",
+        "requirements": [
+          "حد مستمر لإعارة الكاميرا",
+          "قرار عام لا تقليل من الصديق",
+          "لا تأجيل أو موافقة لاحقة"
+        ]
+      },
+      "reply": "أعتذر عن استعارة الكاميرا، ما أقدر أعيرها لأحد من الحين.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "missing",
+          "met"
+        ],
+        "unsupported": [],
+        "roles_correct": true,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "Apologizes for borrowing rather than declining lending; no general-not-personal reassurance."
+      }
+    },
+    {
+      "candidate": "H13-1",
+      "case": {
+        "id": "H13",
+        "family": "poem_publication",
+        "contrast_of": "H01",
+        "relation": "صديق",
+        "goal": "أسمح بالنشر بشرط",
+        "message": "خويي يبي ينشر قصيدتي بحسابه ويكتب اسمي، وأنا موافق على النشر بشرط ما يكتب اسمي. أبي أشكره على إعجابه وأوضح الشرط بدون ما أرفض نشر القصيدة كلها.",
+        "requirements": [
+          "الموافقة على النشر",
+          "حذف الاسم شرط لازم",
+          "شكر الإعجاب بلا رفض كامل"
+        ]
+      },
+      "reply": "شكرًا على إعجابك بنشر قصيدتي، وودي تنشرها بس ما يكتب اسمي. إذا موافق على النشر بدون اسمي، أنا موافق.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "met",
+          "met"
+        ],
+        "unsupported": [],
+        "roles_correct": false,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "Uses third-person ما يكتب اسمي instead of directly addressing the publisher; needs repair."
+      }
+    },
+    {
+      "candidate": "H13-2",
+      "case": {
+        "id": "H13",
+        "family": "poem_publication",
+        "contrast_of": "H01",
+        "relation": "صديق",
+        "goal": "أسمح بالنشر بشرط",
+        "message": "خويي يبي ينشر قصيدتي بحسابه ويكتب اسمي، وأنا موافق على النشر بشرط ما يكتب اسمي. أبي أشكره على إعجابه وأوضح الشرط بدون ما أرفض نشر القصيدة كلها.",
+        "requirements": [
+          "الموافقة على النشر",
+          "حذف الاسم شرط لازم",
+          "شكر الإعجاب بلا رفض كامل"
+        ]
+      },
+      "reply": "أحب أسمع قصيدتك، بس ما أبي اسمي يظهر.",
+      "assessment": {
+        "requirement_status": [
+          "missing",
+          "missing",
+          "met"
+        ],
+        "unsupported": [],
+        "roles_correct": false,
+        "sendable_saudi": true,
+        "strict_pass": false,
+        "note": "Poem ownership reversed; no explicit publication permission or thanks."
+      }
+    },
+    {
+      "candidate": "H13-3",
+      "case": {
+        "id": "H13",
+        "family": "poem_publication",
+        "contrast_of": "H01",
+        "relation": "صديق",
+        "goal": "أسمح بالنشر بشرط",
+        "message": "خويي يبي ينشر قصيدتي بحسابه ويكتب اسمي، وأنا موافق على النشر بشرط ما يكتب اسمي. أبي أشكره على إعجابه وأوضح الشرط بدون ما أرفض نشر القصيدة كلها.",
+        "requirements": [
+          "الموافقة على النشر",
+          "حذف الاسم شرط لازم",
+          "شكر الإعجاب بلا رفض كامل"
+        ]
+      },
+      "reply": "وعدك، خويي، خديت قصيدتك في حسابك، واشكرك على الإعجاب. بس، لازم تكتب اسمي في النشر، عشان أكون شاكراً على ما فعلته.",
+      "assessment": {
+        "requirement_status": [
+          "contradicted",
+          "contradicted",
+          "missing"
+        ],
+        "unsupported": [
+          "خديت قصيدتك في حسابك"
+        ],
+        "roles_correct": false,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "Requires name inclusion, opposite of condition; ownership reversed."
+      }
+    },
+    {
+      "candidate": "H13-4",
+      "case": {
+        "id": "H13",
+        "family": "poem_publication",
+        "contrast_of": "H01",
+        "relation": "صديق",
+        "goal": "أسمح بالنشر بشرط",
+        "message": "خويي يبي ينشر قصيدتي بحسابه ويكتب اسمي، وأنا موافق على النشر بشرط ما يكتب اسمي. أبي أشكره على إعجابه وأوضح الشرط بدون ما أرفض نشر القصيدة كلها.",
+        "requirements": [
+          "الموافقة على النشر",
+          "حذف الاسم شرط لازم",
+          "شكر الإعجاب بلا رفض كامل"
+        ]
+      },
+      "reply": "أشكرك على قصيدتك، بس ما أكتب اسمي في النشر.",
+      "assessment": {
+        "requirement_status": [
+          "missing",
+          "missing",
+          "contradicted"
+        ],
+        "unsupported": [],
+        "roles_correct": false,
+        "sendable_saudi": true,
+        "strict_pass": false,
+        "note": "Thanks for recipient poem and makes speaker responsible for not writing name."
+      }
+    },
+    {
+      "candidate": "H14-1",
+      "case": {
+        "id": "H14",
+        "family": "plants_care",
+        "contrast_of": "H06",
+        "relation": "جار",
+        "goal": "أرفض المساعدة بوضوح",
+        "message": "جاري طلب أسقي زرعه وهو مسافر أسبوع. ما أقدر أسقيه ولا يوم، وما عندي أحد أوصيه. أبي أعتذر عن عدم قدرتي وأخليه يرتب أحد غيري، بدون ما أوعد أساعد يومين أو ألقى بديل.",
+        "requirements": [
+          "عدم القدرة على أي يوم",
+          "الجار يرتب غيره",
+          "لا وعد بمساعدة جزئية أو بديل"
+        ]
+      },
+      "reply": "أهلاً بك يا ربي، ودي أسقي زرعه، بس أنا مسافر أسبوع وما أقدر أسقيه ولا يوم، وما عندي أحد أوصيه.\n\nأعتذر عن عدم قدرتي، وأخليك ترتب أحد غيري، بدون ما أوعد أساعد يومين أو ألقى بديل.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "met",
+          "met"
+        ],
+        "unsupported": [
+          "أنا مسافر أسبوع"
+        ],
+        "roles_correct": false,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "Assigns neighbor travel to speaker; copied instructions and third-person plants."
+      }
+    },
+    {
+      "candidate": "H14-2",
+      "case": {
+        "id": "H14",
+        "family": "plants_care",
+        "contrast_of": "H06",
+        "relation": "جار",
+        "goal": "أرفض المساعدة بوضوح",
+        "message": "جاري طلب أسقي زرعه وهو مسافر أسبوع. ما أقدر أسقيه ولا يوم، وما عندي أحد أوصيه. أبي أعتذر عن عدم قدرتي وأخليه يرتب أحد غيري، بدون ما أوعد أساعد يومين أو ألقى بديل.",
+        "requirements": [
+          "عدم القدرة على أي يوم",
+          "الجار يرتب غيره",
+          "لا وعد بمساعدة جزئية أو بديل"
+        ]
+      },
+      "reply": "ودي أساعدك، بس ما أقدر أسقيه وأرتب يوم.",
+      "assessment": {
+        "requirement_status": [
+          "contradicted",
+          "missing",
+          "contradicted"
+        ],
+        "unsupported": [],
+        "roles_correct": true,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "Ambiguous can-not-water-and-arrange-a-day contradicts total refusal; arrangement omitted."
+      }
+    },
+    {
+      "candidate": "H14-3",
+      "case": {
+        "id": "H14",
+        "family": "plants_care",
+        "contrast_of": "H06",
+        "relation": "جار",
+        "goal": "أرفض المساعدة بوضوح",
+        "message": "جاري طلب أسقي زرعه وهو مسافر أسبوع. ما أقدر أسقيه ولا يوم، وما عندي أحد أوصيه. أبي أعتذر عن عدم قدرتي وأخليه يرتب أحد غيري، بدون ما أوعد أساعد يومين أو ألقى بديل.",
+        "requirements": [
+          "عدم القدرة على أي يوم",
+          "الجار يرتب غيره",
+          "لا وعد بمساعدة جزئية أو بديل"
+        ]
+      },
+      "reply": "أعتذر، بس ما أقدر أسقيه ولا يوم، وما عندي أحد أوصيه. وديك ترتب أحد غيري.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "met",
+          "met"
+        ],
+        "unsupported": [],
+        "roles_correct": true,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "وديك ترتب needs repair to ودي إنك ترتب; intended meaning retained."
+      }
+    },
+    {
+      "candidate": "H14-4",
+      "case": {
+        "id": "H14",
+        "family": "plants_care",
+        "contrast_of": "H06",
+        "relation": "جار",
+        "goal": "أرفض المساعدة بوضوح",
+        "message": "جاري طلب أسقي زرعه وهو مسافر أسبوع. ما أقدر أسقيه ولا يوم، وما عندي أحد أوصيه. أبي أعتذر عن عدم قدرتي وأخليه يرتب أحد غيري، بدون ما أوعد أساعد يومين أو ألقى بديل.",
+        "requirements": [
+          "عدم القدرة على أي يوم",
+          "الجار يرتب غيره",
+          "لا وعد بمساعدة جزئية أو بديل"
+        ]
+      },
+      "reply": "أعتذر، ما أقدر أسقيك زرعه، وأرجو منك ترتيب شخص آخر.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "met",
+          "met"
+        ],
+        "unsupported": [],
+        "roles_correct": false,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "أسقيك زرعه addresses/possessives wrong; formal أرجو."
+      }
+    },
+    {
+      "candidate": "H15-1",
+      "case": {
+        "id": "H15",
+        "family": "reading_group",
+        "contrast_of": "H04",
+        "relation": "صديق",
+        "goal": "أنسحب من النادي كله بلطف",
+        "message": "أنا منسقة نادي القراءة وقررت أطلع من النادي كله، من التنسيق ومن حضور النقاشات. أبي أشكرهم على ثقتهم ووقتهم بدون ما أوعد أبقى أحضر أو أخترع سبب للانسحاب.",
+        "requirements": [
+          "ترك النادي والتنسيق والحضور",
+          "شكر الثقة والوقت",
+          "لا وعد بالبقاء أو سبب مخترع"
+        ]
+      },
+      "reply": "أشكركم على كل اللي كنتم فيه، وودي أطلع من النادي.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "missing",
+          "met"
+        ],
+        "unsupported": [],
+        "roles_correct": true,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "Leaving club conveyed, but thanks for trust/time replaced by vague malformed all you were in."
+      }
+    },
+    {
+      "candidate": "H15-2",
+      "case": {
+        "id": "H15",
+        "family": "reading_group",
+        "contrast_of": "H04",
+        "relation": "صديق",
+        "goal": "أنسحب من النادي كله بلطف",
+        "message": "أنا منسقة نادي القراءة وقررت أطلع من النادي كله، من التنسيق ومن حضور النقاشات. أبي أشكرهم على ثقتهم ووقتهم بدون ما أوعد أبقى أحضر أو أخترع سبب للانسحاب.",
+        "requirements": [
+          "ترك النادي والتنسيق والحضور",
+          "شكر الثقة والوقت",
+          "لا وعد بالبقاء أو سبب مخترع"
+        ]
+      },
+      "reply": "أشكركم على الثقة والوقت، وأعتذر عن استكمال التنسيق والحضور، وأتمنى لكم استمرارية النادي.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "met",
+          "met"
+        ],
+        "unsupported": [],
+        "roles_correct": true,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "Meaning retained, but استكمال التنسيق والحضور and استمرارية النادي are stiff formal register."
+      }
+    },
+    {
+      "candidate": "H15-3",
+      "case": {
+        "id": "H15",
+        "family": "reading_group",
+        "contrast_of": "H04",
+        "relation": "صديق",
+        "goal": "أنسحب من النادي كله بلطف",
+        "message": "أنا منسقة نادي القراءة وقررت أطلع من النادي كله، من التنسيق ومن حضور النقاشات. أبي أشكرهم على ثقتهم ووقتهم بدون ما أوعد أبقى أحضر أو أخترع سبب للانسحاب.",
+        "requirements": [
+          "ترك النادي والتنسيق والحضور",
+          "شكر الثقة والوقت",
+          "لا وعد بالبقاء أو سبب مخترع"
+        ]
+      },
+      "reply": "ودي، شكراً جزيلاً على الثقة والوقت اللي بتعطيني، وحقك عليكم.\nبس ما أقدر ما أبقى في التنسيق أو الحضور من الآن، ودي قراري الشخصي.\nأتمنى لكم كل التوفيق في النادي، وبقا على الله.",
+      "assessment": {
+        "requirement_status": [
+          "contradicted",
+          "met",
+          "met"
+        ],
+        "unsupported": [
+          "قراري الشخصي"
+        ],
+        "roles_correct": false,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "Double negation does not clearly leave roles; malformed mutual rights/gender."
+      }
+    },
+    {
+      "candidate": "H15-4",
+      "case": {
+        "id": "H15",
+        "family": "reading_group",
+        "contrast_of": "H04",
+        "relation": "صديق",
+        "goal": "أنسحب من النادي كله بلطف",
+        "message": "أنا منسقة نادي القراءة وقررت أطلع من النادي كله، من التنسيق ومن حضور النقاشات. أبي أشكرهم على ثقتهم ووقتهم بدون ما أوعد أبقى أحضر أو أخترع سبب للانسحاب.",
+        "requirements": [
+          "ترك النادي والتنسيق والحضور",
+          "شكر الثقة والوقت",
+          "لا وعد بالبقاء أو سبب مخترع"
+        ]
+      },
+      "reply": "شكرًا على ثقتكم ووقتم، وقررت أطلع من النادي كله. أبيك تشوفون كلامي واضح، وبنترك التنسيق والنقاشات.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "met",
+          "met"
+        ],
+        "unsupported": [],
+        "roles_correct": false,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "أبيك تشوفون and وبنترك switch addressee/speaker number; word typo."
+      }
+    },
+    {
+      "candidate": "H16-1",
+      "case": {
+        "id": "H16",
+        "family": "borrowed_equipment",
+        "contrast_of": "H12",
+        "relation": "صديق",
+        "goal": "أرفض هالأسبوع فقط",
+        "message": "خويي طلب يستعير كاميرتي هالأسبوع وما أقدر أعطيه إياها هالأسبوع بس. أبي أوضح إن الرفض لهالمرة مو قرار إني ما أعيرها لأحد أبد، وبدون ما أوعده بموعد إعارة ثاني.",
+        "requirements": [
+          "الرفض لهذا الأسبوع فقط",
+          "ليس حدا دائما للإعارة",
+          "لا موعد أو وعد بديل"
+        ]
+      },
+      "reply": "ما أقدر أعطيك كاميرتي هالأسبوع، بس مو ما أقدر أعيرها أبد.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "met",
+          "met"
+        ],
+        "unsupported": [],
+        "roles_correct": true,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "Meaning retained, but nested بس مو ما أقدر أعيرها أبد needs grammatical repair."
+      }
+    },
+    {
+      "candidate": "H16-2",
+      "case": {
+        "id": "H16",
+        "family": "borrowed_equipment",
+        "contrast_of": "H12",
+        "relation": "صديق",
+        "goal": "أرفض هالأسبوع فقط",
+        "message": "خويي طلب يستعير كاميرتي هالأسبوع وما أقدر أعطيه إياها هالأسبوع بس. أبي أوضح إن الرفض لهالمرة مو قرار إني ما أعيرها لأحد أبد، وبدون ما أوعده بموعد إعارة ثاني.",
+        "requirements": [
+          "الرفض لهذا الأسبوع فقط",
+          "ليس حدا دائما للإعارة",
+          "لا موعد أو وعد بديل"
+        ]
+      },
+      "reply": "أعتذر منك، ما أقدر أعيرك الكاميرا هالأسبوع بس، ما أعتزم رفضك إياها مطلقاً.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "met",
+          "met"
+        ],
+        "unsupported": [],
+        "roles_correct": true,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "ما أعتزم رفضك إياها مطلقا is formal translated phrasing, not natural Saudi."
+      }
+    },
+    {
+      "candidate": "H16-3",
+      "case": {
+        "id": "H16",
+        "family": "borrowed_equipment",
+        "contrast_of": "H12",
+        "relation": "صديق",
+        "goal": "أرفض هالأسبوع فقط",
+        "message": "خويي طلب يستعير كاميرتي هالأسبوع وما أقدر أعطيه إياها هالأسبوع بس. أبي أوضح إن الرفض لهالمرة مو قرار إني ما أعيرها لأحد أبد، وبدون ما أوعده بموعد إعارة ثاني.",
+        "requirements": [
+          "الرفض لهذا الأسبوع فقط",
+          "ليس حدا دائما للإعارة",
+          "لا موعد أو وعد بديل"
+        ]
+      },
+      "reply": "افضل ما اعطيك الكاميرا هالاسبوع بس، مو قرار مني ما اعيرها لك. وديك تعيرها لي ثاني؟",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "met",
+          "contradicted"
+        ],
+        "unsupported": [
+          "وديك تعيرها لي ثاني؟"
+        ],
+        "roles_correct": false,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "Reverses lender/borrower in final added request."
+      }
+    },
+    {
+      "candidate": "H16-4",
+      "case": {
+        "id": "H16",
+        "family": "borrowed_equipment",
+        "contrast_of": "H12",
+        "relation": "صديق",
+        "goal": "أرفض هالأسبوع فقط",
+        "message": "خويي طلب يستعير كاميرتي هالأسبوع وما أقدر أعطيه إياها هالأسبوع بس. أبي أوضح إن الرفض لهالمرة مو قرار إني ما أعيرها لأحد أبد، وبدون ما أوعده بموعد إعارة ثاني.",
+        "requirements": [
+          "الرفض لهذا الأسبوع فقط",
+          "ليس حدا دائما للإعارة",
+          "لا موعد أو وعد بديل"
+        ]
+      },
+      "reply": "يا خويي، ودي أستعير الكاميرا هالأسبوع، بس ما أقدر أعطيك إياها هالأسبوع بس. ما هياخدك إني ما أعيرها لأحد أبد، والقرار هالأسبوع بس.",
+      "assessment": {
+        "requirement_status": [
+          "met",
+          "met",
+          "met"
+        ],
+        "unsupported": [],
+        "roles_correct": false,
+        "sendable_saudi": false,
+        "strict_pass": false,
+        "note": "Speaker asks to borrow own camera; Egyptian ما هياخدك and malformed gender."
+      }
+    }
+  ]
+}

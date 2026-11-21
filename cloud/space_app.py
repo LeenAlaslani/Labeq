@@ -9,10 +9,13 @@ sys.path.insert(0, str(ROOT))
 
 def gpu_duration(payload):
     if not isinstance(payload, dict):
-        return 20
+        return 60
     length = len(str(payload.get("message", ""))) + len(str(payload.get("goal", "")))
     length += len(str(payload.get("history", "")))
-    return 20 if length <= 800 else 30
+    # A grounded JSON review has a larger budget than the old one-line review.
+    # Reserve enough time for the plan, routing, two drafts and two reviews;
+    # this is a reservation, not a measured latency or a paid resource change.
+    return 60 if length <= 800 else 90
 
 
 def create_app(engine, gpu_decorator):
@@ -45,6 +48,7 @@ def create_app(engine, gpu_decorator):
         "faisal_loaded": engine.faisal_ready,
         "generator": engine.generator,
         "adapter_revision": engine.adapter_revision,
+        "base_revision": getattr(engine,"base_revision",None),
     }
     # The existing FastAPI HTML is the frontend; Gradio only supplies its queue.
     return gr.mount_gradio_app(app, model_api, path="/model", ssr_mode=False)

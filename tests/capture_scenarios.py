@@ -14,6 +14,7 @@ def main():
     parser.add_argument("--cases",type=Path,required=True)
     parser.add_argument("--out",type=Path,required=True)
     parser.add_argument("--chrome")
+    parser.add_argument("--expected-source",choices=["qwen_lora_generated","qwen_base_generated","ollama_generated"],default="qwen_lora_generated")
     args=parser.parse_args()
     parsed=urlparse(args.url)
     if parsed.scheme not in {"http","https"} or parsed.hostname not in {"127.0.0.1","localhost","leeennn009-labeq.hf.space"}:
@@ -45,8 +46,8 @@ def main():
                     if len(parts)!=2:raise RuntimeError(response.text()[:500])
                     result=json.loads(parts[1].split("\n")[0])[0]
                 else:result=response.json()
-                if result.get("reply_source")!="qwen_lora_generated" or result.get("router_source")!="faisal":
-                    raise RuntimeError("Capture requires real Qwen generation and real Faisal routing")
+                if result.get("reply_source")!=args.expected_source or result.get("router_source")!="faisal":
+                    raise RuntimeError("Capture requires the declared real generation source and actual Faisal routing")
                 expect(page.locator("#replyText")).to_have_text(result["reply"],timeout=15000)
                 expect(page.locator("#toast")).not_to_have_class(re.compile(r"\bshow\b"),timeout=15000)
                 page.screenshot(path=args.out/f"{case['id']}.png",full_page=True,animations="disabled")

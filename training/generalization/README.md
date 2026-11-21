@@ -35,6 +35,18 @@ python training/generalization/evaluate.py \
 
 Directories must be fresh. Optimizer state is not resumable in this script. Private weights, source approved data, and raw training artifacts remain outside Git. MLX validation does not establish equivalence to the public bfloat16 runtime; a production promotion needs separate runtime checks.
 
+The run is now complete. [Measured metrics](training_result.json), [development outputs](development_outputs.json), [blinded holdout judgments and raw text](holdout_assessment_blind.json), [revealed totals](holdout_result.json), and [end-to-end user regressions](runtime_regressions.json) document the unsuccessful qualification. The [evidence report](../../evidence/GENERALIZATION.md) explains why 5/16 strict passes do not justify deployment. These published cases are now exposed; later tuning requires a fresh test set.
+
+For another installed local Ollama writer, record its actual model digest and optional writing-policy hash:
+
+```bash
+python training/generalization/evaluate_ollama.py \
+  --model your-installed-model-tag --cases training/generalization/dev.json \
+  --out /path/to/fresh/ollama-evaluation
+```
+
+Use `--policy /path/to/policy.json` for a system instruction and up to five alternating user/assistant example pairs. `--pipeline --faisal-model /path/to/pinned/MLX-base --faisal /path/to/Faisal-adapter` evaluates the actual routing/planning/drafting/review pipeline in an MLX environment. Raw mode does not perform dialect substitutions. The script unloads only the requested model after evaluation and does not stop the user's Ollama daemon. Inference errors and incomplete text are recorded as failures, not omitted. This backend has no quality endorsement.
+
 ## بالعربية
 
 هذه تجربة مستقلة لتحسين حفظ أكثر من طلب وقيد في الرسالة السعودية. الأمثلة الجديدة مولدة آليًا وليست مراجعات بشرية معتمدة، ولم ندخل موقفي المستخدم في التدريب. المقارنة تفصل بين أربع حالات تطوير، و١٦ حالة اختبار محفوظة قبل التدريب، وموقفي المستخدم المعروفين سابقًا.

@@ -71,7 +71,7 @@ def test_health_and_routes(web_client, upstream):
     assert result.json()["mock"] is False
 
 
-@pytest.mark.parametrize("payload", [[], {"reply": "مثال", "reply_source": "template"}, {"reply": " "}])
+@pytest.mark.parametrize("payload", [[], {"reply": "مثال", "reply_source": "template"}, {"reply": " "}, {**GENERATED,"mock":True}])
 def test_invalid_model_output(web_client, upstream, payload):
     upstream(lambda request: httpx.Response(200, json=payload))
     assert web_client.post("/api/reply", json=SCENARIO).status_code == 502
@@ -88,6 +88,14 @@ def test_register_edit_provenance_survives_the_web_bridge(web_client, upstream):
     assert result.json()["register_normalization"] == ["لا أريد → ما أبي"]
     assert result.json()["draft_before_register_normalization"] == "لا أريد موعدا غير مؤكد"
     assert result.json()["reply_source"] == "qwen_lora_generated"
+
+
+def test_ollama_writer_keeps_its_actual_identity(web_client,upstream):
+    upstream(lambda request:httpx.Response(200,json={**GENERATED,"reply_source":"ollama_generated","generator":"configured-writer (Ollama, Q4_K_M)"}))
+    result=web_client.post('/api/reply',json=SCENARIO)
+    assert result.status_code==200
+    assert result.json()['reply_source']=='ollama_generated'
+    assert result.json()['generator']=='configured-writer (Ollama, Q4_K_M)'
 
 
 def test_upstream_timeout_and_invalid_history(web_client, upstream):

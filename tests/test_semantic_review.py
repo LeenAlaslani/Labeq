@@ -61,3 +61,32 @@ def test_unparseable_review_is_visible_and_unverified():
         def _one_generation(self,*args,**kwargs):return "آسف على الغلط، أنت مهمة عندي."
     result=reply_v16(Engine(),MESSAGE,"صديق",GOAL,"اعتذار")
     assert result["needs_review"] and result["review_status"]!="model_reviewed"
+
+
+def test_advisory_failure_preserves_the_actual_generated_reply():
+    class Engine:
+        def load(self):pass
+        def _one_generation(self,messages,use_adapter=True,**kwargs):
+            if not use_adapter:raise TimeoutError('review unavailable')
+            return 'حقك علي، الغلط مني وأنت مهمة عندي.'
+    result=reply_v16(Engine(),MESSAGE,'صديق',GOAL,'اعتذار')
+    assert result['reply'].startswith('حقك علي')
+    assert result['coaching_status']=='unavailable'
+    assert result['review_status']!='model_reviewed' and result['needs_review']
+
+
+def test_identical_normalized_retries_preserve_the_selected_raw_draft():
+    class Engine:
+        def load(self):pass
+        def _one_generation(self,messages,retry=False,use_adapter=True,**kwargs):
+            if use_adapter:
+                return 'ما أبي أبرر لنفسي، أنت مهمة عندي.' if retry else 'لا أريد أبرر لنفسي، أنت مهمة عندي.'
+            if 'أربع سطور' in messages[-1]['content']:return ''
+            return review('missing','لم يعتذر عن الخطأ')
+    result=reply_v16(Engine(),MESSAGE,'صديق',GOAL,'اعتذار')
+    attempts=result['generation_candidates']
+    assert result['was_retried'] and len(attempts)==2
+    assert attempts[0]['reply']==attempts[1]['reply']
+    assert result['draft_before_register_normalization'].startswith('لا أريد')
+    assert attempts[1]['draft_before_register_normalization'].startswith('ما أبي')
+    assert result['register_normalization']==attempts[0]['register_normalization']

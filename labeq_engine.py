@@ -229,7 +229,12 @@ class LabeqEngine:
                 outputs = self.model.generate(**inputs, **gen_kw)
             token_ids = outputs[0, inputs["input_ids"].shape[-1]:]
             decoder = self.processor.decode if hasattr(self.processor, "decode") else self.processor.tokenizer.decode
-            return finish_reply(decoder(token_ids, skip_special_tokens=True))
+            text=finish_reply(decoder(token_ids, skip_special_tokens=True))
+            stop_ids=set(eos if isinstance(eos,(list,tuple)) else [eos])
+            if len(token_ids)>=max_tokens and int(token_ids[-1]) not in stop_ids:
+                from generation_limits import GenerationBudgetError
+                raise GenerationBudgetError(text)
+            return text
 
     def reply(self, message: str, relation: str = "صديق", goal: str = "أبي رد مناسب وواضح",
               style: str = "تلقائي", speaker_gender: str = "غير محدد",

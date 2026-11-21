@@ -1,0 +1,167 @@
+{
+  "runtime": "Actual LABEQ FastAPI + MLX 4-bit + real Faisal, voice inactive",
+  "pilot_capture": "Final guarded runtime; experimental captures precede the incomplete-output guard",
+  "reviewer": "Assistant, not independent human review",
+  "pilot_source_sha256": {
+    "app.py": "3258967735045064db7997c5e0153288b124760c8c3409dc5363f9b24aa058e8",
+    "app.js": "8d78671f222ad6dfdf98bafa8cd5ebbfa1ed1feb16e9dbc25b34d6646b151240",
+    "index.html": "2e05d29ea5f4e4b2b280188f5b35321341a4f7a517b56dd23132ab018091d709",
+    "local_mlx_server.py": "0831277e4c1d7a97636a6ae89eeaa05b69c70ba98534628b76fe6fb5545c5348",
+    "mlx_inference.py": "27f7c824255f91863a2552faeaf820c040b8f3e792269953a0e7bfb75bcc5e2c",
+    "LABEQ_V16_Coaching_Engine.py": "37f80a1954bf999d39f49f799c911299931dde47dd3e3372642a8eaf27ecd550",
+    "semantic_review.py": "83c1f90dca89eecfc37f33bce6f967c7b189b077a8997d2c1bac860e5dd02fe8",
+    "generation_limits.py": "ebc97df254abc6582300adf8feb38aee4369119666624c372bd059a7c036d7dc",
+    "model_bridge.py": "3c0fa6081ebd9032a5a2194183fd2d759b57afddb5b5579814d0ecea0046343c",
+    "saudi_register.py": "4b1ba98df5537a65060e568159902e063198490250f4631ccd965692dd41b202"
+  },
+  "pilot": [
+    {
+      "case": {
+        "id": "R01",
+        "family": "user_regression_already_seen",
+        "message": "صديقتي دايم تسألني عن أمور شخصية ما أحب أتكلم عنها، وإذا ما جاوبتها تزعل وتقول إني ما أثق فيها. أبي أوضح لها إن خصوصيتي مهمة بالنسبة لي وإن مو كل شيء لازم أشاركه معها، بس بنفس الوقت ما أبي أخسر صداقتنا.",
+        "relation": "صديق",
+        "goal": "أحط حدود"
+      },
+      "response": {
+        "reply": "أقدر اهتمامك، بس ما أشاركك تفاصيل حياتي.",
+        "style": "firm",
+        "coaching": {
+          "core": "صديقة تسأل عن أمور شخصية لا أحب مشاركتها، وتقول إن عدم الإجابة يعني عدم الثقة.",
+          "objective": "توضيح أهمية خصوصيتي مع الحفاظ على الصداقة دون خسارة العلاقة.",
+          "strategy": "إخبارها بوضوح أن بعض الأمور شخصية ولا أشاركها، مع التأكيد على رغبتي في الاستمرار في الصداقة.",
+          "risk": "عدم تفسير عدم الإجابة على كل الأسئلة على أنه عدم ثقة، لأن هذا تفسير خاطئ لما تقوله."
+        },
+        "review_status": "flagged",
+        "style_used": "حازم",
+        "router_source": "faisal",
+        "reply_source": "qwen_lora_generated",
+        "register_normalization": [],
+        "draft_before_register_normalization": "أقدر اهتمامك، بس ما أشاركك تفاصيل حياتي.",
+        "needs_review": true,
+        "was_retried": false,
+        "quality_warnings": [
+          "تعذر التحقق من المراجعة الدلالية؛ الصياغة تحتاج مراجعة"
+        ],
+        "generator": "Qwen3.5-4B + Saudi pilot LoRA (MLX 4-bit)",
+        "mock": false
+      },
+      "strict_pass": false,
+      "assessment": "Omits privacy-is-not-distrust reassurance and friendship preservation.",
+      "screenshot": "screenshots/generalization-pilot-privacy.png",
+      "screenshot_sha256": "ddc78a06fe9513b48055d950d448e55410ca45d06eedfbb670532cf74c257b5c"
+    },
+    {
+      "case": {
+        "id": "R02",
+        "family": "user_regression_already_seen",
+        "message": "اتفقت مع صديقتي نطلع سوا وبعد ما جهزت نفسها اعتذرت لها بآخر لحظة لأني كنت مشغولة ونسيت أبلغها بدري. زعلت مني وحست إني ما أقدر وقتها، وأبي أعتذر لها بطريقة صادقة بدون ما أبرر لنفسي وأوضح لها إنها مهمة عندي",
+        "relation": "صديق",
+        "goal": "أعتذر وأصلح الموقف"
+      },
+      "response": {
+        "reply": "أعتذر عن ما فاتني وأخسر وقتك، وأقدر أعتذر وأتفهم شعورك.",
+        "style": "apology",
+        "coaching": {
+          "core": "اعتذرت لصديقتك متأخرًا بسبب مشغولتك ونسيت إخبارها، وهي تشعر بالزعل وتقول إنك لا تقدر وقتها.",
+          "objective": "أعتذر لها بصدق دون تبرير مشغوليتي، وأوضح لها أن الأمر مهم جدًا بالنسبة لي.",
+          "strategy": "تواصل معًا لتأكيد الاعتذار، واطلب مني وقتًا محددًا في المستقبل لتجنب التكرار.",
+          "risk": "لا تحاول تبرير مشغوليتك أو إقناعها بأنك كنت مشغولًا، فهذا سيزيد من شعورها بالإهمال."
+        },
+        "review_status": "flagged",
+        "style_used": "اعتذار",
+        "router_source": "faisal",
+        "reply_source": "qwen_lora_generated",
+        "register_normalization": [],
+        "draft_before_register_normalization": "أعتذر عن ما فاتني وأخسر وقتك، وأقدر أعتذر وأتفهم شعورك.",
+        "needs_review": true,
+        "was_retried": false,
+        "quality_warnings": [
+          "تعذر التحقق من المراجعة الدلالية؛ الصياغة تحتاج مراجعة"
+        ],
+        "generator": "Qwen3.5-4B + Saudi pilot LoRA (MLX 4-bit)",
+        "mock": false
+      },
+      "strict_pass": false,
+      "assessment": "Does not give a specific accountable apology and reassurance; awkward phrasing.",
+      "screenshot": "screenshots/generalization-pilot-apology.png",
+      "screenshot_sha256": "79863777cd5a050479bf430715e87247e89c54b68a0e3120983fff79d5b3886e"
+    }
+  ],
+  "experimental_epoch_1": [
+    {
+      "case": {
+        "id": "R01",
+        "family": "user_regression_already_seen",
+        "message": "صديقتي دايم تسألني عن أمور شخصية ما أحب أتكلم عنها، وإذا ما جاوبتها تزعل وتقول إني ما أثق فيها. أبي أوضح لها إن خصوصيتي مهمة بالنسبة لي وإن مو كل شيء لازم أشاركه معها، بس بنفس الوقت ما أبي أخسر صداقتنا.",
+        "relation": "صديق",
+        "goal": "أحط حدود"
+      },
+      "response": {
+        "reply": "أقدر اهتمامك، بس بعض الأمور ما أبي أشاركها معك. إذا استأذنتي عندها، أبي أكون واضحة إن خصوصيتي مهمة بالنسبة لي. ودي نكمل ننتبه على بعض، بس مع احترام حدودي.",
+        "style": "firm",
+        "coaching": {
+          "core": "صديقة تسأل عن أمور شخصية لا أحب مشاركتها، وتقول إن عدم الإجابة يعني عدم الثقة.",
+          "objective": "توضيح أهمية خصوصيتي مع الحفاظ على الصداقة دون خسارة العلاقة.",
+          "strategy": "إخبارها بوضوح أن بعض الأمور شخصية ولا أشاركها، مع التأكيد على رغبتي في الاستمرار في الصداقة.",
+          "risk": "عدم تفسير عدم الإجابة على كل الأسئلة على أنه عدم ثقة، لأن هذا تفسير خاطئ لما تقوله."
+        },
+        "review_status": "flagged",
+        "style_used": "حازم",
+        "router_source": "faisal",
+        "reply_source": "qwen_lora_generated",
+        "register_normalization": [],
+        "draft_before_register_normalization": "أقدر اهتمامك، بس بعض الأمور ما أبي أشاركها معك. إذا استأذنتي عندها، أبي أكون واضحة إن خصوصيتي مهمة بالنسبة لي. ودي نكمل ننتبه على بعض، بس مع احترام حدودي.",
+        "needs_review": true,
+        "was_retried": false,
+        "quality_warnings": [
+          "تعذر التحقق من المراجعة الدلالية؛ الصياغة تحتاج مراجعة"
+        ],
+        "generator": "Qwen3.5-4B + Saudi compositional experiment (not production) (MLX 4-bit)",
+        "mock": false
+      },
+      "strict_pass": false,
+      "assessment": "Adds an unclear permission clause and unnatural relationship wording.",
+      "screenshot": "screenshots/generalization-experimental_epoch_1-privacy.png",
+      "screenshot_sha256": "bbc1ebe3f3a544b572488ac7c5ca90851bd5b9dfe1b628ee757c1589738e9093"
+    },
+    {
+      "case": {
+        "id": "R02",
+        "family": "user_regression_already_seen",
+        "message": "اتفقت مع صديقتي نطلع سوا وبعد ما جهزت نفسها اعتذرت لها بآخر لحظة لأني كنت مشغولة ونسيت أبلغها بدري. زعلت مني وحست إني ما أقدر وقتها، وأبي أعتذر لها بطريقة صادقة بدون ما أبرر لنفسي وأوضح لها إنها مهمة عندي",
+        "relation": "صديق",
+        "goal": "أعتذر وأصلح الموقف"
+      },
+      "response": {
+        "reply": "اعتذر منك على ما جهزت نفسك قبل خروجنا، وحقك علي إنك زعلتي مني. بس أنا كنت مشغولة ونسيت أبلغك بدري، وحقك علي إنك حبيت توضحين لي إني ما أقدر وقتها. اعتذر منك على ما أبلغتك بدري قبل خروجنا، وحقك علي إنك زعلتي مني. بس أنا كنت مشغولة ونسيت أبلغك بدري، وحقك علي إنك حبيت توضحين لي إني ما أقدر وقتها. اعتذر منك على ما أبلغتك بدري قبل خروجنا، وحقك علي إنك زعلتي مني. بس أنا كنت مشغولة ونسيت أبلغك بدري، وحقك علي إنك حبيت توضحين لي إني ما أقدر وقتها.",
+        "style": "apology",
+        "coaching": {
+          "core": "اعتذرت لصديقتك متأخرًا بسبب مشغولتك ونسيت إخبارها، وهي تشعر بالزعل وتقول إنك لا تقدر وقتها.",
+          "objective": "أعتذر لها بصدق دون تبرير مشغوليتي، وأوضح لها أن الأمر مهم جدًا بالنسبة لي.",
+          "strategy": "تواصل معًا لتأكيد الاعتذار، واطلب مني وقتًا محددًا في المستقبل لتجنب التكرار.",
+          "risk": "لا تحاول تبرير مشغوليتك أو إقناعها بأنك كنت مشغولًا، فهذا سيزيد من شعورها بالإهمال."
+        },
+        "review_status": "flagged",
+        "style_used": "اعتذار",
+        "router_source": "faisal",
+        "reply_source": "qwen_lora_generated",
+        "register_normalization": [
+          "إنني → إني"
+        ],
+        "draft_before_register_normalization": "اعتذر منك على ما جهزت نفسك قبل خروجنا، وحقك علي إنك زعلتي مني. بس أنا كنت مشغولة ونسيت أبلغك بدري، وحقك علي إنك حبيت توضحين لي إنني ما أقدر وقتها. اعتذر منك على ما أبلغتك بدري قبل خروجنا، وحقك علي إنك زعلتي مني. بس أنا كنت مشغولة ونسيت أبلغك بدري، وحقك علي إنك حبيت توضحين لي إنني ما أقدر وقتها. اعتذر منك على ما أبلغتك بدري قبل خروجنا، وحقك علي إنك زعلتي مني. بس أنا كنت مشغولة ونسيت أبلغك بدري، وحقك علي إنك حبيت توضحين لي إنني ما أقدر وقتها.",
+        "needs_review": true,
+        "was_retried": false,
+        "quality_warnings": [
+          "تعذر التحقق من المراجعة الدلالية؛ الصياغة تحتاج مراجعة"
+        ],
+        "generator": "Qwen3.5-4B + Saudi compositional experiment (not production) (MLX 4-bit)",
+        "mock": false
+      },
+      "strict_pass": false,
+      "assessment": "Repeats, adds the busyness justification, reverses roles and omits importance reassurance. This is the observed pre-guard development output, not a qualified final reply.",
+      "screenshot": "screenshots/generalization-experimental_epoch_1-apology.png",
+      "screenshot_sha256": "8419e766bbb85d8db58f1df07e78b06cd146debc96f55f88584c3e04d453cc01"
+    }
+  ]
+}

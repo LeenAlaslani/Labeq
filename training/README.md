@@ -48,3 +48,7 @@ Use `--split 114` to evaluate the full test split. The evaluation saves raw outp
 ## Release evidence
 
 The full two-epoch run completed on Apple M5, followed by all 114 comparison generations across 38 shared held-out prompts. The [evaluation report](EVALUATION.md) records measured results, qualitative concerns, and the decision to retain the pilot baseline. Data files, raw outputs, and weights remain private.
+
+## Compositional follow-up
+
+The separate [generalization experiment](generalization/README.md) completed two epochs on 274 records without altering the approved v2 checkpoint. Its 16 frozen cases produced 64 raw comparison outputs. Blinded assistant assessment found strict passes of 0/16 base, 1/16 pilot, 3/16 v2 and 5/16 experimental epoch one; no candidate qualified for promotion. [Full evidence](../evidence/GENERALIZATION.md) separates meaning coverage from sendable Saudi wording and includes failed known-user regressions. AI-authored additions and independent-human-review limits are explicit. Published diagnostic outputs are separate from private approved training files and weights.

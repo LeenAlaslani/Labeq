@@ -1,0 +1,32 @@
+{
+  "description": "One actual official Qwen3.5-4B base bfloat16 GPU request in a private free diagnostic Space. Not an adapter comparison or final app validation.",
+  "result": {
+    "case": {
+      "id": "D03",
+      "relation": "صديق",
+      "goal": "أعتذر عن تصرفي",
+      "message": "ضحكت على اقتراح خويي قدام الشباب. أبي أعتذر عن الضحك وأعترف إنه ضايقه وأوضح إني أحترم رأيه بدون ما أقول كنت أمزح أو أطلب منه ما يزعل."
+    },
+    "result": {
+      "model": "Qwen/Qwen3.5-4B",
+      "dtype": "bfloat16",
+      "adapter": null,
+      "rows": [
+        {
+          "id": "D03",
+          "reply": "يا خوي، عايز أعتذر منك على ما ضحكته قدام الشباب، أنا عارف إنك ضاقتني، وأنا بحبك وتقدر رأيك، لكن ما قصدت إني أطلب منك إيه أو أمزح، كان مجرد ضحك عادي، عايز تاعرف إنك مهم لي.\n"
+        }
+      ]
+    },
+    "system_prompt": "You write a message that the USER can send to the other person. Read the entire situation and goal. Preserve every requested action and constraint, including partial agreement, duration and uncertainty. Use only the stated facts. Keep speaker and recipient roles and gender correct. Do not invent excuses, promises or obligations. Write natural Saudi Arabic suitable for the relationship, like a real WhatsApp message, not translated formal Arabic. Cover all the meaning without unnecessary length. Output only the message to the recipient.",
+    "generation": {
+      "max_new_tokens": 192,
+      "do_sample": false,
+      "thinking": false,
+      "response_adapter": null,
+      "space_source_revision": "28e2d467bfb9271fbac895b8421371233d6e0ef9",
+      "model_revision": "not pinned in this single diagnostic; config commit hash unavailable"
+    }
+  },
+  "conclusion": "Mixed Egyptian phrasing, reversed affect, an excuse and missing accountability also occur without local 4-bit quantization. One case cannot identify the cause or establish general capability."
+}

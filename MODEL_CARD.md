@@ -5,6 +5,7 @@
 | Qwen3.5-4B base | Context plan and draft review | Real text inference through MLX locally and Transformers in the ZeroGPU deployment |
 | Pilot Saudi LoRA | Response generation | Preserved original adapter, verified local tensor loading, and public inference checks |
 | Saudi LoRA v2 | Candidate response generator | See the [training report](training/README.md) for run status and held-out evidence |
+| Compositional Saudi experiment | Separate unqualified candidate | Completed two epochs; 5/16 strict local diagnostic passes under assistant assessment, below the frozen 13/16 gate. Not promoted. [Evidence](evidence/GENERALIZATION.md) |
 | Faisal | Automatic communication-style routing | Original adapter ran locally and on public ZeroGPU. Six of seven public cases used Faisal; one used explicit fallback. A human routing benchmark remains open. |
 | Rule router | Fallback after unavailable or insufficient Faisal decision | Returns `rule_fallback` and retains the original goal |
 | GitHub Pages | Entry point to the public app | Redirects to ZeroGPU; preview.html retains written examples |
@@ -22,3 +23,5 @@ Use of Munsit, ElevenLabs, and Azure voice features requires provider terms and 
 Saudi Arabic register varies across speakers and regions. Short prompts can leave the relationship or goal underspecified. A draft can introduce stiff phrasing, an unsupported promise, or a shift in intent. Model-based review shares the generator's base and does not establish human agreement. Judge output against the situation before sending.
 
 The [public release evidence](evidence/RELEASE.md) records the deployed sources, actual inference, browser checks, voice test status, quotas, and observed quality failures.
+
+The later [compositional evaluation](evidence/GENERALIZATION.md) publishes 64 raw comparison outputs and blinded assistant judgments. It documents incomplete generalization, failed known-user regressions and unsuccessful larger-writer diagnostics. These are research results, not independent human validation. The new test set is now exposed and cannot remain an unseen benchmark for further tuning. Optional Ollama writers identify their actual source; no alternative writer is qualified or configured in the public deployment.
