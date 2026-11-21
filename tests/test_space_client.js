@@ -52,6 +52,7 @@ async function run(events) {
   }
   await assert.rejects(run('event: error\ndata: "quota"\n\n'), /انتهت حصة GPU/);
   await assert.rejects(run('event: error\ndata: {"error":"You have exceeded your ZeroGPU runs limit"}\n\n'), /تسجيل الدخول/);
+  await assert.rejects(run('event: error\ndata: {"error":"GenerationBudgetError"}\n\n'), /تعذّر توليد رد مكتمل/);
   await assert.rejects(run('event: heartbeat\ndata: null\n\n'), /قبل اكتمال الرد/);
   console.log('Space client queue tests: PASS');
 })().catch(error => { console.error(error); process.exitCode = 1; });
