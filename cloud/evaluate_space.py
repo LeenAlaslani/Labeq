@@ -34,7 +34,8 @@ def main():
     identity=None
     identity_fields=['source_commit','base_revision','adapter_revision','adapter_sha256',
         'writer_policy_sha256','repetition_penalty','generator','compute_backend','environment_versions',
-        'candidate_adapter_shas','candidate_policy_sha256','v2_adapter_revision','planning_model_revision','planning_weights_sha256']
+        'candidate_adapter_shas','candidate_policy_sha256','v2_adapter_revision','planning_model_revision','planning_weights_sha256',
+        'writer_runtime','writer_gguf_repository','writer_gguf_revision','writer_gguf_sha256','writer_gguf_adapters']
     def health():
         response=httpx.get(url+'/api/model-health',headers=headers,timeout=20)
         response.raise_for_status();data=response.json()

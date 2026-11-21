@@ -84,3 +84,22 @@ def test_queue_dispatch_enters_the_explicit_backend_context_wrapper():
         speaker_gender='غير محدد',recipient_gender='غير محدد',history=[],generation_mode='مولّد فقط')
     assert execute_reply(engine,request)=={'prepared':True}
     assert observed[0][:3]==('الموقف الأصلي','صديق','الهدف الأصلي')
+
+
+def test_gguf_writer_custom_stop_rejects_partial_text_and_keeps_adapter_identity(monkeypatch):
+    from cloud.gguf_writer import ConfiguredGGUFWriter
+    import cloud.gguf_writer as module
+    clock={'now':0};observed=[]
+    monkeypatch.setattr(module,'time',SimpleNamespace(monotonic=lambda:clock['now']))
+    monkeypatch.setitem(sys.modules,'llama_cpp',SimpleNamespace(StoppingCriteriaList=lambda items:items))
+    writer=ConfiguredGGUFWriter.__new__(ConfiguredGGUFWriter)
+    writer.processor=SimpleNamespace(apply_chat_template=lambda *a,**k:'prompt')
+    writer.deadline=3;writer.generation_trace=[];writer.active_writer_adapter='saudi_v2'
+    writer.compute_backend='llama-cpp-cpu-lora'
+    def completion(**kwargs):
+        observed.append('v2');clock['now']=4
+        assert kwargs['stopping_criteria'][0]([],[]) is True
+        return {'choices':[{'text':'نص غير مكتمل','finish_reason':'stop'}],'usage':{'completion_tokens':3}}
+    writer.contexts={'saudi_v2':SimpleNamespace(create_completion=completion)}
+    with pytest.raises(GenerationBudgetError):writer._one_generation([])
+    assert observed==['v2'] and writer.generation_trace[0]['timed_out'] is True

@@ -1,0 +1,42 @@
+{
+  "study": "Separate full V16 production-runtime test of verified GGUF Saudi LoRA factors",
+  "basis": "BF16 runtime failed strict development naturalness 2/4; earlier MLX raw candidate selection passed 4/4 but did not transfer. This follow-up changes the writer runtime and base quantization, not the trained LoRA factors.",
+  "base": {
+    "repository": "unsloth/Qwen3.5-4B-GGUF",
+    "revision": "e87f176479d0855a907a41277aca2f8ee7a09523",
+    "filename": "Qwen3.5-4B-Q4_K_M.gguf",
+    "sha256": "00fe7986ff5f6b463e62455821146049db6f9313603938a70800d1fb69ef11a4"
+  },
+  "adapters": {
+    "pilot": {
+      "peft_sha256": "983ae8bf1d981e0aafb8a30a2ada4bf6c06284dd65b6f73876cdc6d521c48f3d",
+      "gguf_sha256": "2617c55eef3fa899bca612c210391d89a761395bd561ffe3b49d51c4e67ce229",
+      "gguf_file": "pilot.gguf",
+      "tensor_count": 256,
+      "all_factors_exact": true,
+      "format": "F32 GGUF LoRA, alpha/r=1; no merged or quantized adapter factors",
+      "converter_repository": "ggml-org/llama.cpp",
+      "converter_revision": "0c1e57098bba43ac29e6e3b677cdceebdd22334f"
+    },
+    "v2": {
+      "peft_sha256": "a9b352107884ad906e9913e827c7e075d3ad39c990db75c6ba561eb9e4d2bdef",
+      "gguf_sha256": "907ca93b8d7d3c7840eea789eb785f628b5f66e7d15a4bed9c77bf6792c3e89c",
+      "gguf_file": "v2.gguf",
+      "tensor_count": 256,
+      "all_factors_exact": true,
+      "format": "F32 GGUF LoRA, alpha/r=1; no merged or quantized adapter factors",
+      "converter_repository": "ggml-org/llama.cpp",
+      "converter_revision": "0c1e57098bba43ac29e6e3b677cdceebdd22334f"
+    }
+  },
+  "configurations": [
+    "pilot_clean",
+    "pilot_fewshot",
+    "v2_clean",
+    "v2_fewshot"
+  ],
+  "unchanged": "Original actual Faisal BF16 CPU routing; automatic Qwen3.6 plan, coaching, anonymous selector and grounded review; tokenizer pinned official851bf; initial greedy seed3407 repeat1; bounded same-policy sampling retry .45/.85; 135s request cap, 22s candidate cap.",
+  "gate": "Same runtime_protocol.json strict 4/4 development including natural Saudi register and faithful coaching, then both known user UI regressions, only then frozen S01-S16 >=13/16 and all changed-intent contrasts. EOS is required. Never use a rejected-all fallback.",
+  "not_evidence": "GGUF and MLX base quantizations differ; exact adapter factors do not imply equal model outputs. Schema-valid automated review is not independent review.",
+  "failure_policy": "Keep public pilot unchanged and fresh outputs unopened if any development/UI gate fails."
+}

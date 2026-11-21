@@ -35,6 +35,7 @@ class EnsembleEngine:
 
     def __init__(self,writer,teacher=None):
         self.writer=writer;self.teacher=teacher or SemanticTeacher();self.lock=RLock()
+        if writer.compute_backend=='llama-cpp-cpu-lora':self.compute_backend='llama-cpp-cpu-ensemble'
         directory=os.getenv('LABEQ_V2_ADAPTER_DIR')
         if directory:
             self.v2_directory=Path(directory);self.v2_revision=os.getenv('LABEQ_V2_ADAPTER_REVISION','local-private-QA')
@@ -70,7 +71,10 @@ class EnsembleEngine:
         with self.lock:
             if self.model is not None:return self
             self.writer.load()
-            self.writer.model.load_adapter(str(self.v2_directory),adapter_name='saudi_v2',is_trainable=False,torch_device='cpu')
+            if callable(getattr(self.writer,'load_second_adapter',None)):
+                self.writer.load_second_adapter(self.v2_directory)
+            else:
+                self.writer.model.load_adapter(str(self.v2_directory),adapter_name='saudi_v2',is_trainable=False,torch_device='cpu')
             self.writer.model.set_adapter('saudi');self.writer.model.eval()
             self.teacher.load();self.model=self.writer.model;self.faisal_ready=self.writer.faisal_ready
             return self
@@ -79,7 +83,8 @@ class EnsembleEngine:
         return {'candidate_adapter_shas':self.candidate_adapter_shas,'candidate_configurations':CONFIGURATIONS,
             'candidate_policy_sha256':self.policy_shas,'v2_adapter_revision':self.v2_revision,
             'planning_model':MODEL,'planning_model_revision':MODEL_REVISION,'planning_weights_sha256':WEIGHTS_SHA256,
-            'planning_weights_verified':self.teacher.verified,'candidate_selection_model':MODEL,'review_model':MODEL}
+            'planning_weights_verified':self.teacher.verified,'candidate_selection_model':MODEL,'review_model':MODEL,
+            **(self.writer.deployment_metadata() if callable(getattr(self.writer,'deployment_metadata',None)) else {})}
 
     def predict_style(self,message,relation,goal):
         result=self.writer.predict_style(message,relation,goal)
@@ -121,7 +126,7 @@ class EnsembleEngine:
         self.last_writer_provenance={'configuration':name,'adapter':selected['adapter'],
             'adapter_sha256':selected['adapter_sha256'],'adapter_revision':selected['adapter_revision'],
             'policy_sha256':selected['policy_sha256'],'selection_model':MODEL,'selection_label':choice,
-            'generator':f"Qwen3.5-4B + {self.adapter_labels[selected['adapter']]} (bfloat16 CPU; Qwen3.6 planning/selection/review)"}
+            'generator':f"Qwen3.5-4B + {self.adapter_labels[selected['adapter']]} ({getattr(self.writer,'writer_runtime_label','bfloat16 CPU')}; Qwen3.6 planning/selection/review)"}
         return selected['reply']
 
     def reply(self,message,relation='صديق',goal='أبي رد مناسب وواضح',style='تلقائي',

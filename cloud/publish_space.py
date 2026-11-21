@@ -18,6 +18,7 @@ def main():
     parser.add_argument("--backend", choices=["gpu", "cpu", "ensemble"], default="gpu")
     parser.add_argument("--private-adapter", type=Path, help="Copy QA weights only into an owned PRIVATE Space")
     parser.add_argument("--private-v2",type=Path,help="Second QA adapter; owned private ensemble Space only")
+    parser.add_argument('--private-gguf',type=Path,help='Verified GGUF conversions; owned private ensemble Space only')
     args = parser.parse_args()
     source = subprocess.check_output(["git", "rev-parse", args.commit], text=True).strip()
     api = HfApi()
@@ -31,12 +32,13 @@ def main():
             raise RuntimeError("QA adapter uploads require CPU mode and an owned private Space")
     if args.private_v2 and (not args.private_adapter or args.backend!='ensemble'):
         raise RuntimeError('Second QA weights require a private ensemble adapter upload')
+    if args.private_gguf and not args.private_v2:raise RuntimeError('GGUF QA weights require both private PEFT adapters')
     names = subprocess.check_output(["git", "ls-tree", "-r", "--name-only", source], text=True).splitlines()
     selected = [
         name for name in names
         if name.startswith("assets/")
         or ("/" not in name and Path(name).suffix in {".py", ".js", ".html", ".css"})
-        or name in {"cloud/space_app.py", "cloud/torch_engine.py", "cloud/cpu_engine.py", "cloud/cpu_space_app.py", "cloud/ensemble_engine.py", "cloud/ensemble_space_app.py", "cloud/semantic_teacher.py", "training/generalization_v3/policy.json", "training/qwen36_cpu/writer_fewshot.json", "LICENSE-CODE"}
+        or name in {"cloud/space_app.py", "cloud/torch_engine.py", "cloud/cpu_engine.py", "cloud/cpu_space_app.py", "cloud/ensemble_engine.py", "cloud/ensemble_space_app.py", "cloud/semantic_teacher.py", "cloud/gguf_writer.py", "training/generalization_v3/policy.json", "training/qwen36_cpu/writer_fewshot.json", "LICENSE-CODE"}
     ]
 
     def content(name):
@@ -52,6 +54,8 @@ def main():
         if args.backend == "cpu":
             readme = readme.replace('app_file: cloud/space_app.py', 'app_file: cloud/cpu_space_app.py')
             readme += "\nBackend: actual CPU Qwen/Faisal at /reply; optional real ZeroGPU inference at /reply_gpu. CPU transport does not establish reply quality.\n"
+        if args.private_gguf:
+            readme=readme.replace('preload_from_hub:\n','preload_from_hub:\n  - unsloth/Qwen3.5-4B-GGUF Qwen3.5-4B-Q4_K_M.gguf e87f176479d0855a907a41277aca2f8ee7a09523\n')
         readme += f"\nSource commit {source}.\n"
         (directory / "README.md").write_text(readme)
         runtime_requirements='cloud/requirements-cpu.txt' if args.backend in {'cpu','ensemble'} else 'cloud/requirements-zerogpu.txt'
@@ -73,6 +77,12 @@ def main():
                 target.write_bytes((args.private_v2/filename).read_bytes())
             adapter_manifest['second_adapter_sha256']={file.name:hashlib.sha256(file.read_bytes()).hexdigest()
                 for file in (directory/'private-qa-v2').iterdir()}
+        if args.private_gguf:
+            for name in ['pilot.gguf','v2.gguf','pilot-verification.json','v2-verification.json']:
+                target=directory/'private-qa-gguf'/name;target.parent.mkdir(exist_ok=True)
+                target.write_bytes((args.private_gguf/name).read_bytes())
+            adapter_manifest['gguf_conversion_files_sha256']={file.name:hashlib.sha256(file.read_bytes()).hexdigest()
+                for file in (directory/'private-qa-gguf').iterdir()}
         manifest = {
             "source_commit": source,
             "backend": args.backend,

@@ -12,7 +12,13 @@ def main():
     from cloud.ensemble_engine import EnsembleEngine
     from cloud.space_app import create_app
     os.environ['LABEQ_MODEL_MODE']='real'
-    cpu=EnsembleEngine(ConfiguredTorchEngine('cpu'));gpu=ConfiguredTorchEngine('cuda')
+    runtime=os.getenv('LABEQ_WRITER_RUNTIME','bfloat16')
+    if runtime=='gguf':
+        from cloud.gguf_writer import ConfiguredGGUFWriter
+        writer=ConfiguredGGUFWriter()
+    elif runtime=='bfloat16':writer=ConfiguredTorchEngine('cpu')
+    else:raise ValueError('Unknown writer runtime')
+    cpu=EnsembleEngine(writer);gpu=ConfiguredTorchEngine('cuda')
     app=create_app(cpu,lambda function:function,gpu_engine=gpu,max_queue_size=1)
     cpu.load();gpu.load()
     app.state.gradio_model.update(model_loaded=True,faisal_loaded=cpu.faisal_ready,**cpu.deployment_metadata())
