@@ -64,7 +64,7 @@ def intent_guidance(brief: Brief) -> str:
     elif brief.repeated:
         instructions.append("المستخدم وصف أمرًا متكررًا؛ حافظي على التكرار في الرسالة ولا تختصريه إلى واقعة لمرة واحدة.")
     if re.search(r"(?:أصلح|نصلح|ننهي\s*الخلاف|نتفاهم|سوء\s*فهم|تصالح)", brief.goal):
-        instructions.append("للصلح: اطلبي الحوار بهدوء ولا تنسبي لنفسك خطأ محددًا لم يذكره المستخدم.")
+        instructions.append("للصلح: حافظي على التصرف اللي طلبه المستخدم في الموقف، مثل الاعتذار أو التوضيح أو المتابعة. لا تستبدليه بطلب حوار عام، ولا تنسبي له خطأ ما ذكره.")
     return "\n".join("- " + line for line in instructions)
 
 

@@ -17,6 +17,10 @@ from difflib import SequenceMatcher
 import re
 
 from LABEQ_V15_Goal_Fix import alignment_flags, brief_for, intent_guidance
+from saudi_register import (
+    SAUDI_EXAMPLES, SAUDI_SYSTEM, clean_writing, explicit_fusha,
+    register_instruction, register_warnings,
+)
 
 
 def _clean(s):
@@ -95,6 +99,9 @@ def local_warnings(reply, message, goal, style, last_reply=""):
         flags.append("صياغة طلب التوضيح تحتاج سؤالًا محددًا للطرف الآخر")
     if last_reply and SequenceMatcher(None,_clean(last_reply),text).ratio() > 0.88:
         flags.append("الصياغة الجديدة تشبه الرد السابق جدًا ولم تتغير بشكل مفيد")
+    if re.search(r"(?:إني|أني)\s+(?:بأتابع|بتابع|براجع)|أبي\s+أتابع", message):
+        if not re.search(r"(?:أتابع|بتابع|نتابع|بنتابع|أراجع|براجع|نراجع|بنراجع)", text):
+            flags.append("الرد أغفل متابعة الموضوع التي طلب المستخدم توضيحها")
     return flags
 
 
@@ -126,7 +133,8 @@ def reply_v16(self, message, relation="صديق", goal="أبي رد مناسب �
     modifier=_get_instructions(history)
     # Phase 1: grounded short brief using the base model; this is NOT Faisal's explanation.
     plan_prompt=(
-        "أنتِ مستشارة تواصل. لخصي فقط ما قاله المستخدم دون افتراض مشاعر أو أخطاء أو وعود. "
+        "أنتِ مستشارة تواصل سعودية. لخصي بكلام سعودي بسيط ما قاله المستخدم فقط، دون افتراض مشاعر أو أخطاء أو وعود. "
+        "حددي مين اللي تأخر أو غلط بدقة، ولا تعكسي الأدوار. اجمعي الطلبات والقيود من نص الموقف كله. "
         "اكتبي أربع سطور قصيرة بهذه التسميات بالضبط، ولا تكتبي رسالة الرد:\n"
         "جوهر الموقف: [المشكلة المحددة كما وردت]\n"
         "الهدف: [ما الذي يريد تحقيقه فعلاً]\n"
@@ -137,14 +145,9 @@ def reply_v16(self, message, relation="صديق", goal="أبي رد مناسب �
     plan_raw=self._one_generation([{"role":"user","content":plan_prompt}],use_adapter=False)
     plan=parse_plan(plan_raw)
     # Phase 2: real response by Saudi LoRA. Keep the user's facts as the source of truth.
-    gen_system=(
-        "أنتِ لبِق: محررة رسائل سعودية تفهم السياق الاجتماعي. هدفك مساعدة الشخص فعلًا، لا إعطاء رد عام. "
-        "اكتبي للطرف الآخر مباشرة ولا تحولي هدف المستخدم إلى شيء آخر. "
-        "الأسلوب يغيّر النبرة فقط، وليس المقصد. ابني الرسالة على حقائق المستخدم فقط. "
-        "إذا المستخدم لم يخطئ فلا تعترفي بخطأ من اختراعك. إذا طلب وضع حدود، فلا تقدمي وعدًا يناقض الحدود. "
-        "في المواقف غير الرسمية استخدمي سعودية يومية طبيعية، وفي العمل لغة مهنية بسيطة. "
-        "خلّيها غالبًا من جملتين إلى ثلاث وبطول مناسب للنسخ والإرسال. لا تكتبي مقدمة أو شرحًا."
-    )
+    register = register_instruction(relation, style_key, modifier)
+    gen_system = SAUDI_SYSTEM + "\n" + register
+    examples = [] if explicit_fusha(modifier) else [dict(item) for item in SAUDI_EXAMPLES]
     style_line=style_instruction(style_key,goal,message)
     brief = brief_for(message, goal, relation)
     def gen_prompt(extra=""):
@@ -153,24 +156,36 @@ def reply_v16(self, message, relation="صديق", goal="أبي رد مناسب �
             f"الأسلوب: {_style_display(style_key)}\n"
             f"{style_line}\nجنس المتحدث: {speaker_gender}، جنس المخاطب: {recipient_gender}.\n"
             f"{intent_guidance(brief)}\n"
-            + (f"خطوة مقترحة للموقف: {plan['strategy']}\n" if plan.get("strategy") else "")
+            # The generated coaching plan is advisory; it must not introduce facts into the draft.
+            + f"طريقة الكتابة: {register}\n"
             + (f"{modifier}\n" if modifier else "")
             + (f"ملاحظة للمراجعة: {extra}\n" if extra else "")
             + "اكتبي نص الرسالة السعودية للطرف الآخر مباشرة. الرسالة فقط."
         )
-    first=self._one_generation([{"role":"system","content":gen_system},{"role":"user","content":gen_prompt()}])
+    def generate(extra="", retry=False):
+        return clean_writing(self._one_generation(
+            [{"role":"system","content":gen_system}] + examples
+            + [{"role":"user","content":gen_prompt(extra)}], retry=retry,
+        ), modifier)
+    first=generate()
     def check(candidate):
         return list(dict.fromkeys(
             local_warnings(candidate, message, goal, style_key, previous)
             + quality_flags(candidate, relation, goal, message)
             + alignment_flags(candidate, brief)
+            + register_warnings(candidate, modifier)
         ))
     # Phase 3: semantic reviewer on Qwen base. The same model is NOT an independent guarantee.
     def review(candidate):
         prompt = (
             "قيّمي الرسالة الآتية مقابل طلب المستخدم، لا تجاملي. "
             "هل تحافظ على الهدف الأصلي والأسلوب المطلوب دون اختلاق أسباب أو وعود؟ "
-            "هل اللهجة ملائمة للعلاقة؟ اكتبي سطرين فقط: النتيجة: مناسب أو غير مناسب. "
+            "احكمي على كل طلب وقيد في الموقف، وليس عنوان الهدف فقط. "
+            "لا تطلبي وعدا جديدا لم يطلبه الشخص، ولا تعتبري الاعتذار عن خطأ مذكور مشكلة. "
+            "المطلوب سعودية طبيعية حتى في العمل وخدمة العملاء؛ المهنية لا تستلزم الفصحى. "
+            "لا تقبلي صياغة مصرية أو إدارية متكلفة. "
+            f"طريقة الكتابة المطلوبة: {register}\n"
+            "اكتبي سطرين فقط: النتيجة: مناسب أو غير مناسب. "
             "السبب: [سبب محدد في أقل من 15 كلمة].\n"
             f"الموقف: {message}\nالعلاقة: {relation}\nالهدف: {goal}\n"
             f"النبرة: {_style_display(style_key)}\nالرسالة: {candidate}"
@@ -185,10 +200,7 @@ def reply_v16(self, message, relation="صديق", goal="أبي رد مناسب �
     if was_retried:
         try:
             reason = "؛ ".join(flags)
-            revised = self._one_generation([
-                {"role":"system","content":gen_system},
-                {"role":"user","content":gen_prompt("أصلحي الملاحظات التالية: " + reason)},
-            ], retry=True)
+            revised = generate("أصلحي الملاحظات التالية: " + reason, retry=True)
             if revised.strip():
                 new_flags = check(revised)
                 new_review, new_issue = review(revised)
