@@ -29,7 +29,7 @@ const goals=[
   {key:'clarify',label:'أفهم اللي صار',symbol:'?',detail:'وأوضّح المقصود'}
 ];
 const styleLabels={polite:'لبق',firm:'حازم',diplomatic:'دبلوماسي',apology:'اعتذار',clarify:'طلب توضيح'};
-const goalPhrases={polite:'أرفض الطلب بأسلوب محترم',firm:'أوضح حدودي بدون تجريح',diplomatic:'أحل سوء الفهم بهدوء',apology:'أعتذر وأصلح الموقف',clarify:'أتأكد إني فهمت المقصود'};
+const goalPhrases={polite:'أرفض الطلب بأسلوب محترم',firm:'أوضح حدودي بدون تجريح',diplomatic:'ننهي الخلاف ونتفاهم بهدوء',apology:'أعتذر وأصلح الموقف',clarify:'أتأكد إني فهمت المقصود'};
 const replyBank={
   polite:{
     casual:['أقدّر طلبك، بس هالمرة ما أقدر. إن شاء الله تتيسر لك.','ودي أساعدك، بس ظروفي الحين ما تسمح لي. أتمنى تتفهم.','تسلم على ثقتك، لكن بعتذر منك هالمرة.'],

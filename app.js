@@ -29,7 +29,7 @@ const goals=[
   {key:'custom',label:'عندي هدف ثاني',symbol:'✦',detail:'اكتبيه بطريقتك'}
 ];
 const styleLabels={polite:'لبق',firm:'حازم',diplomatic:'دبلوماسي',apology:'اعتذار',clarify:'طلب توضيح'};
-const goalPhrases={polite:'أرفض الطلب بأسلوب محترم',firm:'أوضح حدودي بدون تجريح',diplomatic:'أحل سوء الفهم بهدوء',apology:'أعتذر وأصلح الموقف',clarify:'أتأكد إني فهمت المقصود'};
+const goalPhrases={polite:'أرفض الطلب بأسلوب محترم',firm:'أوضح حدودي بدون تجريح',diplomatic:'ننهي الخلاف ونتفاهم بهدوء',apology:'أعتذر وأصلح الموقف',clarify:'أتأكد إني فهمت المقصود'};
 function userGoal(){return state.goal==='custom'?state.customGoal.trim():(goalPhrases[state.goal]||'أبي رد مناسب')}
 const replyBank={
   polite:{
