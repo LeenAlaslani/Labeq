@@ -52,3 +52,11 @@ Independent Saudi Arabic review, stronger intent preservation and grounded coach
 ## Saudi register follow-up
 
 The later [Saudi register repair](SAUDI_REGISTER.md) keeps the original pilot, adds audited wording edits and concrete meaning checks, and records a fresh public customer screenshot. It does not retrain or promote v2.
+
+## Compositional follow-up, November 21
+
+The [generalization report](GENERALIZATION.md) records a completed separate two-epoch experiment, 64 frozen-test generations across base/pilot/v2/candidate, blinded assistant judgments, and new real application screenshots of both user scenarios. Strict local passes are 0/16, 1/16, 3/16 and 5/16 respectively. Neither the new candidate nor an alternative writer qualified; both known user regressions remain unsuccessful. The approved v2 and incumbent pilot weights are preserved. Independent human review remains open.
+
+The final local checks pass 65 Python tests, both JavaScript suites, and Chrome mobile/fixture smoke checks for layout, duplicate rewrites, simulated dictation and inactive Maha controls. Two actual pilot UI requests and two experimental development UI requests used real Qwen generation and Faisal routing. These are serving/source checks, not successful semantic acceptance tests. Incomplete generated output now fails rather than being represented as complete; unavailable model review stays visibly unverified.
+
+The longer grounded-review path reserves 60/90 seconds on free ZeroGPU and pins the official Qwen base/tokenizer revision. Final hosted full-pipeline inference requires available quota; the single successful bfloat16 diagnostic was base-only and does not validate the changed pipeline. Deployment state and any later hosted recheck are recorded separately when observed. No paid resource was enabled and no voice-provider key was copied to hosting.

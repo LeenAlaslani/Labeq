@@ -29,7 +29,13 @@ LABEQ keeps the situation, relationship, and goal as separate inputs. Communicat
 
 [Relationship](screenshots/release-relationship.png) · [Goal](screenshots/release-goal.png) · [Situation](screenshots/release-situation.png) · [Coaching](screenshots/release-coaching.png) · [Style comparison](screenshots/release-style-comparison.png) · [Public mobile](screenshots/release-mobile-public.png)
 
-The release screenshots were captured from the public V16 application. Replies and coaching come from actual Qwen inference with the pilot Saudi LoRA and the stated routing source. The separately retained release-mobile-demo.png shows the archived written-example preview.
+The earlier release screenshots above were captured from the public V16 application. Replies and coaching come from actual Qwen inference with the pilot Saudi LoRA and the stated routing source. The separately retained release-mobile-demo.png shows the archived written-example preview.
+
+| New privacy-boundary check | New apology check |
+| --- | --- |
+| ![Latest local Qwen/Faisal privacy check](screenshots/generalization-pilot-privacy.png) | ![Latest local Qwen/Faisal apology check](screenshots/generalization-pilot-apology.png) |
+
+These new captures use the latest local MLX application with actual pilot generation and Faisal routing. They retain the unsuccessful replies and visible review state; they are not hosted bfloat16 results or approved example answers. [Generalization evidence](evidence/GENERALIZATION.md) includes the experimental adapter captures and raw records.
 
 ## Model architecture
 
@@ -64,6 +70,8 @@ The [Saudi register repair](evidence/SAUDI_REGISTER.md) documents the actual cus
 
 Saudi LoRA v2 completed two epochs and 479 optimizer updates with final validation loss 1.8040. The [38-scenario evaluation](training/EVALUATION.md) documents the base, pilot, and v2 outputs, automatic diagnostics, and qualitative concerns. The pilot remains the incumbent research baseline because v2 still changes intent and produces unnatural phrasing in important cases. Independent human evaluation remains open. Raw data and checkpoints are supplied separately.
 
+A separate compositional experiment completed two epochs on 274 records, including 48 explicitly AI-authored additions. On 16 frozen diagnostic cases, strict sendable-Saudi passes were base 0, pilot 1, v2 3 and experimental epoch one 5, according to a blinded assistant assessment. The candidate missed the predeclared 13/16 gate and both known user regressions. It was not promoted. [Methods, actual training metrics, raw outputs and limitations](evidence/GENERALIZATION.md) document the unresolved quality problem; passing software tests is not evidence that generalization is solved.
+
 ## Run locally
 
 ### Interactive demo
@@ -93,6 +101,8 @@ Open `http://127.0.0.1:8006`. To connect your model, set `LABEQ_MODEL_MODE=real`
 ### Apple Silicon
 
 Put your permitted `LABEQ_Saudi_LoRA_Backup.zip` in the project and run `bash prepare_local.sh`, then `bash start_local_model.sh` in one terminal and `bash run_mac.sh` in another. To use an existing compatible PEFT or MLX adapter directory, set `LABEQ_MLX_ADAPTER_DIR` and run `python setup_local.py` to write the loopback secret. For Faisal, download the upstream `adapter/` directory and set `LABEQ_MLX_FAISAL_DIR` to its local path. Restart the model service when changing an adapter. The route remains optional.
+
+For a different local writer, install Ollama separately and configure `LABEQ_WRITER_BACKEND=ollama`, `LABEQ_OLLAMA_MODEL` to an installed model you are permitted to use, and optionally `LABEQ_WRITER_POLICY` to a JSON file with `system` and alternating `examples` pairs. Keep the MLX base and `LABEQ_MLX_FAISAL_DIR` configured for the separate router. Use HTTPS or loopback for `LABEQ_OLLAMA_URL`. This opt-in backend reports its actual model name and `ollama_generated`; it does not claim a Saudi response adapter or a quality qualification. [The real evaluator](training/generalization/evaluate_ollama.py) records model digests and policy hashes for comparisons. The deployed default remains Qwen with the pilot adapter.
 
 ### NVIDIA GPU and Colab
 

@@ -1,0 +1,41 @@
+{
+  "train_gold_178.jsonl": {
+    "count": 178,
+    "unique_situations": 60,
+    "median_completion_words": 9.0,
+    "completion_words_total": 1600,
+    "answers_under_15_words": 174,
+    "sha256": "14569dfec9244cde11babcc1a2a323a07a831346ec34b35f543d08e2e4ec1e2b"
+  },
+  "train_full_958.jsonl": {
+    "count": 958,
+    "unique_situations": 320,
+    "median_completion_words": 9.0,
+    "completion_words_total": 9116,
+    "answers_under_15_words": 943,
+    "sha256": "42b7a59d71376687bbed033886bf02786ebbc78eb9c6cc2af38df029c543fe26"
+  },
+  "validation_114.jsonl": {
+    "count": 114,
+    "unique_situations": 38,
+    "median_completion_words": 9.0,
+    "completion_words_total": 1075,
+    "answers_under_15_words": 113,
+    "sha256": "6eda2322d3cf7198c90c32454f95016fab608c0da3a0ddece11d56a77eef323a"
+  },
+  "test_114.jsonl": {
+    "count": 114,
+    "unique_situations": 38,
+    "median_completion_words": 9.0,
+    "completion_words_total": 1077,
+    "answers_under_15_words": 111,
+    "sha256": "fb5c1f117f6d9850cdcb3dbcf58fe751f3a6da362ba6e39ea75938d33fe0dd28"
+  },
+  "synthetic": {
+    "unique": 48,
+    "median_completion_words": 21.0,
+    "completion_words_total": 1021,
+    "human_approved": false
+  },
+  "interpretation": "Length and coverage concerns, not causal proof. No downstream semantic accuracy inferred from counts."
+}

@@ -43,6 +43,13 @@ async function run(events) {
   const result = {reply: 'ما أقدر أساعد كل يوم', style_key: 'firm', reply_source: 'qwen_lora_generated'};
   const reply = await run('event: heartbeat\r\ndata: null\r\n\r\nevent: complete\r\ndata: ' + JSON.stringify([result]) + '\r\n\r\n');
   assert.strictEqual(reply.reply, result.reply);
+  for(const source of ['qwen_base_generated','ollama_generated']){
+    const actual={...result,reply_source:source};
+    assert.strictEqual((await run('event: complete\ndata: '+JSON.stringify([actual])+'\n\n')).reply_source,source);
+  }
+  for(const invalid of [{...result,mock:true},{...result,reply_source:'template'},{...result,reply:''},{...result,reply:null}]){
+    await assert.rejects(run('event: complete\ndata: '+JSON.stringify([invalid])+'\n\n'),/استجابة غير صالحة/);
+  }
   await assert.rejects(run('event: error\ndata: "quota"\n\n'), /انتهت حصة GPU/);
   await assert.rejects(run('event: error\ndata: {"error":"You have exceeded your ZeroGPU runs limit"}\n\n'), /تسجيل الدخول/);
   await assert.rejects(run('event: heartbeat\ndata: null\n\n'), /قبل اكتمال الرد/);

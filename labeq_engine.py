@@ -205,7 +205,7 @@ class LabeqEngine:
             finally:
                 self.model.set_adapter("saudi")
 
-    def _one_generation(self, messages: list[dict], retry: bool = False, use_adapter: bool = True) -> str:
+    def _one_generation(self, messages: list[dict], retry: bool = False, use_adapter: bool = True, max_tokens: int = 256) -> str:
         with self.lock:
             self.model.set_adapter("saudi")
             inputs = self._inputs(messages)
@@ -216,7 +216,7 @@ class LabeqEngine:
             if pad is None and hasattr(self.processor, 'tokenizer'):
                 pad = self.processor.tokenizer.pad_token_id
             gen_kw = {
-                "max_new_tokens": 125,
+                "max_new_tokens": max_tokens,
                 "do_sample": retry,
                 "repetition_penalty": 1.08,
                 "pad_token_id": pad if pad is not None else eos,
@@ -229,7 +229,12 @@ class LabeqEngine:
                 outputs = self.model.generate(**inputs, **gen_kw)
             token_ids = outputs[0, inputs["input_ids"].shape[-1]:]
             decoder = self.processor.decode if hasattr(self.processor, "decode") else self.processor.tokenizer.decode
-            return finish_reply(decoder(token_ids, skip_special_tokens=True))
+            text=finish_reply(decoder(token_ids, skip_special_tokens=True))
+            stop_ids=set(eos if isinstance(eos,(list,tuple)) else [eos])
+            if len(token_ids)>=max_tokens and int(token_ids[-1]) not in stop_ids:
+                from generation_limits import GenerationBudgetError
+                raise GenerationBudgetError(text)
+            return text
 
     def reply(self, message: str, relation: str = "صديق", goal: str = "أبي رد مناسب وواضح",
               style: str = "تلقائي", speaker_gender: str = "غير محدد",

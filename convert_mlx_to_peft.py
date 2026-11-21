@@ -11,11 +11,30 @@ from safetensors.numpy import load_file, save_file
 
 KEY = re.compile(
     r"language_model\.model\.(layers\.\d+\.(?:mlp\.(?:down_proj|gate_proj|up_proj)"
-    r"|self_attn\.(?:q_proj|k_proj|v_proj|o_proj)))\.lora_([ab])"
+    r"|self_attn\.(?:q_proj|k_proj|v_proj|o_proj)"
+    r"|linear_attn\.(?:in_proj_qkv|out_proj)))\.lora_([ab])"
 )
 
 
+def expected_shape(path):
+    """Input/output sizes of the supported Qwen3.5-4B language projections."""
+    _, layer, kind, suffix = path.split(".")
+    if not 0 <= int(layer) < 32:
+        raise ValueError("Unexpected Qwen3.5-4B layer index")
+    full_attention = int(layer) % 4 == 3
+    if kind == "mlp":
+        return (9216, 2560) if suffix == "down_proj" else (2560, 9216)
+    if kind == "self_attn" and full_attention:
+        return {"q_proj":(2560,8192), "k_proj":(2560,1024),
+                "v_proj":(2560,1024), "o_proj":(4096,2560)}[suffix]
+    if kind == "linear_attn" and not full_attention:
+        return {"in_proj_qkv":(2560,8192), "out_proj":(4096,2560)}[suffix]
+    raise ValueError("Projection does not match this layer's attention type")
+
+
 def convert(source: Path, destination: Path):
+    if destination.exists():
+        raise FileExistsError(destination)
     config = json.loads((source / "adapter_config.json").read_text())
     parameters = config["lora_parameters"]
     rank, scale = parameters["rank"], parameters["scale"]
@@ -42,12 +61,18 @@ def convert(source: Path, destination: Path):
     random = np.random.default_rng(3407)
     for key, pair in pairs.items():
         a, b = pair["a"], pair["b"]
-        x = random.normal(size=(1, a.shape[0])).astype(a.dtype)
+        input_size, output_size = expected_shape(key)
+        if a.shape != (input_size, rank) or b.shape != (rank, output_size):
+            raise ValueError(f"Qwen3.5-4B projection shape mismatch: {key}")
+        # Use float64 for this algebra check: BLAS accumulation with a
+        # transposed layout can differ in float32 without changing any weight.
+        x = random.normal(size=(1, a.shape[0]))
         prefix = f"base_model.model.model.language_model.{key}"
         peft_a, peft_b = (converted[prefix + f".lora_{side}.weight"] for side in ("A", "B"))
         np.testing.assert_allclose(
-            (x @ a) @ b * scale, (x @ peft_a.T) @ peft_b.T * (alpha / rank),
-            rtol=1e-5, atol=1e-6,
+            (x @ a.astype(np.float64)) @ b.astype(np.float64) * scale,
+            (x @ peft_a.astype(np.float64).T) @ peft_b.astype(np.float64).T * (alpha / rank),
+            rtol=1e-10, atol=1e-10,
         )
     destination.mkdir(parents=True, exist_ok=False)
     save_file(converted, str(destination / "adapter_model.safetensors"))

@@ -4,6 +4,7 @@ emoji: 💜
 colorFrom: purple
 colorTo: pink
 sdk: gradio
+sdk_version: "6.32.0"
 app_file: cloud/space_app.py
 python_version: "3.12"
 pinned: false
@@ -13,7 +14,7 @@ pinned: false
 
 Saudi Arabic communication coaching with the V16 interface, original Maha artwork, Qwen3.5-4B with a Saudi pilot LoRA adapter, and the original Faisal decision adapter. Requests use Gradio's queue and Hugging Face ZeroGPU.
 
-The Saudi LoRA v2 candidate completed two epochs locally. Its held-out review found intent and dialect failures, so the pilot remains the configured research baseline. Replies require user review.
+The Saudi LoRA v2 candidate completed two epochs locally. Its held-out review found intent and dialect failures, so the pilot remains the configured research baseline. A separate completed compositional experiment reached 5/16 strict local diagnostic passes under assistant assessment and was also not promoted. Replies require user review. Detailed methods, unsuccessful outputs and new application screenshots are recorded in the GitHub generalization report.
 
 Faisal is Omer Nacar's Jev-inspired Arabic decision model under CC BY-NC 4.0. This Space is an attributed noncommercial research demonstration.
 

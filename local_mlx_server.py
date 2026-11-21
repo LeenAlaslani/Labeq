@@ -22,12 +22,24 @@ async def lifespan(app):
     if len(secret) < 16:
         raise RuntimeError("Configure LABEQ_API_KEY or run bash prepare_local.sh")
     app.state.secret = secret
-    app.state.engine = MlxEngine(
+    backend=os.getenv("LABEQ_WRITER_BACKEND","mlx")
+    if backend not in {"mlx","ollama"}:
+        raise RuntimeError("LABEQ_WRITER_BACKEND must be mlx or ollama")
+    router=MlxEngine(
         os.getenv("LABEQ_MLX_MODEL", "mlx-community/Qwen3.5-4B-MLX-4bit"),
-        os.getenv("LABEQ_MLX_ADAPTER_DIR", str(ROOT / "mlx_adapter")),
+        os.getenv("LABEQ_MLX_ADAPTER_DIR", str(ROOT / "mlx_adapter")) if backend=="mlx" else None,
         os.getenv("LABEQ_MLX_FAISAL_DIR") or None,
         os.getenv("LABEQ_MLX_ADAPTER_LABEL", "Saudi LoRA"),
     )
+    if backend=="ollama":
+        from ollama_inference import OllamaEngine
+        app.state.engine=OllamaEngine(
+            router,os.environ["LABEQ_OLLAMA_MODEL"],
+            os.getenv("LABEQ_OLLAMA_URL","http://127.0.0.1:11434"),
+            os.getenv("LABEQ_WRITER_POLICY") or None,
+        )
+    else:
+        app.state.engine=router
     yield
 
 
@@ -38,9 +50,11 @@ app = FastAPI(title="LABEQ MLX inference", lifespan=lifespan, docs_url=None, red
 def health():
     engine = getattr(app.state, "engine", None)
     return {
-        "service": "labeq-mac", "status": "online", "backend": "mlx-vlm",
-        "model_loaded": engine is not None, "adapter_loaded": engine is not None,
+        "service": "labeq-mac", "status": "online", "backend": "ollama+mlx-vlm" if engine and hasattr(engine,"model_tag") else "mlx-vlm",
+        "model_loaded": engine is not None,
+        "adapter_loaded": bool(engine and getattr(engine,"adapters",{}).get("saudi")),
         "faisal_loaded": bool(engine and engine.faisal_ready),
+        "generator": getattr(engine,"generator",None),
     }
 
 

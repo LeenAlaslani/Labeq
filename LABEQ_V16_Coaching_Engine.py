@@ -13,10 +13,10 @@ heuristic/model-reviewed, not externally validated or guaranteed.
 """
 from __future__ import annotations
 
+from semantic_review import parse_review, review_prompt
 from difflib import SequenceMatcher
 import re
 
-from LABEQ_V15_Goal_Fix import alignment_flags, brief_for, intent_guidance
 from saudi_register import (
     SAUDI_EXAMPLES, SAUDI_SYSTEM, clean_writing, explicit_fusha,
     normalize_saudi, register_instruction, register_warnings, writing_style,
@@ -50,13 +50,13 @@ def parse_plan(text):
 def style_instruction(style, goal, message):
     # Style describes HOW to say it, never replaces WHAT the user needs.
     defaults = {
-        "polite": "لبق: ابدئي بتفهم قصير، ثم قولي المقصود بوضوح دون تلميحات مبهمة.",
-        "firm": "حازم محترم: قولي قرارًا واضحًا وحدودًا قابلة للفهم بلا تبرير زائد أو تهديد.",
-        "diplomatic": "دبلوماسي: اعترفي باختلاف وجهات النظر وافتحي مساحة للتفاهم، دون التنازل عن الهدف الأصلي.",
-        "clarify": "طلب توضيح: ابدئي بسؤال مباشر عن سبب سوء الفهم أو عن المقصود، حسب الحالة. اربطي السؤال بهدف المستخدم.",
-        "apology": "اعتذار: اعتذري عن تصرف خاطئ إذا ذكره المستخدم، وإلا فلا تعترفي بخطأ غير مثبت؛ يمكنك الاعتذار عن عدم التمكن فقط إذا كان مناسبًا.",
-        "formal": "مهني رسمي: لغة عمل سعودية واضحة بلا تكلف ولا إطالة.",
-        "مختصر": "مختصر: احفظي معنى الموقف والهدف حتى لو قلّ عدد الكلمات.",
+        "polite": "نبرة لطيفة ومحترمة. حافظ على كل ما طلبه الشخص، ولا تضف اعتذارا أو وعدا أو طلبا من عندك.",
+        "firm": "نبرة واضحة وثابتة باحترام. التزم بنفس حدود المستخدم ونطاقها ومدتها؛ لا تخترع حصة مساعدة أو موعدا أو بديلا.",
+        "diplomatic": "نبرة هادئة ومراعية للعلاقة. نفذ مقصد المستخدم كامل بدون افتراض اختلاف آراء أو استبدال طلبه بحوار عام.",
+        "clarify": "نبرة استيضاح مهذبة. اطلب نفس التوضيح أو الإجراء اللي يريده المستخدم، ولا تحول طلب تنفيذ إجراء إلى سؤال عن سببه.",
+        "apology": "نبرة صادقة ومراعية للأثر. إذا طلب الشخص الاعتذار فاكتب اعتذاره هو، واحفظ تحمله للمسؤولية وحدوده؛ لا تنسب له خطأ أو عذرا غير مذكور.",
+        "formal": "نبرة سعودية مهنية ومحترمة، واضحة وطبيعية بدون تكلف، مع حفظ كامل المقصد.",
+        "مختصر": "صياغة مختصرة تحفظ كل المطلوب والقيود؛ لا تختصر على حساب المعنى.",
     }
     if style in defaults: return defaults[style]
     return defaults["polite"]
@@ -119,15 +119,6 @@ def _parse_review(text):
     return None,""
 
 
-def semantic_review_issue(issue):
-    """Only specific meaning concerns can trigger a model-directed rewrite."""
-    return bool(re.search(
-        r"(?:وعد|وعود|موعد|التزام).*(?:يناقض|يتعارض|غير مذكور|غير مؤكد)|"
-        r"(?:اختلق|اختلاق|غير مذكور).*(?:سبب|موعد|وعد|خطأ)|"
-        r"(?:أغفل|تجاهل|يتجاهل).*(?:الهدف|المتابعة|الاعتذار|التكرار)|"
-        r"غيّر الهدف|عكس الأدوار", issue or "",
-    ))
-
 
 def reply_v16(self, message, relation="صديق", goal="أبي رد مناسب وواضح",
               style="تلقائي", speaker_gender="غير محدد", recipient_gender="غير محدد",
@@ -156,96 +147,110 @@ def reply_v16(self, message, relation="صديق", goal="أبي رد مناسب �
         "انتبهي: [تفسير خاطئ واحد يجب تجنبه]\n"
         f"الموقف: {message}\nالعلاقة: {relation}\nهدف المستخدم: {goal}"
     )
-    plan_raw=self._one_generation([{"role":"user","content":plan_prompt}],use_adapter=False)
+    coaching_error = None
+    try:
+        plan_raw=self._one_generation([{"role":"user","content":plan_prompt}],use_adapter=False,max_tokens=256)
+    except Exception as exc:
+        plan_raw=""
+        coaching_error=type(exc).__name__
     plan=parse_plan(plan_raw)
     # Phase 2: real response by Saudi LoRA. Keep the user's facts as the source of truth.
     register = register_instruction(relation, style_key, modifier)
-    gen_system = SAUDI_SYSTEM + "\n" + register
-    examples = [] if explicit_fusha(modifier) else [dict(item) for item in SAUDI_EXAMPLES]
+    gen_system = getattr(self, "writer_system", SAUDI_SYSTEM)
+    selected_examples = getattr(self, "writer_examples", SAUDI_EXAMPLES)
+    examples = [] if explicit_fusha(modifier) else [dict(item) for item in selected_examples]
     style_line=style_instruction(style_key,goal,message)
-    brief = brief_for(message, goal, relation)
-    def gen_prompt(extra=""):
-        return (
+    def gen_prompt(extra="", reference=""):
+        prompt = (
             f"الموقف: {message}\nالعلاقة: {relation}\nالهدف: {goal}\n"
-            f"الأسلوب: {writing_style(style_key, modifier)}\nطريقة التواصل: {_style_display(style_key)}\n"
-            f"{style_line}\nجنس المتحدث: {speaker_gender}، جنس المخاطب: {recipient_gender}.\n"
-            f"{intent_guidance(brief)}\n"
-            # The generated coaching plan is advisory; it must not introduce facts into the draft.
-            + f"طريقة الكتابة: {register}\n"
-            + (f"{modifier}\n" if modifier else "")
-            + (f"ملاحظة للمراجعة: {extra}\n" if extra else "")
-            + "اكتبي نص الرسالة السعودية للطرف الآخر مباشرة. الرسالة فقط."
+            f"الأسلوب: {writing_style(style_key, modifier)}\n"
+            "اكتب الرسالة للطرف الآخر، واحفظ كل الطلبات والقيود بدون اختصار يضيع المعنى."
         )
-    provenance = {}
-    def generate(extra="", retry=False):
+        # Faisal's selected action controls tone; original facts and all user
+        # requirements stay authoritative, including for a manual override.
+        prompt += f"\nطريقة التواصل: {_style_display(style_key)}\n{style_line}"
+        if speaker_gender != "غير محدد":
+            prompt += f"\nجنس المتحدث: {speaker_gender}"
+        if recipient_gender != "غير محدد":
+            prompt += f"\nجنس المخاطب: {recipient_gender}"
+        if modifier:
+            prompt += f"\n{modifier}\nطريقة الكتابة: {register}"
+        if reference:
+            prompt += (
+                "\nنص سابق مطلوب تعديل صياغته فقط، وليس مصدرا للحقائق؛ الموقف والهدف هما الأصل:\n"
+                + reference
+            )
+        if extra:
+            prompt += f"\nملاحظة للمراجعة: {extra}"
+        return prompt
+    def generate(extra="", retry=False, reference=""):
         raw = clean_writing(self._one_generation(
             [{"role":"system","content":gen_system}] + examples
-            + [{"role":"user","content":gen_prompt(extra)}], retry=retry,
+            + [{"role":"user","content":gen_prompt(extra, reference or (previous if modifier else ""))}], retry=retry, max_tokens=256,
         ), modifier)
         text, edits = normalize_saudi(raw, modifier, message + " " + goal)
-        provenance[text] = {"draft_before_register_normalization": raw, "register_normalization": edits}
-        return text
-    first=generate()
+        return {"reply":text,"draft_before_register_normalization":raw,"register_normalization":edits}
+    selected_record=generate()
+    first=selected_record["reply"]
     def check(candidate):
         return list(dict.fromkeys(
             local_warnings(candidate, message, goal, style_key, previous)
             + quality_flags(candidate, relation, goal, message)
-            + alignment_flags(candidate, brief)
             + register_warnings(candidate, modifier)
         ))
-    # Phase 3: semantic reviewer on Qwen base. The same model is NOT an independent guarantee.
+    # A grounded failure triggers repair regardless of the words used in its reason.
+    # This is same-family model feedback, not independent semantic validation.
     def review(candidate):
-        prompt = (
-            "قيّمي الرسالة الآتية مقابل طلب المستخدم، لا تجاملي. "
-            "هل تحافظ على الهدف الأصلي والأسلوب المطلوب دون اختلاق أسباب أو وعود؟ "
-            "احكمي على كل طلب وقيد في الموقف، وليس عنوان الهدف فقط. "
-            "لا تطلبي وعدا جديدا لم يطلبه الشخص، ولا تعتبري الاعتذار عن خطأ مذكور مشكلة. "
-            "لا تعتبري كلمة بس نقصا في الحزم، ولا تعتبري الاعتذار كلمة غير سعودية بحد ذاتها. "
-            "لا تضيفي شروطا مثل ذكر سبب أو وعد بموعد تعويض إذا لم يطلبها المستخدم. "
-            f"طريقة الكتابة المطلوبة: {register}\n"
-            "اكتبي سطرين فقط: النتيجة: مناسب أو غير مناسب. "
-            "السبب: [سبب محدد في أقل من 15 كلمة].\n"
-            f"الموقف: {message}\nالعلاقة: {relation}\nالهدف: {goal}\n"
-            f"النبرة: {_style_display(style_key)}\nالرسالة: {candidate}"
-        )
-        return _parse_review(self._one_generation([{"role":"user","content":prompt}], use_adapter=False))
+        prompt = review_prompt(message, relation, goal, candidate, register)
+        raw = self._one_generation([{"role":"user","content":prompt}], use_adapter=False, max_tokens=640)
+        return parse_review(raw, message, goal, candidate)
 
-    hard_flags = check(first)
-    flags = list(hard_flags)
-    # A fallible style opinion must not automatically rewrite a grounded draft.
-    # Concrete register/intent diagnostics drive the bounded rewrite; the model's
-    # remaining concerns are still returned to the user as review warnings.
-    reviewed, issue = review(first)
-    if reviewed is False:
-        flags.append(issue)
-        if semantic_review_issue(issue):
-            hard_flags.append(issue)
-    was_retried = bool(hard_flags)
+    def assess(candidate):
+        hard = check(candidate)
+        try:
+            judgment = review(candidate)
+        except Exception as exc:
+            judgment = {"valid":False,"checks":[],"unsupported":[],"issues":[],
+                        "error":"review_generation_failed","error_type":type(exc).__name__}
+        issues = list(dict.fromkeys(hard + judgment["issues"]))
+        return hard, judgment, issues
+
+    hard, judgment, flags = assess(first)
+    attempts = [{**selected_record, "review":judgment, "warnings":flags}]
+    was_retried = bool(flags)
+    retry_error = None
     if was_retried:
         try:
-            reason = "؛ ".join(flags)
-            revised = generate("أصلحي الملاحظات التالية: " + reason, retry=True)
+            revised_record = generate("أصلح الملاحظات مع حفظ كل قيود النص الأصلي: " + "؛ ".join(flags), retry=True, reference=first)
+            revised = revised_record["reply"]
             if revised.strip():
-                new_hard_flags = check(revised)
-                new_flags = list(new_hard_flags)
-                new_review, new_issue = review(revised)
-                if new_review is False:
-                    new_flags.append(new_issue)
-                    if semantic_review_issue(new_issue):
-                        new_hard_flags.append(new_issue)
-                if not first.strip() or len(new_hard_flags) < len(hard_flags):
-                    first, flags, reviewed = revised, new_flags, new_review
-        except Exception:
-            pass
+                new_hard, new_judgment, new_flags = assess(revised)
+                attempts.append({**revised_record, "review":new_judgment, "warnings":new_flags})
+                # An invalid review can never clear a previous grounded concern.
+                old_rank = (not judgment["valid"], len(flags))
+                new_rank = (not new_judgment["valid"], len(new_flags))
+                if not first.strip() or new_rank < old_rank:
+                    first, hard, judgment, flags = revised, new_hard, new_judgment, new_flags
+                    selected_record = revised_record
+        except Exception as exc:
+            retry_error = type(exc).__name__
+    reviewed = judgment["valid"] and not judgment["issues"]
+    if not judgment["valid"]:
+        flags.append("تعذر التحقق من المراجعة الدلالية؛ الصياغة تحتاج مراجعة")
+    if retry_error:
+        flags.append("لم تكتمل محاولة إعادة الصياغة")
     if not first.strip():raise RuntimeError("المودل لم يولد ردًا")
     coach={k:v for k,v in plan.items() if v}
     return {
         "reply":first.strip(),"style_used":_style_display(style_key),"router_source":router_source,
-        "reply_source":"qwen_lora_generated", "style_key":style_key if style_key in {"polite","firm","diplomatic","apology","clarify"} else (selected or "polite"),
+        "reply_source":getattr(self,"reply_source","qwen_lora_generated"), "style_key":style_key if style_key in {"polite","firm","diplomatic","apology","clarify"} else (selected or "polite"),
         "generator":self.generator if hasattr(self, "generator") else "Qwen3.5-4B + Saudi LoRA",
         "coaching":coach,"review_status":"flagged" if flags else ("model_reviewed" if reviewed else "unverified"),
         "needs_review":bool(flags), "quality_warnings":list(dict.fromkeys(flags)),"was_retried":was_retried,
-        **provenance.get(first.strip(), {}),
+        "semantic_review":judgment, "generation_candidates":attempts, "retry_error":retry_error,
+        "coaching_status":"model_generated" if coach else "unavailable", "coaching_error":coaching_error,
+        "draft_before_register_normalization":selected_record["draft_before_register_normalization"],
+        "register_normalization":selected_record["register_normalization"],
     }
 
 

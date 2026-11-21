@@ -100,9 +100,9 @@ async def remote_reply(payload: dict) -> dict:
     if not isinstance(reply, str) or not reply.strip():
         raise HTTPException(502, "المودل لم يُرجع نص رد صالحًا.")
     source = data.get("reply_source", "unknown")
-    if source != "qwen_lora_generated":
+    if source not in {"qwen_lora_generated","qwen_base_generated","ollama_generated"} or data.get("mock") is True:
         # Explicitly reject curated responses in real-only UI mode.
-        raise HTTPException(502, "المودل لم يرجع رد Qwen LoRA مولّدًا.")
+        raise HTTPException(502, "المودل لم يرجع ردًا مولدًا من خادم حقيقي مدعوم.")
     key = data.get("style_key")
     if not isinstance(key, str) or key not in ALLOWED_KEYS:
         label = data.get("style_used")
@@ -124,6 +124,7 @@ async def remote_reply(payload: dict) -> dict:
         if isinstance(register_edits, list) else [],
         "draft_before_register_normalization": raw_draft[:1200] if isinstance(raw_draft, str) else None,
         "needs_review": bool(data.get("needs_review", False)),
+        "was_retried": data.get("was_retried") is True,
         "quality_warnings": [item[:180] for item in warnings if isinstance(item, str)][:5]
         if isinstance(warnings, list) else [],
         "generator": data.get("generator") if isinstance(data.get("generator"), str) else None,

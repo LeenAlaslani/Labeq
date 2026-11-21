@@ -1,0 +1,316 @@
+{
+  "reviewer": "Assistant; no independent human validation",
+  "unblinded_at_utc": "2026-11-21T15:25:37.624987+00:00",
+  "frozen_cases_sha256": "389a2524c0e01bae3fc60d848251c813e9c09699a527537cb543f995194d2715",
+  "blinded_assessment_sha256": "e6828472170c5767b8ad1c10c5712d7893f082511a34cb813897c7e2c74b13b1",
+  "settings": {
+    "max_tokens": 256,
+    "temperature": 0,
+    "thinking": false,
+    "surface_normalization": false
+  },
+  "base_revision": "32f3e8ecf65426fc3306969496342d504bfa13f3",
+  "comparison": "Raw local MLX 4-bit, not final app pipeline or hosted bf16",
+  "models": {
+    "base": {
+      "strict_passes": 0,
+      "cases": 16,
+      "all_three_meaning_requirements_met": 7,
+      "strict_pass_ids": [],
+      "contrast_pairs_with_both_cases_strictly_sendable": 0
+    },
+    "pilot": {
+      "strict_passes": 1,
+      "cases": 16,
+      "all_three_meaning_requirements_met": 7,
+      "strict_pass_ids": [
+        "H04"
+      ],
+      "contrast_pairs_with_both_cases_strictly_sendable": 0
+    },
+    "v2": {
+      "strict_passes": 3,
+      "cases": 16,
+      "all_three_meaning_requirements_met": 4,
+      "strict_pass_ids": [
+        "H04",
+        "H05",
+        "H07"
+      ],
+      "contrast_pairs_with_both_cases_strictly_sendable": 0
+    },
+    "candidate_1": {
+      "strict_passes": 5,
+      "cases": 16,
+      "all_three_meaning_requirements_met": 12,
+      "strict_pass_ids": [
+        "H05",
+        "H06",
+        "H07",
+        "H08",
+        "H09"
+      ],
+      "contrast_pairs_with_both_cases_strictly_sendable": 0
+    }
+  },
+  "production_promotion": false,
+  "reason": "Candidate improves from 1 to 5 strict passes versus pilot but remains below 13/16 threshold. No production bf16 equivalence established. Contrast-pair strict sendability is not a separate semantic-only contrast accuracy measure.",
+  "blind_key": [
+    {
+      "candidate": "H01-1",
+      "model": "pilot"
+    },
+    {
+      "candidate": "H01-2",
+      "model": "candidate_1"
+    },
+    {
+      "candidate": "H01-3",
+      "model": "base"
+    },
+    {
+      "candidate": "H01-4",
+      "model": "v2"
+    },
+    {
+      "candidate": "H02-1",
+      "model": "candidate_1"
+    },
+    {
+      "candidate": "H02-2",
+      "model": "base"
+    },
+    {
+      "candidate": "H02-3",
+      "model": "v2"
+    },
+    {
+      "candidate": "H02-4",
+      "model": "pilot"
+    },
+    {
+      "candidate": "H03-1",
+      "model": "v2"
+    },
+    {
+      "candidate": "H03-2",
+      "model": "pilot"
+    },
+    {
+      "candidate": "H03-3",
+      "model": "candidate_1"
+    },
+    {
+      "candidate": "H03-4",
+      "model": "base"
+    },
+    {
+      "candidate": "H04-1",
+      "model": "base"
+    },
+    {
+      "candidate": "H04-2",
+      "model": "pilot"
+    },
+    {
+      "candidate": "H04-3",
+      "model": "v2"
+    },
+    {
+      "candidate": "H04-4",
+      "model": "candidate_1"
+    },
+    {
+      "candidate": "H05-1",
+      "model": "candidate_1"
+    },
+    {
+      "candidate": "H05-2",
+      "model": "pilot"
+    },
+    {
+      "candidate": "H05-3",
+      "model": "v2"
+    },
+    {
+      "candidate": "H05-4",
+      "model": "base"
+    },
+    {
+      "candidate": "H06-1",
+      "model": "base"
+    },
+    {
+      "candidate": "H06-2",
+      "model": "pilot"
+    },
+    {
+      "candidate": "H06-3",
+      "model": "candidate_1"
+    },
+    {
+      "candidate": "H06-4",
+      "model": "v2"
+    },
+    {
+      "candidate": "H07-1",
+      "model": "v2"
+    },
+    {
+      "candidate": "H07-2",
+      "model": "candidate_1"
+    },
+    {
+      "candidate": "H07-3",
+      "model": "pilot"
+    },
+    {
+      "candidate": "H07-4",
+      "model": "base"
+    },
+    {
+      "candidate": "H08-1",
+      "model": "v2"
+    },
+    {
+      "candidate": "H08-2",
+      "model": "base"
+    },
+    {
+      "candidate": "H08-3",
+      "model": "pilot"
+    },
+    {
+      "candidate": "H08-4",
+      "model": "candidate_1"
+    },
+    {
+      "candidate": "H09-1",
+      "model": "pilot"
+    },
+    {
+      "candidate": "H09-2",
+      "model": "v2"
+    },
+    {
+      "candidate": "H09-3",
+      "model": "base"
+    },
+    {
+      "candidate": "H09-4",
+      "model": "candidate_1"
+    },
+    {
+      "candidate": "H10-1",
+      "model": "base"
+    },
+    {
+      "candidate": "H10-2",
+      "model": "pilot"
+    },
+    {
+      "candidate": "H10-3",
+      "model": "candidate_1"
+    },
+    {
+      "candidate": "H10-4",
+      "model": "v2"
+    },
+    {
+      "candidate": "H11-1",
+      "model": "candidate_1"
+    },
+    {
+      "candidate": "H11-2",
+      "model": "v2"
+    },
+    {
+      "candidate": "H11-3",
+      "model": "base"
+    },
+    {
+      "candidate": "H11-4",
+      "model": "pilot"
+    },
+    {
+      "candidate": "H12-1",
+      "model": "base"
+    },
+    {
+      "candidate": "H12-2",
+      "model": "candidate_1"
+    },
+    {
+      "candidate": "H12-3",
+      "model": "v2"
+    },
+    {
+      "candidate": "H12-4",
+      "model": "pilot"
+    },
+    {
+      "candidate": "H13-1",
+      "model": "candidate_1"
+    },
+    {
+      "candidate": "H13-2",
+      "model": "v2"
+    },
+    {
+      "candidate": "H13-3",
+      "model": "base"
+    },
+    {
+      "candidate": "H13-4",
+      "model": "pilot"
+    },
+    {
+      "candidate": "H14-1",
+      "model": "base"
+    },
+    {
+      "candidate": "H14-2",
+      "model": "v2"
+    },
+    {
+      "candidate": "H14-3",
+      "model": "candidate_1"
+    },
+    {
+      "candidate": "H14-4",
+      "model": "pilot"
+    },
+    {
+      "candidate": "H15-1",
+      "model": "v2"
+    },
+    {
+      "candidate": "H15-2",
+      "model": "pilot"
+    },
+    {
+      "candidate": "H15-3",
+      "model": "base"
+    },
+    {
+      "candidate": "H15-4",
+      "model": "candidate_1"
+    },
+    {
+      "candidate": "H16-1",
+      "model": "v2"
+    },
+    {
+      "candidate": "H16-2",
+      "model": "pilot"
+    },
+    {
+      "candidate": "H16-3",
+      "model": "candidate_1"
+    },
+    {
+      "candidate": "H16-4",
+      "model": "base"
+    }
+  ]
+}

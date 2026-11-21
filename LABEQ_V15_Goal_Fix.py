@@ -130,7 +130,7 @@ def install(engine=None) -> None:
         finally:
             _ACTIVE.reset(token)
 
-    def generate_with_intent(self, messages, retry=False, use_adapter=True):
+    def generate_with_intent(self, messages, retry=False, use_adapter=True, **generation_kwargs):
         context = _ACTIVE.get()
         if context and messages:
             new_messages = [dict(m) for m in messages]
@@ -145,8 +145,8 @@ def install(engine=None) -> None:
                         guidance += "\n- هذه أخطاء الصياغة السابقة التي يجب تصحيحها: " + "؛ ".join(flags)
                     guidance += "\n- أعيدي بناء الرد بناءً على تفاصيل الموقف، لا تبدلي كلمات الرد السابق فقط."
                 new_messages[target_idx]["content"] = str(new_messages[target_idx].get("content", "")) + "\n\n" + guidance
-            return old_generate(self, new_messages, retry=retry, use_adapter=use_adapter)
-        return old_generate(self, messages, retry=retry, use_adapter=use_adapter)
+            return old_generate(self, new_messages, retry=retry, use_adapter=use_adapter, **generation_kwargs)
+        return old_generate(self, messages, retry=retry, use_adapter=use_adapter, **generation_kwargs)
 
     def quality_with_intent(reply, relation="", goal="", original=""):
         flags = list(old_quality(reply, relation, goal, original))

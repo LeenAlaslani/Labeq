@@ -5,6 +5,7 @@ from pathlib import Path
 import re
 
 from LABEQ_V16_Coaching_Engine import reply_v16
+from generation_limits import GenerationBudgetError
 from labeq_engine import (
     FAISAL_OPTIONS, FAISAL_SYSTEM, finish_reply, infer_style_without_faisal, make_faisal_task,
 )
@@ -27,9 +28,10 @@ class MlxEngine:
         self.tokenizer = self.processor.tokenizer
         self.base_layers = {}
         self.adapters = {"base": {}}
-        self.adapters["saudi"] = self._adapter_layers(response_dir)
+        self.adapters["saudi"] = self._adapter_layers(response_dir) if response_dir else {}
         self.faisal_ready = False
-        self.generator = f"Qwen3.5-4B + {adapter_label} (MLX 4-bit)"
+        self.generator = f"Qwen3.5-4B + {adapter_label} (MLX 4-bit)" if response_dir else "Qwen3.5-4B (MLX 4-bit, base)"
+        self.reply_source = "qwen_lora_generated" if response_dir else "qwen_base_generated"
         if faisal_dir:
             try:
                 self.adapters["faisal"] = self._adapter_layers(faisal_dir)
@@ -132,7 +134,7 @@ class MlxEngine:
             messages, tokenize=False, add_generation_prompt=True, enable_thinking=False,
         )
 
-    def generate(self, messages, adapter, max_tokens=125, temperature=0.0):
+    def generate(self, messages, adapter, max_tokens=125, temperature=0.0, require_complete=False):
         from mlx_vlm import generate
 
         with self.select(adapter):
@@ -140,9 +142,11 @@ class MlxEngine:
                 self.model, self.processor, self.render(messages),
                 max_tokens=max_tokens, temperature=temperature, verbose=False,
             )
+        if require_complete and getattr(result,"finish_reason",None)=="length":
+            raise GenerationBudgetError(result.text)
         return finish_reply(result.text)
 
-    def _one_generation(self, messages, retry=False, use_adapter=True):
-        return self.generate(messages, "saudi" if use_adapter else "base", temperature=0.45 if retry else 0.0)
+    def _one_generation(self, messages, retry=False, use_adapter=True, max_tokens=256):
+        return self.generate(messages, "saudi" if use_adapter else "base", temperature=0.45 if retry else 0.0, max_tokens=max_tokens, require_complete=True)
 
     reply = reply_v16
