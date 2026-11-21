@@ -201,7 +201,8 @@ def reply_v16(self, message, relation="صديق", goal="أبي رد مناسب �
     # A grounded failure triggers repair regardless of the words used in its reason.
     # This is same-family model feedback, not independent semantic validation.
     def review(candidate):
-        prompt = review_prompt(message, relation, goal, candidate, register)
+        builder=getattr(self,"review_prompt_builder",review_prompt)
+        prompt = builder(message, relation, goal, candidate, register)
         raw = self._one_generation([{"role":"user","content":prompt}], use_adapter=False, max_tokens=640)
         return parse_review(raw, message, goal, candidate)
 

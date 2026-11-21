@@ -1,5 +1,6 @@
 {
  "experiment":"Full V16 pipeline with Qwen35B CPU writer and actual original Faisal CPU routing",
+ "development_iteration_2":"The first full development run's reviewers copied candidate quotes instead of user-source quotes and were correctly rejected. Iteration two assigns literal source-unit IDs on the server, constrains a verdict for every ID, and validates language-issue quotes against the candidate. It does not claim to extract every atomic intention. No held-out outputs have been opened.",
  "reason":"Both raw writer configurations missed development qualification. This separate study tests the existing grounded review and bounded-repair pipeline; raw failure is retained, not relabeled as success.",
  "model_and_runtime":"Exact revisions, GGUF SHA and official CPU wheel from cpu_protocol.json",
  "writer_policy":"Unchanged cpu_writer_policy.json",
