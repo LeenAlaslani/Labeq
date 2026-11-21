@@ -1,0 +1,16 @@
+{
+  "study": "Private production-runtime qualification of the learned candidate system; no public change yet",
+  "basis": "selection_results.json: Qwen3.6 selected strict-pass candidates on 4/4 exposed development cases; original Faisal quality selection passed 2/4, so Faisal remains style routing only",
+  "primary_writer": "Pinned official Qwen3.5-4B bfloat16 CPU, original pilot and approved completed v2 adapters, four fixed adapter/policy configurations",
+  "semantic_model": "Identical pinned Qwen3.6-35B-A3B Q8_0 CPU model for automatic planning, anonymous candidate selection and grounded source-ID review",
+  "routing": "Actual original Faisal next-token style scoring, or explicitly recorded rule fallback/manual selection",
+  "sampling": "Writer first pass greedy, repetition penalty 1; optional bounded retry temperature .45/top_p .85. Teacher greedy, presence penalty 0, repeat penalty 1, seed 3407, thinking disabled",
+  "budgets": {"warm_request_seconds":135,"candidate_seconds":22,"writer_max_tokens":256,"meaning_plan_max_tokens":256,"coaching_max_tokens":256,"review_max_tokens":640},
+  "completion": "Candidate must reach actual EOS; a time or token stop cannot be treated as complete. Teacher custom deadline stops are also rejected. No reject-all fallback to a deficient candidate.",
+  "development_gate": "All four actual full-pipeline development replies strictly sendable, every selected adapter/policy source recorded. Preserve incorrect coaching/review and all failed candidates in QA traces. Check advisory coaching against original roles too.",
+  "UI_gate": "Both known user regressions tested through original actual interface with real Faisal and Qwen sources, no mocked routes or edited text",
+  "fresh_test": "Only after both gates: same unopened S01-S16, >=13/16 strict full-pipeline passes, preserve all four changed-intent contrasts, warm end-to-end <=150 seconds. Baselines and original adapter-alone failures remain separate.",
+  "provenance": "Selected attempt freezes its actual adapter SHA, policy SHA and generator; a rejected retry must not relabel the earlier selected model",
+  "reviewer": "Assistant only; independent human Saudi Arabic review pending",
+  "failure_policy": "Keep public pilot unchanged and the test unopened if any development/UI gate fails. No paid hardware or voice-secret transfer."
+}

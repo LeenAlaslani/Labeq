@@ -1,0 +1,13 @@
+{
+  "study": "Development-only learned selection among fixed plan-assisted Saudi LoRA candidates",
+  "candidate_configurations": ["pilot_clean", "pilot_fewshot", "v2_clean", "v2_fewshot"],
+  "candidate_origin": "Actual unmodified completions from the controlled local adapter/automatic-plan study. No reference answer, hand edit or case-specific generation rule. These four global configurations are the same for every case.",
+  "motivation": "No single configuration met 4/4; the preserved pilot and approved v2 have complementary observed development strengths. Candidate coverage and selector accuracy are separate quantities.",
+  "selectors": ["Original Faisal adapter on the pinned local 4-bit Qwen base, scoring next-token option letters", "Pinned private Qwen3.6 Q8 greedy endpoint returning a single choice letter"],
+  "task": "Identical decision JSON with original state, fallible automatic meaning plan and anonymous A-D candidate texts. E explicitly rejects all candidates. No model names, assistant labels or correctness scores are supplied to either selector.",
+  "order": "Shuffle candidate order independently per case with random.Random(20261122), before either selector runs; reject-all remains last.",
+  "qualification": "Selected candidate must strictly pass all four exposed development cases. Prefer Faisal on a tie for lower compute. NONE, malformed selection or incomplete generation is a failure, not a fallback answer.",
+  "further_gates": "Qualifying combined system still requires actual bfloat16 full-pipeline development, user UI regressions, the untouched 16-case >=13/16 gate with changed-intent contrasts and <=150 second warm latency. Do not open the fresh test if development fails.",
+  "interpretation": "System-level candidate selection does not establish that v2 alone is better or that it generalizes independently. Both individual failures and complete-system evidence must remain visible.",
+  "reviewer": "Assistant only; independent human Saudi Arabic evaluation remains pending"
+}

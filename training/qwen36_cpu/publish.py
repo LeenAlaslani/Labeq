@@ -12,7 +12,7 @@ def main():
     hardware=[str(x) for x in [r.hardware,r.requested_hardware] if x is not None]
     if not hardware or any(x!='zero-a10g' for x in hardware):raise RuntimeError('Existing free hardware only')
     source=subprocess.check_output(['git','rev-parse',args.commit],text=True).strip()
-    names={name:'training/qwen36_cpu/'+name for name in ['app.py','hybrid_pipeline.py','requirements.txt','writer_clean.json','writer_fewshot.json','protocol.json']}
+    names={name:'training/qwen36_cpu/'+name for name in ['app.py','hybrid_pipeline.py','requirements.txt','writer_clean.json','writer_fewshot.json','protocol.json','greedy_protocol.json']}
     names['README.md']='training/qwen36_cpu/SPACE_README.md'
     for name in ['labeq_engine.py','LABEQ_V16_Coaching_Engine.py','semantic_review.py','saudi_register.py','generation_limits.py','grounded_review.py','LICENSE-CODE']:names[name]=name
     with tempfile.TemporaryDirectory(prefix='labeq-qwen36-') as directory:

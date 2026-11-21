@@ -19,21 +19,26 @@ def gpu_duration(payload):
     return 60 if length <= 800 else 90
 
 
+def execute_reply(engine,request):
+    """An explicit backend wrapper may prepare context before the V16 stages."""
+    from LABEQ_V16_Coaching_Engine import reply_v16
+    arguments=(request.message,request.relation,request.goal,request.style,
+        request.speaker_gender,request.recipient_gender,
+        [turn.model_dump() for turn in request.history],request.generation_mode)
+    configured=getattr(engine,'configured_reply',None)
+    return configured(*arguments) if callable(configured) else reply_v16(engine,*arguments)
+
+
 def create_app(engine, gpu_decorator, *, gpu_engine=None, max_queue_size=8):
     import gradio as gr
 
     from app import app
     from labeq_api import ReplyRequest
-    from LABEQ_V16_Coaching_Engine import reply_v16
 
     @gpu_decorator
     def generate(payload):
         request = ReplyRequest.model_validate(payload)
-        result = reply_v16(
-            engine, request.message, request.relation, request.goal, request.style,
-            request.speaker_gender, request.recipient_gender,
-            [turn.model_dump() for turn in request.history], request.generation_mode,
-        )
+        result = execute_reply(engine,request)
         if os.getenv('LABEQ_RETURN_GENERATION_TRACE')=='1':
             result['generation_trace']=getattr(engine,'generation_trace',[])
         return result
@@ -44,8 +49,7 @@ def create_app(engine, gpu_decorator, *, gpu_engine=None, max_queue_size=8):
         @spaces.GPU(duration=gpu_duration)
         def accelerated(payload):
             request=ReplyRequest.model_validate(payload)
-            return reply_v16(gpu_engine,request.message,request.relation,request.goal,request.style,
-                request.speaker_gender,request.recipient_gender,[turn.model_dump() for turn in request.history],request.generation_mode)
+            return execute_reply(gpu_engine,request)
 
     with gr.Blocks(title="LABEQ model API") as model_api:
         request = gr.JSON(visible=False)
@@ -67,6 +71,7 @@ def create_app(engine, gpu_decorator, *, gpu_engine=None, max_queue_size=8):
         "generator": engine.generator,
         "adapter_revision": engine.adapter_revision,
         "base_revision": getattr(engine,"base_revision",None),
+        "faisal_revision":getattr(engine,'faisal_revision',None),
         "compute_backend":getattr(engine,"compute_backend",None),
         "adapter_sha256":getattr(engine,"adapter_sha256",None),
         "environment_versions":getattr(engine,"environment_versions",None),

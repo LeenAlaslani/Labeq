@@ -1,0 +1,470 @@
+{
+  "status": "completed_not_qualified",
+  "source_commit": "5a8a32fe12a13517555d3510e38b3ac9f4fa393d",
+  "conditions": {
+    "clean": {
+      "manifest": {
+        "at_utc": "2026-11-21T21:06:33.933147+00:00",
+        "source_commit": "5a8a32fe12a13517555d3510e38b3ac9f4fa393d",
+        "space_revision": "b7c0f53d617d0e1a3a4266801a5a137bbfc34e9e",
+        "case_sha256": "8861fa10d18357bd9cc77bffa2d7510d68b61726f8dde26ba6f1042bcf4c1761",
+        "policy": "clean",
+        "policy_sha256": "c037b70bf124b00edd31c786684c5c5b2847271fbd6cef05a299a1c96890e527",
+        "mode": "raw",
+        "sampler": "greedy",
+        "metadata_before_loading": {
+          "backend": "llama.cpp CPU writer; n_gpu_layers=0; separate real Faisal GPU route",
+          "llama_cpp_python": "0.3.36",
+          "model": "Qwen/Qwen3.6-35B-A3B",
+          "gguf_revision": "a483e9e6cbd595906af30beda3187c2663a1118c",
+          "gguf_sha256": "d1a395809f65a43a13ad119eb4e7acdef1ac6d68120f39902c8ab96e72794a59",
+          "base_revision": "345d467b117d1fd5eda9b879a5988de9ae5f47a7",
+          "loaded": false,
+          "faisal_loaded": true,
+          "faisal_revision": "38849bdac4b7850c19587f78f5fe16c38adefac1",
+          "limits": {
+            "cpu.max": "1600000 100000",
+            "memory.max": "104000000000"
+          },
+          "disk_free_bytes": 2479415255040,
+          "cpu_count": 192,
+          "source_commit": "5a8a32fe12a13517555d3510e38b3ac9f4fa393d",
+          "response_adapter": null
+        }
+      },
+      "rows": [
+        {
+          "case": {
+            "id": "D01",
+            "relation": "عمل",
+            "goal": "أطلب تصحيح بدون اتهام",
+            "message": "اسم المتطوعة انحذف من قائمة المشاركين وما أعرف السبب. أبي أطلب يرجع اسمها وأشكر المنظم على تعبه بدون ما أفترض إنه قصد يستبعدها."
+          },
+          "result": {
+            "metadata": {
+              "backend": "llama.cpp CPU writer; n_gpu_layers=0; separate real Faisal GPU route",
+              "llama_cpp_python": "0.3.36",
+              "model": "Qwen/Qwen3.6-35B-A3B",
+              "gguf_revision": "a483e9e6cbd595906af30beda3187c2663a1118c",
+              "gguf_sha256": "d1a395809f65a43a13ad119eb4e7acdef1ac6d68120f39902c8ab96e72794a59",
+              "base_revision": "345d467b117d1fd5eda9b879a5988de9ae5f47a7",
+              "loaded": true,
+              "faisal_loaded": true,
+              "faisal_revision": "38849bdac4b7850c19587f78f5fe16c38adefac1",
+              "limits": {
+                "cpu.max": "1600000 100000",
+                "memory.max": "104000000000"
+              },
+              "disk_free_bytes": 2479303290880,
+              "cpu_count": 192,
+              "source_commit": "5a8a32fe12a13517555d3510e38b3ac9f4fa393d",
+              "response_adapter": null
+            },
+            "rows": [
+              {
+                "id": "D01",
+                "reply": "أهلاً، لاحظت أن اسم المتطوعة انحذف من قائمة المشاركين وما أعرف السبب، وأبي أطلب ترجع اسمها. أشكركم على تعبك وجهدكم، وجزاكم الله خيراً.",
+                "sampler": "greedy",
+                "finish_reason": "stop",
+                "usage": {
+                  "prompt_tokens": 253,
+                  "completion_tokens": 50,
+                  "total_tokens": 303
+                },
+                "seconds": 8.885948728013318
+              }
+            ]
+          },
+          "request_seconds": 55.774
+        },
+        {
+          "case": {
+            "id": "D02",
+            "relation": "أهل",
+            "goal": "أرفض جزء وأقبل جزء",
+            "message": "أختي طلبت أطبخ وأوصل الأكل لعزيمتها. أقدر أطبخ بس ما أقدر أوصل، وأبي أوضح لها ترتب التوصيل بدون ما أتحجج بشي مو مذكور."
+          },
+          "result": {
+            "metadata": {
+              "backend": "llama.cpp CPU writer; n_gpu_layers=0; separate real Faisal GPU route",
+              "llama_cpp_python": "0.3.36",
+              "model": "Qwen/Qwen3.6-35B-A3B",
+              "gguf_revision": "a483e9e6cbd595906af30beda3187c2663a1118c",
+              "gguf_sha256": "d1a395809f65a43a13ad119eb4e7acdef1ac6d68120f39902c8ab96e72794a59",
+              "base_revision": "345d467b117d1fd5eda9b879a5988de9ae5f47a7",
+              "loaded": true,
+              "faisal_loaded": true,
+              "faisal_revision": "38849bdac4b7850c19587f78f5fe16c38adefac1",
+              "limits": {
+                "cpu.max": "1600000 100000",
+                "memory.max": "104000000000"
+              },
+              "disk_free_bytes": 2479304171520,
+              "cpu_count": 192,
+              "source_commit": "5a8a32fe12a13517555d3510e38b3ac9f4fa393d",
+              "response_adapter": null
+            },
+            "rows": [
+              {
+                "id": "D02",
+                "reply": "أختي، أقدر أطبخ لك الأكل وأوصله لك، بس ما أقدر أرتب التوصيل، فلو تظبطين التوصيل من عندك يكون أحسن.",
+                "sampler": "greedy",
+                "finish_reason": "stop",
+                "usage": {
+                  "prompt_tokens": 260,
+                  "completion_tokens": 41,
+                  "total_tokens": 301
+                },
+                "seconds": 8.274021051009186
+              }
+            ]
+          },
+          "request_seconds": 8.96
+        },
+        {
+          "case": {
+            "id": "D03",
+            "relation": "صديق",
+            "goal": "أعتذر عن تصرفي",
+            "message": "ضحكت على اقتراح خويي قدام الشباب. أبي أعتذر عن الضحك وأعترف إنه ضايقه وأوضح إني أحترم رأيه بدون ما أقول كنت أمزح أو أطلب منه ما يزعل."
+          },
+          "result": {
+            "metadata": {
+              "backend": "llama.cpp CPU writer; n_gpu_layers=0; separate real Faisal GPU route",
+              "llama_cpp_python": "0.3.36",
+              "model": "Qwen/Qwen3.6-35B-A3B",
+              "gguf_revision": "a483e9e6cbd595906af30beda3187c2663a1118c",
+              "gguf_sha256": "d1a395809f65a43a13ad119eb4e7acdef1ac6d68120f39902c8ab96e72794a59",
+              "base_revision": "345d467b117d1fd5eda9b879a5988de9ae5f47a7",
+              "loaded": true,
+              "faisal_loaded": true,
+              "faisal_revision": "38849bdac4b7850c19587f78f5fe16c38adefac1",
+              "limits": {
+                "cpu.max": "1600000 100000",
+                "memory.max": "104000000000"
+              },
+              "disk_free_bytes": 2479290421248,
+              "cpu_count": 192,
+              "source_commit": "5a8a32fe12a13517555d3510e38b3ac9f4fa393d",
+              "response_adapter": null
+            },
+            "rows": [
+              {
+                "id": "D03",
+                "reply": "يا أخي، أعتذر منك على ضحكتي على اقتراحك قدام الشباب، وأقر إن هذا التصرف ضاقك، وأبي أوضح لك إني أحترم رأيك جداً.",
+                "sampler": "greedy",
+                "finish_reason": "stop",
+                "usage": {
+                  "prompt_tokens": 263,
+                  "completion_tokens": 42,
+                  "total_tokens": 305
+                },
+                "seconds": 8.642348427034449
+              }
+            ]
+          },
+          "request_seconds": 9.659
+        },
+        {
+          "case": {
+            "id": "D04",
+            "relation": "عمل",
+            "goal": "أحط حدود مستمرة",
+            "message": "زميلي كل يوم يطلب أكتب تقريره بداله. أبي أوقف هالشي من اليوم ورايح وأوضح إني أقدر أجاوب عن سؤال محدد بس ما أكتب تقاريره كاملة."
+          },
+          "result": {
+            "metadata": {
+              "backend": "llama.cpp CPU writer; n_gpu_layers=0; separate real Faisal GPU route",
+              "llama_cpp_python": "0.3.36",
+              "model": "Qwen/Qwen3.6-35B-A3B",
+              "gguf_revision": "a483e9e6cbd595906af30beda3187c2663a1118c",
+              "gguf_sha256": "d1a395809f65a43a13ad119eb4e7acdef1ac6d68120f39902c8ab96e72794a59",
+              "base_revision": "345d467b117d1fd5eda9b879a5988de9ae5f47a7",
+              "loaded": true,
+              "faisal_loaded": true,
+              "faisal_revision": "38849bdac4b7850c19587f78f5fe16c38adefac1",
+              "limits": {
+                "cpu.max": "1600000 100000",
+                "memory.max": "104000000000"
+              },
+              "disk_free_bytes": 2480904433664,
+              "cpu_count": 192,
+              "source_commit": "5a8a32fe12a13517555d3510e38b3ac9f4fa393d",
+              "response_adapter": null
+            },
+            "rows": [
+              {
+                "id": "D04",
+                "reply": "أهلاً، من اليوم ما أقدر أكتب تقريرك بدالك. بس إذا عندك سؤال محدد عن التقرير، أقدر أساعدك فيه.",
+                "sampler": "greedy",
+                "finish_reason": "stop",
+                "usage": {
+                  "prompt_tokens": 254,
+                  "completion_tokens": 33,
+                  "total_tokens": 287
+                },
+                "seconds": 7.0983870750060305
+              }
+            ]
+          },
+          "request_seconds": 8.014
+        }
+      ]
+    },
+    "fewshot": {
+      "manifest": {
+        "at_utc": "2026-11-21T21:08:03.623070+00:00",
+        "source_commit": "5a8a32fe12a13517555d3510e38b3ac9f4fa393d",
+        "space_revision": "b7c0f53d617d0e1a3a4266801a5a137bbfc34e9e",
+        "case_sha256": "8861fa10d18357bd9cc77bffa2d7510d68b61726f8dde26ba6f1042bcf4c1761",
+        "policy": "fewshot",
+        "policy_sha256": "0eae240980146aaf8fd0f2ae90f76f4e1affde346ba04021c65a03c445a14ffb",
+        "mode": "raw",
+        "sampler": "greedy",
+        "metadata_before_loading": {
+          "backend": "llama.cpp CPU writer; n_gpu_layers=0; separate real Faisal GPU route",
+          "llama_cpp_python": "0.3.36",
+          "model": "Qwen/Qwen3.6-35B-A3B",
+          "gguf_revision": "a483e9e6cbd595906af30beda3187c2663a1118c",
+          "gguf_sha256": "d1a395809f65a43a13ad119eb4e7acdef1ac6d68120f39902c8ab96e72794a59",
+          "base_revision": "345d467b117d1fd5eda9b879a5988de9ae5f47a7",
+          "loaded": true,
+          "faisal_loaded": true,
+          "faisal_revision": "38849bdac4b7850c19587f78f5fe16c38adefac1",
+          "limits": {
+            "cpu.max": "1600000 100000",
+            "memory.max": "104000000000"
+          },
+          "disk_free_bytes": 2480902418432,
+          "cpu_count": 192,
+          "source_commit": "5a8a32fe12a13517555d3510e38b3ac9f4fa393d",
+          "response_adapter": null
+        }
+      },
+      "rows": [
+        {
+          "case": {
+            "id": "D01",
+            "relation": "عمل",
+            "goal": "أطلب تصحيح بدون اتهام",
+            "message": "اسم المتطوعة انحذف من قائمة المشاركين وما أعرف السبب. أبي أطلب يرجع اسمها وأشكر المنظم على تعبه بدون ما أفترض إنه قصد يستبعدها."
+          },
+          "result": {
+            "metadata": {
+              "backend": "llama.cpp CPU writer; n_gpu_layers=0; separate real Faisal GPU route",
+              "llama_cpp_python": "0.3.36",
+              "model": "Qwen/Qwen3.6-35B-A3B",
+              "gguf_revision": "a483e9e6cbd595906af30beda3187c2663a1118c",
+              "gguf_sha256": "d1a395809f65a43a13ad119eb4e7acdef1ac6d68120f39902c8ab96e72794a59",
+              "base_revision": "345d467b117d1fd5eda9b879a5988de9ae5f47a7",
+              "loaded": true,
+              "faisal_loaded": true,
+              "faisal_revision": "38849bdac4b7850c19587f78f5fe16c38adefac1",
+              "limits": {
+                "cpu.max": "1600000 100000",
+                "memory.max": "104000000000"
+              },
+              "disk_free_bytes": 2480891568128,
+              "cpu_count": 192,
+              "source_commit": "5a8a32fe12a13517555d3510e38b3ac9f4fa393d",
+              "response_adapter": null
+            },
+            "rows": [
+              {
+                "id": "D01",
+                "reply": "أبي أرجع اسم المتطوعة للقائمة، انحذف عندي. أشكرك على تعبك، ولا أعرف السبب، أرجو التأكد منه.",
+                "sampler": "greedy",
+                "finish_reason": "stop",
+                "usage": {
+                  "prompt_tokens": 630,
+                  "completion_tokens": 34,
+                  "total_tokens": 664
+                },
+                "seconds": 13.903317169984803
+              }
+            ]
+          },
+          "request_seconds": 14.656
+        },
+        {
+          "case": {
+            "id": "D02",
+            "relation": "أهل",
+            "goal": "أرفض جزء وأقبل جزء",
+            "message": "أختي طلبت أطبخ وأوصل الأكل لعزيمتها. أقدر أطبخ بس ما أقدر أوصل، وأبي أوضح لها ترتب التوصيل بدون ما أتحجج بشي مو مذكور."
+          },
+          "result": {
+            "metadata": {
+              "backend": "llama.cpp CPU writer; n_gpu_layers=0; separate real Faisal GPU route",
+              "llama_cpp_python": "0.3.36",
+              "model": "Qwen/Qwen3.6-35B-A3B",
+              "gguf_revision": "a483e9e6cbd595906af30beda3187c2663a1118c",
+              "gguf_sha256": "d1a395809f65a43a13ad119eb4e7acdef1ac6d68120f39902c8ab96e72794a59",
+              "base_revision": "345d467b117d1fd5eda9b879a5988de9ae5f47a7",
+              "loaded": true,
+              "faisal_loaded": true,
+              "faisal_revision": "38849bdac4b7850c19587f78f5fe16c38adefac1",
+              "limits": {
+                "cpu.max": "1600000 100000",
+                "memory.max": "104000000000"
+              },
+              "disk_free_bytes": 2480883433472,
+              "cpu_count": 192,
+              "source_commit": "5a8a32fe12a13517555d3510e38b3ac9f4fa393d",
+              "response_adapter": null
+            },
+            "rows": [
+              {
+                "id": "D02",
+                "reply": "أقدر أطبخ لك، بس ما أقدر أوصل الأكل. حبي ترتبي التوصيل بنفسك.",
+                "sampler": "greedy",
+                "finish_reason": "stop",
+                "usage": {
+                  "prompt_tokens": 637,
+                  "completion_tokens": 24,
+                  "total_tokens": 661
+                },
+                "seconds": 13.49354148603743
+              }
+            ]
+          },
+          "request_seconds": 14.131
+        },
+        {
+          "case": {
+            "id": "D03",
+            "relation": "صديق",
+            "goal": "أعتذر عن تصرفي",
+            "message": "ضحكت على اقتراح خويي قدام الشباب. أبي أعتذر عن الضحك وأعترف إنه ضايقه وأوضح إني أحترم رأيه بدون ما أقول كنت أمزح أو أطلب منه ما يزعل."
+          },
+          "result": {
+            "metadata": {
+              "backend": "llama.cpp CPU writer; n_gpu_layers=0; separate real Faisal GPU route",
+              "llama_cpp_python": "0.3.36",
+              "model": "Qwen/Qwen3.6-35B-A3B",
+              "gguf_revision": "a483e9e6cbd595906af30beda3187c2663a1118c",
+              "gguf_sha256": "d1a395809f65a43a13ad119eb4e7acdef1ac6d68120f39902c8ab96e72794a59",
+              "base_revision": "345d467b117d1fd5eda9b879a5988de9ae5f47a7",
+              "loaded": true,
+              "faisal_loaded": true,
+              "faisal_revision": "38849bdac4b7850c19587f78f5fe16c38adefac1",
+              "limits": {
+                "cpu.max": "1600000 100000",
+                "memory.max": "104000000000"
+              },
+              "disk_free_bytes": 2482980630528,
+              "cpu_count": 192,
+              "source_commit": "5a8a32fe12a13517555d3510e38b3ac9f4fa393d",
+              "response_adapter": null
+            },
+            "rows": [
+              {
+                "id": "D03",
+                "reply": "آسف إني ضحكت على اقتراحك قدام الشباب، أعرف إن هذا ضاقك. أحترم رأيك كثير، وما كان يقصد مني السخرية.",
+                "sampler": "greedy",
+                "finish_reason": "stop",
+                "usage": {
+                  "prompt_tokens": 640,
+                  "completion_tokens": 39,
+                  "total_tokens": 679
+                },
+                "seconds": 14.325654283980839
+              }
+            ]
+          },
+          "request_seconds": 14.955
+        },
+        {
+          "case": {
+            "id": "D04",
+            "relation": "عمل",
+            "goal": "أحط حدود مستمرة",
+            "message": "زميلي كل يوم يطلب أكتب تقريره بداله. أبي أوقف هالشي من اليوم ورايح وأوضح إني أقدر أجاوب عن سؤال محدد بس ما أكتب تقاريره كاملة."
+          },
+          "result": {
+            "metadata": {
+              "backend": "llama.cpp CPU writer; n_gpu_layers=0; separate real Faisal GPU route",
+              "llama_cpp_python": "0.3.36",
+              "model": "Qwen/Qwen3.6-35B-A3B",
+              "gguf_revision": "a483e9e6cbd595906af30beda3187c2663a1118c",
+              "gguf_sha256": "d1a395809f65a43a13ad119eb4e7acdef1ac6d68120f39902c8ab96e72794a59",
+              "base_revision": "345d467b117d1fd5eda9b879a5988de9ae5f47a7",
+              "loaded": true,
+              "faisal_loaded": true,
+              "faisal_revision": "38849bdac4b7850c19587f78f5fe16c38adefac1",
+              "limits": {
+                "cpu.max": "1600000 100000",
+                "memory.max": "104000000000"
+              },
+              "disk_free_bytes": 2482974478336,
+              "cpu_count": 192,
+              "source_commit": "5a8a32fe12a13517555d3510e38b3ac9f4fa393d",
+              "response_adapter": null
+            },
+            "rows": [
+              {
+                "id": "D04",
+                "reply": "أبي أوقف كتابة تقاريرك بدالي من اليوم ورايح. أقدر أساعدك وأجاوب عن سؤال محدد إذا احتجت، بس ما أقدر أكتب التقرير كامل.",
+                "sampler": "greedy",
+                "finish_reason": "stop",
+                "usage": {
+                  "prompt_tokens": 631,
+                  "completion_tokens": 40,
+                  "total_tokens": 671
+                },
+                "seconds": 14.797338572971057
+              }
+            ]
+          },
+          "request_seconds": 15.467
+        }
+      ]
+    }
+  },
+  "assessment": {
+    "reviewer": "Assistant only; no independent human review",
+    "clean": {
+      "D01": {
+        "pass": false,
+        "reason": "Mixed singular/plural address and awkward request wording need grammatical repair."
+      },
+      "D02": {
+        "pass": false,
+        "reason": "Explicitly says the user can deliver, contradicting the original constraint."
+      },
+      "D03": {
+        "pass": false,
+        "reason": "Malformed impact wording and formal register need repair for a natural friend message."
+      },
+      "D04": {
+        "pass": true,
+        "reason": "Clear ongoing full-report limit with a specific-question exception."
+      }
+    },
+    "fewshot": {
+      "D01": {
+        "pass": true,
+        "reason": "Requests restoring the name and thanks the organiser without assigning intent; the personal observation is an awkward but understandable viewpoint."
+      },
+      "D02": {
+        "pass": false,
+        "reason": "The delivery request contains unnatural address and non-Saudi verb form requiring repair."
+      },
+      "D03": {
+        "pass": false,
+        "reason": "Malformed impact acknowledgment and unsupported intention claim."
+      },
+      "D04": {
+        "pass": false,
+        "reason": "Reverses the replacement pronoun to instead of myself."
+      }
+    }
+  },
+  "strict_passes": {
+    "clean": 1,
+    "fewshot": 1
+  },
+  "development_gate": 4,
+  "fresh_test_opened": false,
+  "promotion": false
+}

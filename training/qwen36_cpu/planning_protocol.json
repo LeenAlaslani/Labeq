@@ -1,0 +1,12 @@
+{
+  "study": "Development-only automatic meaning-plan composition; identical private pinned Qwen3.6 Q8 model",
+  "motivation": "Recommended and greedy direct conditions failed the frozen gate. Greedy D02 explicitly inverted the no-delivery constraint; correctness did not follow from deterministic decoding.",
+  "data": "Four previously exposed dev.json cases only; no held-out output generated",
+  "steps": ["Generate JSON facts, required message acts and negative constraints from the original situation/relationship/goal only", "Validate JSON structure without asserting semantic correctness", "Generate a Saudi message with the frozen few-shot policy, original input and the automatic plan as advisory data; original input remains authoritative"],
+  "sampler": "Existing greedy endpoint: temperature 0, presence penalty 0, repetition penalty 1, max_tokens 256, seed 3407, thinking disabled for both steps",
+  "manual_oracle": false,
+  "case_specific_answers_or_rules": false,
+  "acceptance": "All four final messages must be strictly sendable under protocol.json; assess plans separately and preserve incorrect plans. No replacement, cleanup or hand-editing of model outputs.",
+  "fresh_test": "Remains unopened unless this method meets raw development and actual full-pipeline 4/4 gates, then the original 13/16 and application gates apply unchanged.",
+  "reviewer": "Assistant only; independent human Saudi Arabic review pending"
+}

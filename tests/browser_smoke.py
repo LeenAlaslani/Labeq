@@ -143,6 +143,8 @@ def duplicate_variant_flow(page, url):
 
     def model_route(route):
         payload = route.request.post_data_json
+        # Resolving a disagreement must not invent "misunderstanding" as its cause.
+        assert payload['goal']=='ننهي الخلاف ونتفاهم بهدوء'
         style = payload["style_key"]
         route.fulfill(json={
             **fixture, "style": style or "diplomatic",

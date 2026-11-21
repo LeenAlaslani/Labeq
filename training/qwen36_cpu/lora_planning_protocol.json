@@ -1,0 +1,13 @@
+{
+  "study": "Same automatic meaning plans as advisory context for base and preserved Saudi LoRA variants",
+  "scope": "Development-only; no new training or model promotion is implied",
+  "plans": "Unedited original planning.py output for the four exposed dev.json cases. Use only the generated facts/acts/avoid JSON, never the teacher's final reply. Plans remain fallible; no manual correction or oracle.",
+  "models": ["Qwen3.5-4B base", "preserved Saudi pilot", "approved v2", "long-form v3 epoch one", "long-form v3 epoch two"],
+  "policies": ["training/generalization_v3/policy.json", "training/qwen36_cpu/writer_fewshot.json"],
+  "comparison": "Each of five model variants uses the identical policy and identical automatic plan within each condition. Same pinned MLX 4-bit base, greedy decoding, thinking disabled, max_tokens 256. Judge untouched decoded text; clipped output fails.",
+  "qualification": "Require 4/4 strict development replies. On ties prefer the preserved pilot, then approved v2, then earlier experimental epoch; prefer clean policy. Base-only selection cannot be mislabeled as Saudi LoRA.",
+  "further_gates": "A qualifying combined system must still pass actual bfloat16 full-pipeline development, known-user UI regressions, the original unused 16-case 13/16 gate and all four intent contrasts, and warm end-to-end latency <=150 seconds before any public change.",
+  "interpretation": "This evaluates a combined teacher-planning and response-adapter system; it does not prove the small model or adapter alone generalized. Compare the complete configurations and report all components.",
+  "reviewer": "Assistant; independent human Saudi review pending",
+  "failure_policy": "Preserve original weights, raw failures and the unopened fresh test. No paid resources or voice-secret transfer."
+}

@@ -9,7 +9,8 @@ def main():
     p.add_argument('--space',required=True);p.add_argument('--source',required=True)
     p.add_argument('--cases',type=Path,required=True);p.add_argument('--out',type=Path,required=True)
     p.add_argument('--policy',choices=['clean','fewshot'],required=True)
-    p.add_argument('--mode',choices=['raw','pipeline'],default='raw');args=p.parse_args()
+    p.add_argument('--mode',choices=['raw','pipeline'],default='raw')
+    p.add_argument('--sampler',choices=['recommended','greedy'],default='recommended');args=p.parse_args()
     from huggingface_hub import HfApi,get_token
     from gradio_client import Client
     api=HfApi();info=api.space_info(args.space)
@@ -25,7 +26,7 @@ def main():
     args.out.mkdir(exist_ok=False,parents=True)
     manifest={'at_utc':datetime.now(timezone.utc).isoformat(),'source_commit':args.source,'space_revision':info.sha,
         'case_sha256':hashlib.sha256(args.cases.read_bytes()).hexdigest(),'policy':args.policy,
-        'policy_sha256':hashlib.sha256(policy_bytes).hexdigest(),'mode':args.mode,'metadata_before_loading':meta}
+        'policy_sha256':hashlib.sha256(policy_bytes).hexdigest(),'mode':args.mode,'sampler':args.sampler,'metadata_before_loading':meta}
     (args.out/'manifest.json').write_text(json.dumps(manifest,indent=2))
     results=[]
     for case in cases:
@@ -33,11 +34,11 @@ def main():
         start=time.monotonic();row={'case':case}
         try:
             if args.mode=='pipeline':
-                result=client.predict({'cases':[case],'policy':args.policy},api_name='/pipeline')
+                result=client.predict({'cases':[case],'policy':args.policy,'sampler':args.sampler},api_name='/pipeline')
             else:
                 text=f"الموقف: {case['message']}\nالعلاقة: {case['relation']}\nالهدف: {case['goal']}\nالأسلوب: عفوي\nاكتب الرسالة للطرف الآخر، واحفظ كل الطلبات والقيود بدون اختصار يضيع المعنى."
                 messages=[{'role':'system','content':policy['system']}]+policy['examples']+[{'role':'user','content':text}]
-                result=client.predict({'rows':[{'id':case['id'],'messages':messages}]},api_name='/check')
+                result=client.predict({'rows':[{'id':case['id'],'messages':messages}],'sampler':args.sampler},api_name='/check')
             if result.get('metadata',{}).get('source_commit')!=args.source:raise RuntimeError('Response source differs')
             row['result']=result
         except Exception as exc:row['error']={'type':type(exc).__name__,'message':str(exc)[:700]}

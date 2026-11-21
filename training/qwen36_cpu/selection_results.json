@@ -1,0 +1,811 @@
+{
+  "status": "raw_development_qualified_qwen_selector_only",
+  "reviewer": "Assistant; existing strict judgments, no independent human review",
+  "candidate_configurations": [
+    "pilot_clean",
+    "pilot_fewshot",
+    "v2_clean",
+    "v2_fewshot"
+  ],
+  "selectors": {
+    "faisal": {
+      "manifest": {
+        "study_source": "34081db195ed1a9033a408b75a95edab3c95e4a9",
+        "pool_sha256": "423ba1f51ce919f54af79ee1fd4e222bbef741a16940f3662541d73ed4db7d41",
+        "plans_sha256": "87ebb281628fd95ad5f77deca3c481200b5c5500ad9c972673d62053711bd738",
+        "selector": "faisal",
+        "metadata": {
+          "selector": "faisal",
+          "base": "/Users/leen/.cache/huggingface/hub/models--mlx-community--Qwen3.5-4B-MLX-4bit/snapshots/32f3e8ecf65426fc3306969496342d504bfa13f3",
+          "faisal_weights_sha256": "31688339569751281bfc046bb02257f2dc82dfd7575c682a2b2fe79404632e5f"
+        },
+        "candidate_configurations": [
+          "pilot_clean",
+          "pilot_fewshot",
+          "v2_clean",
+          "v2_fewshot"
+        ],
+        "question": "أي رسالة جاهزة للإرسال تحقق كل ما طلبه المستخدم وتحفظ القيود والأدوار والجنس، بدون عذر أو معلومة أو وعد مخترع؟ يجب أن تكون سعودية طبيعية وسليمة لغويا، مع مهنية بسيطة في العمل والعميل. لا تختَر ردا ناقصا لمجرد أنه ألطف. إذا لم يصلح أي رد كما هو فاختر خيار عدم وجود رد صالح."
+      },
+      "rows": [
+        {
+          "case": {
+            "id": "D01",
+            "relation": "عمل",
+            "goal": "أطلب تصحيح بدون اتهام",
+            "message": "اسم المتطوعة انحذف من قائمة المشاركين وما أعرف السبب. أبي أطلب يرجع اسمها وأشكر المنظم على تعبه بدون ما أفترض إنه قصد يستبعدها."
+          },
+          "task": {
+            "state": {
+              "الموقف": "اسم المتطوعة انحذف من قائمة المشاركين وما أعرف السبب. أبي أطلب يرجع اسمها وأشكر المنظم على تعبه بدون ما أفترض إنه قصد يستبعدها.",
+              "العلاقة": "عمل",
+              "الهدف": "أطلب تصحيح بدون اتهام",
+              "automatic_advisory_plan": {
+                "facts": [
+                  "Volunteer's name was removed from participant list",
+                  "Reason for removal is unknown",
+                  "Organizer is thanked for effort"
+                ],
+                "acts": [
+                  "User requests correction of volunteer's name",
+                  "User requests reinstatement of volunteer's name",
+                  "User thanks organizer for effort"
+                ],
+                "avoid": [
+                  "Do not accuse",
+                  "Do not assume intentional exclusion",
+                  "Do not state reason for removal as fact"
+                ]
+              }
+            },
+            "question": "أي رسالة جاهزة للإرسال تحقق كل ما طلبه المستخدم وتحفظ القيود والأدوار والجنس، بدون عذر أو معلومة أو وعد مخترع؟ يجب أن تكون سعودية طبيعية وسليمة لغويا، مع مهنية بسيطة في العمل والعميل. لا تختَر ردا ناقصا لمجرد أنه ألطف. إذا لم يصلح أي رد كما هو فاختر خيار عدم وجود رد صالح.",
+            "options": [
+              {
+                "label": "A",
+                "key": "candidate_0",
+                "description": "السلام عليكم، اسم المتطوعة ما يظهر في القائمة، وأرجو مراجعة الأمر وإعادتها، وأشكركم على الجهد."
+              },
+              {
+                "label": "B",
+                "key": "candidate_1",
+                "description": "السلام عليكم، اسم المتطوعة ما ظهر في القائمة، ممكن توضحون سببه؟ وشكرًا على جهودكم."
+              },
+              {
+                "label": "C",
+                "key": "candidate_2",
+                "description": "السلام عليكم، لاحظت إن اسم المتطوعة ما موجود في القائمة، ممكن توضحون سببها؟"
+              },
+              {
+                "label": "D",
+                "key": "candidate_3",
+                "description": "أرجو مراجعة اسم المتطوعة في القائمة، وأشكركم على الجهد."
+              },
+              {
+                "label": "E",
+                "key": "none",
+                "description": "لا يوجد رد صالح للإرسال كما هو؛ كل الردود تحتاج تعديل"
+              }
+            ]
+          },
+          "anonymous_key": {
+            "A": "pilot_clean",
+            "B": "v2_fewshot",
+            "C": "v2_clean",
+            "D": "pilot_fewshot"
+          },
+          "option_logits": [
+            23.0,
+            19.0,
+            16.5,
+            22.375,
+            18.5
+          ],
+          "choice": "A",
+          "selected_configuration": "pilot_clean",
+          "selected_reply": "السلام عليكم، اسم المتطوعة ما يظهر في القائمة، وأرجو مراجعة الأمر وإعادتها، وأشكركم على الجهد.",
+          "seconds": 0.611,
+          "strict_pass": true
+        },
+        {
+          "case": {
+            "id": "D02",
+            "relation": "أهل",
+            "goal": "أرفض جزء وأقبل جزء",
+            "message": "أختي طلبت أطبخ وأوصل الأكل لعزيمتها. أقدر أطبخ بس ما أقدر أوصل، وأبي أوضح لها ترتب التوصيل بدون ما أتحجج بشي مو مذكور."
+          },
+          "task": {
+            "state": {
+              "الموقف": "أختي طلبت أطبخ وأوصل الأكل لعزيمتها. أقدر أطبخ بس ما أقدر أوصل، وأبي أوضح لها ترتب التوصيل بدون ما أتحجج بشي مو مذكور.",
+              "العلاقة": "أهل",
+              "الهدف": "أرفض جزء وأقبل جزء",
+              "automatic_advisory_plan": {
+                "facts": [
+                  "User has a sister.",
+                  "Sister requested user to cook and deliver food to her guests.",
+                  "User can cook.",
+                  "User cannot deliver the food."
+                ],
+                "acts": [
+                  "User accepts the request to cook.",
+                  "User declines the request to deliver the food.",
+                  "User informs sister that she must arrange delivery herself."
+                ],
+                "avoid": [
+                  "Do not make excuses.",
+                  "Do not mention reasons not stated in the context."
+                ]
+              }
+            },
+            "question": "أي رسالة جاهزة للإرسال تحقق كل ما طلبه المستخدم وتحفظ القيود والأدوار والجنس، بدون عذر أو معلومة أو وعد مخترع؟ يجب أن تكون سعودية طبيعية وسليمة لغويا، مع مهنية بسيطة في العمل والعميل. لا تختَر ردا ناقصا لمجرد أنه ألطف. إذا لم يصلح أي رد كما هو فاختر خيار عدم وجود رد صالح.",
+            "options": [
+              {
+                "label": "A",
+                "key": "candidate_0",
+                "description": "يا قلبي أقدر أطبخ لك، بس ما أقدر أوصلها، وأتمنى ترتب التوصيل."
+              },
+              {
+                "label": "B",
+                "key": "candidate_1",
+                "description": "أقدر أطبخ، بس ما أقدر أوصل الأكل، حبيت أرتب التوصيل بنفسك."
+              },
+              {
+                "label": "C",
+                "key": "candidate_2",
+                "description": "أبي أطبخ لك، بس ما أقدر أوصلها، حبيت ترتبين التوصيل بنفسك."
+              },
+              {
+                "label": "D",
+                "key": "candidate_3",
+                "description": "أقدّر أطبخ، بس ما أقدر أوصل، وأبي أتركك ترتب التوصيل بنفسك."
+              },
+              {
+                "label": "E",
+                "key": "none",
+                "description": "لا يوجد رد صالح للإرسال كما هو؛ كل الردود تحتاج تعديل"
+              }
+            ]
+          },
+          "anonymous_key": {
+            "A": "v2_clean",
+            "B": "pilot_fewshot",
+            "C": "v2_fewshot",
+            "D": "pilot_clean"
+          },
+          "option_logits": [
+            20.125,
+            19.125,
+            21.375,
+            22.875,
+            17.0
+          ],
+          "choice": "D",
+          "selected_configuration": "pilot_clean",
+          "selected_reply": "أقدّر أطبخ، بس ما أقدر أوصل، وأبي أتركك ترتب التوصيل بنفسك.",
+          "seconds": 0.538,
+          "strict_pass": false
+        },
+        {
+          "case": {
+            "id": "D03",
+            "relation": "صديق",
+            "goal": "أعتذر عن تصرفي",
+            "message": "ضحكت على اقتراح خويي قدام الشباب. أبي أعتذر عن الضحك وأعترف إنه ضايقه وأوضح إني أحترم رأيه بدون ما أقول كنت أمزح أو أطلب منه ما يزعل."
+          },
+          "task": {
+            "state": {
+              "الموقف": "ضحكت على اقتراح خويي قدام الشباب. أبي أعتذر عن الضحك وأعترف إنه ضايقه وأوضح إني أحترم رأيه بدون ما أقول كنت أمزح أو أطلب منه ما يزعل.",
+              "العلاقة": "صديق",
+              "الهدف": "أعتذر عن تصرفي",
+              "automatic_advisory_plan": {
+                "facts": [
+                  "User laughed at friend's suggestion in front of others.",
+                  "Friend was upset by the laughter.",
+                  "User respects friend's opinion."
+                ],
+                "acts": [
+                  "User apologizes for laughing.",
+                  "User admits the behavior upset the friend.",
+                  "User states respect for the friend's opinion."
+                ],
+                "avoid": [
+                  "Do not claim the user was joking.",
+                  "Do not ask the friend not to be upset."
+                ]
+              }
+            },
+            "question": "أي رسالة جاهزة للإرسال تحقق كل ما طلبه المستخدم وتحفظ القيود والأدوار والجنس، بدون عذر أو معلومة أو وعد مخترع؟ يجب أن تكون سعودية طبيعية وسليمة لغويا، مع مهنية بسيطة في العمل والعميل. لا تختَر ردا ناقصا لمجرد أنه ألطف. إذا لم يصلح أي رد كما هو فاختر خيار عدم وجود رد صالح.",
+            "options": [
+              {
+                "label": "A",
+                "key": "candidate_0",
+                "description": "أعتذر عن ضحكتي على اقتراحك، وأدري إنّه ضايقك، وأحترم رأيك."
+              },
+              {
+                "label": "B",
+                "key": "candidate_1",
+                "description": "آسف ما ضحك على اقتراحك، وأدري إنك زعلت."
+              },
+              {
+                "label": "C",
+                "key": "candidate_2",
+                "description": "آفقت ضحك على اقتراحك قدام الناس، وأعتذر منك. أبي أحترم رأيك وبوقف على هالضحك."
+              },
+              {
+                "label": "D",
+                "key": "candidate_3",
+                "description": "أعتذر عن ضحكتي على اقتراحك، وأدرك أن الأمر أزعجك، وأقدّر رأيك."
+              },
+              {
+                "label": "E",
+                "key": "none",
+                "description": "لا يوجد رد صالح للإرسال كما هو؛ كل الردود تحتاج تعديل"
+              }
+            ]
+          },
+          "anonymous_key": {
+            "A": "v2_clean",
+            "B": "pilot_fewshot",
+            "C": "v2_fewshot",
+            "D": "pilot_clean"
+          },
+          "option_logits": [
+            21.75,
+            18.125,
+            18.0,
+            22.25,
+            17.625
+          ],
+          "choice": "D",
+          "selected_configuration": "pilot_clean",
+          "selected_reply": "أعتذر عن ضحكتي على اقتراحك، وأدرك أن الأمر أزعجك، وأقدّر رأيك.",
+          "seconds": 0.53,
+          "strict_pass": false
+        },
+        {
+          "case": {
+            "id": "D04",
+            "relation": "عمل",
+            "goal": "أحط حدود مستمرة",
+            "message": "زميلي كل يوم يطلب أكتب تقريره بداله. أبي أوقف هالشي من اليوم ورايح وأوضح إني أقدر أجاوب عن سؤال محدد بس ما أكتب تقاريره كاملة."
+          },
+          "task": {
+            "state": {
+              "الموقف": "زميلي كل يوم يطلب أكتب تقريره بداله. أبي أوقف هالشي من اليوم ورايح وأوضح إني أقدر أجاوب عن سؤال محدد بس ما أكتب تقاريره كاملة.",
+              "العلاقة": "عمل",
+              "الهدف": "أحط حدود مستمرة",
+              "automatic_advisory_plan": {
+                "facts": [
+                  "Colleague asks user to write their report daily",
+                  "User wants to set continuous boundaries",
+                  "User can answer specific questions",
+                  "User cannot write full reports"
+                ],
+                "acts": [
+                  "State intention to stop writing colleague's reports starting today",
+                  "Clarify that user can answer specific questions",
+                  "Clarify that user cannot write full reports"
+                ],
+                "avoid": [
+                  "Write the colleague's full report"
+                ]
+              }
+            },
+            "question": "أي رسالة جاهزة للإرسال تحقق كل ما طلبه المستخدم وتحفظ القيود والأدوار والجنس، بدون عذر أو معلومة أو وعد مخترع؟ يجب أن تكون سعودية طبيعية وسليمة لغويا، مع مهنية بسيطة في العمل والعميل. لا تختَر ردا ناقصا لمجرد أنه ألطف. إذا لم يصلح أي رد كما هو فاختر خيار عدم وجود رد صالح.",
+            "options": [
+              {
+                "label": "A",
+                "key": "candidate_0",
+                "description": "من اليوم ما أقدر أكتب تقاريرك، بس أقدر أجيبك على الأسئلة اللي تطلبها."
+              },
+              {
+                "label": "B",
+                "key": "candidate_1",
+                "description": "من اليوم ما أقدر أكتب تقاريرك، بس أقدر أجيبك على أسئلة محددة."
+              },
+              {
+                "label": "C",
+                "key": "candidate_2",
+                "description": "أبي أوضح لك، ما أقدر أكتب تقريرك كل يوم، بس أقدر أساعدك بسؤال محدد."
+              },
+              {
+                "label": "D",
+                "key": "candidate_3",
+                "description": "ما أقدر أكتب تقريرك كل يوم، بس إذا كان لديك سؤال محدد أقدر أجاوب عليه."
+              },
+              {
+                "label": "E",
+                "key": "none",
+                "description": "لا يوجد رد صالح للإرسال كما هو؛ كل الردود تحتاج تعديل"
+              }
+            ]
+          },
+          "anonymous_key": {
+            "A": "pilot_clean",
+            "B": "pilot_fewshot",
+            "C": "v2_clean",
+            "D": "v2_fewshot"
+          },
+          "option_logits": [
+            21.5,
+            22.375,
+            20.75,
+            21.125,
+            19.0
+          ],
+          "choice": "B",
+          "selected_configuration": "pilot_fewshot",
+          "selected_reply": "من اليوم ما أقدر أكتب تقاريرك، بس أقدر أجيبك على أسئلة محددة.",
+          "seconds": 0.566,
+          "strict_pass": true
+        }
+      ],
+      "strict_passes": 2
+    },
+    "qwen36": {
+      "manifest": {
+        "study_source": "34081db195ed1a9033a408b75a95edab3c95e4a9",
+        "pool_sha256": "423ba1f51ce919f54af79ee1fd4e222bbef741a16940f3662541d73ed4db7d41",
+        "plans_sha256": "87ebb281628fd95ad5f77deca3c481200b5c5500ad9c972673d62053711bd738",
+        "selector": "qwen36",
+        "metadata": {
+          "backend": "llama.cpp CPU writer; n_gpu_layers=0; separate real Faisal GPU route",
+          "llama_cpp_python": "0.3.36",
+          "model": "Qwen/Qwen3.6-35B-A3B",
+          "gguf_revision": "a483e9e6cbd595906af30beda3187c2663a1118c",
+          "gguf_sha256": "d1a395809f65a43a13ad119eb4e7acdef1ac6d68120f39902c8ab96e72794a59",
+          "base_revision": "345d467b117d1fd5eda9b879a5988de9ae5f47a7",
+          "loaded": true,
+          "faisal_loaded": true,
+          "faisal_revision": "38849bdac4b7850c19587f78f5fe16c38adefac1",
+          "limits": {
+            "cpu.max": "1600000 100000",
+            "memory.max": "104000000000"
+          },
+          "disk_free_bytes": 2366948466688,
+          "cpu_count": 192,
+          "source_commit": "5a8a32fe12a13517555d3510e38b3ac9f4fa393d",
+          "response_adapter": null
+        },
+        "candidate_configurations": [
+          "pilot_clean",
+          "pilot_fewshot",
+          "v2_clean",
+          "v2_fewshot"
+        ],
+        "question": "أي رسالة جاهزة للإرسال تحقق كل ما طلبه المستخدم وتحفظ القيود والأدوار والجنس، بدون عذر أو معلومة أو وعد مخترع؟ يجب أن تكون سعودية طبيعية وسليمة لغويا، مع مهنية بسيطة في العمل والعميل. لا تختَر ردا ناقصا لمجرد أنه ألطف. إذا لم يصلح أي رد كما هو فاختر خيار عدم وجود رد صالح."
+      },
+      "rows": [
+        {
+          "case": {
+            "id": "D01",
+            "relation": "عمل",
+            "goal": "أطلب تصحيح بدون اتهام",
+            "message": "اسم المتطوعة انحذف من قائمة المشاركين وما أعرف السبب. أبي أطلب يرجع اسمها وأشكر المنظم على تعبه بدون ما أفترض إنه قصد يستبعدها."
+          },
+          "task": {
+            "state": {
+              "الموقف": "اسم المتطوعة انحذف من قائمة المشاركين وما أعرف السبب. أبي أطلب يرجع اسمها وأشكر المنظم على تعبه بدون ما أفترض إنه قصد يستبعدها.",
+              "العلاقة": "عمل",
+              "الهدف": "أطلب تصحيح بدون اتهام",
+              "automatic_advisory_plan": {
+                "facts": [
+                  "Volunteer's name was removed from participant list",
+                  "Reason for removal is unknown",
+                  "Organizer is thanked for effort"
+                ],
+                "acts": [
+                  "User requests correction of volunteer's name",
+                  "User requests reinstatement of volunteer's name",
+                  "User thanks organizer for effort"
+                ],
+                "avoid": [
+                  "Do not accuse",
+                  "Do not assume intentional exclusion",
+                  "Do not state reason for removal as fact"
+                ]
+              }
+            },
+            "question": "أي رسالة جاهزة للإرسال تحقق كل ما طلبه المستخدم وتحفظ القيود والأدوار والجنس، بدون عذر أو معلومة أو وعد مخترع؟ يجب أن تكون سعودية طبيعية وسليمة لغويا، مع مهنية بسيطة في العمل والعميل. لا تختَر ردا ناقصا لمجرد أنه ألطف. إذا لم يصلح أي رد كما هو فاختر خيار عدم وجود رد صالح.",
+            "options": [
+              {
+                "label": "A",
+                "key": "candidate_0",
+                "description": "السلام عليكم، اسم المتطوعة ما يظهر في القائمة، وأرجو مراجعة الأمر وإعادتها، وأشكركم على الجهد."
+              },
+              {
+                "label": "B",
+                "key": "candidate_1",
+                "description": "السلام عليكم، اسم المتطوعة ما ظهر في القائمة، ممكن توضحون سببه؟ وشكرًا على جهودكم."
+              },
+              {
+                "label": "C",
+                "key": "candidate_2",
+                "description": "السلام عليكم، لاحظت إن اسم المتطوعة ما موجود في القائمة، ممكن توضحون سببها؟"
+              },
+              {
+                "label": "D",
+                "key": "candidate_3",
+                "description": "أرجو مراجعة اسم المتطوعة في القائمة، وأشكركم على الجهد."
+              },
+              {
+                "label": "E",
+                "key": "none",
+                "description": "لا يوجد رد صالح للإرسال كما هو؛ كل الردود تحتاج تعديل"
+              }
+            ]
+          },
+          "anonymous_key": {
+            "A": "pilot_clean",
+            "B": "v2_fewshot",
+            "C": "v2_clean",
+            "D": "pilot_fewshot"
+          },
+          "raw_selector_response": {
+            "metadata": {
+              "backend": "llama.cpp CPU writer; n_gpu_layers=0; separate real Faisal GPU route",
+              "llama_cpp_python": "0.3.36",
+              "model": "Qwen/Qwen3.6-35B-A3B",
+              "gguf_revision": "a483e9e6cbd595906af30beda3187c2663a1118c",
+              "gguf_sha256": "d1a395809f65a43a13ad119eb4e7acdef1ac6d68120f39902c8ab96e72794a59",
+              "base_revision": "345d467b117d1fd5eda9b879a5988de9ae5f47a7",
+              "loaded": true,
+              "faisal_loaded": true,
+              "faisal_revision": "38849bdac4b7850c19587f78f5fe16c38adefac1",
+              "limits": {
+                "cpu.max": "1600000 100000",
+                "memory.max": "104000000000"
+              },
+              "disk_free_bytes": 2375779438592,
+              "cpu_count": 192,
+              "source_commit": "5a8a32fe12a13517555d3510e38b3ac9f4fa393d",
+              "response_adapter": null
+            },
+            "rows": [
+              {
+                "id": "D01",
+                "reply": "A",
+                "sampler": "greedy",
+                "finish_reason": "stop",
+                "usage": {
+                  "prompt_tokens": 463,
+                  "completion_tokens": 1,
+                  "total_tokens": 464
+                },
+                "seconds": 9.755010981985833
+              }
+            ]
+          },
+          "choice": "A",
+          "selected_configuration": "pilot_clean",
+          "selected_reply": "السلام عليكم، اسم المتطوعة ما يظهر في القائمة، وأرجو مراجعة الأمر وإعادتها، وأشكركم على الجهد.",
+          "seconds": 10.843,
+          "strict_pass": true
+        },
+        {
+          "case": {
+            "id": "D02",
+            "relation": "أهل",
+            "goal": "أرفض جزء وأقبل جزء",
+            "message": "أختي طلبت أطبخ وأوصل الأكل لعزيمتها. أقدر أطبخ بس ما أقدر أوصل، وأبي أوضح لها ترتب التوصيل بدون ما أتحجج بشي مو مذكور."
+          },
+          "task": {
+            "state": {
+              "الموقف": "أختي طلبت أطبخ وأوصل الأكل لعزيمتها. أقدر أطبخ بس ما أقدر أوصل، وأبي أوضح لها ترتب التوصيل بدون ما أتحجج بشي مو مذكور.",
+              "العلاقة": "أهل",
+              "الهدف": "أرفض جزء وأقبل جزء",
+              "automatic_advisory_plan": {
+                "facts": [
+                  "User has a sister.",
+                  "Sister requested user to cook and deliver food to her guests.",
+                  "User can cook.",
+                  "User cannot deliver the food."
+                ],
+                "acts": [
+                  "User accepts the request to cook.",
+                  "User declines the request to deliver the food.",
+                  "User informs sister that she must arrange delivery herself."
+                ],
+                "avoid": [
+                  "Do not make excuses.",
+                  "Do not mention reasons not stated in the context."
+                ]
+              }
+            },
+            "question": "أي رسالة جاهزة للإرسال تحقق كل ما طلبه المستخدم وتحفظ القيود والأدوار والجنس، بدون عذر أو معلومة أو وعد مخترع؟ يجب أن تكون سعودية طبيعية وسليمة لغويا، مع مهنية بسيطة في العمل والعميل. لا تختَر ردا ناقصا لمجرد أنه ألطف. إذا لم يصلح أي رد كما هو فاختر خيار عدم وجود رد صالح.",
+            "options": [
+              {
+                "label": "A",
+                "key": "candidate_0",
+                "description": "يا قلبي أقدر أطبخ لك، بس ما أقدر أوصلها، وأتمنى ترتب التوصيل."
+              },
+              {
+                "label": "B",
+                "key": "candidate_1",
+                "description": "أقدر أطبخ، بس ما أقدر أوصل الأكل، حبيت أرتب التوصيل بنفسك."
+              },
+              {
+                "label": "C",
+                "key": "candidate_2",
+                "description": "أبي أطبخ لك، بس ما أقدر أوصلها، حبيت ترتبين التوصيل بنفسك."
+              },
+              {
+                "label": "D",
+                "key": "candidate_3",
+                "description": "أقدّر أطبخ، بس ما أقدر أوصل، وأبي أتركك ترتب التوصيل بنفسك."
+              },
+              {
+                "label": "E",
+                "key": "none",
+                "description": "لا يوجد رد صالح للإرسال كما هو؛ كل الردود تحتاج تعديل"
+              }
+            ]
+          },
+          "anonymous_key": {
+            "A": "v2_clean",
+            "B": "pilot_fewshot",
+            "C": "v2_fewshot",
+            "D": "pilot_clean"
+          },
+          "raw_selector_response": {
+            "metadata": {
+              "backend": "llama.cpp CPU writer; n_gpu_layers=0; separate real Faisal GPU route",
+              "llama_cpp_python": "0.3.36",
+              "model": "Qwen/Qwen3.6-35B-A3B",
+              "gguf_revision": "a483e9e6cbd595906af30beda3187c2663a1118c",
+              "gguf_sha256": "d1a395809f65a43a13ad119eb4e7acdef1ac6d68120f39902c8ab96e72794a59",
+              "base_revision": "345d467b117d1fd5eda9b879a5988de9ae5f47a7",
+              "loaded": true,
+              "faisal_loaded": true,
+              "faisal_revision": "38849bdac4b7850c19587f78f5fe16c38adefac1",
+              "limits": {
+                "cpu.max": "1600000 100000",
+                "memory.max": "104000000000"
+              },
+              "disk_free_bytes": 2375772516352,
+              "cpu_count": 192,
+              "source_commit": "5a8a32fe12a13517555d3510e38b3ac9f4fa393d",
+              "response_adapter": null
+            },
+            "rows": [
+              {
+                "id": "D02",
+                "reply": "C",
+                "sampler": "greedy",
+                "finish_reason": "stop",
+                "usage": {
+                  "prompt_tokens": 471,
+                  "completion_tokens": 1,
+                  "total_tokens": 472
+                },
+                "seconds": 7.955743492988404
+              }
+            ]
+          },
+          "choice": "C",
+          "selected_configuration": "v2_fewshot",
+          "selected_reply": "أبي أطبخ لك، بس ما أقدر أوصلها، حبيت ترتبين التوصيل بنفسك.",
+          "seconds": 8.827,
+          "strict_pass": true
+        },
+        {
+          "case": {
+            "id": "D03",
+            "relation": "صديق",
+            "goal": "أعتذر عن تصرفي",
+            "message": "ضحكت على اقتراح خويي قدام الشباب. أبي أعتذر عن الضحك وأعترف إنه ضايقه وأوضح إني أحترم رأيه بدون ما أقول كنت أمزح أو أطلب منه ما يزعل."
+          },
+          "task": {
+            "state": {
+              "الموقف": "ضحكت على اقتراح خويي قدام الشباب. أبي أعتذر عن الضحك وأعترف إنه ضايقه وأوضح إني أحترم رأيه بدون ما أقول كنت أمزح أو أطلب منه ما يزعل.",
+              "العلاقة": "صديق",
+              "الهدف": "أعتذر عن تصرفي",
+              "automatic_advisory_plan": {
+                "facts": [
+                  "User laughed at friend's suggestion in front of others.",
+                  "Friend was upset by the laughter.",
+                  "User respects friend's opinion."
+                ],
+                "acts": [
+                  "User apologizes for laughing.",
+                  "User admits the behavior upset the friend.",
+                  "User states respect for the friend's opinion."
+                ],
+                "avoid": [
+                  "Do not claim the user was joking.",
+                  "Do not ask the friend not to be upset."
+                ]
+              }
+            },
+            "question": "أي رسالة جاهزة للإرسال تحقق كل ما طلبه المستخدم وتحفظ القيود والأدوار والجنس، بدون عذر أو معلومة أو وعد مخترع؟ يجب أن تكون سعودية طبيعية وسليمة لغويا، مع مهنية بسيطة في العمل والعميل. لا تختَر ردا ناقصا لمجرد أنه ألطف. إذا لم يصلح أي رد كما هو فاختر خيار عدم وجود رد صالح.",
+            "options": [
+              {
+                "label": "A",
+                "key": "candidate_0",
+                "description": "أعتذر عن ضحكتي على اقتراحك، وأدري إنّه ضايقك، وأحترم رأيك."
+              },
+              {
+                "label": "B",
+                "key": "candidate_1",
+                "description": "آسف ما ضحك على اقتراحك، وأدري إنك زعلت."
+              },
+              {
+                "label": "C",
+                "key": "candidate_2",
+                "description": "آفقت ضحك على اقتراحك قدام الناس، وأعتذر منك. أبي أحترم رأيك وبوقف على هالضحك."
+              },
+              {
+                "label": "D",
+                "key": "candidate_3",
+                "description": "أعتذر عن ضحكتي على اقتراحك، وأدرك أن الأمر أزعجك، وأقدّر رأيك."
+              },
+              {
+                "label": "E",
+                "key": "none",
+                "description": "لا يوجد رد صالح للإرسال كما هو؛ كل الردود تحتاج تعديل"
+              }
+            ]
+          },
+          "anonymous_key": {
+            "A": "v2_clean",
+            "B": "pilot_fewshot",
+            "C": "v2_fewshot",
+            "D": "pilot_clean"
+          },
+          "raw_selector_response": {
+            "metadata": {
+              "backend": "llama.cpp CPU writer; n_gpu_layers=0; separate real Faisal GPU route",
+              "llama_cpp_python": "0.3.36",
+              "model": "Qwen/Qwen3.6-35B-A3B",
+              "gguf_revision": "a483e9e6cbd595906af30beda3187c2663a1118c",
+              "gguf_sha256": "d1a395809f65a43a13ad119eb4e7acdef1ac6d68120f39902c8ab96e72794a59",
+              "base_revision": "345d467b117d1fd5eda9b879a5988de9ae5f47a7",
+              "loaded": true,
+              "faisal_loaded": true,
+              "faisal_revision": "38849bdac4b7850c19587f78f5fe16c38adefac1",
+              "limits": {
+                "cpu.max": "1600000 100000",
+                "memory.max": "104000000000"
+              },
+              "disk_free_bytes": 2375773077504,
+              "cpu_count": 192,
+              "source_commit": "5a8a32fe12a13517555d3510e38b3ac9f4fa393d",
+              "response_adapter": null
+            },
+            "rows": [
+              {
+                "id": "D03",
+                "reply": "A",
+                "sampler": "greedy",
+                "finish_reason": "stop",
+                "usage": {
+                  "prompt_tokens": 479,
+                  "completion_tokens": 1,
+                  "total_tokens": 480
+                },
+                "seconds": 8.287417282990646
+              }
+            ]
+          },
+          "choice": "A",
+          "selected_configuration": "v2_clean",
+          "selected_reply": "أعتذر عن ضحكتي على اقتراحك، وأدري إنّه ضايقك، وأحترم رأيك.",
+          "seconds": 9.263,
+          "strict_pass": true
+        },
+        {
+          "case": {
+            "id": "D04",
+            "relation": "عمل",
+            "goal": "أحط حدود مستمرة",
+            "message": "زميلي كل يوم يطلب أكتب تقريره بداله. أبي أوقف هالشي من اليوم ورايح وأوضح إني أقدر أجاوب عن سؤال محدد بس ما أكتب تقاريره كاملة."
+          },
+          "task": {
+            "state": {
+              "الموقف": "زميلي كل يوم يطلب أكتب تقريره بداله. أبي أوقف هالشي من اليوم ورايح وأوضح إني أقدر أجاوب عن سؤال محدد بس ما أكتب تقاريره كاملة.",
+              "العلاقة": "عمل",
+              "الهدف": "أحط حدود مستمرة",
+              "automatic_advisory_plan": {
+                "facts": [
+                  "Colleague asks user to write their report daily",
+                  "User wants to set continuous boundaries",
+                  "User can answer specific questions",
+                  "User cannot write full reports"
+                ],
+                "acts": [
+                  "State intention to stop writing colleague's reports starting today",
+                  "Clarify that user can answer specific questions",
+                  "Clarify that user cannot write full reports"
+                ],
+                "avoid": [
+                  "Write the colleague's full report"
+                ]
+              }
+            },
+            "question": "أي رسالة جاهزة للإرسال تحقق كل ما طلبه المستخدم وتحفظ القيود والأدوار والجنس، بدون عذر أو معلومة أو وعد مخترع؟ يجب أن تكون سعودية طبيعية وسليمة لغويا، مع مهنية بسيطة في العمل والعميل. لا تختَر ردا ناقصا لمجرد أنه ألطف. إذا لم يصلح أي رد كما هو فاختر خيار عدم وجود رد صالح.",
+            "options": [
+              {
+                "label": "A",
+                "key": "candidate_0",
+                "description": "من اليوم ما أقدر أكتب تقاريرك، بس أقدر أجيبك على الأسئلة اللي تطلبها."
+              },
+              {
+                "label": "B",
+                "key": "candidate_1",
+                "description": "من اليوم ما أقدر أكتب تقاريرك، بس أقدر أجيبك على أسئلة محددة."
+              },
+              {
+                "label": "C",
+                "key": "candidate_2",
+                "description": "أبي أوضح لك، ما أقدر أكتب تقريرك كل يوم، بس أقدر أساعدك بسؤال محدد."
+              },
+              {
+                "label": "D",
+                "key": "candidate_3",
+                "description": "ما أقدر أكتب تقريرك كل يوم، بس إذا كان لديك سؤال محدد أقدر أجاوب عليه."
+              },
+              {
+                "label": "E",
+                "key": "none",
+                "description": "لا يوجد رد صالح للإرسال كما هو؛ كل الردود تحتاج تعديل"
+              }
+            ]
+          },
+          "anonymous_key": {
+            "A": "pilot_clean",
+            "B": "pilot_fewshot",
+            "C": "v2_clean",
+            "D": "v2_fewshot"
+          },
+          "raw_selector_response": {
+            "metadata": {
+              "backend": "llama.cpp CPU writer; n_gpu_layers=0; separate real Faisal GPU route",
+              "llama_cpp_python": "0.3.36",
+              "model": "Qwen/Qwen3.6-35B-A3B",
+              "gguf_revision": "a483e9e6cbd595906af30beda3187c2663a1118c",
+              "gguf_sha256": "d1a395809f65a43a13ad119eb4e7acdef1ac6d68120f39902c8ab96e72794a59",
+              "base_revision": "345d467b117d1fd5eda9b879a5988de9ae5f47a7",
+              "loaded": true,
+              "faisal_loaded": true,
+              "faisal_revision": "38849bdac4b7850c19587f78f5fe16c38adefac1",
+              "limits": {
+                "cpu.max": "1600000 100000",
+                "memory.max": "104000000000"
+              },
+              "disk_free_bytes": 2375770533888,
+              "cpu_count": 192,
+              "source_commit": "5a8a32fe12a13517555d3510e38b3ac9f4fa393d",
+              "response_adapter": null
+            },
+            "rows": [
+              {
+                "id": "D04",
+                "reply": "B",
+                "sampler": "greedy",
+                "finish_reason": "stop",
+                "usage": {
+                  "prompt_tokens": 456,
+                  "completion_tokens": 1,
+                  "total_tokens": 457
+                },
+                "seconds": 7.888565829955041
+              }
+            ]
+          },
+          "choice": "B",
+          "selected_configuration": "pilot_fewshot",
+          "selected_reply": "من اليوم ما أقدر أكتب تقاريرك، بس أقدر أجيبك على أسئلة محددة.",
+          "seconds": 8.832,
+          "strict_pass": true
+        }
+      ],
+      "strict_passes": 4
+    }
+  },
+  "gate": {
+    "required": 4,
+    "cases": 4
+  },
+  "fresh_test_opened": false,
+  "production_change": false,
+  "next_requirement": "Actual full bfloat16 pipeline development and known-user UI checks before the unused 16-case test; no individual adapter is newly certified."
+}

@@ -44,7 +44,7 @@ def load():
     global model,tokenizer
     if model is not None:return
     print('CPU diagnostic: downloading pinned public GGUF',flush=True)
-    path=hf_hub_download(REPO,FILE,revision=REV,cache_dir='/tmp/labeq-qwen36-gguf-cache',token=False)
+    path=hf_hub_download(REPO,FILE,revision=REV,token=False)
     digest=hashlib.sha256()
     with open(path,'rb') as stream:
         while block:=stream.read(64*1024*1024):digest.update(block)
@@ -58,15 +58,17 @@ def load():
 
 def run(payload):
     if not isinstance(payload,dict) or not isinstance(payload.get('rows'),list) or not 1<=len(payload['rows'])<=4:raise ValueError('One to four diagnostic rows required')
+    sampler=payload.get('sampler','recommended')
+    if sampler not in {'recommended','greedy'}:raise ValueError('Unknown frozen sampler')
     with lock:
         load();rows=[]
         for row in payload['rows']:
             start=time.monotonic();messages=row['messages']
             if len(json.dumps(messages))>24000:raise ValueError('Diagnostic prompt too long')
             prompt=tokenizer.apply_chat_template(messages,tokenize=False,add_generation_prompt=True,enable_thinking=False)
-            result=model.create_completion(prompt=prompt,max_tokens=256,temperature=.7,top_p=.8,top_k=20,min_p=0.0,presence_penalty=1.5,repeat_penalty=1.0,seed=3407,stop=['<|im_end|>','<|endoftext|>'])
+            result=model.create_completion(prompt=prompt,max_tokens=256,temperature=0 if sampler=='greedy' else .7,top_p=.8,top_k=20,min_p=0.0,presence_penalty=0 if sampler=='greedy' else 1.5,repeat_penalty=1.0,seed=3407,stop=['<|im_end|>','<|endoftext|>'])
             choice=result['choices'][0]
-            rows.append({'id':row['id'],'reply':choice['text'],'finish_reason':choice['finish_reason'],'usage':result['usage'],'seconds':time.monotonic()-start})
+            rows.append({'id':row['id'],'reply':choice['text'],'sampler':sampler,'finish_reason':choice['finish_reason'],'usage':result['usage'],'seconds':time.monotonic()-start})
             print('Completed CPU diagnostic '+row['id'],flush=True)
         return {'metadata':metadata(),'rows':rows}
 
@@ -83,6 +85,9 @@ def run_pipeline(payload):
         if policy not in {'clean','fewshot'}:raise ValueError('Unknown frozen policy')
         settings=json.loads(Path('writer_'+policy+'.json').read_text())
         engine.writer_system,engine.writer_examples=settings['system'],settings['examples']
+        sampler=payload.get('sampler','recommended')
+        if sampler not in {'recommended','greedy'}:raise ValueError('Unknown frozen sampler')
+        engine.sampler=sampler
         rows=[]
         for case in cases:
             start=time.monotonic();engine.trace=[]

@@ -43,6 +43,7 @@ class ConfiguredTorchEngine(LabeqEngine):
             while block:=stream.read(1024*1024):digest.update(block)
         self.adapter_sha256=digest.hexdigest()
         label=os.getenv('LABEQ_ADAPTER_LABEL','Saudi pilot LoRA')
+        self.adapter_label=label
         self.generator=f'Qwen3.5-4B + {label} (Transformers, bfloat16, {device})'
         policy=os.getenv('LABEQ_WRITER_POLICY')
         if policy:self.writer_system,self.writer_examples=read_policy(policy)
@@ -94,7 +95,8 @@ class ConfiguredTorchEngine(LabeqEngine):
             remaining=self.deadline-time.monotonic()
             if remaining<=1:raise TimeoutError('CPU reply budget exhausted')
             phase_budget=45 if use_adapter else (30 if max_tokens<=256 else 40)
-            self.model.set_adapter('saudi');inputs=self._inputs(messages)
+            phase_budget=min(phase_budget,getattr(self,'generation_time_limit',phase_budget))
+            self.model.set_adapter(getattr(self,'active_writer_adapter','saudi'));inputs=self._inputs(messages)
             eos=self.processor.eos_token_id;stop_ids=set(eos if isinstance(eos,(list,tuple)) else [eos])
             options={'max_new_tokens':max_tokens,'max_time':min(phase_budget,remaining-1),
                 'do_sample':retry,'repetition_penalty':self.repetition_penalty,'pad_token_id':eos,'eos_token_id':eos,'forced_eos_token_id':None}
