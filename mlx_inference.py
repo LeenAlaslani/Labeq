@@ -142,6 +142,9 @@ class MlxEngine:
                 self.model, self.processor, self.render(messages),
                 max_tokens=max_tokens, temperature=temperature, verbose=False,
             )
+        self.last_generation={"finish_reason":getattr(result,"finish_reason",None),
+                              "generation_tokens":getattr(result,"generation_tokens",None),"max_tokens":max_tokens,
+                              "decoded_text":result.text,"format_cleanup_applied":finish_reply(result.text)!=result.text}
         if require_complete and getattr(result,"finish_reason",None)=="length":
             raise GenerationBudgetError(result.text)
         return finish_reply(result.text)

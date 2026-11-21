@@ -69,6 +69,14 @@ The engineering changes were merged through [PR #4](https://github.com/LeenAlasl
 
 Further work needs a fresh evaluation set, broader reviewed multi-obligation Saudi data, independent Saudi Arabic review, and a passing production-runtime evaluation before replacing the incumbent. The model's own reviewer remains fallible and cannot supply that independent evidence.
 
+## Free CPU study
+
+A separate private diagnostic successfully ran pinned Qwen3.5-35B-A3B Q4_K_M on the existing free Space's CPU allocation. The observed limits were 16 CPU cores by cgroup quota and 104,000,000,000 bytes of memory. Raw development replies took 11.8–15.3 seconds after loading. The writer has no Saudi response adapter. Greedy and sampled configurations achieved 0/4 and 2/4 strict development passes under assistant assessment; neither qualified. The fresh 16-case test created before these runs was not opened.
+
+The full V16 pipeline then ran the actual original Faisal adapter on CPU, with Qwen35B planning, writing and review. All four requests reported actual Faisal routing; warm per-case compute was approximately 41–64 seconds. The first reviewer copied evidence from the draft and was correctly rejected in all four cases. A second implementation assigns exact source-unit IDs in code, constrains a verdict for every ID, and reconstructs original quotes without asking the model to copy them. Complaints about language must quote the candidate itself. This resolved the schema/grounding failure: all four reviews became structurally valid. **The model still accepted two replies with grammatical defects.** Strict sendability remained 2/4, and coaching retained role mistakes. No CPU writer was promoted and no held-out success is claimed.
+
+[Raw development evidence](../training/generalization/cpu_raw_development.json), [first full-pipeline results](../training/generalization/cpu_pipeline_development_v1.json), [source-ID results](../training/generalization/cpu_pipeline_development_v2.json), and the [reproducible private diagnostic](../training/generalization/cpu_diagnostic/README.md) preserve the failures. Source units can contain multiple intentions; mechanical coverage does not prove semantic completeness. The study establishes that free CPU inference is feasible in this observed allocation, while demonstrating why the model's own approval cannot qualify its Saudi text.
+
 ## بالعربية
 
 **مشكلة التعميم ما زالت مفتوحة.** اكتمل تدريب المحوّل التجريبي الجديد فعليًا، وتحسن حفظ الطلبات في المقارنة المحلية، لكن ٥ ردود فقط من ١٦ اجتازت معيار الصلاحية للإرسال، مقابل رد واحد للمحوّل السابق و٣ لـ v2. الحد المحدد قبل الاختبار هو ١٣ من ١٦، وموقفا الخصوصية والاعتذار المعروفان ما زالا غير ناجحين. لذلك لم نستبدل النموذج المنشور، ولم نضع ردودًا مكتوبة يدويًا داخل مسار الاستدلال.
