@@ -28,11 +28,14 @@ def create_app(engine, gpu_decorator, *, gpu_engine=None, max_queue_size=8):
     @gpu_decorator
     def generate(payload):
         request = ReplyRequest.model_validate(payload)
-        return reply_v16(
+        result = reply_v16(
             engine, request.message, request.relation, request.goal, request.style,
             request.speaker_gender, request.recipient_gender,
             [turn.model_dump() for turn in request.history], request.generation_mode,
         )
+        if os.getenv('LABEQ_RETURN_GENERATION_TRACE')=='1':
+            result['generation_trace']=getattr(engine,'generation_trace',[])
+        return result
 
     accelerated=None
     if gpu_engine is not None:

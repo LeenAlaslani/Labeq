@@ -22,6 +22,7 @@ def fixture_engine(tokens):
     engine = ConfiguredTorchEngine.__new__(ConfiguredTorchEngine)
     engine.device_name = 'cpu'; engine.compute_backend = 'torch-cpu'
     engine.lock = RLock(); engine.deadline = time.monotonic() + 120
+    engine.generation_trace = []
     engine.model = SimpleNamespace(set_adapter=lambda name: None, generate=generate,
                                    disable_adapter=nullcontext)
     engine.processor = SimpleNamespace(eos_token_id=9, decode=lambda *a, **k: 'رد فعلي')

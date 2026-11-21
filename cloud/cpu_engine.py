@@ -64,6 +64,7 @@ class ConfiguredTorchEngine(LabeqEngine):
                 self.faisal_ready=True
             # reply_v16 calls load at the start; generation never resets this budget.
             self.deadline=time.monotonic()+135
+            self.generation_trace=[]
             return self
 
     def predict_style(self,message,relation,goal):
@@ -99,7 +100,12 @@ class ConfiguredTorchEngine(LabeqEngine):
             ids=outputs[0,inputs['input_ids'].shape[-1]:]
             text=finish_reply(self.processor.decode(ids,skip_special_tokens=True))
             complete=bool(len(ids)) and int(ids[-1]) in stop_ids
-            self.last_generation={'generation_tokens':len(ids),'seconds':time.monotonic()-start,'finish_reason':'stop' if complete else 'budget','compute_backend':self.compute_backend}
+            self.last_generation={'generation_tokens':len(ids),'seconds':time.monotonic()-start,
+                'finish_reason':'stop' if complete else 'budget','compute_backend':self.compute_backend,
+                'phase':'writer' if use_adapter else ('plan' if max_tokens<=256 else 'review'),
+                'max_tokens':max_tokens,'max_seconds':options['max_time'],
+                'decoded_text':self.processor.decode(ids,skip_special_tokens=True)}
+            self.generation_trace.append(dict(self.last_generation))
             if not complete:raise GenerationBudgetError(text)
             if not text:raise RuntimeError('CPU model returned empty text')
             return text
